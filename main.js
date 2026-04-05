@@ -1,59 +1,45 @@
-const images = document.querySelectorAll("#spin-container img");
-const count = images.length;
-const angle = 360 / count;
+async function getInfo(){
+    const user = document.getElementById("username").value;
+    const result = document.getElementById("result");
 
-images.forEach((img, i) => {
-  img.style.transform = `rotateY(${i * angle}deg) translateZ(300px)`;
-});
+    result.innerHTML = "Đang tải...";
 
-// 🎵 MUSIC CONTROL
-const music = document.getElementById("music");
-const btn = document.getElementById("musicBtn");
+    try{
+        const res = await fetch(`https://www.tikwm.com/api/user/info?unique_id=${user}`);
+        const data = await res.json();
 
-btn.onclick = () => {
-  if (music.paused) {
-    music.play();
-    btn.innerHTML = "🔊";
-  } else {
-    music.pause();
-    btn.innerHTML = "🔇";
-  }
-};
+        const u = data.data.user;
+        const s = data.data.stats;
 
-// 📱 FIX iPhone autoplay
-document.body.addEventListener("click", () => {
-  music.play().catch(()=>{});
-}, { once: true });
+        let html = `
+        <div class="card">
+            <img src="${u.avatar}">
+            <h2>${u.nickname}</h2>
+            <p>👤 @${u.unique_id}</p>
+            <p>👥 Followers: ${s.follower_count}</p>
+            <p>❤️ Likes: ${s.total_favorited}</p>
+            <p>🎥 Videos: ${s.video_count}</p>
+        </div>
+        `;
 
+        // Lấy video
+        const res2 = await fetch(`https://www.tikwm.com/api/user/posts?unique_id=${user}`);
+        const data2 = await res2.json();
 
-// 🌌 BACKGROUND PARTICLES
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
+        html += "<h2>📹 Video</h2>";
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+        data2.data.videos.slice(0,5).forEach(v => {
+            html += `
+            <div class="video">
+                <video src="${v.play}" controls width="250"></video>
+                <p>❤️ ${v.digg_count}</p>
+            </div>
+            `;
+        });
 
-let stars = [];
+        result.innerHTML = html;
 
-for (let i = 0; i < 100; i++) {
-  stars.push({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    size: Math.random() * 2
-  });
+    }catch(e){
+        result.innerHTML = "❌ Lỗi hoặc username sai!";
+    }
 }
-
-function animate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  ctx.fillStyle = "white";
-  stars.forEach(s => {
-    ctx.beginPath();
-    ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
-    ctx.fill();
-  });
-
-  requestAnimationFrame(animate);
-}
-
-animate();
