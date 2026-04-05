@@ -1,37 +1,54 @@
 async function getInfo(){
-    const user = document.getElementById("username").value;
+    const user = document.getElementById("username").value.trim();
     const result = document.getElementById("result");
 
-    result.innerHTML = "Đang tải...";
+    if(!user){
+        result.innerHTML = "⚠️ Nhập username!";
+        return;
+    }
+
+    result.innerHTML = "⏳ Đang tải...";
 
     try{
-        const res = await fetch(`https://www.tikwm.com/api/user/info?unique_id=${user}`);
+        // ✅ API mới (ổn định hơn)
+        const res = await fetch(`https://tiktok-api23.p.rapidapi.com/api/user/info?uniqueId=${user}`, {
+            method: "GET",
+            headers: {
+                "X-RapidAPI-Key": "demo-key", // ⚠️ có thể cần đổi key nếu lỗi
+                "X-RapidAPI-Host": "tiktok-api23.p.rapidapi.com"
+            }
+        });
+
         const data = await res.json();
 
-        const u = data.data.user;
-        const s = data.data.stats;
+        if(!data.userInfo){
+            throw new Error("Không tìm thấy");
+        }
+
+        const u = data.userInfo.user;
+        const s = data.userInfo.stats;
 
         let html = `
         <div class="card">
-            <img src="${u.avatar}">
+            <img class="avatar" src="${u.avatarLarger}">
             <h2>${u.nickname}</h2>
-            <p>👤 @${u.unique_id}</p>
-            <p>👥 Followers: ${s.follower_count}</p>
-            <p>❤️ Likes: ${s.total_favorited}</p>
-            <p>🎥 Videos: ${s.video_count}</p>
+            <p>@${u.uniqueId}</p>
+            <p>👥 ${s.followerCount} Followers</p>
+            <p>❤️ ${s.heart} Likes</p>
+            <p>🎥 ${s.videoCount} Videos</p>
         </div>
         `;
 
-        // Lấy video
-        const res2 = await fetch(`https://www.tikwm.com/api/user/posts?unique_id=${user}`);
+        // 📹 video
+        const res2 = await fetch(`https://tikwm.com/api/user/posts?unique_id=${user}`);
         const data2 = await res2.json();
 
-        html += "<h2>📹 Video</h2>";
+        html += "<h2>📹 Video mới</h2>";
 
-        data2.data.videos.slice(0,5).forEach(v => {
+        data2.data.videos.slice(0,3).forEach(v=>{
             html += `
             <div class="video">
-                <video src="${v.play}" controls width="250"></video>
+                <video src="${v.play}" controls width="260"></video>
                 <p>❤️ ${v.digg_count}</p>
             </div>
             `;
@@ -39,7 +56,12 @@ async function getInfo(){
 
         result.innerHTML = html;
 
-    }catch(e){
-        result.innerHTML = "❌ Lỗi hoặc username sai!";
+    }catch(err){
+        result.innerHTML = `
+        ❌ Lỗi API (do TikTok chặn hoặc key hết hạn)<br><br>
+        👉 Cách fix:
+        <br>- Dùng VPN
+        <br>- Hoặc đổi API khác
+        `;
     }
 }
