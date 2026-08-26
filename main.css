@@ -1,24 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Quicksand:wght@400;600&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
     user-select: none;
 }
+
+/* FONT VARIANTS */
+body.font-clean { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif; }
+body.font-pixel { font-family: 'Press Start 2P', monospace; font-size: 11px; }
+body.font-rounded { font-family: 'Quicksand', sans-serif; }
+
+/* ACCENT COLOR VARIANTS */
+body.accent-orange { --accent: #ff7b54; }
+body.accent-green { --accent: #30d158; }
+body.accent-pink { --accent: #ff375f; }
+body.accent-cyan { --accent: #64d2ff; }
 
 :root {
     --bg-primary: #0f0c1b;
     --card-bg: rgba(255, 255, 255, 0.12);
     --card-border: rgba(255, 255, 255, 0.18);
-    --accent: #ff7b54;
     --text-color: #ffffff;
     --text-muted: rgba(255, 255, 255, 0.6);
-}
-
-body.theme-winter {
-    --bg-primary: #0a1118;
-    --accent: #007aff;
 }
 
 body {
@@ -32,12 +38,19 @@ body {
     padding-bottom: env(safe-area-inset-bottom);
 }
 
+#bg-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
 #ambient-canvas {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0; width: 100%; height: 100%;
     pointer-events: none;
     z-index: 1;
 }
@@ -123,6 +136,7 @@ body {
 
 .widget-title { font-size: 11px; font-weight: 600; color: var(--text-muted); margin-bottom: 4px; }
 .widget-content { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.quote-box { margin-top: 6px; font-size: 11px; font-style: italic; color: var(--accent); }
 
 .desktop-icons {
     display: grid;
@@ -184,6 +198,15 @@ body {
 .ios-close-btn { width: 26px; height: 26px; border-radius: 50%; background: rgba(255, 255, 255, 0.15); border: none; color: #fff; font-size: 12px; cursor: pointer; }
 .window-body { padding: 16px; }
 
+/* THEME PICKER */
+.setting-section label { font-size: 12px; color: var(--text-muted); display: block; }
+.theme-picker { display: flex; gap: 12px; margin-top: 6px; }
+.color-dot { width: 28px; height: 28px; border-radius: 50%; cursor: pointer; border: 2px solid #fff; }
+.color-dot.orange { background: #ff7b54; }
+.color-dot.green { background: #30d158; }
+.color-dot.pink { background: #ff375f; }
+.color-dot.cyan { background: #64d2ff; }
+
 /* POMODORO & PRESETS */
 .timer-display { font-size: 52px; font-weight: 200; text-align: center; margin: 5px 0; font-variant-numeric: tabular-nums; }
 .timer-status { text-align: center; color: var(--text-muted); font-size: 11px; margin-bottom: 15px; }
@@ -232,11 +255,10 @@ input[type=range] { -webkit-appearance: none; width: 110px; height: 6px; backgro
 input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #fff; }
 textarea { width: 100%; height: 110px; background: rgba(0, 0, 0, 0.2); border: 1px solid var(--card-border); border-radius: 14px; padding: 12px; color: #fff; font-size: 13px; outline: none; resize: none; }
 .note-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; font-size: 11px; color: var(--text-muted); }
-.sys-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-.sys-list li { display: flex; justify-content: space-between; font-size: 13px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 8px; }
 
 /* iOS DOCK */
 .ios-dock { position: fixed; bottom: calc(20px + env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); z-index: 1000; transition: opacity 0.3s ease; }
 .dock-container { background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid var(--card-border); padding: 10px 14px; border-radius: 30px; display: flex; gap: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
 .dock-item { width: 42px; height: 42px; background: rgba(255, 255, 255, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; transition: transform 0.2s ease; }
 .dock-item:active { transform: scale(0.85); }
+
