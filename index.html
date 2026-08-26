@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
-    <title>Lofi Workspace iOS</title>
+    <title>Lofi Workspace Ultimate iOS</title>
 
-    <!-- Thẻ PWA tối ưu cho iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Lofi Workspace">
@@ -17,8 +16,8 @@
 
     <canvas id="ambient-canvas"></canvas>
 
-    <!-- TOP Dynamic Bar (Dynamic Island style) -->
-    <header class="ios-status-bar">
+    <!-- TOP Dynamic Bar -->
+    <header class="ios-status-bar" id="ios-header">
         <div class="brand">
             <span class="icon">🍁</span>
             <span class="title">Workspace</span>
@@ -27,11 +26,19 @@
             <button id="btn-autumn" class="segment active">Mùa Thu</button>
             <button id="btn-winter" class="segment">Mùa Đông</button>
         </div>
+        <button class="zen-btn" onclick="toggleZenMode()">🧘 Zen Mode</button>
         <div class="top-clock" id="top-clock">00:00</div>
     </header>
 
-    <!-- APP GRID -->
-    <main class="desktop">
+    <!-- DESKTOP WORKSPACE -->
+    <main class="desktop" id="ios-desktop">
+        
+        <!-- WIDGET TRÊN MÀN HÌNH CHÍNH -->
+        <div class="desktop-widget">
+            <div class="widget-title">📌 Lời nhắc hôm nay</div>
+            <div class="widget-content" id="widget-note-preview">Chưa có ghi chú nào...</div>
+        </div>
+
         <div class="desktop-icons">
             <div class="icon-item" onclick="openWindow('win-pomodoro')">
                 <div class="icon-badge">⏳</div>
@@ -41,9 +48,17 @@
                 <div class="icon-badge">🎵</div>
                 <span>Âm Thanh</span>
             </div>
+            <div class="icon-item" onclick="openWindow('win-todo')">
+                <div class="icon-badge">✅</div>
+                <span>Tác Vụ</span>
+            </div>
             <div class="icon-item" onclick="openWindow('win-notes')">
                 <div class="icon-badge">📝</div>
                 <span>Ghi Chú</span>
+            </div>
+            <div class="icon-item" onclick="openWindow('win-power')">
+                <div class="icon-badge">⚡</div>
+                <span>Power Tools</span>
             </div>
             <div class="icon-item" onclick="openWindow('win-sysinfo')">
                 <div class="icon-badge">💻</div>
@@ -53,25 +68,24 @@
 
         <!-- CARD 1: POMODORO -->
         <div class="window ios-card" id="win-pomodoro">
-            <div class="window-header" ontouchstart="dragTouchStart(event, 'win-pomodoro')" onmousedown="dragMouseDown(event, 'win-pomodoro')">
+            <div class="window-header" ontouchstart="dragTouchStart(event, 'win-pomodoro')">
                 <div class="ios-handle"></div>
                 <span class="win-title">⏳ Pomodoro Timer</span>
                 <button class="ios-close-btn" onclick="closeWindow('win-pomodoro')">✕</button>
             </div>
             <div class="window-body">
                 <div class="timer-display" id="timer-display">25:00</div>
-                <div class="timer-status" id="timer-status">Thời gian tập trung</div>
+                <div class="timer-status" id="timer-status">Thời gian tập trung (Phím Space: Phát/Dừng)</div>
                 <div class="ios-btn-group">
                     <button class="action-btn primary" id="btn-start" onclick="toggleTimer()">Bắt Đầu</button>
                     <button class="action-btn" onclick="resetTimer()">Đặt Lại</button>
-                    <button class="action-btn" onclick="switchMode()">Đổi Chế Độ</button>
                 </div>
             </div>
         </div>
 
-        <!-- CARD 2: AMBIENT SOUNDS & LOFI PLAYER -->
+        <!-- CARD 2: AMBIENT & LOFI PLAYER + MIXER -->
         <div class="window ios-card" id="win-music">
-            <div class="window-header" ontouchstart="dragTouchStart(event, 'win-music')" onmousedown="dragMouseDown(event, 'win-music')">
+            <div class="window-header" ontouchstart="dragTouchStart(event, 'win-music')">
                 <div class="ios-handle"></div>
                 <span class="win-title">🎵 Lofi & Ambient Player</span>
                 <button class="ios-close-btn" onclick="closeWindow('win-music')">✕</button>
@@ -81,11 +95,19 @@
                     <div class="equalizer-bar" id="eq-bar">
                         <span></span><span></span><span></span><span></span><span></span>
                     </div>
-                    <span id="sound-now-playing">Lofi Stream: Lofi Hip Hop Radio</span>
+                    <span id="sound-now-playing">Lofi Chill Stream</span>
                 </div>
 
-                <div class="ios-btn-group" style="margin-bottom: 12px;">
-                    <button class="action-btn primary" id="btn-lofi-stream" onclick="toggleLofiStream()">▶ Bật Nhạc Lofi Stream</button>
+                <div class="ios-btn-group" style="margin-bottom: 8px;">
+                    <button class="action-btn primary" id="btn-lofi-stream" onclick="toggleLofiStream()">▶ Bật Nhạc Lofi</button>
+                    <button class="action-btn" onclick="changeLofiChannel()">📻 Đổi Kênh</button>
+                </div>
+
+                <div class="preset-group" style="margin-bottom: 12px;">
+                    <span class="preset-label">Chế độ trộn sẵn:</span>
+                    <button class="preset-btn" onclick="applyPreset('rain')">🌧 Mưa bão</button>
+                    <button class="preset-btn" onclick="applyPreset('cozy')">🔥 Ấm cúng</button>
+                    <button class="preset-btn" onclick="applyPreset('reset')">🔇 Tắt tất cả</button>
                 </div>
                 
                 <div class="sound-grid">
@@ -94,30 +116,38 @@
                         <input type="range" min="0" max="100" value="0" id="vol-rain" oninput="updateVolume('rain', this.value)">
                     </div>
                     <div class="sound-card">
-                        <div class="sound-info"><span id="wind-icon">🍂</span> <span id="wind-label">Gió Thu</span></div>
-                        <input type="range" min="0" max="100" value="0" id="vol-wind" oninput="updateVolume('wind', this.value)">
-                    </div>
-                    <div class="sound-card">
                         <div class="sound-info"><span>🔥</span> Lửa Trại</div>
                         <input type="range" min="0" max="100" value="0" id="vol-fire" oninput="updateVolume('fire', this.value)">
-                    </div>
-                    <div class="sound-card">
-                        <div class="sound-info"><span>☕</span> Quán Cafe</div>
-                        <input type="range" min="0" max="100" value="0" id="vol-cafe" oninput="updateVolume('cafe', this.value)">
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- CARD 3: NOTES -->
+        <!-- CARD 3: TO-DO LIST -->
+        <div class="window ios-card" id="win-todo">
+            <div class="window-header" ontouchstart="dragTouchStart(event, 'win-todo')">
+                <div class="ios-handle"></div>
+                <span class="win-title">✅ Danh Sách Việc</span>
+                <button class="ios-close-btn" onclick="closeWindow('win-todo')">✕</button>
+            </div>
+            <div class="window-body">
+                <div class="todo-input-group">
+                    <input type="text" id="todo-input" placeholder="Thêm việc mới...">
+                    <button class="action-btn primary" onclick="addTodo()">Thêm</button>
+                </div>
+                <ul class="todo-list" id="todo-list"></ul>
+            </div>
+        </div>
+
+        <!-- CARD 4: NOTES -->
         <div class="window ios-card" id="win-notes">
-            <div class="window-header" ontouchstart="dragTouchStart(event, 'win-notes')" onmousedown="dragMouseDown(event, 'win-notes')">
+            <div class="window-header" ontouchstart="dragTouchStart(event, 'win-notes')">
                 <div class="ios-handle"></div>
                 <span class="win-title">📝 Ghi Chú</span>
                 <button class="ios-close-btn" onclick="closeWindow('win-notes')">✕</button>
             </div>
             <div class="window-body">
-                <textarea id="notepad" placeholder="Nhập ghi chú của bạn tại đây..."></textarea>
+                <textarea id="notepad" placeholder="Nhập ghi chú..."></textarea>
                 <div class="note-footer">
                     <span id="note-status">Đã lưu tự động</span>
                     <button class="action-btn danger" onclick="clearNotes()">Xóa Hết</button>
@@ -125,9 +155,29 @@
             </div>
         </div>
 
-        <!-- CARD 4: SYSTEM INFO -->
+        <!-- CARD 5: POWER TOOLS (EXPORT/IMPORT/BATTERY) -->
+        <div class="window ios-card" id="win-power">
+            <div class="window-header" ontouchstart="dragTouchStart(event, 'win-power')">
+                <div class="ios-handle"></div>
+                <span class="win-title">⚡ Power Tools</span>
+                <button class="ios-close-btn" onclick="closeWindow('win-power')">✕</button>
+            </div>
+            <div class="window-body">
+                <div class="power-item">
+                    <span>Mức Pin Thiết Bị:</span>
+                    <strong id="battery-status">Đang tải...</strong>
+                </div>
+                <div class="ios-btn-group" style="margin-top: 12px;">
+                    <button class="action-btn" onclick="exportData()">📥 Xuất JSON</button>
+                    <button class="action-btn" onclick="importData()">📤 Nhập JSON</button>
+                </div>
+                <input type="file" id="import-file" style="display:none" onchange="processImport(event)">
+            </div>
+        </div>
+
+        <!-- CARD 6: SYSTEM INFO -->
         <div class="window ios-card" id="win-sysinfo">
-            <div class="window-header" ontouchstart="dragTouchStart(event, 'win-sysinfo')" onmousedown="dragMouseDown(event, 'win-sysinfo')">
+            <div class="window-header" ontouchstart="dragTouchStart(event, 'win-sysinfo')">
                 <div class="ios-handle"></div>
                 <span class="win-title">💻 Hệ Thống</span>
                 <button class="ios-close-btn" onclick="closeWindow('win-sysinfo')">✕</button>
@@ -136,18 +186,26 @@
                 <ul class="sys-list">
                     <li><span>Màn hình</span><strong id="sys-res">--</strong></li>
                     <li><span>Hệ điều hành</span><strong id="sys-platform">iOS / Safari</strong></li>
-                    <li><span>Trạng thái</span><strong id="sys-online" class="badge-online">Trực tuyến</strong></li>
+                    <li><span>Phím tắt</span><strong>Space, Esc</strong></li>
                 </ul>
             </div>
         </div>
     </main>
 
+    <!-- ZEN MODE OVERLAY -->
+    <div class="zen-display" id="zen-display" onclick="toggleZenMode()">
+        <div class="zen-timer" id="zen-timer-display">25:00</div>
+        <div class="zen-hint">Chạm vào màn hình hoặc bấm ESC để thoát Zen Mode</div>
+    </div>
+
     <!-- iOS BOTTOM DOCK -->
-    <footer class="ios-dock">
+    <footer class="ios-dock" id="ios-dock">
         <div class="dock-container">
             <div class="dock-item" onclick="openWindow('win-pomodoro')">⏳</div>
             <div class="dock-item" onclick="openWindow('win-music')">🎵</div>
+            <div class="dock-item" onclick="openWindow('win-todo')">✅</div>
             <div class="dock-item" onclick="openWindow('win-notes')">📝</div>
+            <div class="dock-item" onclick="openWindow('win-power')">⚡</div>
             <div class="dock-item" onclick="openWindow('win-sysinfo')">💻</div>
         </div>
     </footer>
