@@ -1,24 +1,182 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TikTok Tool Pro</title>
-
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autumn & Winter Lofi OS - Personal Workspace</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+<body class="theme-autumn">
 
-<body>
+    <!-- Ambient Canvas for Weather Effects (Leaves / Snow) -->
+    <canvas id="ambient-canvas"></canvas>
 
-<div class="container">
-    <h1>🔥 TikTok Checker</h1>
+    <!-- TOP BAR / MENU BAR -->
+    <header class="top-bar">
+        <div class="brand">
+            <span class="icon">🍁</span>
+            <span class="title">Autumn & Winter Lofi Workspace</span>
+        </div>
+        <div class="theme-switcher">
+            <button id="btn-autumn" class="theme-btn active">🍁 Mùa Thu</button>
+            <button id="btn-winter" class="theme-btn">❄️ Mùa Đông</button>
+        </div>
+        <div class="top-clock" id="top-clock">00:00:00</div>
+    </header>
 
-    <input id="username" placeholder="Nhập username TikTok">
-    <button onclick="getInfo()">CHECK</button>
+    <!-- DESKTOP WORKSPACE & ICONS -->
+    <main class="desktop">
+        <div class="desktop-icons">
+            <div class="icon-item" onclick="openWindow('win-pomodoro')">
+                <div class="icon-badge">⏳</div>
+                <span>Pomodoro</span>
+            </div>
+            <div class="icon-item" onclick="openWindow('win-music')">
+                <div class="icon-badge">🎵</div>
+                <span>Lofi Player</span>
+            </div>
+            <div class="icon-item" onclick="openWindow('win-notes')">
+                <div class="icon-badge">📝</div>
+                <span>Ghi Chú</span>
+            </div>
+            <div class="icon-item" onclick="openWindow('win-sysinfo')">
+                <div class="icon-badge">💻</div>
+                <span>Hệ Thống</span>
+            </div>
+        </div>
 
-    <div id="result"></div>
-</div>
+        <!-- WINDOW 1: POMODORO TIMER -->
+        <div class="window" id="win-pomodoro" style="top: 80px; left: 80px; width: 340px;">
+            <div class="window-header" onmousedown="dragMouseDown(event, 'win-pomodoro')">
+                <span class="win-title">⏳ Pomodoro Timer</span>
+                <div class="win-controls">
+                    <button onclick="closeWindow('win-pomodoro')">✕</button>
+                </div>
+            </div>
+            <div class="window-body">
+                <div class="timer-display" id="timer-display">25:00</div>
+                <div class="timer-status" id="timer-status">Thời gian tập trung</div>
+                <div class="timer-controls">
+                    <button class="action-btn" id="btn-start" onclick="toggleTimer()">Bắt Đầu</button>
+                    <button class="action-btn" onclick="resetTimer()">Đặt Lại</button>
+                    <button class="action-btn" onclick="switchMode()">Đổi Chế Độ</button>
+                </div>
+            </div>
+        </div>
 
-<script src="script.js"></script>
+        <!-- WINDOW 2: LOFI & AMBIENT SOUND PLAYER -->
+        <div class="window" id="win-music" style="top: 100px; left: 450px; width: 380px;">
+            <div class="window-header" onmousedown="dragMouseDown(event, 'win-music')">
+                <span class="win-title">🎵 Lofi & Ambient Soundboard</span>
+                <div class="win-controls">
+                    <button onclick="closeWindow('win-music')">✕</button>
+                </div>
+            </div>
+            <div class="window-body">
+                <div class="lofi-status">
+                    <div class="equalizer-bar" id="eq-bar">
+                        <span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                    <span id="sound-now-playing">Âm thanh thiên nhiên</span>
+                </div>
+                
+                <div class="sound-grid">
+                    <div class="sound-card">
+                        <div class="sound-info">
+                            <span class="s-icon">🌧️</span>
+                            <span>Tiếng Mưa</span>
+                        </div>
+                        <input type="range" min="0" max="100" value="0" id="vol-rain" oninput="updateVolume('rain', this.value)">
+                    </div>
+                    
+                    <div class="sound-card">
+                        <div class="sound-info">
+                            <span class="s-icon" id="wind-icon">🍂</span>
+                            <span id="wind-label">Gió Thu</span>
+                        </div>
+                        <input type="range" min="0" max="100" value="0" id="vol-wind" oninput="updateVolume('wind', this.value)">
+                    </div>
+
+                    <div class="sound-card">
+                        <div class="sound-info">
+                            <span class="s-icon">🔥</span>
+                            <span>Lửa Trại</span>
+                        </div>
+                        <input type="range" min="0" max="100" value="0" id="vol-fire" oninput="updateVolume('fire', this.value)">
+                    </div>
+
+                    <div class="sound-card">
+                        <div class="sound-info">
+                            <span class="s-icon">☕</span>
+                            <span>Quán Cafe</span>
+                        </div>
+                        <input type="range" min="0" max="100" value="0" id="vol-cafe" oninput="updateVolume('cafe', this.value)">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- WINDOW 3: QUICK NOTES -->
+        <div class="window" id="win-notes" style="top: 380px; left: 120px; width: 360px;">
+            <div class="window-header" onmousedown="dragMouseDown(event, 'win-notes')">
+                <span class="win-title">📝 Ghi Chú Mùa Thu/Đông</span>
+                <div class="win-controls">
+                    <button onclick="closeWindow('win-notes')">✕</button>
+                </div>
+            </div>
+            <div class="window-body">
+                <textarea id="notepad" placeholder="Viết mục tiêu, suy nghĩ hoặc công việc cần làm hôm nay..."></textarea>
+                <div class="note-footer">
+                    <span id="note-status">Đã lưu tự động</span>
+                    <button class="action-btn" onclick="clearNotes()">Xóa Hết</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- WINDOW 4: SYSTEM INFO -->
+        <div class="window" id="win-sysinfo" style="top: 350px; left: 520px; width: 320px;">
+            <div class="window-header" onmousedown="dragMouseDown(event, 'win-sysinfo')">
+                <span class="win-title">💻 Thông Tin Thiết Bị</span>
+                <div class="win-controls">
+                    <button onclick="closeWindow('win-sysinfo')">✕</button>
+                </div>
+            </div>
+            <div class="window-body">
+                <ul class="sys-list">
+                    <li><strong>Màn hình:</strong> <span id="sys-res">--</span></li>
+                    <li><strong>Hệ điều hành:</strong> <span id="sys-platform">--</span></li>
+                    <li><strong>Trình duyệt:</strong> <span id="sys-browser">--</span></li>
+                    <li><strong>Trạng thái mạng:</strong> <span id="sys-online" class="badge-online">Online</span></li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <!-- TASKBAR BOTTOM -->
+    <footer class="taskbar">
+        <div class="start-btn" onclick="toggleStartMenu()">
+            <span class="start-icon" id="start-icon">🍁</span> Start
+        </div>
+        <div class="taskbar-apps" id="taskbar-apps"></div>
+        <div class="taskbar-time" id="taskbar-date">31/10/2026</div>
+    </footer>
+
+    <!-- START MENU -->
+    <div class="start-menu" id="start-menu">
+        <div class="start-header">
+            <div class="avatar">☕</div>
+            <div class="user-info">
+                <strong>Lofi Workspace User</strong>
+                <small id="start-quote">"Mùa thu là mùa khai trường của những ước mơ."</small>
+            </div>
+        </div>
+        <hr class="divider">
+        <div class="start-item" onclick="openWindow('win-pomodoro'); toggleStartMenu();">⏳ Đồng hồ Pomodoro</div>
+        <div class="start-item" onclick="openWindow('win-music'); toggleStartMenu();">🎵 Âm thanh Lofi</div>
+        <div class="start-item" onclick="openWindow('win-notes'); toggleStartMenu();">📝 Sổ tay ghi chú</div>
+        <div class="start-item" onclick="openWindow('win-sysinfo'); toggleStartMenu();">💻 Thông tin thiết bị</div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
