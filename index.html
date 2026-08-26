@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
     <title>Lofi Workspace iOS</title>
+
+    <!-- Thẻ PWA tối ưu cho iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Lofi Workspace">
+    <link rel="manifest" href="./manifest.json">
+
     <link rel="stylesheet" href="./main.css">
 </head>
 <body class="theme-autumn">
@@ -53,7 +60,7 @@
             </div>
             <div class="window-body">
                 <div class="timer-display" id="timer-display">25:00</div>
-                <div class="timer-status" id="timer-status">Thời gian tập trung</div>
+                <div class="timer-status" id="timer-status">Thời gian tập trung</div>
                 <div class="ios-btn-group">
                     <button class="action-btn primary" id="btn-start" onclick="toggleTimer()">Bắt Đầu</button>
                     <button class="action-btn" onclick="resetTimer()">Đặt Lại</button>
@@ -62,11 +69,11 @@
             </div>
         </div>
 
-        <!-- CARD 2: AMBIENT SOUNDS -->
+        <!-- CARD 2: AMBIENT SOUNDS & LOFI PLAYER -->
         <div class="window ios-card" id="win-music">
             <div class="window-header" ontouchstart="dragTouchStart(event, 'win-music')" onmousedown="dragMouseDown(event, 'win-music')">
                 <div class="ios-handle"></div>
-                <span class="win-title">🎵 Lofi Soundboard</span>
+                <span class="win-title">🎵 Lofi & Ambient Player</span>
                 <button class="ios-close-btn" onclick="closeWindow('win-music')">✕</button>
             </div>
             <div class="window-body">
@@ -74,7 +81,11 @@
                     <div class="equalizer-bar" id="eq-bar">
                         <span></span><span></span><span></span><span></span><span></span>
                     </div>
-                    <span id="sound-now-playing">Âm thanh thiên nhiên</span>
+                    <span id="sound-now-playing">Lofi Stream: Lofi Hip Hop Radio</span>
+                </div>
+
+                <div class="ios-btn-group" style="margin-bottom: 12px;">
+                    <button class="action-btn primary" id="btn-lofi-stream" onclick="toggleLofiStream()">▶ Bật Nhạc Lofi Stream</button>
                 </div>
                 
                 <div class="sound-grid">
@@ -114,7 +125,7 @@
             </div>
         </div>
 
-        <!-- CARD 4: SYSTEM -->
+        <!-- CARD 4: SYSTEM INFO -->
         <div class="window ios-card" id="win-sysinfo">
             <div class="window-header" ontouchstart="dragTouchStart(event, 'win-sysinfo')" onmousedown="dragMouseDown(event, 'win-sysinfo')">
                 <div class="ios-handle"></div>
@@ -142,5 +153,10 @@
     </footer>
 
     <script src="./main.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
+        }
+    </script>
 </body>
 </html>
