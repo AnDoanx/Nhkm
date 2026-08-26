@@ -28,6 +28,8 @@ body {
     background: var(--bg-primary);
     color: var(--text-color);
     position: relative;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
 }
 
 #ambient-canvas {
@@ -43,7 +45,7 @@ body {
 /* TOP STATUS BAR */
 .ios-status-bar {
     position: fixed;
-    top: 10px;
+    top: calc(10px + env(safe-area-inset-top));
     left: 50%;
     transform: translateX(-50%);
     width: 92%;
@@ -78,6 +80,7 @@ body {
     border-radius: 12px;
     font-size: 11px;
     font-weight: 600;
+    cursor: pointer;
     transition: all 0.25s ease;
 }
 
@@ -91,9 +94,9 @@ body {
 /* DESKTOP APP GRID */
 .desktop {
     position: absolute;
-    top: 65px;
+    top: 75px;
     width: 100%;
-    height: calc(100vh - 150px);
+    height: calc(100vh - 160px);
     padding: 15px;
     z-index: 10;
 }
@@ -127,35 +130,40 @@ body {
     justify-content: center;
     font-size: 28px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
+
+.icon-badge:active { transform: scale(0.9); }
 
 .icon-item span { font-size: 11px; font-weight: 500; color: var(--text-muted); }
 
 /* WINDOW / CARD (iOS MODAL STYLE) */
 .ios-card {
     position: absolute;
-    top: 100px;
+    top: 90px;
     left: 5% !important;
     width: 90% !important;
     max-width: 420px;
-    background: rgba(30, 30, 40, 0.75);
+    background: rgba(25, 25, 35, 0.82);
     backdrop-filter: blur(30px);
     -webkit-backdrop-filter: blur(30px);
     border: 1px solid var(--card-border);
     border-radius: 28px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
     display: none;
     flex-direction: column;
     z-index: 100;
     overflow: hidden;
+    transition: transform 0.15s ease-out;
 }
 
 .window-header {
-    padding: 12px 16px;
+    padding: 14px 16px 8px 16px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     position: relative;
+    cursor: grab;
 }
 
 .ios-handle {
@@ -163,10 +171,10 @@ body {
     top: 6px;
     left: 50%;
     transform: translateX(-50%);
-    width: 36px;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 2px;
+    width: 38px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.35);
+    border-radius: 3px;
 }
 
 .win-title { font-size: 14px; font-weight: 600; }
@@ -179,6 +187,7 @@ body {
     border: none;
     color: #fff;
     font-size: 12px;
+    cursor: pointer;
 }
 
 .window-body { padding: 16px; }
@@ -198,19 +207,36 @@ body {
 
 .action-btn {
     flex: 1;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.12);
     border: none;
     color: #fff;
     padding: 10px;
     border-radius: 12px;
     font-size: 12px;
     font-weight: 600;
+    cursor: pointer;
 }
 
+.action-btn:active { opacity: 0.7; }
 .action-btn.primary { background: var(--accent); }
+.action-btn.danger { background: rgba(255, 59, 48, 0.25); color: #ff453a; }
 
 /* SOUNDBOARD */
-.sound-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+.lofi-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.25);
+    padding: 8px 12px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    font-size: 12px;
+}
+
+.equalizer-bar { display: flex; gap: 3px; height: 14px; align-items: flex-end; }
+.equalizer-bar span { width: 3px; background: var(--accent); height: 4px; border-radius: 2px; }
+
+.sound-grid { display: flex; flex-direction: column; gap: 10px; }
 
 .sound-card {
     display: flex;
@@ -265,7 +291,7 @@ textarea {
 /* iOS DOCK */
 .ios-dock {
     position: fixed;
-    bottom: 20px;
+    bottom: calc(20px + env(safe-area-inset-bottom));
     left: 50%;
     transform: translateX(-50%);
     z-index: 1000;
@@ -293,4 +319,7 @@ textarea {
     justify-content: center;
     font-size: 22px;
     cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
+
+.dock-item:active { transform: scale(0.85); }
