@@ -1,199 +1,162 @@
-let activeTheme = 'autumn';
-let zIndexCounter = 100;
-let dragItem = null;
-let activeOffset = { x: 0, y: 0 };
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <title>Lofi Workspace iOS</title>
 
-let audioCtx = null;
-const soundNodes = { rain: null, wind: null, fire: null, cafe: null };
+    <!-- Thẻ PWA tối ưu cho iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Lofi Workspace">
+    <link rel="manifest" href="./manifest.json">
 
-window.addEventListener('DOMContentLoaded', () => {
-    initClock();
-    initCanvas();
-    initNotes();
-    initSysInfo();
-    setupThemeSwitching();
-});
+    <link rel="stylesheet" href="./main.css">
+</head>
+<body class="theme-autumn">
 
-function initClock() {
-    function update() {
-        const now = new Date();
-        const timeStr = now.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
-        document.getElementById('top-clock').innerText = timeStr;
-    }
-    update();
-    setInterval(update, 1000);
-}
+    <canvas id="ambient-canvas"></canvas>
 
-function setupThemeSwitching() {
-    document.getElementById('btn-autumn').addEventListener('click', () => setTheme('autumn'));
-    document.getElementById('btn-winter').addEventListener('click', () => setTheme('winter'));
-}
+    <!-- TOP Dynamic Bar (Dynamic Island style) -->
+    <header class="ios-status-bar">
+        <div class="brand">
+            <span class="icon">🍁</span>
+            <span class="title">Workspace</span>
+        </div>
+        <div class="segmented-control">
+            <button id="btn-autumn" class="segment active">Mùa Thu</button>
+            <button id="btn-winter" class="segment">Mùa Đông</button>
+        </div>
+        <div class="top-clock" id="top-clock">00:00</div>
+    </header>
 
-function setTheme(theme) {
-    activeTheme = theme;
-    const body = document.body;
-    const btnAutumn = document.getElementById('btn-autumn');
-    const btnWinter = document.getElementById('btn-winter');
+    <!-- APP GRID -->
+    <main class="desktop">
+        <div class="desktop-icons">
+            <div class="icon-item" onclick="openWindow('win-pomodoro')">
+                <div class="icon-badge">⏳</div>
+                <span>Pomodoro</span>
+            </div>
+            <div class="icon-item" onclick="openWindow('win-music')">
+                <div class="icon-badge">🎵</div>
+                <span>Âm Thanh</span>
+            </div>
+            <div class="icon-item" onclick="openWindow('win-notes')">
+                <div class="icon-badge">📝</div>
+                <span>Ghi Chú</span>
+            </div>
+            <div class="icon-item" onclick="openWindow('win-sysinfo')">
+                <div class="icon-badge">💻</div>
+                <span>Thiết Bị</span>
+            </div>
+        </div>
 
-    if (theme === 'autumn') {
-        body.className = 'theme-autumn';
-        btnAutumn.classList.add('active');
-        btnWinter.classList.remove('active');
-    } else {
-        body.className = 'theme-winter';
-        btnWinter.classList.add('active');
-        btnAutumn.classList.remove('active');
-    }
-    resetParticles();
-}
+        <!-- CARD 1: POMODORO -->
+        <div class="window ios-card" id="win-pomodoro">
+            <div class="window-header" ontouchstart="dragTouchStart(event, 'win-pomodoro')" onmousedown="dragMouseDown(event, 'win-pomodoro')">
+                <div class="ios-handle"></div>
+                <span class="win-title">⏳ Pomodoro Timer</span>
+                <button class="ios-close-btn" onclick="closeWindow('win-pomodoro')">✕</button>
+            </div>
+            <div class="window-body">
+                <div class="timer-display" id="timer-display">25:00</div>
+                <div class="timer-status" id="timer-status">Thời gian tập trung</div>
+                <div class="ios-btn-group">
+                    <button class="action-btn primary" id="btn-start" onclick="toggleTimer()">Bắt Đầu</button>
+                    <button class="action-btn" onclick="resetTimer()">Đặt Lại</button>
+                    <button class="action-btn" onclick="switchMode()">Đổi Chế Độ</button>
+                </div>
+            </div>
+        </div>
 
-// CANVAS PARTICLES
-let particles = [];
-let canvas, ctx;
+        <!-- CARD 2: AMBIENT SOUNDS & LOFI PLAYER -->
+        <div class="window ios-card" id="win-music">
+            <div class="window-header" ontouchstart="dragTouchStart(event, 'win-music')" onmousedown="dragMouseDown(event, 'win-music')">
+                <div class="ios-handle"></div>
+                <span class="win-title">🎵 Lofi & Ambient Player</span>
+                <button class="ios-close-btn" onclick="closeWindow('win-music')">✕</button>
+            </div>
+            <div class="window-body">
+                <div class="lofi-status">
+                    <div class="equalizer-bar" id="eq-bar">
+                        <span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                    <span id="sound-now-playing">Lofi Stream: Lofi Hip Hop Radio</span>
+                </div>
 
-function initCanvas() {
-    canvas = document.getElementById('ambient-canvas');
-    ctx = canvas.getContext('2d');
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-    resetParticles();
-    animateParticles();
-}
+                <div class="ios-btn-group" style="margin-bottom: 12px;">
+                    <button class="action-btn primary" id="btn-lofi-stream" onclick="toggleLofiStream()">▶ Bật Nhạc Lofi Stream</button>
+                </div>
+                
+                <div class="sound-grid">
+                    <div class="sound-card">
+                        <div class="sound-info"><span>🌧️</span> Tiếng Mưa</div>
+                        <input type="range" min="0" max="100" value="0" id="vol-rain" oninput="updateVolume('rain', this.value)">
+                    </div>
+                    <div class="sound-card">
+                        <div class="sound-info"><span id="wind-icon">🍂</span> <span id="wind-label">Gió Thu</span></div>
+                        <input type="range" min="0" max="100" value="0" id="vol-wind" oninput="updateVolume('wind', this.value)">
+                    </div>
+                    <div class="sound-card">
+                        <div class="sound-info"><span>🔥</span> Lửa Trại</div>
+                        <input type="range" min="0" max="100" value="0" id="vol-fire" oninput="updateVolume('fire', this.value)">
+                    </div>
+                    <div class="sound-card">
+                        <div class="sound-info"><span>☕</span> Quán Cafe</div>
+                        <input type="range" min="0" max="100" value="0" id="vol-cafe" oninput="updateVolume('cafe', this.value)">
+                    </div>
+                </div>
+            </div>
+        </div>
 
-function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
+        <!-- CARD 3: NOTES -->
+        <div class="window ios-card" id="win-notes">
+            <div class="window-header" ontouchstart="dragTouchStart(event, 'win-notes')" onmousedown="dragMouseDown(event, 'win-notes')">
+                <div class="ios-handle"></div>
+                <span class="win-title">📝 Ghi Chú</span>
+                <button class="ios-close-btn" onclick="closeWindow('win-notes')">✕</button>
+            </div>
+            <div class="window-body">
+                <textarea id="notepad" placeholder="Nhập ghi chú của bạn tại đây..."></textarea>
+                <div class="note-footer">
+                    <span id="note-status">Đã lưu tự động</span>
+                    <button class="action-btn danger" onclick="clearNotes()">Xóa Hết</button>
+                </div>
+            </div>
+        </div>
 
-function resetParticles() {
-    particles = [];
-    const count = activeTheme === 'autumn' ? 30 : 50;
-    for (let i = 0; i < count; i++) {
-        particles.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            size: Math.random() * (activeTheme === 'autumn' ? 10 : 3) + 2,
-            speedY: Math.random() * 0.8 + 0.4,
-            speedX: Math.random() * 0.6 - 0.3,
-            color: activeTheme === 'autumn' 
-                ? ['#ff7b54', '#ffb26b', '#ffd56b'][Math.floor(Math.random() * 3)]
-                : ['#ffffff', '#d4f1f9'][Math.floor(Math.random() * 2)]
-        });
-    }
-}
+        <!-- CARD 4: SYSTEM INFO -->
+        <div class="window ios-card" id="win-sysinfo">
+            <div class="window-header" ontouchstart="dragTouchStart(event, 'win-sysinfo')" onmousedown="dragMouseDown(event, 'win-sysinfo')">
+                <div class="ios-handle"></div>
+                <span class="win-title">💻 Hệ Thống</span>
+                <button class="ios-close-btn" onclick="closeWindow('win-sysinfo')">✕</button>
+            </div>
+            <div class="window-body">
+                <ul class="sys-list">
+                    <li><span>Màn hình</span><strong id="sys-res">--</strong></li>
+                    <li><span>Hệ điều hành</span><strong id="sys-platform">iOS / Safari</strong></li>
+                    <li><span>Trạng thái</span><strong id="sys-online" class="badge-online">Trực tuyến</strong></li>
+                </ul>
+            </div>
+        </div>
+    </main>
 
-function animateParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => {
-        p.y += p.speedY;
-        p.x += p.speedX;
-        if (p.y > canvas.height) { p.y = -10; p.x = Math.random() * canvas.width; }
-        ctx.fillStyle = p.color;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size / 2, 0, Math.PI * 2);
-        ctx.fill();
-    });
-    requestAnimationFrame(animateParticles);
-}
+    <!-- iOS BOTTOM DOCK -->
+    <footer class="ios-dock">
+        <div class="dock-container">
+            <div class="dock-item" onclick="openWindow('win-pomodoro')">⏳</div>
+            <div class="dock-item" onclick="openWindow('win-music')">🎵</div>
+            <div class="dock-item" onclick="openWindow('win-notes')">📝</div>
+            <div class="dock-item" onclick="openWindow('win-sysinfo')">💻</div>
+        </div>
+    </footer>
 
-// WINDOW CONTROL & TOUCH DRAG (iOS)
-function openWindow(winId) {
-    const win = document.getElementById(winId);
-    win.style.display = 'flex';
-    zIndexCounter++;
-    win.style.zIndex = zIndexCounter;
-}
-
-function closeWindow(winId) {
-    document.getElementById(winId).style.display = 'none';
-}
-
-function dragTouchStart(e, winId) {
-    dragItem = document.getElementById(winId);
-    const touch = e.touches[0];
-    activeOffset.x = touch.clientX - dragItem.offsetLeft;
-    activeOffset.y = touch.clientY - dragItem.offsetTop;
-
-    document.ontouchmove = (e) => {
-        if (!dragItem) return;
-        const touch = e.touches[0];
-        dragItem.style.left = (touch.clientX - activeOffset.x) + "px";
-        dragItem.style.top = (touch.clientY - activeOffset.y) + "px";
-    };
-
-    document.ontouchend = () => {
-        document.ontouchmove = null;
-        document.ontouchend = null;
-        dragItem = null;
-    };
-}
-
-function dragMouseDown(e, winId) {
-    dragItem = document.getElementById(winId);
-    activeOffset.x = e.clientX - dragItem.offsetLeft;
-    activeOffset.y = e.clientY - dragItem.offsetTop;
-
-    document.onmousemove = (e) => {
-        if (!dragItem) return;
-        dragItem.style.left = (e.clientX - activeOffset.x) + "px";
-        dragItem.style.top = (e.clientY - activeOffset.y) + "px";
-    };
-
-    document.onmouseup = () => {
-        document.onmousemove = null;
-        document.onmouseup = null;
-        dragItem = null;
-    };
-}
-
-// TIMER & NOTES & SYSINFO
-let timerInterval = null, timerSeconds = 25 * 60, isTimerRunning = false;
-
-function toggleTimer() {
-    const btn = document.getElementById('btn-start');
-    if (isTimerRunning) {
-        clearInterval(timerInterval);
-        isTimerRunning = false;
-        btn.innerText = 'Tiếp Tục';
-    } else {
-        isTimerRunning = true;
-        btn.innerText = 'Tạm Dừng';
-        timerInterval = setInterval(() => {
-            if (timerSeconds > 0) {
-                timerSeconds--;
-                const mins = Math.floor(timerSeconds / 60).toString().padStart(2, '0');
-                const secs = (timerSeconds % 60).toString().padStart(2, '0');
-                document.getElementById('timer-display').innerText = `${mins}:${secs}`;
-            } else {
-                clearInterval(timerInterval);
-            }
-        }, 1000);
-    }
-}
-
-function resetTimer() {
-    clearInterval(timerInterval);
-    isTimerRunning = false;
-    timerSeconds = 25 * 60;
-    document.getElementById('btn-start').innerText = 'Bắt Đầu';
-    document.getElementById('timer-display').innerText = '25:00';
-}
-
-function switchMode() { resetTimer(); }
-
-function initNotes() {
-    const notepad = document.getElementById('notepad');
-    notepad.value = localStorage.getItem('lofi_notes') || '';
-    notepad.addEventListener('input', () => localStorage.setItem('lofi_notes', notepad.value));
-}
-
-function clearNotes() {
-    document.getElementById('notepad').value = '';
-    localStorage.removeItem('lofi_notes');
-}
-
-function initSysInfo() {
-    document.getElementById('sys-res').innerText = `${window.screen.width} x ${window.screen.height}`;
-}
-
-function updateVolume() {}
+    <script src="./main.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
+        }
+    </script>
+</body>
+</html>
