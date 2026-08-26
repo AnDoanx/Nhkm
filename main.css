@@ -49,7 +49,7 @@ body {
     left: 50%;
     transform: translateX(-50%);
     width: 92%;
-    max-width: 500px;
+    max-width: 520px;
     height: 44px;
     background: rgba(20, 20, 25, 0.65);
     backdrop-filter: blur(25px);
@@ -61,9 +61,10 @@ body {
     justify-content: space-between;
     padding: 0 16px;
     z-index: 1000;
+    transition: opacity 0.3s ease;
 }
 
-.brand { font-size: 14px; font-weight: 600; display: flex; gap: 6px; }
+.brand { font-size: 13px; font-weight: 600; display: flex; gap: 6px; }
 
 .segmented-control {
     background: rgba(0, 0, 0, 0.25);
@@ -76,22 +77,29 @@ body {
     background: transparent;
     border: none;
     color: var(--text-muted);
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.segment.active { background: rgba(255, 255, 255, 0.2); color: #fff; }
+
+.zen-btn {
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    color: #fff;
     padding: 4px 10px;
     border-radius: 12px;
     font-size: 11px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.25s ease;
-}
-
-.segment.active {
-    background: rgba(255, 255, 255, 0.2);
-    color: #fff;
 }
 
 .top-clock { font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; }
 
-/* DESKTOP APP GRID */
+/* DESKTOP & WIDGET */
 .desktop {
     position: absolute;
     top: 75px;
@@ -99,52 +107,60 @@ body {
     height: calc(100vh - 160px);
     padding: 15px;
     z-index: 10;
+    transition: opacity 0.3s ease;
 }
 
-.desktop-icons {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-    max-width: 400px;
-    margin: 10px auto;
-}
-
-.icon-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    cursor: pointer;
-}
-
-.icon-badge {
-    width: 60px;
-    height: 60px;
+.desktop-widget {
+    max-width: 380px;
+    margin: 0 auto 15px auto;
     background: var(--card-bg);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--card-border);
-    border-radius: 16px;
+    border-radius: 20px;
+    padding: 12px 16px;
+}
+
+.widget-title { font-size: 11px; font-weight: 600; color: var(--text-muted); margin-bottom: 4px; }
+.widget-content { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.desktop-icons {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+    max-width: 440px;
+    margin: 0 auto;
+}
+
+.icon-item { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; }
+
+.icon-badge {
+    width: 48px;
+    height: 48px;
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 28px;
+    font-size: 22px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: transform 0.2s ease;
 }
 
-.icon-badge:active { transform: scale(0.9); }
-
-.icon-item span { font-size: 11px; font-weight: 500; color: var(--text-muted); }
+.icon-badge:active { transform: scale(0.88); }
+.icon-item span { font-size: 10px; font-weight: 500; color: var(--text-muted); }
 
 /* WINDOW / CARD (iOS MODAL STYLE) */
 .ios-card {
     position: absolute;
-    top: 90px;
+    top: 80px;
     left: 5% !important;
     width: 90% !important;
     max-width: 420px;
-    background: rgba(25, 25, 35, 0.82);
+    background: rgba(25, 25, 35, 0.85);
     backdrop-filter: blur(30px);
     -webkit-backdrop-filter: blur(30px);
     border: 1px solid var(--card-border);
@@ -154,172 +170,73 @@ body {
     flex-direction: column;
     z-index: 100;
     overflow: hidden;
-    transition: transform 0.15s ease-out;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
 }
 
-.window-header {
-    padding: 14px 16px 8px 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-    cursor: grab;
+.ios-card.minimizing {
+    transform: scale(0.2) translateY(500px) !important;
+    opacity: 0;
 }
 
-.ios-handle {
-    position: absolute;
-    top: 6px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 38px;
-    height: 5px;
-    background: rgba(255, 255, 255, 0.35);
-    border-radius: 3px;
-}
-
+.window-header { padding: 14px 16px 8px 16px; display: flex; align-items: center; justify-content: space-between; position: relative; }
+.ios-handle { position: absolute; top: 6px; left: 50%; transform: translateX(-50%); width: 38px; height: 5px; background: rgba(255, 255, 255, 0.35); border-radius: 3px; }
 .win-title { font-size: 14px; font-weight: 600; }
-
-.ios-close-btn {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.15);
-    border: none;
-    color: #fff;
-    font-size: 12px;
-    cursor: pointer;
-}
-
+.ios-close-btn { width: 26px; height: 26px; border-radius: 50%; background: rgba(255, 255, 255, 0.15); border: none; color: #fff; font-size: 12px; cursor: pointer; }
 .window-body { padding: 16px; }
 
-/* POMODORO */
-.timer-display {
-    font-size: 52px;
-    font-weight: 200;
-    text-align: center;
-    margin: 5px 0;
-    font-variant-numeric: tabular-nums;
+/* POMODORO & PRESETS */
+.timer-display { font-size: 52px; font-weight: 200; text-align: center; margin: 5px 0; font-variant-numeric: tabular-nums; }
+.timer-status { text-align: center; color: var(--text-muted); font-size: 11px; margin-bottom: 15px; }
+
+.preset-group { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.preset-label { font-size: 11px; color: var(--text-muted); }
+.preset-btn { background: rgba(255, 255, 255, 0.1); border: none; color: #fff; padding: 4px 8px; border-radius: 8px; font-size: 11px; cursor: pointer; }
+
+/* POWER TOOLS */
+.power-item { display: flex; justify-content: space-between; font-size: 13px; background: rgba(0,0,0,0.2); padding: 10px 12px; border-radius: 12px; }
+
+/* TO-DO LIST */
+.todo-input-group { display: flex; gap: 8px; margin-bottom: 12px; }
+.todo-input-group input { flex: 1; background: rgba(0,0,0,0.25); border: 1px solid var(--card-border); border-radius: 10px; padding: 8px 12px; color: #fff; outline: none; font-size: 12px; }
+.todo-list { list-style: none; max-height: 140px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; }
+.todo-item { display: flex; align-items: center; justify-content: space-between; background: rgba(255, 255, 255, 0.05); padding: 8px 12px; border-radius: 10px; font-size: 12px; }
+.todo-item.done span { text-decoration: line-through; color: var(--text-muted); }
+
+/* ZEN MODE DISPLAY */
+.zen-display {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(15px);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
 }
+.zen-timer { font-size: 96px; font-weight: 100; font-variant-numeric: tabular-nums; }
+.zen-hint { margin-top: 20px; font-size: 12px; color: var(--text-muted); }
 
-.timer-status { text-align: center; color: var(--text-muted); font-size: 12px; margin-bottom: 15px; }
-
+/* COMMON UI */
 .ios-btn-group { display: flex; gap: 8px; }
-
-.action-btn {
-    flex: 1;
-    background: rgba(255, 255, 255, 0.12);
-    border: none;
-    color: #fff;
-    padding: 10px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.action-btn:active { opacity: 0.7; }
+.action-btn { flex: 1; background: rgba(255, 255, 255, 0.12); border: none; color: #fff; padding: 10px; border-radius: 12px; font-size: 12px; font-weight: 600; cursor: pointer; }
 .action-btn.primary { background: var(--accent); }
 .action-btn.danger { background: rgba(255, 59, 48, 0.25); color: #ff453a; }
-
-/* SOUNDBOARD */
-.lofi-status {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: rgba(0, 0, 0, 0.25);
-    padding: 8px 12px;
-    border-radius: 12px;
-    margin-bottom: 12px;
-    font-size: 12px;
-}
-
+.lofi-status { display: flex; align-items: center; gap: 10px; background: rgba(0, 0, 0, 0.25); padding: 8px 12px; border-radius: 12px; margin-bottom: 12px; font-size: 12px; }
 .equalizer-bar { display: flex; gap: 3px; height: 14px; align-items: flex-end; }
 .equalizer-bar span { width: 3px; background: var(--accent); height: 4px; border-radius: 2px; }
-
 .sound-grid { display: flex; flex-direction: column; gap: 10px; }
-
-.sound-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 10px 14px;
-    border-radius: 14px;
-}
-
+.sound-card { display: flex; align-items: center; justify-content: space-between; background: rgba(255, 255, 255, 0.05); padding: 10px 14px; border-radius: 14px; }
 .sound-info { font-size: 13px; font-weight: 500; display: flex; gap: 8px; }
-
-/* iOS Range Slider */
-input[type=range] {
-    -webkit-appearance: none;
-    width: 110px;
-    height: 6px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 3px;
-    outline: none;
-}
-
-input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: #fff;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-}
-
-/* NOTES */
-textarea {
-    width: 100%;
-    height: 110px;
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid var(--card-border);
-    border-radius: 14px;
-    padding: 12px;
-    color: #fff;
-    font-size: 13px;
-    outline: none;
-    resize: none;
-}
-
+input[type=range] { -webkit-appearance: none; width: 110px; height: 6px; background: rgba(255, 255, 255, 0.2); border-radius: 3px; outline: none; }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #fff; }
+textarea { width: 100%; height: 110px; background: rgba(0, 0, 0, 0.2); border: 1px solid var(--card-border); border-radius: 14px; padding: 12px; color: #fff; font-size: 13px; outline: none; resize: none; }
 .note-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; font-size: 11px; color: var(--text-muted); }
-
-/* SYSTEM INFO */
 .sys-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
 .sys-list li { display: flex; justify-content: space-between; font-size: 13px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 8px; }
 
 /* iOS DOCK */
-.ios-dock {
-    position: fixed;
-    bottom: calc(20px + env(safe-area-inset-bottom));
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1000;
-}
-
-.dock-container {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    border: 1px solid var(--card-border);
-    padding: 10px 16px;
-    border-radius: 30px;
-    display: flex;
-    gap: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-}
-
-.dock-item {
-    width: 48px;
-    height: 48px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    cursor: pointer;
-    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
+.ios-dock { position: fixed; bottom: calc(20px + env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); z-index: 1000; transition: opacity 0.3s ease; }
+.dock-container { background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid var(--card-border); padding: 10px 14px; border-radius: 30px; display: flex; gap: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+.dock-item { width: 42px; height: 42px; background: rgba(255, 255, 255, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; transition: transform 0.2s ease; }
 .dock-item:active { transform: scale(0.85); }
