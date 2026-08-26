@@ -12,8 +12,9 @@
 
     <link rel="stylesheet" href="./main.css">
 </head>
-<body class="theme-autumn">
+<body class="theme-autumn font-clean accent-orange">
 
+    <div id="bg-overlay"></div>
     <canvas id="ambient-canvas"></canvas>
 
     <!-- TOP Dynamic Bar -->
@@ -35,8 +36,9 @@
         
         <!-- WIDGET TRÊN MÀN HÌNH CHÍNH -->
         <div class="desktop-widget">
-            <div class="widget-title">📌 Lời nhắc hôm nay</div>
+            <div class="widget-title">📌 Lời nhắc & Cảm hứng hôm nay</div>
             <div class="widget-content" id="widget-note-preview">Chưa có ghi chú nào...</div>
+            <div class="quote-box" id="daily-quote">"Hành trình vạn dặm bắt đầu từ một bước chân."</div>
         </div>
 
         <div class="desktop-icons">
@@ -47,6 +49,10 @@
             <div class="icon-item" onclick="openWindow('win-music')">
                 <div class="icon-badge">🎵</div>
                 <span>Âm Thanh</span>
+            </div>
+            <div class="icon-item" onclick="openWindow('win-theme')">
+                <div class="icon-badge">🎨</div>
+                <span>Giao Diện</span>
             </div>
             <div class="icon-item" onclick="openWindow('win-todo')">
                 <div class="icon-badge">✅</div>
@@ -59,10 +65,6 @@
             <div class="icon-item" onclick="openWindow('win-power')">
                 <div class="icon-badge">⚡</div>
                 <span>Power Tools</span>
-            </div>
-            <div class="icon-item" onclick="openWindow('win-sysinfo')">
-                <div class="icon-badge">💻</div>
-                <span>Thiết Bị</span>
             </div>
         </div>
 
@@ -83,11 +85,11 @@
             </div>
         </div>
 
-        <!-- CARD 2: AMBIENT & LOFI PLAYER + MIXER -->
+        <!-- CARD 2: AMBIENT & LOFI PLAYER + MIXER + CUSTOM AUDIO -->
         <div class="window ios-card" id="win-music">
             <div class="window-header" ontouchstart="dragTouchStart(event, 'win-music')">
                 <div class="ios-handle"></div>
-                <span class="win-title">🎵 Lofi & Ambient Player</span>
+                <span class="win-title">🎵 Âm Thanh & Soundboard</span>
                 <button class="ios-close-btn" onclick="closeWindow('win-music')">✕</button>
             </div>
             <div class="window-body">
@@ -104,10 +106,10 @@
                 </div>
 
                 <div class="preset-group" style="margin-bottom: 12px;">
-                    <span class="preset-label">Chế độ trộn sẵn:</span>
-                    <button class="preset-btn" onclick="applyPreset('rain')">🌧 Mưa bão</button>
-                    <button class="preset-btn" onclick="applyPreset('cozy')">🔥 Ấm cúng</button>
-                    <button class="preset-btn" onclick="applyPreset('reset')">🔇 Tắt tất cả</button>
+                    <span class="preset-label">Trộn sẵn:</span>
+                    <button class="preset-btn" onclick="applyPreset('rain')">🌧 Mưa</button>
+                    <button class="preset-btn" onclick="applyPreset('cozy')">🔥 Ấm</button>
+                    <button class="preset-btn" onclick="applyPreset('reset')">🔇 Tắt</button>
                 </div>
                 
                 <div class="sound-grid">
@@ -119,11 +121,49 @@
                         <div class="sound-info"><span>🔥</span> Lửa Trại</div>
                         <input type="range" min="0" max="100" value="0" id="vol-fire" oninput="updateVolume('fire', this.value)">
                     </div>
+                    <div class="sound-card">
+                        <div class="sound-info"><span>🎧</span> MP3 Tự Tải</div>
+                        <button class="action-btn" style="padding:4px 8px; font-size:10px;" onclick="document.getElementById('custom-audio-file').click()">Tải File</button>
+                        <input type="file" id="custom-audio-file" accept="audio/*" style="display:none" onchange="loadCustomAudio(event)">
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- CARD 3: TO-DO LIST -->
+        <!-- CARD 3: CUSTOMIZATION (THEMES, FONTS, ACCENTS) -->
+        <div class="window ios-card" id="win-theme">
+            <div class="window-header" ontouchstart="dragTouchStart(event, 'win-theme')">
+                <div class="ios-handle"></div>
+                <span class="win-title">🎨 Tùy Chỉnh Giao Diện</span>
+                <button class="ios-close-btn" onclick="closeWindow('win-theme')">✕</button>
+            </div>
+            <div class="window-body">
+                <div class="setting-section">
+                    <label>Màu Accent Primary:</label>
+                    <div class="theme-picker">
+                        <span class="color-dot orange" onclick="setAccent('orange')"></span>
+                        <span class="color-dot green" onclick="setAccent('green')"></span>
+                        <span class="color-dot pink" onclick="setAccent('pink')"></span>
+                        <span class="color-dot cyan" onclick="setAccent('cyan')"></span>
+                    </div>
+                </div>
+                <div class="setting-section" style="margin-top:10px;">
+                    <label>Phong cách Font:</label>
+                    <div class="ios-btn-group" style="margin-top:5px;">
+                        <button class="action-btn" onclick="setFont('clean')">Clean iOS</button>
+                        <button class="action-btn" onclick="setFont('pixel')">Retro Pixel</button>
+                        <button class="action-btn" onclick="setFont('rounded')">Rounded</button>
+                    </div>
+                </div>
+                <div class="setting-section" style="margin-top:10px;">
+                    <label>Hình nền cá nhân (GIF/Ảnh):</label>
+                    <button class="action-btn primary" style="width:100%; margin-top:5px;" onclick="document.getElementById('bg-file').click()">🖼️ Chọn File Ảnh/GIF</button>
+                    <input type="file" id="bg-file" accept="image/*" style="display:none" onchange="loadCustomBg(event)">
+                </div>
+            </div>
+        </div>
+
+        <!-- CARD 4: TO-DO LIST -->
         <div class="window ios-card" id="win-todo">
             <div class="window-header" ontouchstart="dragTouchStart(event, 'win-todo')">
                 <div class="ios-handle"></div>
@@ -139,7 +179,7 @@
             </div>
         </div>
 
-        <!-- CARD 4: NOTES -->
+        <!-- CARD 5: NOTES -->
         <div class="window ios-card" id="win-notes">
             <div class="window-header" ontouchstart="dragTouchStart(event, 'win-notes')">
                 <div class="ios-handle"></div>
@@ -155,7 +195,7 @@
             </div>
         </div>
 
-        <!-- CARD 5: POWER TOOLS (EXPORT/IMPORT/BATTERY) -->
+        <!-- CARD 6: POWER TOOLS -->
         <div class="window ios-card" id="win-power">
             <div class="window-header" ontouchstart="dragTouchStart(event, 'win-power')">
                 <div class="ios-handle"></div>
@@ -174,22 +214,6 @@
                 <input type="file" id="import-file" style="display:none" onchange="processImport(event)">
             </div>
         </div>
-
-        <!-- CARD 6: SYSTEM INFO -->
-        <div class="window ios-card" id="win-sysinfo">
-            <div class="window-header" ontouchstart="dragTouchStart(event, 'win-sysinfo')">
-                <div class="ios-handle"></div>
-                <span class="win-title">💻 Hệ Thống</span>
-                <button class="ios-close-btn" onclick="closeWindow('win-sysinfo')">✕</button>
-            </div>
-            <div class="window-body">
-                <ul class="sys-list">
-                    <li><span>Màn hình</span><strong id="sys-res">--</strong></li>
-                    <li><span>Hệ điều hành</span><strong id="sys-platform">iOS / Safari</strong></li>
-                    <li><span>Phím tắt</span><strong>Space, Esc</strong></li>
-                </ul>
-            </div>
-        </div>
     </main>
 
     <!-- ZEN MODE OVERLAY -->
@@ -203,18 +227,13 @@
         <div class="dock-container">
             <div class="dock-item" onclick="openWindow('win-pomodoro')">⏳</div>
             <div class="dock-item" onclick="openWindow('win-music')">🎵</div>
+            <div class="dock-item" onclick="openWindow('win-theme')">🎨</div>
             <div class="dock-item" onclick="openWindow('win-todo')">✅</div>
             <div class="dock-item" onclick="openWindow('win-notes')">📝</div>
             <div class="dock-item" onclick="openWindow('win-power')">⚡</div>
-            <div class="dock-item" onclick="openWindow('win-sysinfo')">💻</div>
         </div>
     </footer>
 
     <script src="./main.js"></script>
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
-        }
-    </script>
 </body>
 </html>
