@@ -3,19 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>c0mplex | Profile</title>
+  <title>c0mplex | Bio</title>
 
   <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
   <!-- Stylesheet -->
   <link rel="stylesheet" type="text/css" href="styles.css"> 
 
-  <!-- Vanilla Tilt Core -->
-  <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.2/dist/vanilla-tilt.min.js"></script>
+  <style>
+    /* Chống đè terminal lên profile */
+    #blurred-box {
+      display: none; /* Chỉ mở khi terminal đóng hẳn */
+    }
+    .lang-container img, .badges-container img {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      padding: 2px;
+    }
+  </style>
 </head>
 <body>
 
@@ -23,9 +32,9 @@
   <div id="terminal">
     <div id="terminal-header">
       <div id="terminal-buttons">
-        <div class="terminal-button" id="close-button" title="Đóng"></div>
-        <div class="terminal-button" id="minimize-button" title="Thu nhỏ"></div>
-        <div class="terminal-button" id="maximize-button" title="Phóng to"></div>
+        <div class="terminal-button" id="close-button"></div>
+        <div class="terminal-button" id="minimize-button"></div>
+        <div class="terminal-button" id="maximize-button"></div>
       </div>
     </div>
     <div id="terminal-content">
@@ -41,7 +50,7 @@
 
     <div id="audio-background">
       <div id="music-controls">
-        <input type="range" id="volume-slider" min="0" max="100" value="50" aria-label="Volume Slider">
+        <input type="range" id="volume-slider" min="0" max="100" value="50">
         <div id="progress-container">
           <div id="progress-bar"></div>
         </div>
@@ -52,9 +61,9 @@
   <div id="video-overlay"></div>
 
   <!-- Profile Card -->
-  <div id="blurred-box" class="tilt-element">
-    <!-- Ảnh đại diện chính (tự cập nhật theo avatar Discord) -->
-    <img id="profile-picture" src="https://media.tenor.com/2b_6gSgVf4UAAAAj/chiikawa.gif" alt="Profile Picture">
+  <div id="blurred-box">
+    <!-- Avatar Discord hoặc Chiikawa dự phòng -->
+    <img id="profile-picture" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Profile Picture">
     <img id="avatar-frame" src="" alt="Avatar Frame">
 
     <p id="username-container">
@@ -62,7 +71,7 @@
       <span id="typing-cursor">|</span>
     </p>
 
-    <!-- Bộ Badges Chiikawa -->
+    <!-- Badges Chiikawa -->
     <div class="badges-container">
       <img src="https://media.tenor.com/2b_6gSgVf4UAAAAj/chiikawa.gif" alt="Chiikawa" title="Chiikawa">
       <img src="https://media.tenor.com/tO9tM8_n3UoAAAAj/hachiware-chiikawa.gif" alt="Hachiware" title="Hachiware">
@@ -70,7 +79,7 @@
       <img src="https://media.tenor.com/FwWk8hI5sPMAAAAj/chiikawa-heart.gif" alt="Love" title="Love">
     </div>
 
-    <!-- Dàn Icon Sticker Chiikawa & Friends -->
+    <!-- Dàn Icon Chiikawa & Friends -->
     <div class="lang-container">
       <img src="https://media.tenor.com/h5vYp52tq3wAAAAj/chiikawa-cry.gif" alt="Chiikawa Cry" title="Chiikawa">
       <img src="https://media.tenor.com/y3x3F5Z08vAAAAAj/usagi-dance.gif" alt="Usagi Dance" title="Usagi">
@@ -80,7 +89,7 @@
       <img src="https://media.tenor.com/rQ0E5zZ6RDEAAAAj/shisa-chiikawa.gif" alt="Shisa" title="Shisa">
     </div>
 
-    <!-- Tiểu sử Bio -->
+    <!-- Tiểu sử -->
     <div class="user-description">
       <p id="user-description">
         Hi everyone, I’m c0mplex<br>
@@ -89,14 +98,14 @@
       </p>
     </div>
 
-    <!-- Discord Widget (Lanyard) -->
+    <!-- Discord Widget -->
     <div class="discord-widget">
       <div class="discord-content">
         <div class="discord-icon">
-          <img id="discord-avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Discord Avatar" draggable="false" loading="lazy">
+          <img id="discord-avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Discord Avatar">
         </div>
         <div class="discord-meta">
-          <b id="discord-username">Loading...</b>
+          <b id="discord-username">c0mplex</b>
           <div>
             <span id="discord-status-dot" class="status-offline"></span>
             <span id="discord-status-text">OFFLINE</span>
@@ -118,25 +127,122 @@
 
     <!-- Social Links -->
     <div class="links"> 
-      <a href="https://www.facebook.com/c0mplexisreal" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+      <a href="https://www.facebook.com/c0mplexisreal" target="_blank">
         <i class="fab fa-facebook"></i> 
       </a> 
-      <a href="https://github.com/c0mplex07" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+      <a href="https://github.com/c0mplex07" target="_blank">
         <i class="fa-brands fa-github"></i>
       </a> 
-      <a href="https://www.tiktok.com/@c0mplex07" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+      <a href="https://www.tiktok.com/@c0mplex07" target="_blank">
         <i class="fa-brands fa-tiktok"></i>
       </a> 
-      <a href="https://x.com/c0mplex_vn" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+      <a href="https://x.com/c0mplex_vn" target="_blank">
         <i class="fa-brands fa-twitter"></i>
       </a> 
-      <a href="mailto:enou456xq@gmail.com" aria-label="Email">
+      <a href="mailto:enou456xq@gmail.com">
         <i class="fa-brands fa-google mail"></i>
       </a> 
     </div>
   </div>
 
-  <!-- Master Script -->
-  <script src="main.js"></script>
+  <!-- TOÀN BỘ LOGIC JAVASCRIPT NHÚNG TRỰC TIẾP -->
+  <script>
+    const USER_ID = "1053893912466554922";
+    const LOG_TEXT = `[HỆ THỐNG] Khởi động c0mplex_kernel v2.4.1...
+[OK] Gắn kết các hệ thống tệp ảo...
+[OK] Thiết lập kết nối socket với API Lanyard...
+[OK] Giao diện phần cứng IoT đã được khởi tạo.
+
+Chào mừng quý khách!
+Nhấn dấu [X] đỏ để xem thông tin hồ sơ...
+`;
+
+    // 1. Terminal Logic
+    const term = document.getElementById("terminal");
+    const termText = document.getElementById("terminal-text");
+    const closeBtn = document.getElementById("close-button");
+    const profile = document.getElementById("blurred-box");
+
+    let idx = 0;
+    function typeEffect() {
+      if (idx < LOG_TEXT.length) {
+        termText.textContent += LOG_TEXT.charAt(idx);
+        idx++;
+        setTimeout(typeEffect, 30);
+      }
+    }
+    typeEffect();
+
+    function dismissTerminal() {
+      term.style.display = "none";
+      profile.style.display = "flex";
+      document.body.classList.add("video-normal");
+    }
+
+    if (closeBtn) {
+      closeBtn.addEventListener("click", dismissTerminal);
+      closeBtn.addEventListener("touchend", (e) => {
+        e.preventDefault();
+        dismissTerminal();
+      });
+    }
+
+    // 2. Chữ Username chạy lặp lại
+    const userEl = document.getElementById("username");
+    const uName = "c0mplex";
+    let cIdx = 0, isDeleting = false;
+    function typeUser() {
+      userEl.textContent = uName.substring(0, cIdx);
+      if (!isDeleting && cIdx < uName.length) {
+        cIdx++;
+        setTimeout(typeUser, 120);
+      } else if (isDeleting && cIdx > 0) {
+        cIdx--;
+        setTimeout(typeUser, 60);
+      } else {
+        isDeleting = !isDeleting;
+        setTimeout(typeUser, isDeleting ? 2500 : 500);
+      }
+    }
+    typeUser();
+
+    // 3. Kéo dữ liệu Discord qua Lanyard
+    fetch(`https://api.lanyard.rest/v1/users/${USER_ID}`)
+      .then(r => r.json())
+      .then(d => {
+        if (d.success && d.data) {
+          const user = d.data.discord_user;
+          const ext = user.avatar && user.avatar.startsWith("a_") ? "gif" : "png";
+          const pfp = user.avatar
+            ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=128`
+            : `https://cdn.discordapp.com/embed/avatars/0.png`;
+
+          // Gắn avatar lên cả 2 vị trí
+          document.getElementById("profile-picture").src = pfp;
+          document.getElementById("discord-avatar").src = pfp;
+          document.getElementById("discord-username").textContent = user.global_name || user.username;
+
+          // Cập nhật trạng thái
+          const dot = document.getElementById("discord-status-dot");
+          const txt = document.getElementById("discord-status-text");
+          const st = d.data.discord_status || "offline";
+          dot.className = `status-${st}`;
+          txt.textContent = st.toUpperCase();
+        }
+      })
+      .catch(console.error);
+
+    // 4. Mở âm thanh nền khi chạm vào trang
+    const vid = document.getElementById("myVideo");
+    const slider = document.getElementById("volume-slider");
+    if (vid && slider) {
+      slider.addEventListener("input", (e) => {
+        const val = e.target.value / 100;
+        vid.volume = val;
+        vid.muted = (val === 0);
+        if (vid.paused) vid.play().catch(() => {});
+      });
+    }
+  </script>
 </body>
 </html>
