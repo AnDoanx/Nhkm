@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OTP Verification Deck</title>
+  <title>OTP Verification Deck - Success Animation</title>
   <style>
     :root {
       --bg: #0b0c10;
       --card-bg: #16181f;
       --border: #232733;
       --ice: #00f2fe;
+      --success: #10b981;
       --text: #ffffff;
       --text-dim: #7f8699;
     }
@@ -43,7 +44,7 @@
     .header-title {
       font-size: 24px;
       font-weight: 700;
-      margin-bottom: 40px;
+      margin-bottom: 35px;
     }
 
     .header-title span {
@@ -52,7 +53,6 @@
       -webkit-text-fill-color: transparent;
     }
 
-    /* Khung thẻ chính */
     .deck-container {
       position: relative;
       width: 360px;
@@ -76,6 +76,7 @@
       font-size: 20px;
       font-weight: 600;
       margin-bottom: 6px;
+      transition: color 0.3s;
     }
 
     .subtitle {
@@ -83,7 +84,6 @@
       color: var(--text-dim);
     }
 
-    /* Khu vực hiển thị ô bài OTP */
     .deck-arena {
       position: relative;
       width: 220px;
@@ -93,7 +93,7 @@
       justify-content: center;
     }
 
-    /* Thẻ slot nhập số */
+    /* Thẻ Slot OTP */
     .slot {
       position: absolute;
       width: 46px;
@@ -104,10 +104,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      /* Trọng tâm quay bên dưới thẻ để tạo hình cánh quạt */
       transform-origin: 50% 320%;
-      transition: border-color 0.3s, box-shadow 0.3s, transform 0.4s ease-out;
-      overflow: hidden;
+      transition: border-color 0.3s, box-shadow 0.3s;
     }
 
     .slot input {
@@ -128,11 +126,11 @@
       box-shadow: 0 0 16px rgba(0, 242, 254, 0.4);
     }
 
-    /* Vòng tròn xoay khi đang xác thực */
+    /* Spinner xoay chờ */
     .spinner-box {
       display: none;
-      width: 58px;
-      height: 58px;
+      width: 64px;
+      height: 64px;
       position: relative;
     }
 
@@ -148,14 +146,78 @@
       stroke: var(--ice);
       stroke-width: 4;
       stroke-linecap: round;
-      stroke-dasharray: 140;
-      stroke-dashoffset: 70;
+      stroke-dasharray: 160;
+      stroke-dashoffset: 80;
       filter: drop-shadow(0 0 8px var(--ice));
     }
 
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
+    }
+
+    /* Dấu Tick SVG khi thành công */
+    .success-box {
+      display: none;
+      position: relative;
+      width: 68px;
+      height: 68px;
+    }
+
+    .success-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Vòng tròn viền xanh bung ra */
+    .success-circle {
+      fill: none;
+      stroke: var(--success);
+      stroke-width: 3.5;
+      stroke-dasharray: 200;
+      stroke-dashoffset: 200;
+      filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.6));
+    }
+
+    /* Nét tick vẽ từng nét */
+    .success-check {
+      fill: none;
+      stroke: #fff;
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 50;
+      stroke-dashoffset: 50;
+      filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8));
+    }
+
+    .success-box.play .success-circle {
+      animation: drawCircle 0.5s ease-out forwards;
+    }
+
+    .success-box.play .success-check {
+      animation: drawCheck 0.35s 0.35s ease-out forwards;
+    }
+
+    @keyframes drawCircle {
+      to { stroke-dashoffset: 0; }
+    }
+
+    @keyframes drawCheck {
+      to { stroke-dashoffset: 0; }
+    }
+
+    /* Hạt sáng bung nổ xung quanh (Sparks) */
+    .spark {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: var(--success);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      opacity: 0;
+      box-shadow: 0 0 8px var(--success);
     }
 
     .footer-action {
@@ -171,12 +233,8 @@
       cursor: pointer;
     }
 
-    .footer-action a:hover {
-      text-decoration: underline;
-    }
-
     .hint-text {
-      margin-top: 32px;
+      margin-top: 28px;
       font-size: 13px;
       color: #555b6e;
     }
@@ -197,18 +255,25 @@
       <div class="subtitle" id="statusSub">Enter the 4-digit code sent to you.</div>
     </div>
 
-    <!-- Vùng hiển thị thẻ / spinner -->
     <div class="deck-arena" id="arena">
-      <!-- 4 ô số dạng card -->
+      <!-- 4 lá bài OTP -->
       <div class="slot" data-index="0"><input type="text" maxlength="1" inputmode="numeric"></div>
       <div class="slot" data-index="1"><input type="text" maxlength="1" inputmode="numeric"></div>
       <div class="slot" data-index="2"><input type="text" maxlength="1" inputmode="numeric"></div>
       <div class="slot" data-index="3"><input type="text" maxlength="1" inputmode="numeric"></div>
 
-      <!-- Spinner chờ -->
+      <!-- Spinner chờ xoay -->
       <div class="spinner-box" id="spinner">
         <svg viewBox="0 0 50 50">
-          <circle class="seal__seg" cx="25" cy="25" r="20"></circle>
+          <circle class="seal__seg" cx="25" cy="25" r="21"></circle>
+        </svg>
+      </div>
+
+      <!-- Dấu Tick Neon Bung Nở -->
+      <div class="success-box" id="successBox">
+        <svg class="success-svg" viewBox="0 0 70 70">
+          <circle class="success-circle" cx="35" cy="35" r="30"></circle>
+          <path class="success-check" d="M22 36 L31 45 L48 27"></path>
         </svg>
       </div>
     </div>
@@ -219,21 +284,22 @@
   </div>
 
   <div class="hint-text">
-    Nhập mã, dán mã, hoặc nhấn <b>Enter — 1234</b> để thử.
+    Nhấn phím <b>Enter — 1234</b> để kiểm tra hiệu ứng tick.
   </div>
 
   <script>
     const slots = Array.from(document.querySelectorAll('.slot'));
     const inputs = Array.from(document.querySelectorAll('.slot input'));
     const spinner = document.getElementById('spinner');
+    const successBox = document.getElementById('successBox');
     const title = document.getElementById('statusTitle');
     const subtitle = document.getElementById('statusSub');
+    const arena = document.getElementById('arena');
 
-    // Góc và độ dịch chuyển mô phỏng xòe bài (card spread)
     const ANG = [-12, -4, 4, 12];
     const dx = [-75, -25, 25, 75];
 
-    // Tạo hiệu ứng bài xòe ra
+    // Xòe bài ra
     function spreadCards() {
       slots.forEach((slot, i) => {
         slot.style.display = 'flex';
@@ -250,8 +316,31 @@
       setTimeout(() => inputs[0].focus(), 300);
     }
 
-    // Gom bài lại vào giữa khi xác nhận
-    function stackCards() {
+    // Hiệu ứng pháo sáng (Sparks) văng ra xung quanh
+    function explodeSparks() {
+      const count = 12;
+      for (let i = 0; i < count; i++) {
+        const spark = document.createElement('div');
+        spark.classList.add('spark');
+        arena.appendChild(spark);
+
+        const angle = (i / count) * 2 * Math.PI;
+        const distance = 45 + Math.random() * 20;
+        const tx = Math.cos(angle) * distance;
+        const ty = Math.sin(angle) * distance;
+
+        spark.animate([
+          { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
+          { transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(0)`, opacity: 0 }
+        ], {
+          duration: 650,
+          easing: 'cubic-bezier(0, 0.9, 0.3, 1)'
+        }).onfinish = () => spark.remove();
+      }
+    }
+
+    // Gom bài -> Hiện Spinner xoay -> Hiện Tick đúng
+    function triggerVerification() {
       slots.forEach((slot, i) => {
         slot.animate([
           { transform: `translate(${dx[i]}px, 0) rotate(${ANG[i]}deg)`, opacity: 1 },
@@ -269,16 +358,23 @@
         title.textContent = "Checking your code";
         subtitle.textContent = "One moment — we're confirming it.";
 
-        // Giả lập kiểm tra hoàn tất sau 2 giây
+        // Giả lập kiểm tra xong sau 1.5s
         setTimeout(() => {
           spinner.style.display = 'none';
-          title.textContent = "Verified!";
-          subtitle.textContent = "Your code has been confirmed.";
-        }, 2000);
+          successBox.style.display = 'block';
+          successBox.classList.add('play');
+
+          // Nổ pháo sáng ngay khi dấu check vẽ ra
+          setTimeout(explodeSparks, 350);
+
+          title.textContent = "Code Verified!";
+          title.style.color = "var(--success)";
+          subtitle.textContent = "Redirecting you safely...";
+        }, 1500);
       }, 350);
     }
 
-    // Xử lý nhập liệu từng ô
+    // Xử lý gõ bàn phím
     inputs.forEach((input, index) => {
       input.addEventListener('focus', () => slots[index].classList.add('active'));
       input.addEventListener('blur', () => slots[index].classList.remove('active'));
@@ -289,7 +385,9 @@
         if (val && index < inputs.length - 1) {
           inputs[index + 1].focus();
         }
-        checkFullCode();
+        if (inputs.every(i => i.value.length === 1)) {
+          triggerVerification();
+        }
       });
 
       input.addEventListener('keydown', (e) => {
@@ -299,33 +397,27 @@
       });
     });
 
-    function checkFullCode() {
-      const code = inputs.map(i => i.value).join('');
-      if (code.length === 4) {
-        stackCards();
-      }
-    }
-
-    // Nhấn Enter tự điền mã "1234"
+    // Enter phím tắt test mã "1234"
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
-        const demoCode = '1234';
-        inputs.forEach((input, i) => input.value = demoCode[i]);
-        stackCards();
+        '1234'.split('').forEach((num, i) => inputs[i].value = num);
+        triggerVerification();
       }
     });
 
-    // Nút Resend để reset lại
+    // Nút Resend để reset chơi lại từ đầu
     document.getElementById('resendBtn').addEventListener('click', (e) => {
       e.preventDefault();
       spinner.style.display = 'none';
+      successBox.style.display = 'none';
+      successBox.classList.remove('play');
       inputs.forEach(i => i.value = '');
       title.textContent = "Verify your code";
+      title.style.color = "var(--text)";
       subtitle.textContent = "Enter the 4-digit code sent to you.";
       spreadCards();
     });
 
-    // Chạy hiệu ứng khi tải trang
     window.onload = spreadCards;
   </script>
 </body>
