@@ -1,10 +1,332 @@
-<!-- [...] rd, and the lap that
-     [...] its edge on every
-     [...] troke -->
-<div class="slot">
-  <input inputmode="numeric"
-         autocomplete="one-time-code">
-  <div class="slot__win"></div>
-  <div class="slot__spark"></div>
-  <!-- pathLength="1" /> -->
-</div>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OTP Verification Deck</title>
+  <style>
+    :root {
+      --bg: #0b0c10;
+      --card-bg: #16181f;
+      --border: #232733;
+      --ice: #00f2fe;
+      --text: #ffffff;
+      --text-dim: #7f8699;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .badge {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #60677a;
+      margin-bottom: 8px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 40px;
+    }
+
+    .header-title span {
+      background: linear-gradient(90deg, #60a5fa, #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Khung thẻ chính */
+    .deck-container {
+      position: relative;
+      width: 360px;
+      height: 380px;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 36px 24px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    }
+
+    .card-top {
+      text-align: center;
+    }
+
+    .title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    /* Khu vực hiển thị ô bài OTP */
+    .deck-arena {
+      position: relative;
+      width: 220px;
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Thẻ slot nhập số */
+    .slot {
+      position: absolute;
+      width: 46px;
+      height: 64px;
+      background: #1d212c;
+      border: 1.5px solid #2e3447;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* Trọng tâm quay bên dưới thẻ để tạo hình cánh quạt */
+      transform-origin: 50% 320%;
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.4s ease-out;
+      overflow: hidden;
+    }
+
+    .slot input {
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      text-align: center;
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      caret-color: var(--ice);
+    }
+
+    .slot.active {
+      border-color: var(--ice);
+      box-shadow: 0 0 16px rgba(0, 242, 254, 0.4);
+    }
+
+    /* Vòng tròn xoay khi đang xác thực */
+    .spinner-box {
+      display: none;
+      width: 58px;
+      height: 58px;
+      position: relative;
+    }
+
+    .spinner-box svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+      animation: spin 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    .seal__seg {
+      fill: none;
+      stroke: var(--ice);
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-dasharray: 140;
+      stroke-dashoffset: 70;
+      filter: drop-shadow(0 0 8px var(--ice));
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .footer-action {
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    .footer-action a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 4px;
+      cursor: pointer;
+    }
+
+    .footer-action a:hover {
+      text-decoration: underline;
+    }
+
+    .hint-text {
+      margin-top: 32px;
+      font-size: 13px;
+      color: #555b6e;
+    }
+
+    .hint-text b {
+      color: #7e879c;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="badge">Component · 100</div>
+  <div class="header-title">OTP Verification <span>DECK</span></div>
+
+  <div class="deck-container">
+    <div class="card-top">
+      <div class="title" id="statusTitle">Verify your code</div>
+      <div class="subtitle" id="statusSub">Enter the 4-digit code sent to you.</div>
+    </div>
+
+    <!-- Vùng hiển thị thẻ / spinner -->
+    <div class="deck-arena" id="arena">
+      <!-- 4 ô số dạng card -->
+      <div class="slot" data-index="0"><input type="text" maxlength="1" inputmode="numeric"></div>
+      <div class="slot" data-index="1"><input type="text" maxlength="1" inputmode="numeric"></div>
+      <div class="slot" data-index="2"><input type="text" maxlength="1" inputmode="numeric"></div>
+      <div class="slot" data-index="3"><input type="text" maxlength="1" inputmode="numeric"></div>
+
+      <!-- Spinner chờ -->
+      <div class="spinner-box" id="spinner">
+        <svg viewBox="0 0 50 50">
+          <circle class="seal__seg" cx="25" cy="25" r="20"></circle>
+        </svg>
+      </div>
+    </div>
+
+    <div class="footer-action">
+      Didn't get a code? <a href="#" id="resendBtn">Resend</a>
+    </div>
+  </div>
+
+  <div class="hint-text">
+    Nhập mã, dán mã, hoặc nhấn <b>Enter — 1234</b> để thử.
+  </div>
+
+  <script>
+    const slots = Array.from(document.querySelectorAll('.slot'));
+    const inputs = Array.from(document.querySelectorAll('.slot input'));
+    const spinner = document.getElementById('spinner');
+    const title = document.getElementById('statusTitle');
+    const subtitle = document.getElementById('statusSub');
+
+    // Góc và độ dịch chuyển mô phỏng xòe bài (card spread)
+    const ANG = [-12, -4, 4, 12];
+    const dx = [-75, -25, 25, 75];
+
+    // Tạo hiệu ứng bài xòe ra
+    function spreadCards() {
+      slots.forEach((slot, i) => {
+        slot.style.display = 'flex';
+        slot.animate([
+          { transform: 'translate(0, 0) rotate(0deg)', opacity: 0 },
+          { transform: `translate(${dx[i]}px, 0) rotate(${ANG[i]}deg)`, opacity: 1 }
+        ], {
+          duration: 560,
+          delay: i * 45,
+          fill: 'forwards',
+          easing: 'cubic-bezier(0.2, 0.8, 0.2, 1)'
+        });
+      });
+      setTimeout(() => inputs[0].focus(), 300);
+    }
+
+    // Gom bài lại vào giữa khi xác nhận
+    function stackCards() {
+      slots.forEach((slot, i) => {
+        slot.animate([
+          { transform: `translate(${dx[i]}px, 0) rotate(${ANG[i]}deg)`, opacity: 1 },
+          { transform: 'translate(0, 0) rotate(0deg)', opacity: 0 }
+        ], {
+          duration: 350,
+          fill: 'forwards',
+          easing: 'ease-in'
+        });
+      });
+
+      setTimeout(() => {
+        slots.forEach(s => s.style.display = 'none');
+        spinner.style.display = 'block';
+        title.textContent = "Checking your code";
+        subtitle.textContent = "One moment — we're confirming it.";
+
+        // Giả lập kiểm tra hoàn tất sau 2 giây
+        setTimeout(() => {
+          spinner.style.display = 'none';
+          title.textContent = "Verified!";
+          subtitle.textContent = "Your code has been confirmed.";
+        }, 2000);
+      }, 350);
+    }
+
+    // Xử lý nhập liệu từng ô
+    inputs.forEach((input, index) => {
+      input.addEventListener('focus', () => slots[index].classList.add('active'));
+      input.addEventListener('blur', () => slots[index].classList.remove('active'));
+
+      input.addEventListener('input', (e) => {
+        const val = e.target.value.replace(/[^0-9]/g, '');
+        e.target.value = val;
+        if (val && index < inputs.length - 1) {
+          inputs[index + 1].focus();
+        }
+        checkFullCode();
+      });
+
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && !input.value && index > 0) {
+          inputs[index - 1].focus();
+        }
+      });
+    });
+
+    function checkFullCode() {
+      const code = inputs.map(i => i.value).join('');
+      if (code.length === 4) {
+        stackCards();
+      }
+    }
+
+    // Nhấn Enter tự điền mã "1234"
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const demoCode = '1234';
+        inputs.forEach((input, i) => input.value = demoCode[i]);
+        stackCards();
+      }
+    });
+
+    // Nút Resend để reset lại
+    document.getElementById('resendBtn').addEventListener('click', (e) => {
+      e.preventDefault();
+      spinner.style.display = 'none';
+      inputs.forEach(i => i.value = '');
+      title.textContent = "Verify your code";
+      subtitle.textContent = "Enter the 4-digit code sent to you.";
+      spreadCards();
+    });
+
+    // Chạy hiệu ứng khi tải trang
+    window.onload = spreadCards;
+  </script>
+</body>
+</html>
