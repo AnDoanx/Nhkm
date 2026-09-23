@@ -1,33 +1,47 @@
 /**
- * Configuration & State
+ * Configuration & App State
  */
 const CONFIG = {
-  // Thay ID Discord của bạn vào đây để Lanyard kéo avatar, status và activity
-  DISCORD_USER_ID: "c0mplex07", // Nhập Discord ID dạng số (VD: "928374928374928374")
-  TYPING_SPEED: 40,
-  TERMINAL_TEXT: `Initializing complex_os v2.4.1...
-Loading kernel modules... [OK]
-Mounting local filesystems... [OK]
-Connecting to Lanyard WebSocket... [CONNECTED]
-IoT Node Bridge initialized.
+  // Discord User ID của bạn đã được gắn vào đây:
+  DISCORD_USER_ID: "1053893912466554922", 
+  
+  // Chữ chạy trong terminal giả lập:
+  TERMINAL_LOGS: `[SYSTEM] Booting c0mplex_kernel v2.4.1...
+[OK] Mounting virtual filesystems...
+[OK] Establishing socket connection to Lanyard API...
+[OK] IoT hardware interfaces initialized.
 
 Welcome, guest!
-Type 'help' to see available commands or wait to open profile view...
+Press close [X] or wait for the profile card to load...
 `,
+  TERMINAL_SPEED: 35,
   USERNAME_TEXT: "c0mplex",
+  PAGE_TITLES: ["c0mplex | Bio", "IoT Enthusiast", "Welcome to my page!"]
 };
 
 document.addEventListener("DOMContentLoaded", () => {
+  initAnimatedTitle();
   initTerminal();
-  initUsernameAnimation();
-  initMediaControls();
+  initUsernameTyping();
+  initMediaController();
+  initVanillaTiltEffect();
   initDiscordLanyard(CONFIG.DISCORD_USER_ID);
-  initVanillaTilt();
 });
 
-/* ==========================================================================
-   1. Terminal Window Logic & Typing Animation
-   ========================================================================== */
+/* --------------------------------------------------------------------------
+   1. Đổi Title tab trình duyệt tuần hoàn
+-------------------------------------------------------------------------- */
+function initAnimatedTitle() {
+  let index = 0;
+  setInterval(() => {
+    document.title = CONFIG.PAGE_TITLES[index];
+    index = (index + 1) % CONFIG.PAGE_TITLES.length;
+  }, 2000);
+}
+
+/* --------------------------------------------------------------------------
+   2. Logic giả lập Terminal (Gõ chữ + Nút điều khiển)
+-------------------------------------------------------------------------- */
 function initTerminal() {
   const terminal = document.getElementById("terminal");
   const terminalText = document.getElementById("terminal-text");
@@ -36,29 +50,28 @@ function initTerminal() {
   const maxBtn = document.getElementById("maximize-button");
   const profileCard = document.getElementById("blurred-box");
 
-  let charIndex = 0;
+  if (!terminal || !terminalText) return;
 
-  function typeText() {
-    if (charIndex < CONFIG.TERMINAL_TEXT.length) {
-      terminalText.textContent += CONFIG.TERMINAL_TEXT.charAt(charIndex);
-      charIndex++;
-      setTimeout(typeText, CONFIG.TYPING_SPEED);
+  let i = 0;
+  function typeLog() {
+    if (i < CONFIG.TERMINAL_LOGS.length) {
+      terminalText.textContent += CONFIG.TERMINAL_LOGS.charAt(i);
+      i++;
+      setTimeout(typeLog, CONFIG.TERMINAL_SPEED);
     } else {
-      // Khi gõ xong terminal, tự động hiển thị Profile Card và làm mờ overlay
       setTimeout(() => {
         if (profileCard) profileCard.style.display = "block";
       }, 500);
     }
   }
-
-  typeText();
+  typeLog();
 
   // Nút đóng terminal
   if (closeBtn) {
     closeBtn.addEventListener("click", () => {
       terminal.style.transition = "opacity 0.3s ease, transform 0.3s ease";
       terminal.style.opacity = "0";
-      terminal.style.transform = "scale(0.9)";
+      terminal.style.transform = "scale(0.95)";
       setTimeout(() => {
         terminal.style.display = "none";
         if (profileCard) profileCard.style.display = "block";
@@ -69,26 +82,25 @@ function initTerminal() {
 
   // Nút thu nhỏ
   if (minBtn) {
-    let minimized = false;
+    let isMinimized = false;
     minBtn.addEventListener("click", () => {
       const content = document.getElementById("terminal-content");
-      if (!minimized) {
+      if (!isMinimized) {
         content.style.display = "none";
         terminal.style.height = "42px";
       } else {
         content.style.display = "block";
         terminal.style.height = "500px";
       }
-      minimized = !minimized;
+      isMinimized = !isMinimized;
     });
   }
 
-  // Nút phóng to
+  // Nút phóng to toàn màn hình
   if (maxBtn) {
-    let maximized = false;
+    let isMaximized = false;
     maxBtn.addEventListener("click", () => {
-      if (!maximized) {
-        terminal.dataset.prevStyle = terminal.getAttribute("style") || "";
+      if (!isMaximized) {
         terminal.style.top = "10px";
         terminal.style.left = "10px";
         terminal.style.width = "calc(100vw - 20px)";
@@ -96,213 +108,201 @@ function initTerminal() {
       } else {
         terminal.removeAttribute("style");
       }
-      maximized = !maximized;
+      isMaximized = !isMaximized;
     });
   }
 }
 
-/* ==========================================================================
-   2. Username Typing / Looping Effect
-   ========================================================================== */
-function initUsernameAnimation() {
-  const usernameEl = document.getElementById("username");
-  if (!usernameEl) return;
+/* --------------------------------------------------------------------------
+   3. Hiệu ứng gõ chữ Username lặp lại
+-------------------------------------------------------------------------- */
+function initUsernameTyping() {
+  const userEl = document.getElementById("username");
+  if (!userEl) return;
 
-  const targetText = CONFIG.USERNAME_TEXT;
-  let index = 0;
-  let isDeleting = false;
+  const text = CONFIG.USERNAME_TEXT;
+  let charIdx = 0;
+  let isBackspacing = false;
 
   function loop() {
-    usernameEl.textContent = targetText.substring(0, index);
+    userEl.textContent = text.substring(0, charIdx);
 
-    if (!isDeleting && index < targetText.length) {
-      index++;
+    if (!isBackspacing && charIdx < text.length) {
+      charIdx++;
       setTimeout(loop, 120);
-    } else if (isDeleting && index > 0) {
-      index--;
+    } else if (isBackspacing && charIdx > 0) {
+      charIdx--;
       setTimeout(loop, 60);
     } else {
-      isDeleting = !isDeleting;
-      setTimeout(loop, isDeleting ? 2000 : 500);
+      isBackspacing = !isBackspacing;
+      setTimeout(loop, isBackspacing ? 2500 : 500);
     }
   }
-
   loop();
 }
 
-/* ==========================================================================
-   3. Background Video & Audio Controls
-   ========================================================================== */
-function initMediaControls() {
+/* --------------------------------------------------------------------------
+   4. Quản lý Video Background & Thanh âm lượng / Tiến trình
+-------------------------------------------------------------------------- */
+function initMediaController() {
   const video = document.getElementById("myVideo");
   const volumeSlider = document.getElementById("volume-slider");
   const progressBar = document.getElementById("progress-bar");
 
-  if (video && volumeSlider) {
-    // Trình duyệt chặn autoplay có tiếng -> bắt đầu với muted, bật volume khi user kéo slider
-    video.volume = volumeSlider.value / 100;
+  if (!video) return;
 
+  if (volumeSlider) {
+    video.volume = volumeSlider.value / 100;
     volumeSlider.addEventListener("input", (e) => {
       const val = parseFloat(e.target.value) / 100;
       video.volume = val;
-      video.muted = val === 0;
-      if (video.paused) video.play();
+      video.muted = (val === 0);
+      if (video.paused) video.play().catch(() => {});
     });
+  }
 
-    // Cập nhật thanh tiến trình video
+  if (progressBar) {
     video.addEventListener("timeupdate", () => {
-      if (progressBar && video.duration) {
+      if (video.duration) {
         const progress = (video.currentTime / video.duration) * 100;
         progressBar.style.width = `${progress}%`;
       }
     });
   }
 
-  // Tự động phát khi user click lần đầu tiên nếu autoplay bị trình duyệt chặn
+  // Khắc phục chính sách Autoplay của trình duyệt khi click chuột lần đầu
   document.addEventListener("click", () => {
-    if (video && video.paused) {
+    if (video.paused) {
       video.play().catch(() => {});
     }
   }, { once: true });
 }
 
-/* ==========================================================================
-   4. Discord Status via Lanyard WebSocket API
-   ========================================================================== */
+/* --------------------------------------------------------------------------
+   5. Hiệu ứng nghiêng 3D (Vanilla Tilt)
+-------------------------------------------------------------------------- */
+function initVanillaTiltEffect() {
+  const card = document.getElementById("blurred-box");
+  if (card && typeof VanillaTilt !== "undefined") {
+    VanillaTilt.init(card, {
+      max: 12,
+      speed: 400,
+      glare: true,
+      "max-glare": 0.25,
+    });
+  }
+}
+
+/* --------------------------------------------------------------------------
+   6. Discord Widget thời gian thực qua WebSocket Lanyard API
+-------------------------------------------------------------------------- */
 function initDiscordLanyard(userId) {
-  if (!userId || userId === "c0mplex07") return; // Bỏ qua nếu chưa đổi sang ID số
+  if (!userId) return;
 
   const avatarImg = document.getElementById("discord-avatar");
   const usernameText = document.getElementById("discord-username");
   const statusDot = document.getElementById("discord-status-dot");
   const statusText = document.getElementById("discord-status-text");
 
-  const activityBox = document.getElementById("discord-activity-info");
-  const noActivityBox = document.getElementById("discord-no-activity");
-  const activityName = document.getElementById("discord-activity-name");
-  const activityDetails = document.getElementById("discord-activity-details");
-  const activityState = document.getElementById("discord-activity-state");
+  const actInfo = document.getElementById("discord-activity-info");
+  const noAct = document.getElementById("discord-no-activity");
+  const actName = document.getElementById("discord-activity-name");
+  const actDetails = document.getElementById("discord-activity-details");
+  const actState = document.getElementById("discord-activity-state");
   const albumArt = document.getElementById("discord-album-art");
 
   const socket = new WebSocket("wss://api.lanyard.rest/socket");
 
-  socket.addEventListener("open", () => {
-    // Gửi heartbeat khởi tạo
+  socket.onopen = () => {
     socket.send(JSON.stringify({
       op: 2,
       d: { subscribe_to_id: userId }
     }));
-  });
+  };
 
-  socket.addEventListener("message", (event) => {
-    const data = JSON.parse(event.data);
+  socket.onmessage = (event) => {
+    const res = JSON.parse(event.data);
 
-    // Heartbeat định kỳ
-    if (data.op === 1) {
-      const interval = data.d.heartbeat_interval;
+    // Heartbeat định kỳ giữ kết nối socket
+    if (res.op === 1) {
       setInterval(() => {
         socket.send(JSON.stringify({ op: 3 }));
-      }, interval);
+      }, res.d.heartbeat_interval);
     }
 
-    // Cập nhật dữ liệu người dùng
-    if (data.t === "INIT_STATE" || data.t === "PRESENCE_UPDATE") {
-      updateDiscordUI(data.d);
+    if (res.t === "INIT_STATE" || res.t === "PRESENCE_UPDATE") {
+      renderDiscord(res.d);
     }
-  });
+  };
 
-  function updateDiscordUI(presence) {
-    if (!presence) return;
+  function renderDiscord(data) {
+    if (!data) return;
 
-    // 1. User & Avatar
-    const user = presence.discord_user;
+    // 1. Tên & Avatar
+    const user = data.discord_user;
     if (usernameText) usernameText.textContent = user.global_name || user.username;
     if (avatarImg) {
-      const avatarHash = user.avatar;
-      const ext = avatarHash && avatarHash.startsWith("a_") ? "gif" : "png";
-      avatarImg.src = avatarHash
-        ? `https://cdn.discordapp.com/avatars/${user.id}/${avatarHash}.${ext}?size=128`
+      const ext = user.avatar && user.avatar.startsWith("a_") ? "gif" : "png";
+      avatarImg.src = user.avatar
+        ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=128`
         : `https://cdn.discordapp.com/embed/avatars/0.png`;
     }
 
-    // 2. Status Dot
+    // 2. Trạng thái online / idle / dnd / offline
     if (statusDot) {
       statusDot.className = "";
-      statusDot.classList.add(`status-${presence.discord_status}`);
+      statusDot.classList.add(`status-${data.discord_status}`);
     }
     if (statusText) {
-      statusText.textContent = presence.discord_status.toUpperCase();
+      statusText.textContent = data.discord_status.toUpperCase();
     }
 
-    // 3. Activity / Spotify
-    const activities = presence.activities || [];
-    const spotify = presence.spotify;
-    const currentActivity = activities.find(a => a.type === 0 || a.type === 2); // Playing hoặc Listening
+    // 3. Hoạt động (Spotify hoặc Game)
+    const spotify = data.spotify;
+    const activity = (data.activities || []).find(a => a.type === 0 || a.type === 2);
 
     if (spotify) {
-      showActivity({
-        name: spotify.song,
-        details: `by ${spotify.artist}`,
-        state: `on ${spotify.album}`,
-        image: spotify.album_art_url
+      setActivityDisplay({
+        title: spotify.song,
+        sub1: `by ${spotify.artist}`,
+        sub2: `on ${spotify.album}`,
+        art: spotify.album_art_url
       });
-    } else if (currentActivity) {
-      let image = null;
-      if (currentActivity.assets && currentActivity.assets.large_image) {
-        const rawImg = currentActivity.assets.large_image;
-        image = rawImg.startsWith("mp:external")
-          ? `https://media.discordapp.net/${rawImg.replace("mp:", "")}`
-          : `https://cdn.discordapp.com/app-assets/${currentActivity.application_id}/${rawImg}.png`;
+    } else if (activity) {
+      let icon = null;
+      if (activity.assets && activity.assets.large_image) {
+        const raw = activity.assets.large_image;
+        icon = raw.startsWith("mp:external")
+          ? `https://media.discordapp.net/${raw.replace("mp:", "")}`
+          : `https://cdn.discordapp.com/app-assets/${activity.application_id}/${raw}.png`;
       }
-
-      showActivity({
-        name: currentActivity.name,
-        details: currentActivity.details || "",
-        state: currentActivity.state || "",
-        image: image
+      setActivityDisplay({
+        title: activity.name,
+        sub1: activity.details || "",
+        sub2: activity.state || "",
+        art: icon
       });
     } else {
-      hideActivity();
+      if (actInfo) actInfo.style.display = "none";
+      if (noAct) noAct.style.display = "flex";
     }
   }
 
-  function showActivity({ name, details, state, image }) {
-    if (noActivityBox) noActivityBox.classList.add("hidden");
-    if (activityBox) activityBox.classList.remove("hidden");
+  function setActivityDisplay({ title, sub1, sub2, art }) {
+    if (noAct) noAct.style.display = "none";
+    if (actInfo) actInfo.style.display = "flex";
 
-    if (activityName) activityName.textContent = name;
-    if (activityDetails) activityDetails.textContent = details;
-    if (activityState) activityState.textContent = state;
+    if (actName) actName.textContent = title;
+    if (actDetails) actDetails.textContent = sub1;
+    if (actState) actState.textContent = sub2;
 
     if (albumArt) {
-      if (image) {
-        albumArt.style.backgroundImage = `url('${image}')`;
+      if (art) {
+        albumArt.style.backgroundImage = `url('${art}')`;
         albumArt.style.display = "block";
       } else {
         albumArt.style.display = "none";
       }
-    }
-  }
-
-  function hideActivity() {
-    if (activityBox) activityBox.classList.add("hidden");
-    if (noActivityBox) noActivityBox.classList.remove("hidden");
-  }
-}
-
-/* ==========================================================================
-   5. Vanilla Tilt Card Effect
-   ========================================================================== */
-function initVanillaTilt() {
-  if (typeof VanillaTilt !== "undefined") {
-    const card = document.getElementById("blurred-box");
-    if (card) {
-      VanillaTilt.init(card, {
-        max: 12,
-        speed: 400,
-        glare: true,
-        "max-glare": 0.2,
-      });
     }
   }
 }
