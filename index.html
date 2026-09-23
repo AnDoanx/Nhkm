@@ -1,700 +1,134 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ultra Motion Portfolio | Khoa An</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="styles.css"> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="icon" type="image/x-icon" href="./assets/favico/default.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #050508;
-      --card-bg: rgba(14, 15, 23, 0.72);
-      --c-cyan: #00f2fe;
-      --c-purple: #9b51e0;
-      --c-pink: #ff2a85;
-      --c-blue: #4facfe;
-      --text: #f8fafc;
-      --text-sub: #94a3b8;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 50px 16px 60px;
-      overflow-x: hidden;
-      position: relative;
-    }
-
-    /* --- CANVAS & 3D CYBER GRID --- */
-    #fx-canvas {
-      position: fixed;
-      inset: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .grid-plane {
-      position: fixed;
-      bottom: -150px;
-      left: 50%;
-      transform: translateX(-50%) perspective(450px) rotateX(75deg);
-      width: 200vw;
-      height: 100vh;
-      background-image: 
-        linear-gradient(rgba(0, 242, 254, 0.12) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(155, 81, 224, 0.12) 1px, transparent 1px);
-      background-size: 55px 55px;
-      mask-image: radial-gradient(ellipse at 50% 30%, black 20%, transparent 75%);
-      -webkit-mask-image: radial-gradient(ellipse at 50% 30%, black 20%, transparent 75%);
-      animation: gridDrift 20s linear infinite;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    @keyframes gridDrift {
-      0% { background-position: 0 0; }
-      100% { background-position: 0 1000px; }
-    }
-
-    .ambient-glow {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(120px);
-      z-index: 0;
-      pointer-events: none;
-      opacity: 0.45;
-      animation: pulseAura 8s ease-in-out infinite alternate;
-    }
-    .glow-top { top: -10%; left: 10%; width: 450px; height: 450px; background: radial-gradient(circle, var(--c-purple), transparent 70%); }
-    .glow-bottom { bottom: 5%; right: 5%; width: 400px; height: 400px; background: radial-gradient(circle, var(--c-cyan), transparent 70%); }
-
-    @keyframes pulseAura {
-      0% { transform: scale(1) translate(0, 0); opacity: 0.35; }
-      100% { transform: scale(1.2) translate(30px, -20px); opacity: 0.6; }
-    }
-
-    /* --- MAIN CONTAINER --- */
-    .container {
-      width: 100%;
-      max-width: 440px;
-      position: relative;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 22px;
-    }
-
-    /* --- PROFILE SECTION --- */
-    .profile-card {
-      text-align: center;
-      position: relative;
-      width: 100%;
-    }
-
-    .avatar-wrapper {
-      position: relative;
-      width: 116px;
-      height: 116px;
-      margin: 0 auto 16px;
-    }
-
-    .avatar-glow-ring {
-      position: absolute;
-      inset: -6px;
-      border-radius: 50%;
-      background: conic-gradient(from 0deg, var(--c-cyan), var(--c-purple), var(--c-pink), var(--c-cyan));
-      animation: spin 3.5s linear infinite;
-      filter: blur(10px);
-      opacity: 0.85;
-    }
-
-    .avatar-glow-ring-inner {
-      position: absolute;
-      inset: -2px;
-      border-radius: 50%;
-      background: conic-gradient(from 180deg, var(--c-cyan), var(--c-purple), var(--c-pink), var(--c-cyan));
-      animation: spin 3.5s linear infinite reverse;
-      z-index: 1;
-    }
-
-    .avatar-img {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid #08090f;
-      z-index: 2;
-      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    .avatar-wrapper:hover .avatar-img {
-      transform: scale(1.08) rotate(4deg);
-    }
-
-    @keyframes spin { 100% { transform: rotate(360deg); } }
-
-    .name-line {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .name {
-      font-size: 1.45rem;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      background: linear-gradient(135deg, #ffffff 30%, #a5b4fc 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .badge-status {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      background: rgba(0, 242, 254, 0.08);
-      border: 1px solid rgba(0, 242, 254, 0.25);
-      backdrop-filter: blur(8px);
-      padding: 5px 12px;
-      border-radius: 99px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--c-cyan);
-      margin-top: 10px;
-    }
-
-    .pulse-core {
-      position: relative;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--c-cyan);
-    }
-
-    .pulse-core::after {
-      content: "";
-      position: absolute;
-      inset: -4px;
-      border-radius: 50%;
-      border: 1.5px solid var(--c-cyan);
-      animation: pulseBorder 1.6s ease-out infinite;
-    }
-
-    @keyframes pulseBorder {
-      0% { transform: scale(0.6); opacity: 1; }
-      100% { transform: scale(2.4); opacity: 0; }
-    }
-
-    .bio-text {
-      color: var(--text-sub);
-      font-size: 0.88rem;
-      margin-top: 10px;
-      line-height: 1.5;
-    }
-
-    /* --- AUDIO VISUALIZER DECO --- */
-    .visualizer-box {
-      display: inline-flex;
-      align-items: center;
-      gap: 3px;
-      margin-top: 10px;
-      padding: 4px 10px;
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-    .viz-bar {
-      width: 3px;
-      height: 14px;
-      background: var(--c-cyan);
-      border-radius: 2px;
-      animation: vizJump 1s ease-in-out infinite alternate;
-    }
-    .viz-bar:nth-child(2) { background: var(--c-purple); animation-delay: 0.2s; height: 18px; }
-    .viz-bar:nth-child(3) { background: var(--c-pink); animation-delay: 0.4s; height: 10px; }
-    .viz-bar:nth-child(4) { background: var(--c-cyan); animation-delay: 0.1s; height: 16px; }
-    .viz-bar:nth-child(5) { background: #ffd200; animation-delay: 0.3s; height: 12px; }
-
-    @keyframes vizJump {
-      0% { transform: scaleY(0.3); }
-      100% { transform: scaleY(1.3); }
-    }
-
-    /* --- SOCIAL MEDIA DOCKS --- */
-    .social-dock {
-      display: flex;
-      gap: 12px;
-      margin-top: 2px;
-    }
-
-    .dock-btn {
-      position: relative;
-      width: 46px;
-      height: 46px;
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text);
-      text-decoration: none;
-      font-size: 1.2rem;
-      backdrop-filter: blur(12px);
-      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-      overflow: hidden;
-    }
-
-    .dock-btn::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at center, rgba(255, 255, 255, 0.2), transparent 70%);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .dock-btn:hover {
-      transform: translateY(-5px) scale(1.1);
-      border-color: var(--c-cyan);
-      color: var(--c-cyan);
-      box-shadow: 0 10px 25px rgba(0, 242, 254, 0.35);
-    }
-    .dock-btn:hover::before { opacity: 1; }
-
-    /* --- DYNAMIC PRISM LINK CARDS --- */
-    .links-wrapper {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      perspective: 1200px;
-    }
-
-    .link-prism-card {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 20px;
-      background: var(--card-bg);
-      border-radius: 18px;
-      text-decoration: none;
-      color: var(--text);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-      transform-style: preserve-3d;
-      transition: transform 0.15s ease-out, box-shadow 0.3s ease;
-      cursor: pointer;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      overflow: hidden;
-    }
-
-    /* Ambient cursor spotlight inside card */
-    .link-prism-card::before {
-      content: "";
-      position: absolute;
-      top: var(--mouse-y, 50%);
-      left: var(--mouse-x, 50%);
-      transform: translate(-50%, -50%);
-      width: 280px;
-      height: 280px;
-      background: radial-gradient(circle, rgba(0, 242, 254, 0.22), transparent 65%);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
-    }
-
-    /* Laser perimeter sheen */
-    .laser-border {
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--c-cyan), var(--c-purple), transparent);
-      animation: laserSweep 3.5s linear infinite;
-    }
-
-    @keyframes laserSweep {
-      0% { left: -100%; }
-      50%, 100% { left: 100%; }
-    }
-
-    .link-prism-card:hover {
-      border-color: rgba(0, 242, 254, 0.45);
-      box-shadow: 0 16px 40px rgba(0, 242, 254, 0.2), inset 0 0 15px rgba(0, 242, 254, 0.1);
-    }
-
-    .link-prism-card:hover::before {
-      opacity: 1;
-    }
-
-    .card-left {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      z-index: 2;
-    }
-
-    .icon-cube {
-      width: 48px;
-      height: 48px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.25rem;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      position: relative;
-      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    .link-prism-card:hover .icon-cube {
-      transform: scale(1.15) rotate(-6deg);
-    }
-
-    .glow-pink { color: var(--c-pink); box-shadow: 0 0 16px rgba(255, 42, 133, 0.35); }
-    .glow-cyan { color: var(--c-cyan); box-shadow: 0 0 16px rgba(0, 242, 254, 0.35); }
-    .glow-purple { color: var(--c-purple); box-shadow: 0 0 16px rgba(155, 81, 224, 0.35); }
-    .glow-gold { color: #ffd200; box-shadow: 0 0 16px rgba(255, 210, 0, 0.35); }
-
-    .card-content {
-      text-align: left;
-    }
-
-    .card-headline {
-      font-size: 0.98rem;
-      font-weight: 700;
-      letter-spacing: -0.2px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .tag-hot {
-      font-size: 0.62rem;
-      padding: 2px 6px;
-      border-radius: 6px;
-      background: rgba(255, 42, 133, 0.2);
-      border: 1px solid var(--c-pink);
-      color: #ff80b5;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-
-    .card-subline {
-      font-size: 0.78rem;
-      color: var(--text-sub);
-      margin-top: 4px;
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .arrow-box {
-      width: 32px;
-      height: 32px;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.04);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-sub);
-      font-size: 0.85rem;
-      z-index: 2;
-      transition: all 0.3s ease;
-    }
-
-    .link-prism-card:hover .arrow-box {
-      transform: translateX(4px);
-      background: var(--c-cyan);
-      color: #050508;
-      box-shadow: 0 0 15px var(--c-cyan);
-    }
-
-    /* --- FOOTER --- */
-    footer {
-      font-size: 0.78rem;
-      color: var(--text-sub);
-      margin-top: 10px;
-      text-align: center;
-      letter-spacing: 0.5px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.2/dist/vanilla-tilt.min.js"></script>
+  <link rel="stylesheet" href="./assets/css/tilt-effect.css">
 </head>
-<body>
 
-  <!-- Background Effects -->
-  <canvas id="fx-canvas"></canvas>
-  <div class="grid-plane"></div>
-  <div class="ambient-glow glow-top"></div>
-  <div class="ambient-glow glow-bottom"></div>
+  <div id="terminal">
+    <div id="terminal-header">
+      <div id="terminal-buttons">
 
-  <!-- Bio Main Frame -->
-  <div class="container">
-    
-    <!-- Profile Card -->
-    <div class="profile-card">
-      <div class="avatar-wrapper">
-        <div class="avatar-glow-ring"></div>
-        <div class="avatar-glow-ring-inner"></div>
-        <img class="avatar-img" src="https://picsum.photos/300/300" alt="Avatar" />
-      </div>
-
-      <div class="name-line">
-        <h1 class="name">Khoa An</h1>
-        <i class="fa-solid fa-circle-check" style="color: var(--c-cyan); font-size: 1.05rem;" title="Verified Editor"></i>
-      </div>
-
-      <div class="badge-status">
-        <span class="pulse-core"></span>
-        Alight Motion & VFX Animator
-      </div>
-
-      <p class="bio-text">Tạo hiệu ứng chuyển động, typography & shake mượt mà.<br>Chia sẻ toàn bộ source presets chuẩn 60FPS.</p>
-      
-      <!-- Audio Visualizer Deco -->
-      <div class="visualizer-box" title="Motion Beat Sync">
-        <div class="viz-bar"></div>
-        <div class="viz-bar"></div>
-        <div class="viz-bar"></div>
-        <div class="viz-bar"></div>
-        <div class="viz-bar"></div>
+        <div class="terminal-button" id="close-button"></div>
+        <div class="terminal-button" id="minimize-button"></div>
+        <div class="terminal-button" id="maximize-button"></div>
       </div>
     </div>
-
-    <!-- Social Docks -->
-    <div class="social-dock">
-      <a href="https://tiktok.com" target="_blank" class="dock-btn" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-      <a href="https://youtube.com" target="_blank" class="dock-btn" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
-      <a href="https://t.me" target="_blank" class="dock-btn" title="Telegram"><i class="fa-brands fa-telegram"></i></a>
-      <a href="https://facebook.com" target="_blank" class="dock-btn" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+    <div id="terminal-content">
+      <p id="terminal-text"></p>
     </div>
-
-    <!-- Direct Links Section -->
-    <div class="links-wrapper">
-
-      <!-- Item 1: XML Presets -->
-      <a href="#" class="link-prism-card">
-        <div class="laser-border"></div>
-        <div class="card-left">
-          <div class="icon-cube glow-pink"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-          <div class="card-content">
-            <div class="card-headline">Pack XML Mới Nhất <span class="tag-hot">Hot</span></div>
-            <div class="card-subline">Smooth Graph • Shake • Color CC</div>
-          </div>
-        </div>
-        <div class="arrow-box"><i class="fa-solid fa-chevron-right"></i></div>
-      </a>
-
-      <!-- Item 2: Link Dự Án AM Trực Tiếp -->
-      <a href="#" class="link-prism-card">
-        <div class="laser-border" style="animation-delay: -1.2s;"></div>
-        <div class="card-left">
-          <div class="icon-cube glow-cyan"><i class="fa-solid fa-play"></i></div>
-          <div class="card-content">
-            <div class="card-headline">Import Project AM (5MB+)</div>
-            <div class="card-subline">Link mở trực tiếp vào Alight Motion</div>
-          </div>
-        </div>
-        <div class="arrow-box"><i class="fa-solid fa-chevron-right"></i></div>
-      </a>
-
-      <!-- Item 3: Drive VIP Font & Overlays -->
-      <a href="#" class="link-prism-card">
-        <div class="laser-border" style="animation-delay: -2.4s;"></div>
-        <div class="card-left">
-          <div class="icon-cube glow-purple"><i class="fa-brands fa-google-drive"></i></div>
-          <div class="card-content">
-            <div class="card-headline">Kho Font & Overlays VIP</div>
-            <div class="card-subline">500+ Font Việt hóa, Glitch, Dust FX</div>
-          </div>
-        </div>
-        <div class="arrow-box"><i class="fa-solid fa-chevron-right"></i></div>
-      </a>
-
-      <!-- Item 4: Sound FX & Beat Sync -->
-      <a href="#" class="link-prism-card">
-        <div class="card-left">
-          <div class="icon-cube glow-gold"><i class="fa-solid fa-compact-disc"></i></div>
-          <div class="card-content">
-            <div class="card-headline">Sound Effects & Bass Drops</div>
-            <div class="card-subline">Kho âm thanh khớp beat AMV chất lượng</div>
-          </div>
-        </div>
-        <div class="arrow-box"><i class="fa-solid fa-chevron-right"></i></div>
-      </a>
-
-    </div>
-
-    <!-- Footer -->
-    <footer>
-      <i class="fa-solid fa-bolt" style="color: var(--c-cyan);"></i> Rendered in 60 FPS • Made for Motion Editors
-    </footer>
   </div>
 
-  <!-- Interactive FX Engine -->
-  <script>
-    /* 1. MOUSE-TRAIL SPARKS & STARFIELD ENGINE */
-    const canvas = document.getElementById("fx-canvas");
-    const ctx = canvas.getContext("2d");
-    let sparks = [];
-    let bgStars = [];
+  <div id="video-background">
+    <video autoplay muted loop id="myVideo">
+      <source src="./assets/back/default.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
 
-    function setupCanvasSize() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    window.addEventListener("resize", () => {
-      setupCanvasSize();
-      initStars();
-    });
-    setupCanvasSize();
+    <div id="audio-background">
+      <div id="music-controls">
+        <input type="range" id="volume-slider" min="0" max="100" value="50">
+        <div id="progress-container">
+          <div id="progress-bar"></div>
+        </div>
+      </div>
+    </div>
 
-    // Floating static stars
-    class Star {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 1.5 + 0.5;
-        this.baseAlpha = Math.random() * 0.6 + 0.2;
-        this.pulseSpeed = Math.random() * 0.02 + 0.01;
-        this.counter = Math.random() * Math.PI * 2;
-      }
-      update() {
-        this.counter += this.pulseSpeed;
-      }
-      draw() {
-        const a = this.baseAlpha + Math.sin(this.counter) * 0.25;
-        ctx.fillStyle = `rgba(255, 255, 255, ${Math.max(0.1, a)})`;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
+    </div>
+    <div id="video-overlay"></div>
+    <div id="blurred-box" class="tilt-element">
+      <img id="profile-picture" src="./assets/pfp/default.png" alt="Profile Picture">
+      <img id="avatar-frame" src="" alt="Avatar Frame">
+      <p id="username-container" style="color: white; font-weight: bold; font-size: 32px;">
+        <span id="username">c0mplex</span>
+        <span id="typing-cursor">|</span>
+      </p>
+      <div class="badges-container">
+        <img src="./assets/badge/developer.png" alt="dev badge">
+        <img src="./assets/badge/love.png" alt="heart badge">
+        <img src="./assets/badge/music.png" alt="music badge">
+        <img src="./assets/badge/verified.png" alt="verified badge">
+      </div>
+      <div class="lang-container">
+        <img src="./assets/logo/c.png" alt="c">
+        <img src="./assets/logo/cplusplus.png" alt="cplusplus">
+        <img src="./assets/logo/matlab.png" alt="matlab">
+        <img src="./assets/logo/python.png" alt="python">
+        <img src="./assets/logo/csharp.png" alt="csharp">
+        <img src="./assets/logo/java.png" alt="java">
+      </div>
 
-    function initStars() {
-      bgStars = [];
-      const count = Math.floor((canvas.width * canvas.height) / 12000);
-      for (let i = 0; i < count; i++) bgStars.push(new Star());
-    }
-    initStars();
+      <div class="user-description">
+        <p id="user-description" style="color: white;">
+          Hi everyone, I’m c0mplex<br>I have a deep interest in exploring Internet of Things<br>I’m eager to connect with others and keep learning from new experiences
+        </p>
+      </div>
 
-    // Mouse Sparks Trail
-    class Spark {
-      constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.size = Math.random() * 3 + 1.2;
-        this.speedX = (Math.random() - 0.5) * 3;
-        this.speedY = (Math.random() - 0.5) * 3;
-        this.life = 1;
-        this.decay = Math.random() * 0.025 + 0.015;
-        const palette = ["#00f2fe", "#9b51e0", "#ff2a85", "#ffffff"];
-        this.color = palette[Math.floor(Math.random() * palette.length)];
-      }
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        this.life -= this.decay;
-      }
-      draw() {
-        ctx.save();
-        ctx.globalAlpha = Math.max(0, this.life);
-        ctx.fillStyle = this.color;
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
-      }
-    }
+      <div class="discord-widget">
+        <div class="discord-content">
+          <div class="discord-icon">
+            <img id="discord-avatar" src="" alt="Discord Avatar" draggable="false" loading="lazy">
+          </div>
+          <div class="discord-meta">
+            <b id="discord-username"></b>
+            <div>
+              <span id="discord-status-dot"></span>
+              <span id="discord-status-text"></span>
+            </div>
+          </div>
+        </div>
+        <div class="discord-activity">
+          <div id="discord-activity-info">
+            <div id="discord-album-art"></div>
+            <div class="discord-activity-content">
+              <div id="discord-activity-name"></div>
+              <div id="discord-activity-details"></div>
+              <div id="discord-activity-state"></div>
+            </div>
+          </div>
+          <div id="discord-no-activity">I'm not currently doing anything!</div>
+        </div>
+      </div>
 
-    function emitSparks(x, y, amount = 2) {
-      for (let i = 0; i < amount; i++) {
-        sparks.push(new Spark(x, y));
-      }
-    }
-
-    window.addEventListener("mousemove", (e) => {
-      emitSparks(e.clientX, e.clientY, 2);
-    });
-
-    window.addEventListener("touchmove", (e) => {
-      if (e.touches[0]) {
-        emitSparks(e.touches[0].clientX, e.touches[0].clientY, 2);
-      }
-    });
-
-    function loopFx() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Render Stars
-      for (let i = 0; i < bgStars.length; i++) {
-        bgStars[i].update();
-        bgStars[i].draw();
-      }
-
-      // Render Trail Sparks
-      for (let i = sparks.length - 1; i >= 0; i--) {
-        sparks[i].update();
-        sparks[i].draw();
-        if (sparks[i].life <= 0) sparks.splice(i, 1);
-      }
-
-      requestAnimationFrame(loopFx);
-    }
-    loopFx();
-
-    /* 2. 3D GYRO TILT & SPOTLIGHT FOR CARDS */
-    const cards = document.querySelectorAll(".link-prism-card");
-
-    cards.forEach((card) => {
-      card.addEventListener("mousemove", (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-
-        const rotX = ((y - centerY) / centerY) * -8;
-        const rotY = ((x - centerX) / centerX) * 8;
-
-        card.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.02, 1.02, 1.02)`;
-        card.style.setProperty("--mouse-x", `${x}px`);
-        card.style.setProperty("--mouse-y", `${y}px`);
-      });
-
-      card.addEventListener("mouseleave", () => {
-        card.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
-      });
-    });
-  </script>
+      <div class="links"> 
+        <a href="https://www.facebook.com/c0mplexisreal" target="_blank">
+          <i class="fab fa-facebook"></i> 
+        </a> 
+        <a href="https://github.com/c0mplex07" target="_blank">
+          <i class="fa-brands fa-github"></i>
+        </a> 
+        <a href="https://www.tiktok.com/@c0mplex07" target="_blank">
+          <i class="fa-brands fa-tiktok"></i>
+        </a> 
+        <a href="https://x.com/c0mplex_vn" target="_blank">
+          <i class="fa-brands fa-twitter"></i>
+        </a> 
+        <a href="mailto:enou456xq@gmail.com" target="_blank">
+          <i class="fa-brands fa-google mail"></i>
+        </a> 
+      </div>
+    </div>
+  </div>
+  
+  <script src="./assets/js/lanyard.js"></script>
+  <script src="./assets/js/discord.js"></script>
+  <script src="./assets/js/script.js"></script>
+  <script src="./assets/js/title.js"></script>
+  <script src="./assets/js/username-animation.js"></script>
+  <script src="./assets/js/tilt-effect.js"></script>
+  <script src="./assets/js/audio-visualizer.js"></script>
+  <script src="./assets/js/neko.js"></script>
+  <script src="./assets/js/neko-init.js"></script>
+  <script src="./assets/js/music.js"></script>
 </body>
 </html>
