@@ -2,17 +2,14 @@
  * Configuration & App State
  */
 const CONFIG = {
-  // Discord User ID của bạn đã được gắn vào đây:
   DISCORD_USER_ID: "1053893912466554922", 
-  
-  // Chữ chạy trong terminal giả lập:
-  TERMINAL_LOGS: `[SYSTEM] Booting c0mplex_kernel v2.4.1...
-[OK] Mounting virtual filesystems...
-[OK] Establishing socket connection to Lanyard API...
-[OK] IoT hardware interfaces initialized.
+  TERMINAL_LOGS: `[SYSTEM] Khởi động c0mplex_kernel v2.4.1...
+[OK] Gắn kết các hệ thống tệp ảo...
+[OK] Thiết lập kết nối socket với API Lanyard...
+[OK] Giao diện phần cứng IoT đã được khởi tạo.
 
-Welcome, guest!
-Press close [X] or wait for the profile card to load...
+Chào mừng quý khách!
+Nhấn đóng [X] hoặc đợi thẻ hồ sơ tải...
 `,
   TERMINAL_SPEED: 35,
   USERNAME_TEXT: "c0mplex",
@@ -40,7 +37,7 @@ function initAnimatedTitle() {
 }
 
 /* --------------------------------------------------------------------------
-   2. Logic giả lập Terminal (Gõ chữ + Nút điều khiển)
+   2. Logic Terminal (Đã fix chạm trên cảm ứng điện thoại + Tự đóng khi xong)
 -------------------------------------------------------------------------- */
 function initTerminal() {
   const terminal = document.getElementById("terminal");
@@ -52,6 +49,18 @@ function initTerminal() {
 
   if (!terminal || !terminalText) return;
 
+  function closeTerminal() {
+    terminal.style.transition = "opacity 0.3s ease, transform 0.3s ease";
+    terminal.style.opacity = "0";
+    terminal.style.transform = "translate(-50%, -50%) scale(0.9)";
+    setTimeout(() => {
+      terminal.style.display = "none";
+      if (profileCard) profileCard.style.display = "flex";
+      document.body.classList.add("video-normal");
+    }, 300);
+  }
+
+  // Gõ chữ tự động
   let i = 0;
   function typeLog() {
     if (i < CONFIG.TERMINAL_LOGS.length) {
@@ -59,57 +68,59 @@ function initTerminal() {
       i++;
       setTimeout(typeLog, CONFIG.TERMINAL_SPEED);
     } else {
-      setTimeout(() => {
-        if (profileCard) profileCard.style.display = "block";
-      }, 500);
+      // Tự động đóng terminal sau khi gõ xong 1.5 giây
+      setTimeout(closeTerminal, 1500);
     }
   }
   typeLog();
 
-  // Nút đóng terminal
+  // Nút đóng terminal (Hỗ trợ cả click chuột lẫn cảm ứng điện thoại)
   if (closeBtn) {
-    closeBtn.addEventListener("click", () => {
-      terminal.style.transition = "opacity 0.3s ease, transform 0.3s ease";
-      terminal.style.opacity = "0";
-      terminal.style.transform = "scale(0.95)";
-      setTimeout(() => {
-        terminal.style.display = "none";
-        if (profileCard) profileCard.style.display = "block";
-        document.body.classList.add("video-normal");
-      }, 300);
+    ["click", "touchend"].forEach(evt => {
+      closeBtn.addEventListener(evt, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        closeTerminal();
+      });
     });
   }
 
   // Nút thu nhỏ
   if (minBtn) {
     let isMinimized = false;
-    minBtn.addEventListener("click", () => {
+    const toggleMin = (e) => {
+      e.preventDefault();
       const content = document.getElementById("terminal-content");
       if (!isMinimized) {
         content.style.display = "none";
-        terminal.style.height = "42px";
+        terminal.style.height = "46px";
       } else {
         content.style.display = "block";
-        terminal.style.height = "500px";
+        terminal.style.height = "420px";
       }
       isMinimized = !isMinimized;
-    });
+    };
+    ["click", "touchend"].forEach(evt => minBtn.addEventListener(evt, toggleMin));
   }
 
-  // Nút phóng to toàn màn hình
+  // Nút phóng to
   if (maxBtn) {
     let isMaximized = false;
-    maxBtn.addEventListener("click", () => {
+    const toggleMax = (e) => {
+      e.preventDefault();
       if (!isMaximized) {
-        terminal.style.top = "10px";
-        terminal.style.left = "10px";
-        terminal.style.width = "calc(100vw - 20px)";
-        terminal.style.height = "calc(100vh - 20px)";
+        terminal.style.top = "50%";
+        terminal.style.left = "50%";
+        terminal.style.width = "96vw";
+        terminal.style.height = "94vh";
+        terminal.style.maxHeight = "94vh";
       } else {
         terminal.removeAttribute("style");
+        terminal.style.display = "flex";
       }
       isMaximized = !isMaximized;
-    });
+    };
+    ["click", "touchend"].forEach(evt => maxBtn.addEventListener(evt, toggleMax));
   }
 }
 
@@ -142,7 +153,7 @@ function initUsernameTyping() {
 }
 
 /* --------------------------------------------------------------------------
-   4. Quản lý Video Background & Thanh âm lượng / Tiến trình
+   4. Quản lý Video Background & Âm lượng
 -------------------------------------------------------------------------- */
 function initMediaController() {
   const video = document.getElementById("myVideo");
@@ -170,7 +181,13 @@ function initMediaController() {
     });
   }
 
-  // Khắc phục chính sách Autoplay của trình duyệt khi click chuột lần đầu
+  // Khắc phục chính sách Autoplay của trình duyệt khi chạm vào màn hình
+  document.addEventListener("touchstart", () => {
+    if (video.paused) {
+      video.play().catch(() => {});
+    }
+  }, { once: true });
+
   document.addEventListener("click", () => {
     if (video.paused) {
       video.play().catch(() => {});
@@ -185,16 +202,16 @@ function initVanillaTiltEffect() {
   const card = document.getElementById("blurred-box");
   if (card && typeof VanillaTilt !== "undefined") {
     VanillaTilt.init(card, {
-      max: 12,
+      max: 10,
       speed: 400,
       glare: true,
-      "max-glare": 0.25,
+      "max-glare": 0.2,
     });
   }
 }
 
 /* --------------------------------------------------------------------------
-   6. Discord Widget thời gian thực qua WebSocket Lanyard API
+   6. Discord Widget (Lấy ngay lập tức qua API + Cập nhật Realtime qua Socket)
 -------------------------------------------------------------------------- */
 function initDiscordLanyard(userId) {
   if (!userId) return;
@@ -211,6 +228,17 @@ function initDiscordLanyard(userId) {
   const actState = document.getElementById("discord-activity-state");
   const albumArt = document.getElementById("discord-album-art");
 
+  // 1. Lấy dữ liệu ngay tức thì bằng HTTP API
+  fetch(`https://api.lanyard.rest/v1/users/${userId}`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.success && data.data) {
+        renderDiscord(data.data);
+      }
+    })
+    .catch(err => console.error("Lanyard REST API Error:", err));
+
+  // 2. Kết nối WebSocket duy trì cập nhật trực tiếp
   const socket = new WebSocket("wss://api.lanyard.rest/socket");
 
   socket.onopen = () => {
@@ -221,76 +249,86 @@ function initDiscordLanyard(userId) {
   };
 
   socket.onmessage = (event) => {
-    const res = JSON.parse(event.data);
+    try {
+      const res = JSON.parse(event.data);
 
-    // Heartbeat định kỳ giữ kết nối socket
-    if (res.op === 1) {
-      setInterval(() => {
-        socket.send(JSON.stringify({ op: 3 }));
-      }, res.d.heartbeat_interval);
-    }
+      if (res.op === 1) {
+        setInterval(() => {
+          if (socket.readyState === WebSocket.OPEN) {
+            socket.send(JSON.stringify({ op: 3 }));
+          }
+        }, res.d.heartbeat_interval);
+      }
 
-    if (res.t === "INIT_STATE" || res.t === "PRESENCE_UPDATE") {
-      renderDiscord(res.d);
+      if (res.t === "INIT_STATE" || res.t === "PRESENCE_UPDATE") {
+        renderDiscord(res.d);
+      }
+    } catch (e) {
+      console.error(e);
     }
   };
 
   function renderDiscord(data) {
     if (!data) return;
 
-    // 1. Tên & Avatar
+    // Tên & Avatar
     const user = data.discord_user;
-    if (usernameText) usernameText.textContent = user.global_name || user.username;
-    if (avatarImg) {
-      const ext = user.avatar && user.avatar.startsWith("a_") ? "gif" : "png";
-      avatarImg.src = user.avatar
-        ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=128`
-        : `https://cdn.discordapp.com/embed/avatars/0.png`;
+    if (user) {
+      if (usernameText) usernameText.textContent = user.global_name || user.username;
+      if (avatarImg) {
+        const ext = user.avatar && user.avatar.startsWith("a_") ? "gif" : "png";
+        avatarImg.src = user.avatar
+          ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=128`
+          : `https://cdn.discordapp.com/embed/avatars/0.png`;
+      }
     }
 
-    // 2. Trạng thái online / idle / dnd / offline
+    // Trạng thái online
+    const status = data.discord_status || "offline";
     if (statusDot) {
       statusDot.className = "";
-      statusDot.classList.add(`status-${data.discord_status}`);
+      statusDot.classList.add(`status-${status}`);
     }
     if (statusText) {
-      statusText.textContent = data.discord_status.toUpperCase();
+      statusText.textContent = status.toUpperCase();
     }
 
-    // 3. Hoạt động (Spotify hoặc Game)
+    // Hoạt động: Spotify hoặc Game
     const spotify = data.spotify;
-    const activity = (data.activities || []).find(a => a.type === 0 || a.type === 2);
+    const activities = data.activities || [];
+    const customActivity = activities.find(a => a.type === 0 || a.type === 2);
 
     if (spotify) {
-      setActivityDisplay({
+      showActivity({
         title: spotify.song,
-        sub1: `by ${spotify.artist}`,
-        sub2: `on ${spotify.album}`,
+        sub1: `bởi ${spotify.artist}`,
+        sub2: `trên ${spotify.album}`,
         art: spotify.album_art_url
       });
-    } else if (activity) {
-      let icon = null;
-      if (activity.assets && activity.assets.large_image) {
-        const raw = activity.assets.large_image;
-        icon = raw.startsWith("mp:external")
+    } else if (customActivity) {
+      let artUrl = null;
+      if (customActivity.assets && customActivity.assets.large_image) {
+        const raw = customActivity.assets.large_image;
+        artUrl = raw.startsWith("mp:external")
           ? `https://media.discordapp.net/${raw.replace("mp:", "")}`
-          : `https://cdn.discordapp.com/app-assets/${activity.application_id}/${raw}.png`;
+          : `https://cdn.discordapp.com/app-assets/${customActivity.application_id}/${raw}.png`;
       }
-      setActivityDisplay({
-        title: activity.name,
-        sub1: activity.details || "",
-        sub2: activity.state || "",
-        art: icon
+
+      showActivity({
+        title: customActivity.name,
+        sub1: customActivity.details || "",
+        sub2: customActivity.state || "",
+        art: artUrl
       });
     } else {
-      if (actInfo) actInfo.style.display = "none";
-      if (noAct) noAct.style.display = "flex";
+      if (actInfo) actInfo.style.setProperty("display", "none", "important");
+      if (noAct) noAct.style.setProperty("display", "flex", "important");
     }
   }
 
-  function setActivityDisplay({ title, sub1, sub2, art }) {
-    if (noAct) noAct.style.display = "none";
-    if (actInfo) actInfo.style.display = "flex";
+  function showActivity({ title, sub1, sub2, art }) {
+    if (noAct) noAct.style.setProperty("display", "none", "important");
+    if (actInfo) actInfo.style.setProperty("display", "flex", "important");
 
     if (actName) actName.textContent = title;
     if (actDetails) actDetails.textContent = sub1;
