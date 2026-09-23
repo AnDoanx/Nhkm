@@ -13,7 +13,7 @@ Nhấn đóng [X] hoặc đợi thẻ hồ sơ tải...
 `,
   TERMINAL_SPEED: 35,
   USERNAME_TEXT: "c0mplex",
-  PAGE_TITLES: ["c0mplex | Bio", "IoT Enthusiast", "Welcome to my page!"]
+  PAGE_TITLES: ["c0mplex | Bio", "IoT Enthusiast", "Chiikawa Lover (◕‿◕)"]
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -37,7 +37,7 @@ function initAnimatedTitle() {
 }
 
 /* --------------------------------------------------------------------------
-   2. Logic Terminal (Đã fix chạm trên cảm ứng điện thoại + Tự đóng khi xong)
+   2. Logic Terminal (Đã fix chạm trên cảm ứng + Tự đóng khi xong)
 -------------------------------------------------------------------------- */
 function initTerminal() {
   const terminal = document.getElementById("terminal");
@@ -68,13 +68,12 @@ function initTerminal() {
       i++;
       setTimeout(typeLog, CONFIG.TERMINAL_SPEED);
     } else {
-      // Tự động đóng terminal sau khi gõ xong 1.5 giây
       setTimeout(closeTerminal, 1500);
     }
   }
   typeLog();
 
-  // Nút đóng terminal (Hỗ trợ cả click chuột lẫn cảm ứng điện thoại)
+  // Nút đóng terminal
   if (closeBtn) {
     ["click", "touchend"].forEach(evt => {
       closeBtn.addEventListener(evt, (e) => {
@@ -125,7 +124,7 @@ function initTerminal() {
 }
 
 /* --------------------------------------------------------------------------
-   3. Hiệu ứng gõ chữ Username lặp lại
+   3. Hiệu ứng gõ chữ Username
 -------------------------------------------------------------------------- */
 function initUsernameTyping() {
   const userEl = document.getElementById("username");
@@ -181,22 +180,15 @@ function initMediaController() {
     });
   }
 
-  // Khắc phục chính sách Autoplay của trình duyệt khi chạm vào màn hình
-  document.addEventListener("touchstart", () => {
-    if (video.paused) {
-      video.play().catch(() => {});
-    }
-  }, { once: true });
-
-  document.addEventListener("click", () => {
-    if (video.paused) {
-      video.play().catch(() => {});
-    }
-  }, { once: true });
+  const unlockAudio = () => {
+    if (video.paused) video.play().catch(() => {});
+  };
+  document.addEventListener("touchstart", unlockAudio, { once: true });
+  document.addEventListener("click", unlockAudio, { once: true });
 }
 
 /* --------------------------------------------------------------------------
-   5. Hiệu ứng nghiêng 3D (Vanilla Tilt)
+   5. Hiệu ứng 3D Tilt
 -------------------------------------------------------------------------- */
 function initVanillaTiltEffect() {
   const card = document.getElementById("blurred-box");
@@ -211,11 +203,12 @@ function initVanillaTiltEffect() {
 }
 
 /* --------------------------------------------------------------------------
-   6. Discord Widget (Lấy ngay lập tức qua API + Cập nhật Realtime qua Socket)
+   6. Discord Widget (Tự cập nhật cả ảnh Profile chính)
 -------------------------------------------------------------------------- */
 function initDiscordLanyard(userId) {
   if (!userId) return;
 
+  const mainPfp = document.getElementById("profile-picture");
   const avatarImg = document.getElementById("discord-avatar");
   const usernameText = document.getElementById("discord-username");
   const statusDot = document.getElementById("discord-status-dot");
@@ -228,7 +221,7 @@ function initDiscordLanyard(userId) {
   const actState = document.getElementById("discord-activity-state");
   const albumArt = document.getElementById("discord-album-art");
 
-  // 1. Lấy dữ liệu ngay tức thì bằng HTTP API
+  // Gọi REST API hiển thị dữ liệu tức thì
   fetch(`https://api.lanyard.rest/v1/users/${userId}`)
     .then(res => res.json())
     .then(data => {
@@ -236,9 +229,9 @@ function initDiscordLanyard(userId) {
         renderDiscord(data.data);
       }
     })
-    .catch(err => console.error("Lanyard REST API Error:", err));
+    .catch(err => console.error("Lanyard Error:", err));
 
-  // 2. Kết nối WebSocket duy trì cập nhật trực tiếp
+  // Kết nối WebSocket thời gian thực
   const socket = new WebSocket("wss://api.lanyard.rest/socket");
 
   socket.onopen = () => {
@@ -251,7 +244,6 @@ function initDiscordLanyard(userId) {
   socket.onmessage = (event) => {
     try {
       const res = JSON.parse(event.data);
-
       if (res.op === 1) {
         setInterval(() => {
           if (socket.readyState === WebSocket.OPEN) {
@@ -259,7 +251,6 @@ function initDiscordLanyard(userId) {
           }
         }, res.d.heartbeat_interval);
       }
-
       if (res.t === "INIT_STATE" || res.t === "PRESENCE_UPDATE") {
         renderDiscord(res.d);
       }
@@ -271,19 +262,21 @@ function initDiscordLanyard(userId) {
   function renderDiscord(data) {
     if (!data) return;
 
-    // Tên & Avatar
     const user = data.discord_user;
     if (user) {
       if (usernameText) usernameText.textContent = user.global_name || user.username;
-      if (avatarImg) {
-        const ext = user.avatar && user.avatar.startsWith("a_") ? "gif" : "png";
-        avatarImg.src = user.avatar
-          ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=128`
-          : `https://cdn.discordapp.com/embed/avatars/0.png`;
-      }
+      
+      const ext = user.avatar && user.avatar.startsWith("a_") ? "gif" : "png";
+      const pfpUrl = user.avatar
+        ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=128`
+        : `https://cdn.discordapp.com/embed/avatars/0.png`;
+
+      // Cập nhật cả avatar discord widget và avatar lớn trên cùng
+      if (avatarImg) avatarImg.src = pfpUrl;
+      if (mainPfp) mainPfp.src = pfpUrl;
     }
 
-    // Trạng thái online
+    // Cập nhật status
     const status = data.discord_status || "offline";
     if (statusDot) {
       statusDot.className = "";
@@ -293,7 +286,7 @@ function initDiscordLanyard(userId) {
       statusText.textContent = status.toUpperCase();
     }
 
-    // Hoạt động: Spotify hoặc Game
+    // Hoạt động
     const spotify = data.spotify;
     const activities = data.activities || [];
     const customActivity = activities.find(a => a.type === 0 || a.type === 2);
@@ -313,7 +306,6 @@ function initDiscordLanyard(userId) {
           ? `https://media.discordapp.net/${raw.replace("mp:", "")}`
           : `https://cdn.discordapp.com/app-assets/${customActivity.application_id}/${raw}.png`;
       }
-
       showActivity({
         title: customActivity.name,
         sub1: customActivity.details || "",
