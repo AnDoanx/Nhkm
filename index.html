@@ -3,19 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AM Editor Bio | Khoa An</title>
-  <!-- Font Awesome Icons -->
+  <title>Motion Designer & Animator Bio</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <style>
     :root {
-      --bg: #09090e;
-      --card-bg: rgba(22, 22, 34, 0.65);
+      --bg: #07080d;
+      --card-bg: rgba(18, 20, 32, 0.6);
       --card-border: rgba(255, 255, 255, 0.08);
-      --accent-purple: #7928ca;
-      --accent-cyan: #00dfd8;
-      --neon-glow: 0 8px 32px 0 rgba(0, 223, 216, 0.15);
-      --text-main: #f5f5f7;
-      --text-sub: #9ca3af;
+      --neon-cyan: #00f2fe;
+      --neon-purple: #9b51e0;
+      --neon-pink: #ff2a85;
+      --text: #ffffff;
+      --text-muted: #8e95a5;
     }
 
     * {
@@ -23,320 +22,493 @@
       padding: 0;
       box-sizing: border-box;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
       background-color: var(--bg);
-      color: var(--text-main);
+      color: var(--text);
       min-height: 100vh;
       display: flex;
       justify-content: center;
+      align-items: center;
       padding: 40px 16px;
-      background-image: 
-        radial-gradient(circle at 15% 15%, rgba(121, 40, 202, 0.25) 0%, transparent 40%),
-        radial-gradient(circle at 85% 85%, rgba(0, 223, 216, 0.2) 0%, transparent 40%);
-      background-attachment: fixed;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Interactive Particle Canvas */
+    #particles-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Ambient Glow Blobs */
+    .glow-blob {
+      position: fixed;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      filter: blur(90px);
+      z-index: 0;
+      opacity: 0.35;
+      animation: floatOrbit 12s infinite alternate ease-in-out;
+      pointer-events: none;
+    }
+
+    .blob-1 {
+      top: 10%;
+      left: 10%;
+      background: radial-gradient(circle, var(--neon-purple), transparent 70%);
+    }
+
+    .blob-2 {
+      bottom: 10%;
+      right: 10%;
+      background: radial-gradient(circle, var(--neon-cyan), transparent 70%);
+      animation-delay: -6s;
+    }
+
+    @keyframes floatOrbit {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(40px, 30px) scale(1.15); }
     }
 
     .container {
       width: 100%;
-      max-width: 440px;
+      max-width: 430px;
+      position: relative;
+      z-index: 2;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 20px;
+      gap: 22px;
     }
 
-    /* Profile Header */
-    .profile-card {
+    /* Profile Section */
+    .profile {
       text-align: center;
-      width: 100%;
-    }
-
-    .avatar-wrapper {
       position: relative;
-      width: 105px;
-      height: 105px;
-      margin: 0 auto 14px;
     }
 
-    .avatar {
+    .avatar-box {
+      position: relative;
+      width: 110px;
+      height: 110px;
+      margin: 0 auto 16px;
+      cursor: pointer;
+    }
+
+    .avatar-ring {
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, var(--neon-purple), var(--neon-cyan), var(--neon-pink), var(--neon-purple));
+      animation: spin 5s linear infinite;
+      filter: blur(4px);
+      opacity: 0.8;
+    }
+
+    .avatar-img {
+      position: relative;
       width: 100%;
       height: 100%;
       border-radius: 50%;
       object-fit: cover;
-      border: 2px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 0 25px rgba(0, 223, 216, 0.35);
+      border: 3px solid #0e111a;
+      z-index: 1;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    .badge-am {
-      position: absolute;
-      bottom: 2px;
-      right: 2px;
-      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
-      border: 2px solid var(--bg);
-      border-radius: 50%;
-      width: 26px;
-      height: 26px;
+    .avatar-box:hover .avatar-img {
+      transform: scale(1.06) rotate(3deg);
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    .name-wrapper {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 11px;
-      color: #fff;
+      gap: 8px;
     }
 
     .name {
-      font-size: 1.25rem;
+      font-size: 1.35rem;
       font-weight: 700;
-      letter-spacing: -0.3px;
-      display: flex;
+      letter-spacing: -0.2px;
+      background: linear-gradient(90deg, #fff, #b7c4d8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .badge-pulse {
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
       gap: 6px;
-    }
-
-    .verified-icon {
-      color: #00dfd8;
-      font-size: 0.95rem;
-    }
-
-    .bio-desc {
-      font-size: 0.88rem;
-      color: var(--text-sub);
-      margin-top: 6px;
-      line-height: 1.4;
-    }
-
-    .tag-container {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 10px;
-    }
-
-    .tag {
-      font-size: 0.72rem;
-      padding: 4px 10px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--card-border);
+      background: rgba(0, 242, 254, 0.1);
+      border: 1px solid rgba(0, 242, 254, 0.3);
+      padding: 3px 9px;
       border-radius: 20px;
-      color: #d1d5db;
+      font-size: 0.72rem;
+      color: var(--neon-cyan);
+      margin-top: 8px;
     }
 
-    /* Social Icons Row */
-    .social-row {
-      display: flex;
-      gap: 14px;
-      margin: 6px 0;
-    }
-
-    .social-btn {
-      width: 44px;
-      height: 44px;
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
-      background: var(--card-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid var(--card-border);
+      background: var(--neon-cyan);
+      box-shadow: 0 0 8px var(--neon-cyan);
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.4; }
+    }
+
+    .bio-text {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+
+    /* Social Icons */
+    .social-bar {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-main);
-      text-decoration: none;
-      font-size: 1.1rem;
-      transition: all 0.25s ease;
-    }
-
-    .social-btn:hover {
-      transform: translateY(-3px);
-      border-color: var(--accent-cyan);
-      box-shadow: 0 4px 15px rgba(0, 223, 216, 0.3);
-      color: var(--accent-cyan);
-    }
-
-    /* Link & Resource Cards */
-    .section-title {
-      width: 100%;
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
-      color: var(--text-sub);
-      margin-top: 10px;
-      padding-left: 4px;
-    }
-
-    .links-list {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
       gap: 12px;
     }
 
-    .link-card {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 16px;
-      background: var(--card-bg);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+    .social-link {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--card-border);
-      border-radius: 14px;
-      text-decoration: none;
-      color: var(--text-main);
-      box-shadow: var(--neon-glow);
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .link-card:hover {
-      transform: translateY(-2px) scale(1.01);
-      border-color: rgba(0, 223, 216, 0.4);
-      background: rgba(30, 30, 48, 0.75);
-    }
-
-    .link-left {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .link-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.1rem;
-      color: #fff;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 1.15rem;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .bg-xml { background: linear-gradient(135deg, #ff007f, #7928ca); }
-    .bg-drive { background: linear-gradient(135deg, #0070f3, #00dfd8); }
-    .bg-preset { background: linear-gradient(135deg, #ff4d4d, #f9cb28); }
-    .bg-tiktok { background: #000; border: 1px solid rgba(255, 255, 255, 0.2); }
+    .social-link:hover {
+      transform: translateY(-5px) scale(1.08);
+      border-color: var(--neon-cyan);
+      color: var(--neon-cyan);
+      box-shadow: 0 8px 20px rgba(0, 242, 254, 0.25);
+    }
 
-    .link-text {
+    /* Links Container */
+    .links-group {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      perspective: 1000px;
+    }
+
+    /* 3D Tilt Card */
+    .card-item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 18px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      text-decoration: none;
+      color: var(--text);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      transform-style: preserve-3d;
+      transition: transform 0.2s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    /* Spotlight gradient effect on hover */
+    .card-item::before {
+      content: "";
+      position: absolute;
+      top: var(--y, 50%);
+      left: var(--x, 50%);
+      transform: translate(-50%, -50%);
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, rgba(0, 242, 254, 0.18), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .card-item:hover::before {
+      opacity: 1;
+    }
+
+    .card-item:hover {
+      border-color: rgba(0, 242, 254, 0.5);
+      box-shadow: 0 12px 35px rgba(0, 242, 254, 0.15);
+    }
+
+    .card-content {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      z-index: 2;
+    }
+
+    .card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .card-item:hover .card-icon {
+      transform: scale(1.1) rotate(-4deg);
+    }
+
+    .icon-glow-1 { color: #ff2a85; box-shadow: inset 0 0 12px rgba(255, 42, 133, 0.2); }
+    .icon-glow-2 { color: #00f2fe; box-shadow: inset 0 0 12px rgba(0, 242, 254, 0.2); }
+    .icon-glow-3 { color: #9b51e0; box-shadow: inset 0 0 12px rgba(155, 81, 224, 0.2); }
+    .icon-glow-4 { color: #ffd200; box-shadow: inset 0 0 12px rgba(255, 210, 0, 0.2); }
+
+    .card-info {
       text-align: left;
     }
 
-    .link-title {
-      font-size: 0.95rem;
+    .card-title {
+      font-size: 0.98rem;
       font-weight: 600;
     }
 
-    .link-desc {
+    .card-sub {
       font-size: 0.78rem;
-      color: var(--text-sub);
-      margin-top: 2px;
+      color: var(--text-muted);
+      margin-top: 3px;
     }
 
-    .arrow-icon {
-      color: var(--text-sub);
-      font-size: 0.85rem;
-      transition: transform 0.2s ease;
+    .arrow {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      z-index: 2;
+      transition: all 0.3s ease;
     }
 
-    .link-card:hover .arrow-icon {
-      transform: translateX(4px);
-      color: var(--accent-cyan);
+    .card-item:hover .arrow {
+      transform: translateX(5px);
+      color: var(--neon-cyan);
     }
 
     footer {
-      font-size: 0.75rem;
-      color: var(--text-sub);
-      margin-top: 20px;
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      margin-top: 15px;
+      letter-spacing: 0.5px;
     }
   </style>
 </head>
 <body>
 
+  <canvas id="particles-canvas"></canvas>
+
+  <div class="glow-blob blob-1"></div>
+  <div class="glow-blob blob-2"></div>
+
   <div class="container">
-    <!-- Header Profile -->
-    <div class="profile-card">
-      <div class="avatar-wrapper">
-        <img class="avatar" src="https://picsum.photos/300/300" alt="Avatar" />
-        <div class="badge-am" title="Alight Motion Editor">
-          <i class="fa-solid fa-play"></i>
-        </div>
+    <!-- Profile -->
+    <div class="profile">
+      <div class="avatar-box">
+        <div class="avatar-ring"></div>
+        <img class="avatar-img" src="https://picsum.photos/300/300" alt="Avatar" />
       </div>
-      <div class="name">
-        Khoa An <i class="fa-solid fa-circle-check verified-icon"></i>
+      <div class="name-wrapper">
+        <h1 class="name">Khoa An</h1>
+        <i class="fa-solid fa-circle-check" style="color: var(--neon-cyan); font-size: 1rem;"></i>
       </div>
-      <p class="bio-desc">Alight Motion Editor • Typography • Smooth Transition<br>Share XML Presets & Project Files</p>
-      
-      <div class="tag-container">
-        <span class="tag">#AlightMotion</span>
-        <span class="tag">#Presets</span>
-        <span class="tag">#AMV_Edit</span>
+      <div class="badge-pulse">
+        <span class="pulse-dot"></span>
+        Motion & VFX Creator
       </div>
+      <p class="bio-text">Thiết kế chuyển động • Keyframe mượt mà<br>Chia sẻ tài nguyên Animation, Shake & Color Grading.</p>
     </div>
 
-    <!-- Social Links -->
-    <div class="social-row">
-      <a href="https://tiktok.com" target="_blank" class="social-btn"><i class="fa-brands fa-tiktok"></i></a>
-      <a href="https://youtube.com" target="_blank" class="social-btn"><i class="fa-brands fa-youtube"></i></a>
-      <a href="https://facebook.com" target="_blank" class="social-btn"><i class="fa-brands fa-facebook"></i></a>
-      <a href="https://t.me" target="_blank" class="social-btn"><i class="fa-brands fa-telegram"></i></a>
+    <!-- Socials -->
+    <div class="social-bar">
+      <a href="#" class="social-link"><i class="fa-brands fa-tiktok"></i></a>
+      <a href="#" class="social-link"><i class="fa-brands fa-youtube"></i></a>
+      <a href="#" class="social-link"><i class="fa-brands fa-telegram"></i></a>
+      <a href="#" class="social-link"><i class="fa-brands fa-discord"></i></a>
     </div>
 
-    <!-- Direct Links Section -->
-    <div class="section-title">Tài nguyên & Preset AM</div>
-
-    <div class="links-list">
-      <!-- Item 1: Preset XML -->
-      <a href="#" class="link-card">
-        <div class="link-left">
-          <div class="link-icon bg-xml"><i class="fa-solid fa-code"></i></div>
-          <div class="link-text">
-            <div class="link-title">Tổng hợp XML Mới Nhất</div>
-            <div class="link-desc">Shake, CC màu, Transition mượt</div>
+    <!-- Interactive 3D Cards -->
+    <div class="links-group">
+      <a href="#" class="card-item">
+        <div class="card-content">
+          <div class="card-icon icon-glow-1"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+          <div class="card-info">
+            <div class="card-title">Motion Presets Pack</div>
+            <div class="card-sub">Smooth Graph, Inertia, Elastic Bounce</div>
           </div>
         </div>
-        <i class="fa-solid fa-chevron-right arrow-icon"></i>
+        <i class="fa-solid fa-chevron-right arrow"></i>
       </a>
 
-      <!-- Item 2: Link Dự án AM trực tiếp -->
-      <a href="#" class="link-card">
-        <div class="link-left">
-          <div class="link-icon bg-preset"><i class="fa-solid fa-layer-group"></i></div>
-          <div class="link-text">
-            <div class="link-title">Link Project AM (5MB+)</div>
-            <div class="link-desc">Nhập trực tiếp vào Alight Motion</div>
+      <a href="#" class="card-item">
+        <div class="card-content">
+          <div class="card-icon icon-glow-2"><i class="fa-solid fa-layer-group"></i></div>
+          <div class="card-info">
+            <div class="card-title">Showcase Dự Án Animation</div>
+            <div class="card-sub">Video mẫu 60fps & Source Files</div>
           </div>
         </div>
-        <i class="fa-solid fa-chevron-right arrow-icon"></i>
+        <i class="fa-solid fa-chevron-right arrow"></i>
       </a>
 
-      <!-- Item 3: Drive Pack Font & Overlay -->
-      <a href="#" class="link-card">
-        <div class="link-left">
-          <div class="link-icon bg-drive"><i class="fa-brands fa-google-drive"></i></div>
-          <div class="link-text">
-            <div class="link-title">Pack Font Việt Hóa + Overlay</div>
-            <div class="link-desc">Kho tài nguyên edit typography & beat</div>
+      <a href="#" class="card-item">
+        <div class="card-content">
+          <div class="card-icon icon-glow-3"><i class="fa-solid fa-cubes"></i></div>
+          <div class="card-info">
+            <div class="card-title">Assets 3D & Overlays</div>
+            <div class="card-sub">Hạt bụi, Glitch, Light Leak cao cấp</div>
           </div>
         </div>
-        <i class="fa-solid fa-chevron-right arrow-icon"></i>
+        <i class="fa-solid fa-chevron-right arrow"></i>
       </a>
 
-      <!-- Item 4: TikTok Showcase -->
-      <a href="#" class="link-card">
-        <div class="link-left">
-          <div class="link-icon bg-tiktok"><i class="fa-brands fa-tiktok"></i></div>
-          <div class="link-text">
-            <div class="link-title">Kênh TikTok Edit Video</div>
-            <div class="link-desc">Xem preview các trend AM sắp ra mắt</div>
+      <a href="#" class="card-item">
+        <div class="card-content">
+          <div class="card-icon icon-glow-4"><i class="fa-solid fa-cloud-arrow-down"></i></div>
+          <div class="card-info">
+            <div class="card-title">Kho Drive Tài Nguyên VIP</div>
+            <div class="card-sub">Font việt hóa, Sound Effects & CC</div>
           </div>
         </div>
-        <i class="fa-solid fa-chevron-right arrow-icon"></i>
+        <i class="fa-solid fa-chevron-right arrow"></i>
       </a>
     </div>
 
     <footer>
-      © 2026 Designed for Alight Motion Editors
+      Interactive Motion Bio © 2026
     </footer>
   </div>
 
+  <script>
+    /* 1. Mạng lưới Particles Animation */
+    const canvas = document.getElementById("particles-canvas");
+    const ctx = canvas.getContext("2d");
+    let particlesArray = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 0.8;
+        this.speedX = (Math.random() - 0.5) * 0.8;
+        this.speedY = (Math.random() - 0.5) * 0.8;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+      }
+      draw() {
+        ctx.fillStyle = "rgba(0, 242, 254, 0.4)";
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      particlesArray = [];
+      const num = Math.floor((canvas.width * canvas.height) / 16000);
+      for (let i = 0; i < num; i++) {
+        particlesArray.push(new Particle());
+      }
+    }
+    initParticles();
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < particlesArray.length; i++) {
+        particlesArray[i].update();
+        particlesArray[i].draw();
+
+        for (let j = i + 1; j < particlesArray.length; j++) {
+          const dx = particlesArray[i].x - particlesArray[j].x;
+          const dy = particlesArray[i].y - particlesArray[j].y;
+          const dist = Math.hypot(dx, dy);
+
+          if (dist < 100) {
+            ctx.strokeStyle = `rgba(155, 81, 224, ${0.15 - dist / 700})`;
+            ctx.lineWidth = 0.6;
+            ctx.beginPath();
+            ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+            ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    /* 2. Hiệu ứng 3D Tilt Card & Light Spotlight */
+    const cards = document.querySelectorAll(".card-item");
+
+    cards.forEach((card) => {
+      card.addEventListener("mousemove", (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        // Tính góc xoay 3D
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -7;
+        const rotateY = ((x - centerX) / centerX) * 7;
+
+        card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+        card.style.setProperty("--x", `${x}px`);
+        card.style.setProperty("--y", `${y}px`);
+      });
+
+      card.addEventListener("mouseleave", () => {
+        card.style.transform = "perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)";
+      });
+    });
+  </script>
 </body>
 </html>
