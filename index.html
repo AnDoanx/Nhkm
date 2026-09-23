@@ -5,9 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>c0mplex | Profile</title>
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="./assets/favico/default.ico">
-
   <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,9 +23,9 @@
   <div id="terminal">
     <div id="terminal-header">
       <div id="terminal-buttons">
-        <div class="terminal-button" id="close-button" title="Close"></div>
-        <div class="terminal-button" id="minimize-button" title="Minimize"></div>
-        <div class="terminal-button" id="maximize-button" title="Maximize"></div>
+        <div class="terminal-button" id="close-button" title="Đóng"></div>
+        <div class="terminal-button" id="minimize-button" title="Thu nhỏ"></div>
+        <div class="terminal-button" id="maximize-button" title="Phóng to"></div>
       </div>
     </div>
     <div id="terminal-content">
@@ -40,7 +37,6 @@
   <div id="video-background">
     <video autoplay muted loop id="myVideo" playsinline>
       <source src="./assets/back/default.mp4" type="video/mp4">
-      Your browser does not support HTML5 video.
     </video>
 
     <div id="audio-background">
@@ -57,7 +53,8 @@
 
   <!-- Profile Card -->
   <div id="blurred-box" class="tilt-element">
-    <img id="profile-picture" src="./assets/pfp/default.png" alt="Profile Picture">
+    <!-- Ảnh đại diện chính (tự cập nhật theo avatar Discord) -->
+    <img id="profile-picture" src="https://media.tenor.com/2b_6gSgVf4UAAAAj/chiikawa.gif" alt="Profile Picture">
     <img id="avatar-frame" src="" alt="Avatar Frame">
 
     <p id="username-container">
@@ -65,38 +62,38 @@
       <span id="typing-cursor">|</span>
     </p>
 
-    <!-- Badges -->
+    <!-- Bộ Badges Chiikawa -->
     <div class="badges-container">
-      <img src="./assets/badge/developer.png" alt="Developer badge">
-      <img src="./assets/badge/love.png" alt="Heart badge">
-      <img src="./assets/badge/music.png" alt="Music badge">
-      <img src="./assets/badge/verified.png" alt="Verified badge">
+      <img src="https://media.tenor.com/2b_6gSgVf4UAAAAj/chiikawa.gif" alt="Chiikawa" title="Chiikawa">
+      <img src="https://media.tenor.com/tO9tM8_n3UoAAAAj/hachiware-chiikawa.gif" alt="Hachiware" title="Hachiware">
+      <img src="https://media.tenor.com/lM_cMvhY9m4AAAAj/usagi-chiikawa.gif" alt="Usagi" title="Usagi">
+      <img src="https://media.tenor.com/FwWk8hI5sPMAAAAj/chiikawa-heart.gif" alt="Love" title="Love">
     </div>
 
-    <!-- Tech Stack / Languages -->
+    <!-- Dàn Icon Sticker Chiikawa & Friends -->
     <div class="lang-container">
-      <img src="./assets/logo/c.png" alt="C">
-      <img src="./assets/logo/cplusplus.png" alt="C++">
-      <img src="./assets/logo/matlab.png" alt="MATLAB">
-      <img src="./assets/logo/python.png" alt="Python">
-      <img src="./assets/logo/csharp.png" alt="C#">
-      <img src="./assets/logo/java.png" alt="Java">
+      <img src="https://media.tenor.com/h5vYp52tq3wAAAAj/chiikawa-cry.gif" alt="Chiikawa Cry" title="Chiikawa">
+      <img src="https://media.tenor.com/y3x3F5Z08vAAAAAj/usagi-dance.gif" alt="Usagi Dance" title="Usagi">
+      <img src="https://media.tenor.com/0233p56P5q8AAAAj/hachiware-happy.gif" alt="Hachiware Happy" title="Hachiware">
+      <img src="https://media.tenor.com/L1M4_f8tW0AAAAAj/momonga-chiikawa.gif" alt="Momonga" title="Momonga">
+      <img src="https://media.tenor.com/YwN2-kR6gYgAAAAj/kurimanju-chiikawa.gif" alt="Kurimanju" title="Kurimanju">
+      <img src="https://media.tenor.com/rQ0E5zZ6RDEAAAAj/shisa-chiikawa.gif" alt="Shisa" title="Shisa">
     </div>
 
-    <!-- Bio Description -->
-    <div class="user-description-container">
-      <p id="user-description-text">
+    <!-- Tiểu sử Bio -->
+    <div class="user-description">
+      <p id="user-description">
         Hi everyone, I’m c0mplex<br>
         I have a deep interest in exploring Internet of Things<br>
         I’m eager to connect with others and keep learning from new experiences
       </p>
     </div>
 
-    <!-- Discord Presence Widget (Lanyard) -->
+    <!-- Discord Widget (Lanyard) -->
     <div class="discord-widget">
       <div class="discord-content">
         <div class="discord-icon">
-          <img id="discord-avatar" src="./assets/pfp/default.png" alt="Discord Avatar" draggable="false" loading="lazy">
+          <img id="discord-avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Discord Avatar" draggable="false" loading="lazy">
         </div>
         <div class="discord-meta">
           <b id="discord-username">Loading...</b>
@@ -139,7 +136,7 @@
     </div>
   </div>
 
-  <!-- Single Master Script -->
-  <script src="script.js"></script>
+  <!-- Master Script -->
+  <script src="main.js"></script>
 </body>
 </html>
