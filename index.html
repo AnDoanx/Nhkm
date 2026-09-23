@@ -1,486 +1,342 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cinematic OTP Deck Verification</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AM Editor Bio | Khoa An</title>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <style>
     :root {
-      --bg: #090a0f;
-      --card-bg: #141721;
-      --border: rgba(255, 255, 255, 0.08);
-      --ice: #00f2fe;
-      --success: #00f59b;
-      --text: #ffffff;
-      --text-dim: #747b90;
+      --bg: #09090e;
+      --card-bg: rgba(22, 22, 34, 0.65);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent-purple: #7928ca;
+      --accent-cyan: #00dfd8;
+      --neon-glow: 0 8px 32px 0 rgba(0, 223, 216, 0.15);
+      --text-main: #f5f5f7;
+      --text-sub: #9ca3af;
     }
 
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
     body {
       background-color: var(--bg);
-      color: var(--text);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 40px 16px;
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(121, 40, 202, 0.25) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(0, 223, 216, 0.2) 0%, transparent 40%);
+      background-attachment: fixed;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 440px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      overflow: hidden;
+      gap: 20px;
     }
 
-    .badge {
-      font-size: 11px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: #5d6479;
-      margin-bottom: 8px;
+    /* Profile Header */
+    .profile-card {
+      text-align: center;
+      width: 100%;
     }
 
-    .header-title {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 35px;
-    }
-
-    .header-title span {
-      background: linear-gradient(90deg, #60a5fa, #38bdf8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .deck-container {
+    .avatar-wrapper {
       position: relative;
-      width: 360px;
-      height: 380px;
-      background-color: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 32px;
+      width: 105px;
+      height: 105px;
+      margin: 0 auto 14px;
+    }
+
+    .avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 25px rgba(0, 223, 216, 0.35);
+    }
+
+    .badge-am {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+      border: 2px solid var(--bg);
+      border-radius: 50%;
+      width: 26px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: #fff;
+    }
+
+    .name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .verified-icon {
+      color: #00dfd8;
+      font-size: 0.95rem;
+    }
+
+    .bio-desc {
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+
+    .tag-container {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .tag {
+      font-size: 0.72rem;
+      padding: 4px 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      color: #d1d5db;
+    }
+
+    /* Social Icons Row */
+    .social-row {
+      display: flex;
+      gap: 14px;
+      margin: 6px 0;
+    }
+
+    .social-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: all 0.25s ease;
+    }
+
+    .social-btn:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent-cyan);
+      box-shadow: 0 4px 15px rgba(0, 223, 216, 0.3);
+      color: var(--accent-cyan);
+    }
+
+    /* Link & Resource Cards */
+    .section-title {
+      width: 100%;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--text-sub);
+      margin-top: 10px;
+      padding-left: 4px;
+    }
+
+    .links-list {
+      width: 100%;
       display: flex;
       flex-direction: column;
+      gap: 12px;
+    }
+
+    .link-card {
+      display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 40px 24px;
-      box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8),
-                  inset 0 1px 0 rgba(255, 255, 255, 0.08);
-    }
-
-    .card-top {
-      text-align: center;
-    }
-
-    .title {
-      font-size: 20px;
-      font-weight: 600;
-      margin-bottom: 6px;
-      transition: color 0.4s ease;
-    }
-
-    .subtitle {
-      font-size: 13px;
-      color: var(--text-dim);
-      transition: color 0.4s ease;
-    }
-
-    /* Đấu trường trung tâm */
-    .deck-arena {
-      position: relative;
-      width: 240px;
-      height: 110px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* Thẻ slot nhập số */
-    .slot {
-      position: absolute;
-      width: 48px;
-      height: 66px;
-      background: #1b1f2c;
-      border: 1.5px solid #293044;
+      padding: 14px 16px;
+      background: var(--card-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--card-border);
       border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transform-origin: 50% 320%;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
-      transition: border-color 0.25s, box-shadow 0.25s;
-    }
-
-    .slot input {
-      width: 100%;
-      height: 100%;
-      background: transparent;
-      border: none;
-      outline: none;
-      text-align: center;
-      font-size: 22px;
-      font-weight: 700;
-      color: #fff;
-      caret-color: var(--ice);
-    }
-
-    .slot.active {
-      border-color: var(--ice);
-      box-shadow: 0 0 18px rgba(0, 242, 254, 0.35);
-    }
-
-    /* Thẻ trung tâm biến hình (Morph Box) */
-    .morph-card {
-      position: absolute;
-      width: 48px;
-      height: 66px;
-      border-radius: 14px;
-      background: #1b1f2c;
-      border: 2px solid transparent;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      z-index: 10;
-    }
-
-    /* Vòng tròn xoay quét mã */
-    .scan-ring {
-      position: absolute;
-      inset: -4px;
-      border-radius: inherit;
-      pointer-events: none;
-    }
-
-    .scan-ring svg {
-      width: 100%;
-      height: 100%;
-      overflow: visible;
-    }
-
-    .scan-ring rect {
-      fill: none;
-      stroke: var(--ice);
-      stroke-width: 2.5;
-      stroke-dasharray: 80 140;
-      stroke-linecap: round;
-      filter: drop-shadow(0 0 8px var(--ice));
-      animation: rotateScan 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-    }
-
-    @keyframes rotateScan {
-      0% { stroke-dashoffset: 220; }
-      100% { stroke-dashoffset: 0; }
-    }
-
-    /* SVG Tick */
-    .tick-svg {
-      width: 32px;
-      height: 32px;
-      opacity: 0;
-      transform: scale(0.5);
-    }
-
-    .tick-path {
-      fill: none;
-      stroke: var(--success);
-      stroke-width: 4;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      stroke-dasharray: 40;
-      stroke-dashoffset: 40;
-      filter: drop-shadow(0 0 8px rgba(0, 245, 155, 0.8));
-    }
-
-    /* Sóng chấn động bung ra khi xong (Shockwave) */
-    .shockwave {
-      position: absolute;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      border: 2px solid var(--success);
-      pointer-events: none;
-      opacity: 0;
-    }
-
-    .spark {
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      background: var(--success);
-      border-radius: 50%;
-      opacity: 0;
-      box-shadow: 0 0 8px var(--success);
-    }
-
-    .footer-action {
-      font-size: 13px;
-      color: var(--text-dim);
-    }
-
-    .footer-action a {
-      color: #fff;
       text-decoration: none;
+      color: var(--text-main);
+      box-shadow: var(--neon-glow);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .link-card:hover {
+      transform: translateY(-2px) scale(1.01);
+      border-color: rgba(0, 223, 216, 0.4);
+      background: rgba(30, 30, 48, 0.75);
+    }
+
+    .link-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .link-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: #fff;
+    }
+
+    .bg-xml { background: linear-gradient(135deg, #ff007f, #7928ca); }
+    .bg-drive { background: linear-gradient(135deg, #0070f3, #00dfd8); }
+    .bg-preset { background: linear-gradient(135deg, #ff4d4d, #f9cb28); }
+    .bg-tiktok { background: #000; border: 1px solid rgba(255, 255, 255, 0.2); }
+
+    .link-text {
+      text-align: left;
+    }
+
+    .link-title {
+      font-size: 0.95rem;
       font-weight: 600;
-      margin-left: 4px;
-      cursor: pointer;
     }
 
-    .hint-text {
-      margin-top: 28px;
-      font-size: 13px;
-      color: #555b6e;
+    .link-desc {
+      font-size: 0.78rem;
+      color: var(--text-sub);
+      margin-top: 2px;
     }
 
-    .hint-text b {
-      color: #7e879c;
+    .arrow-icon {
+      color: var(--text-sub);
+      font-size: 0.85rem;
+      transition: transform 0.2s ease;
+    }
+
+    .link-card:hover .arrow-icon {
+      transform: translateX(4px);
+      color: var(--accent-cyan);
+    }
+
+    footer {
+      font-size: 0.75rem;
+      color: var(--text-sub);
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
 
-  <div class="badge">Component · 100</div>
-  <div class="header-title">OTP Verification <span>DECK</span></div>
-
-  <div class="deck-container">
-    <div class="card-top">
-      <div class="title" id="statusTitle">Verify your code</div>
-      <div class="subtitle" id="statusSub">Enter the 4-digit code sent to you.</div>
-    </div>
-
-    <div class="deck-arena" id="arena">
-      <!-- 4 ô nhập số -->
-      <div class="slot" data-index="0"><input type="text" maxlength="1" inputmode="numeric"></div>
-      <div class="slot" data-index="1"><input type="text" maxlength="1" inputmode="numeric"></div>
-      <div class="slot" data-index="2"><input type="text" maxlength="1" inputmode="numeric"></div>
-      <div class="slot" data-index="3"><input type="text" maxlength="1" inputmode="numeric"></div>
-
-      <!-- Thẻ gộp Morphing Box -->
-      <div class="morph-card" id="morphCard">
-        <div class="scan-ring" id="scanRing">
-          <svg width="100%" height="100%">
-            <rect id="rectRing" x="0" y="0" width="100%" height="100%" rx="18" ry="18"></rect>
-          </svg>
+  <div class="container">
+    <!-- Header Profile -->
+    <div class="profile-card">
+      <div class="avatar-wrapper">
+        <img class="avatar" src="https://picsum.photos/300/300" alt="Avatar" />
+        <div class="badge-am" title="Alight Motion Editor">
+          <i class="fa-solid fa-play"></i>
         </div>
-        
-        <svg class="tick-svg" id="tickSvg" viewBox="0 0 32 32">
-          <path class="tick-path" id="tickPath" d="M7 16.5 L13 22.5 L25 10.5"></path>
-        </svg>
-
-        <div class="shockwave" id="shockwave"></div>
+      </div>
+      <div class="name">
+        Khoa An <i class="fa-solid fa-circle-check verified-icon"></i>
+      </div>
+      <p class="bio-desc">Alight Motion Editor • Typography • Smooth Transition<br>Share XML Presets & Project Files</p>
+      
+      <div class="tag-container">
+        <span class="tag">#AlightMotion</span>
+        <span class="tag">#Presets</span>
+        <span class="tag">#AMV_Edit</span>
       </div>
     </div>
 
-    <div class="footer-action">
-      Didn't get a code? <a href="#" id="resendBtn">Resend</a>
+    <!-- Social Links -->
+    <div class="social-row">
+      <a href="https://tiktok.com" target="_blank" class="social-btn"><i class="fa-brands fa-tiktok"></i></a>
+      <a href="https://youtube.com" target="_blank" class="social-btn"><i class="fa-brands fa-youtube"></i></a>
+      <a href="https://facebook.com" target="_blank" class="social-btn"><i class="fa-brands fa-facebook"></i></a>
+      <a href="https://t.me" target="_blank" class="social-btn"><i class="fa-brands fa-telegram"></i></a>
     </div>
+
+    <!-- Direct Links Section -->
+    <div class="section-title">Tài nguyên & Preset AM</div>
+
+    <div class="links-list">
+      <!-- Item 1: Preset XML -->
+      <a href="#" class="link-card">
+        <div class="link-left">
+          <div class="link-icon bg-xml"><i class="fa-solid fa-code"></i></div>
+          <div class="link-text">
+            <div class="link-title">Tổng hợp XML Mới Nhất</div>
+            <div class="link-desc">Shake, CC màu, Transition mượt</div>
+          </div>
+        </div>
+        <i class="fa-solid fa-chevron-right arrow-icon"></i>
+      </a>
+
+      <!-- Item 2: Link Dự án AM trực tiếp -->
+      <a href="#" class="link-card">
+        <div class="link-left">
+          <div class="link-icon bg-preset"><i class="fa-solid fa-layer-group"></i></div>
+          <div class="link-text">
+            <div class="link-title">Link Project AM (5MB+)</div>
+            <div class="link-desc">Nhập trực tiếp vào Alight Motion</div>
+          </div>
+        </div>
+        <i class="fa-solid fa-chevron-right arrow-icon"></i>
+      </a>
+
+      <!-- Item 3: Drive Pack Font & Overlay -->
+      <a href="#" class="link-card">
+        <div class="link-left">
+          <div class="link-icon bg-drive"><i class="fa-brands fa-google-drive"></i></div>
+          <div class="link-text">
+            <div class="link-title">Pack Font Việt Hóa + Overlay</div>
+            <div class="link-desc">Kho tài nguyên edit typography & beat</div>
+          </div>
+        </div>
+        <i class="fa-solid fa-chevron-right arrow-icon"></i>
+      </a>
+
+      <!-- Item 4: TikTok Showcase -->
+      <a href="#" class="link-card">
+        <div class="link-left">
+          <div class="link-icon bg-tiktok"><i class="fa-brands fa-tiktok"></i></div>
+          <div class="link-text">
+            <div class="link-title">Kênh TikTok Edit Video</div>
+            <div class="link-desc">Xem preview các trend AM sắp ra mắt</div>
+          </div>
+        </div>
+        <i class="fa-solid fa-chevron-right arrow-icon"></i>
+      </a>
+    </div>
+
+    <footer>
+      © 2026 Designed for Alight Motion Editors
+    </footer>
   </div>
 
-  <div class="hint-text">
-    Nhấn phím <b>Enter — 1234</b> để xem toàn bộ chuỗi animation.
-  </div>
-
-  <script>
-    const slots = Array.from(document.querySelectorAll('.slot'));
-    const inputs = Array.from(document.querySelectorAll('.slot input'));
-    const morphCard = document.getElementById('morphCard');
-    const scanRing = document.getElementById('scanRing');
-    const rectRing = document.getElementById('rectRing');
-    const tickSvg = document.getElementById('tickSvg');
-    const tickPath = document.getElementById('tickPath');
-    const shockwave = document.getElementById('shockwave');
-    const title = document.getElementById('statusTitle');
-    const subtitle = document.getElementById('statusSub');
-    const arena = document.getElementById('arena');
-
-    const ANG = [-12, -4, 4, 12];
-    const dx = [-75, -25, 25, 75];
-
-    // Xòe 4 lá bài ra
-    function spreadCards() {
-      morphCard.style.display = 'none';
-      slots.forEach((slot, i) => {
-        slot.style.display = 'flex';
-        slot.style.opacity = '1';
-        slot.animate([
-          { transform: 'translate(0, 0) rotate(0deg) scale(0.9)', opacity: 0 },
-          { transform: `translate(${dx[i]}px, 0) rotate(${ANG[i]}deg) scale(1)`, opacity: 1 }
-        ], {
-          duration: 550,
-          delay: i * 40,
-          fill: 'forwards',
-          easing: 'cubic-bezier(0.16, 1, 0.3, 1)'
-        });
-      });
-      setTimeout(() => inputs[0].focus(), 350);
-    }
-
-    // Hiệu ứng pháo sáng bung tỏa khi tick
-    function triggerSparks() {
-      const count = 12;
-      for (let i = 0; i < count; i++) {
-        const spark = document.createElement('div');
-        spark.classList.add('spark');
-        arena.appendChild(spark);
-
-        const angle = (i / count) * 2 * Math.PI;
-        const dist = 55 + Math.random() * 20;
-        const tx = Math.cos(angle) * dist;
-        const ty = Math.sin(angle) * dist;
-
-        spark.animate([
-          { transform: 'translate(-50%, -50%) scale(1.5)', opacity: 1 },
-          { transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(0)`, opacity: 0 }
-        ], {
-          duration: 600,
-          easing: 'cubic-bezier(0.1, 0.9, 0.2, 1)'
-        }).onfinish = () => spark.remove();
-      }
-    }
-
-    // Tiến trình: Gộp bài -> Xoay quét -> Từ từ hiện Tick
-    function startVerificationProcess() {
-      // 1. Gộp các lá bài về lại tâm (Snap tụ lại)
-      slots.forEach((slot, i) => {
-        slot.animate([
-          { transform: `translate(${dx[i]}px, 0) rotate(${ANG[i]}deg) scale(1)`, opacity: 1 },
-          { transform: 'translate(0, 0) rotate(0deg) scale(0.95)', opacity: 0.7 }
-        ], {
-          duration: 400,
-          delay: (3 - i) * 30, // gom tuần tự từ ngoài vào
-          fill: 'forwards',
-          easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
-        });
-      });
-
-      // 2. Chuyển sang lá bài trung tâm (Morphing) & chạy hiệu ứng quét
-      setTimeout(() => {
-        slots.forEach(s => s.style.display = 'none');
-        morphCard.style.display = 'flex';
-        morphCard.style.opacity = '1';
-
-        title.textContent = "Checking your code";
-        subtitle.textContent = "One moment — confirming authenticity.";
-
-        // Biến thành hình vuông bo tròn mềm mại
-        morphCard.animate([
-          { width: '48px', height: '66px', borderRadius: '14px', transform: 'scale(0.95)' },
-          { width: '64px', height: '64px', borderRadius: '20px', transform: 'scale(1)' }
-        ], {
-          duration: 400,
-          fill: 'forwards',
-          easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)'
-        });
-
-        // 3. Sau khi quét 1.6s -> Tiến hành hiện Tick mượt mà
-        setTimeout(revealSuccessTick, 1600);
-      }, 450);
-    }
-
-    // Hiệu ứng hiện Tick
-    function revealSuccessTick() {
-      // Dừng vòng xoay cyan và đổi viền sang Emerald Green
-      rectRing.style.animation = 'none';
-      rectRing.style.stroke = 'var(--success)';
-      rectRing.style.strokeDasharray = 'none';
-      rectRing.style.filter = 'drop-shadow(0 0 12px rgba(0, 245, 155, 0.7))';
-
-      // Nảy nhẹ thẻ (Scale Pop)
-      morphCard.animate([
-        { transform: 'scale(1)' },
-        { transform: 'scale(1.12)' },
-        { transform: 'scale(1)' }
-      ], {
-        duration: 400,
-        easing: 'cubic-bezier(0.2, 0.8, 0.2, 1)'
-      });
-
-      // Bắn sóng Shockwave
-      shockwave.animate([
-        { transform: 'scale(0.8)', opacity: 0.8 },
-        { transform: 'scale(2.2)', opacity: 0 }
-      ], {
-        duration: 650,
-        easing: 'ease-out'
-      });
-
-      // Hiện dấu Tick và vẽ nét
-      tickSvg.style.opacity = '1';
-      tickSvg.animate([
-        { transform: 'scale(0.4) rotate(-10deg)', opacity: 0 },
-        { transform: 'scale(1) rotate(0deg)', opacity: 1 }
-      ], {
-        duration: 400,
-        easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)'
-      });
-
-      tickPath.animate([
-        { strokeDashoffset: 40 },
-        { strokeDashoffset: 0 }
-      ], {
-        duration: 450,
-        delay: 150,
-        fill: 'forwards',
-        easing: 'cubic-bezier(0.65, 0, 0.35, 1)'
-      });
-
-      // Bắn các hạt pháo sáng sau khi nét vẽ hoàn thành
-      setTimeout(triggerSparks, 350);
-
-      title.textContent = "Verified Successfully!";
-      title.style.color = "var(--success)";
-      subtitle.textContent = "Your access has been granted.";
-    }
-
-    // Lắng nghe nhập liệu
-    inputs.forEach((input, index) => {
-      input.addEventListener('focus', () => slots[index].classList.add('active'));
-      input.addEventListener('blur', () => slots[index].classList.remove('active'));
-
-      input.addEventListener('input', (e) => {
-        const val = e.target.value.replace(/[^0-9]/g, '');
-        e.target.value = val;
-        if (val && index < inputs.length - 1) {
-          inputs[index + 1].focus();
-        }
-        if (inputs.every(i => i.value.length === 1)) {
-          startVerificationProcess();
-        }
-      });
-
-      input.addEventListener('keydown', (e) => {
-        if (e.key === 'Backspace' && !input.value && index > 0) {
-          inputs[index - 1].focus();
-        }
-      });
-    });
-
-    // Enter phím tắt test mã "1234"
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        '1234'.split('').forEach((num, i) => inputs[i].value = num);
-        startVerificationProcess();
-      }
-    });
-
-    // Nút Resend làm mới lại trạng thái ban đầu
-    document.getElementById('resendBtn').addEventListener('click', (e) => {
-      e.preventDefault();
-      rectRing.style.animation = '';
-      rectRing.style.stroke = 'var(--ice)';
-      rectRing.style.strokeDasharray = '80 140';
-      rectRing.style.filter = '';
-      tickSvg.style.opacity = '0';
-      tickPath.style.strokeDashoffset = '40';
-      inputs.forEach(i => i.value = '');
-      title.textContent = "Verify your code";
-      title.style.color = "var(--text)";
-      subtitle.textContent = "Enter the 4-digit code sent to you.";
-      spreadCards();
-    });
-
-    window.onload = spreadCards;
-  </script>
 </body>
 </html>
