@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OTP Verification Deck - Success Animation</title>
+  <title>Cinematic OTP Deck Verification</title>
   <style>
     :root {
-      --bg: #0b0c10;
-      --card-bg: #16181f;
-      --border: #232733;
+      --bg: #090a0f;
+      --card-bg: #141721;
+      --border: rgba(255, 255, 255, 0.08);
       --ice: #00f2fe;
-      --success: #10b981;
+      --success: #00f59b;
       --text: #ffffff;
-      --text-dim: #7f8699;
+      --text-dim: #747b90;
     }
 
     * {
@@ -37,7 +37,7 @@
       font-size: 11px;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: #60677a;
+      color: #5d6479;
       margin-bottom: 8px;
     }
 
@@ -59,13 +59,14 @@
       height: 380px;
       background-color: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 28px;
+      border-radius: 32px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      padding: 36px 24px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      padding: 40px 24px;
+      box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
 
     .card-top {
@@ -76,36 +77,39 @@
       font-size: 20px;
       font-weight: 600;
       margin-bottom: 6px;
-      transition: color 0.3s;
+      transition: color 0.4s ease;
     }
 
     .subtitle {
       font-size: 13px;
       color: var(--text-dim);
+      transition: color 0.4s ease;
     }
 
+    /* Đấu trường trung tâm */
     .deck-arena {
       position: relative;
-      width: 220px;
-      height: 90px;
+      width: 240px;
+      height: 110px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    /* Thẻ Slot OTP */
+    /* Thẻ slot nhập số */
     .slot {
       position: absolute;
-      width: 46px;
-      height: 64px;
-      background: #1d212c;
-      border: 1.5px solid #2e3447;
-      border-radius: 12px;
+      width: 48px;
+      height: 66px;
+      background: #1b1f2c;
+      border: 1.5px solid #293044;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
       transform-origin: 50% 320%;
-      transition: border-color 0.3s, box-shadow 0.3s;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
+      transition: border-color 0.25s, box-shadow 0.25s;
     }
 
     .slot input {
@@ -123,99 +127,89 @@
 
     .slot.active {
       border-color: var(--ice);
-      box-shadow: 0 0 16px rgba(0, 242, 254, 0.4);
+      box-shadow: 0 0 18px rgba(0, 242, 254, 0.35);
     }
 
-    /* Spinner xoay chờ */
-    .spinner-box {
+    /* Thẻ trung tâm biến hình (Morph Box) */
+    .morph-card {
+      position: absolute;
+      width: 48px;
+      height: 66px;
+      border-radius: 14px;
+      background: #1b1f2c;
+      border: 2px solid transparent;
       display: none;
-      width: 64px;
-      height: 64px;
-      position: relative;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      z-index: 10;
     }
 
-    .spinner-box svg {
+    /* Vòng tròn xoay quét mã */
+    .scan-ring {
+      position: absolute;
+      inset: -4px;
+      border-radius: inherit;
+      pointer-events: none;
+    }
+
+    .scan-ring svg {
       width: 100%;
       height: 100%;
-      transform: rotate(-90deg);
-      animation: spin 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      overflow: visible;
     }
 
-    .seal__seg {
+    .scan-ring rect {
       fill: none;
       stroke: var(--ice);
-      stroke-width: 4;
+      stroke-width: 2.5;
+      stroke-dasharray: 80 140;
       stroke-linecap: round;
-      stroke-dasharray: 160;
-      stroke-dashoffset: 80;
       filter: drop-shadow(0 0 8px var(--ice));
+      animation: rotateScan 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
     }
 
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    @keyframes rotateScan {
+      0% { stroke-dashoffset: 220; }
+      100% { stroke-dashoffset: 0; }
     }
 
-    /* Dấu Tick SVG khi thành công */
-    .success-box {
-      display: none;
-      position: relative;
-      width: 68px;
-      height: 68px;
+    /* SVG Tick */
+    .tick-svg {
+      width: 32px;
+      height: 32px;
+      opacity: 0;
+      transform: scale(0.5);
     }
 
-    .success-svg {
-      width: 100%;
-      height: 100%;
-    }
-
-    /* Vòng tròn viền xanh bung ra */
-    .success-circle {
+    .tick-path {
       fill: none;
       stroke: var(--success);
-      stroke-width: 3.5;
-      stroke-dasharray: 200;
-      stroke-dashoffset: 200;
-      filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.6));
-    }
-
-    /* Nét tick vẽ từng nét */
-    .success-check {
-      fill: none;
-      stroke: #fff;
       stroke-width: 4;
       stroke-linecap: round;
       stroke-linejoin: round;
-      stroke-dasharray: 50;
-      stroke-dashoffset: 50;
-      filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8));
+      stroke-dasharray: 40;
+      stroke-dashoffset: 40;
+      filter: drop-shadow(0 0 8px rgba(0, 245, 155, 0.8));
     }
 
-    .success-box.play .success-circle {
-      animation: drawCircle 0.5s ease-out forwards;
+    /* Sóng chấn động bung ra khi xong (Shockwave) */
+    .shockwave {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2px solid var(--success);
+      pointer-events: none;
+      opacity: 0;
     }
 
-    .success-box.play .success-check {
-      animation: drawCheck 0.35s 0.35s ease-out forwards;
-    }
-
-    @keyframes drawCircle {
-      to { stroke-dashoffset: 0; }
-    }
-
-    @keyframes drawCheck {
-      to { stroke-dashoffset: 0; }
-    }
-
-    /* Hạt sáng bung nổ xung quanh (Sparks) */
     .spark {
       position: absolute;
       width: 4px;
       height: 4px;
       background: var(--success);
       border-radius: 50%;
-      top: 50%;
-      left: 50%;
       opacity: 0;
       box-shadow: 0 0 8px var(--success);
     }
@@ -256,25 +250,25 @@
     </div>
 
     <div class="deck-arena" id="arena">
-      <!-- 4 lá bài OTP -->
+      <!-- 4 ô nhập số -->
       <div class="slot" data-index="0"><input type="text" maxlength="1" inputmode="numeric"></div>
       <div class="slot" data-index="1"><input type="text" maxlength="1" inputmode="numeric"></div>
       <div class="slot" data-index="2"><input type="text" maxlength="1" inputmode="numeric"></div>
       <div class="slot" data-index="3"><input type="text" maxlength="1" inputmode="numeric"></div>
 
-      <!-- Spinner chờ xoay -->
-      <div class="spinner-box" id="spinner">
-        <svg viewBox="0 0 50 50">
-          <circle class="seal__seg" cx="25" cy="25" r="21"></circle>
+      <!-- Thẻ gộp Morphing Box -->
+      <div class="morph-card" id="morphCard">
+        <div class="scan-ring" id="scanRing">
+          <svg width="100%" height="100%">
+            <rect id="rectRing" x="0" y="0" width="100%" height="100%" rx="18" ry="18"></rect>
+          </svg>
+        </div>
+        
+        <svg class="tick-svg" id="tickSvg" viewBox="0 0 32 32">
+          <path class="tick-path" id="tickPath" d="M7 16.5 L13 22.5 L25 10.5"></path>
         </svg>
-      </div>
 
-      <!-- Dấu Tick Neon Bung Nở -->
-      <div class="success-box" id="successBox">
-        <svg class="success-svg" viewBox="0 0 70 70">
-          <circle class="success-circle" cx="35" cy="35" r="30"></circle>
-          <path class="success-check" d="M22 36 L31 45 L48 27"></path>
-        </svg>
+        <div class="shockwave" id="shockwave"></div>
       </div>
     </div>
 
@@ -284,14 +278,18 @@
   </div>
 
   <div class="hint-text">
-    Nhấn phím <b>Enter — 1234</b> để kiểm tra hiệu ứng tick.
+    Nhấn phím <b>Enter — 1234</b> để xem toàn bộ chuỗi animation.
   </div>
 
   <script>
     const slots = Array.from(document.querySelectorAll('.slot'));
     const inputs = Array.from(document.querySelectorAll('.slot input'));
-    const spinner = document.getElementById('spinner');
-    const successBox = document.getElementById('successBox');
+    const morphCard = document.getElementById('morphCard');
+    const scanRing = document.getElementById('scanRing');
+    const rectRing = document.getElementById('rectRing');
+    const tickSvg = document.getElementById('tickSvg');
+    const tickPath = document.getElementById('tickPath');
+    const shockwave = document.getElementById('shockwave');
     const title = document.getElementById('statusTitle');
     const subtitle = document.getElementById('statusSub');
     const arena = document.getElementById('arena');
@@ -299,25 +297,27 @@
     const ANG = [-12, -4, 4, 12];
     const dx = [-75, -25, 25, 75];
 
-    // Xòe bài ra
+    // Xòe 4 lá bài ra
     function spreadCards() {
+      morphCard.style.display = 'none';
       slots.forEach((slot, i) => {
         slot.style.display = 'flex';
+        slot.style.opacity = '1';
         slot.animate([
-          { transform: 'translate(0, 0) rotate(0deg)', opacity: 0 },
-          { transform: `translate(${dx[i]}px, 0) rotate(${ANG[i]}deg)`, opacity: 1 }
+          { transform: 'translate(0, 0) rotate(0deg) scale(0.9)', opacity: 0 },
+          { transform: `translate(${dx[i]}px, 0) rotate(${ANG[i]}deg) scale(1)`, opacity: 1 }
         ], {
-          duration: 560,
-          delay: i * 45,
+          duration: 550,
+          delay: i * 40,
           fill: 'forwards',
-          easing: 'cubic-bezier(0.2, 0.8, 0.2, 1)'
+          easing: 'cubic-bezier(0.16, 1, 0.3, 1)'
         });
       });
-      setTimeout(() => inputs[0].focus(), 300);
+      setTimeout(() => inputs[0].focus(), 350);
     }
 
-    // Hiệu ứng pháo sáng (Sparks) văng ra xung quanh
-    function explodeSparks() {
+    // Hiệu ứng pháo sáng bung tỏa khi tick
+    function triggerSparks() {
       const count = 12;
       for (let i = 0; i < count; i++) {
         const spark = document.createElement('div');
@@ -325,56 +325,115 @@
         arena.appendChild(spark);
 
         const angle = (i / count) * 2 * Math.PI;
-        const distance = 45 + Math.random() * 20;
-        const tx = Math.cos(angle) * distance;
-        const ty = Math.sin(angle) * distance;
+        const dist = 55 + Math.random() * 20;
+        const tx = Math.cos(angle) * dist;
+        const ty = Math.sin(angle) * dist;
 
         spark.animate([
-          { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
+          { transform: 'translate(-50%, -50%) scale(1.5)', opacity: 1 },
           { transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(0)`, opacity: 0 }
         ], {
-          duration: 650,
-          easing: 'cubic-bezier(0, 0.9, 0.3, 1)'
+          duration: 600,
+          easing: 'cubic-bezier(0.1, 0.9, 0.2, 1)'
         }).onfinish = () => spark.remove();
       }
     }
 
-    // Gom bài -> Hiện Spinner xoay -> Hiện Tick đúng
-    function triggerVerification() {
+    // Tiến trình: Gộp bài -> Xoay quét -> Từ từ hiện Tick
+    function startVerificationProcess() {
+      // 1. Gộp các lá bài về lại tâm (Snap tụ lại)
       slots.forEach((slot, i) => {
         slot.animate([
-          { transform: `translate(${dx[i]}px, 0) rotate(${ANG[i]}deg)`, opacity: 1 },
-          { transform: 'translate(0, 0) rotate(0deg)', opacity: 0 }
+          { transform: `translate(${dx[i]}px, 0) rotate(${ANG[i]}deg) scale(1)`, opacity: 1 },
+          { transform: 'translate(0, 0) rotate(0deg) scale(0.95)', opacity: 0.7 }
         ], {
-          duration: 350,
+          duration: 400,
+          delay: (3 - i) * 30, // gom tuần tự từ ngoài vào
           fill: 'forwards',
-          easing: 'ease-in'
+          easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
         });
       });
 
+      // 2. Chuyển sang lá bài trung tâm (Morphing) & chạy hiệu ứng quét
       setTimeout(() => {
         slots.forEach(s => s.style.display = 'none');
-        spinner.style.display = 'block';
+        morphCard.style.display = 'flex';
+        morphCard.style.opacity = '1';
+
         title.textContent = "Checking your code";
-        subtitle.textContent = "One moment — we're confirming it.";
+        subtitle.textContent = "One moment — confirming authenticity.";
 
-        // Giả lập kiểm tra xong sau 1.5s
-        setTimeout(() => {
-          spinner.style.display = 'none';
-          successBox.style.display = 'block';
-          successBox.classList.add('play');
+        // Biến thành hình vuông bo tròn mềm mại
+        morphCard.animate([
+          { width: '48px', height: '66px', borderRadius: '14px', transform: 'scale(0.95)' },
+          { width: '64px', height: '64px', borderRadius: '20px', transform: 'scale(1)' }
+        ], {
+          duration: 400,
+          fill: 'forwards',
+          easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+        });
 
-          // Nổ pháo sáng ngay khi dấu check vẽ ra
-          setTimeout(explodeSparks, 350);
-
-          title.textContent = "Code Verified!";
-          title.style.color = "var(--success)";
-          subtitle.textContent = "Redirecting you safely...";
-        }, 1500);
-      }, 350);
+        // 3. Sau khi quét 1.6s -> Tiến hành hiện Tick mượt mà
+        setTimeout(revealSuccessTick, 1600);
+      }, 450);
     }
 
-    // Xử lý gõ bàn phím
+    // Hiệu ứng hiện Tick
+    function revealSuccessTick() {
+      // Dừng vòng xoay cyan và đổi viền sang Emerald Green
+      rectRing.style.animation = 'none';
+      rectRing.style.stroke = 'var(--success)';
+      rectRing.style.strokeDasharray = 'none';
+      rectRing.style.filter = 'drop-shadow(0 0 12px rgba(0, 245, 155, 0.7))';
+
+      // Nảy nhẹ thẻ (Scale Pop)
+      morphCard.animate([
+        { transform: 'scale(1)' },
+        { transform: 'scale(1.12)' },
+        { transform: 'scale(1)' }
+      ], {
+        duration: 400,
+        easing: 'cubic-bezier(0.2, 0.8, 0.2, 1)'
+      });
+
+      // Bắn sóng Shockwave
+      shockwave.animate([
+        { transform: 'scale(0.8)', opacity: 0.8 },
+        { transform: 'scale(2.2)', opacity: 0 }
+      ], {
+        duration: 650,
+        easing: 'ease-out'
+      });
+
+      // Hiện dấu Tick và vẽ nét
+      tickSvg.style.opacity = '1';
+      tickSvg.animate([
+        { transform: 'scale(0.4) rotate(-10deg)', opacity: 0 },
+        { transform: 'scale(1) rotate(0deg)', opacity: 1 }
+      ], {
+        duration: 400,
+        easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)'
+      });
+
+      tickPath.animate([
+        { strokeDashoffset: 40 },
+        { strokeDashoffset: 0 }
+      ], {
+        duration: 450,
+        delay: 150,
+        fill: 'forwards',
+        easing: 'cubic-bezier(0.65, 0, 0.35, 1)'
+      });
+
+      // Bắn các hạt pháo sáng sau khi nét vẽ hoàn thành
+      setTimeout(triggerSparks, 350);
+
+      title.textContent = "Verified Successfully!";
+      title.style.color = "var(--success)";
+      subtitle.textContent = "Your access has been granted.";
+    }
+
+    // Lắng nghe nhập liệu
     inputs.forEach((input, index) => {
       input.addEventListener('focus', () => slots[index].classList.add('active'));
       input.addEventListener('blur', () => slots[index].classList.remove('active'));
@@ -386,7 +445,7 @@
           inputs[index + 1].focus();
         }
         if (inputs.every(i => i.value.length === 1)) {
-          triggerVerification();
+          startVerificationProcess();
         }
       });
 
@@ -401,16 +460,19 @@
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
         '1234'.split('').forEach((num, i) => inputs[i].value = num);
-        triggerVerification();
+        startVerificationProcess();
       }
     });
 
-    // Nút Resend để reset chơi lại từ đầu
+    // Nút Resend làm mới lại trạng thái ban đầu
     document.getElementById('resendBtn').addEventListener('click', (e) => {
       e.preventDefault();
-      spinner.style.display = 'none';
-      successBox.style.display = 'none';
-      successBox.classList.remove('play');
+      rectRing.style.animation = '';
+      rectRing.style.stroke = 'var(--ice)';
+      rectRing.style.strokeDasharray = '80 140';
+      rectRing.style.filter = '';
+      tickSvg.style.opacity = '0';
+      tickPath.style.strokeDashoffset = '40';
       inputs.forEach(i => i.value = '');
       title.textContent = "Verify your code";
       title.style.color = "var(--text)";
