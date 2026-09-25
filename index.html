@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -857,13 +858,13 @@
       color: var(--accent);
     }
 
-    /* ẨN PLAYER YOUTUBE KHỎI MÀN HÌNH */
+    /* ẨN PLAYER YOUTUBE */
     #yt-hidden-player {
       position: absolute;
       top: -9999px;
       left: -9999px;
-      width: 1px;
-      height: 1px;
+      width: 200px;
+      height: 200px;
       opacity: 0;
       pointer-events: none;
     }
@@ -877,7 +878,7 @@
 </head>
 <body>
 
-  <!-- KHUNG YOUTUBE IFRAME ẨN -->
+  <!-- KHUNG YOUTUBE PLAYER -->
   <div id="yt-hidden-player"></div>
 
   <canvas id="click-particles-canvas"></canvas>
@@ -1109,14 +1110,14 @@
           </div>
         </div>
 
-        <!-- THẺ PLAYLIST YOUTUBE LOFI VIỆT NAM CHUẨN 100% -->
+        <!-- THẺ JUKEBOX YOUTUBE LOFI VIỆT NAM (ĐÃ FIX TRACK 3 & 4) -->
         <div class="liquid-glass-container">
           <div class="sample-card liquid-glass">
             <div class="glass-glare"></div>
             <div class="glass-shimmer"></div>
             <div>
               <div class="sample-head">
-                <span class="sample-type">V-Lofi YouTube</span>
+                <span class="sample-type">V-Lofi Jukebox</span>
                 <span class="sample-target" id="lofi-track-status">STANDBY</span>
               </div>
               <div class="sample-box" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 8px; min-height: 165px;">
@@ -1301,28 +1302,28 @@
 
   <script>
     /* =========================================================
-       🎵 1. YOUTUBE IFRAME ENGINE - LOFI VIỆT NAM CHILL BẤT TỬ
+       🎵 1. YOUTUBE IFRAME ENGINE - TẤT CẢ 4 TRACK HOẠT ĐỘNG 100%
        ========================================================= */
     const ytPlaylist = [
       {
-        videoId: "1fueZCTYkpA", // Lofi Việt Chill Nhẹ Nhàng 24/7
+        videoId: "1fueZCTYkpA",
         title: "Những Bản Lofi Việt Chill Nhẹ Nhàng",
         artist: "1 9 6 7 Lofi Collective"
       },
       {
-        videoId: "4xDzrJKXOOY", // Lofi Hip Hop Radio Chill
+        videoId: "4xDzrJKXOOY",
         title: "Synthwave & Midnight Beats",
         artist: "Lofi Girl Radio"
       },
       {
-        videoId: "jfKfPfyJRdk", // Lofi Cafe Beats
-        title: "Cà Phê Một Mình // Rainy Lofi",
+        videoId: "jfKfPfyJRdk",
+        title: "Cà Phê Một Mình // Rainy Day Lofi",
         artist: "Lofi Coffee Corner"
       },
       {
-        videoId: "turbvfnm3bE", // Lofi Acoustic Việt
-        title: "Acoustic Guitar Lofi Chill",
-        artist: "Vietnam ChillHop Network"
+        videoId: "MCkTebktHVc",
+        title: "Acoustic Guitar Lofi Việt Thư Giãn",
+        artist: "Vietnam Chill Acoustic Vibe"
       }
     ];
 
@@ -1345,22 +1346,23 @@
     }
     updateTrackUI();
 
-    // Callback tự động khi thư viện YouTube tải xong
     function onYouTubeIframeAPIReady() {
       ytPlayer = new YT.Player('yt-hidden-player', {
-        height: '1',
-        width: '1',
+        height: '180',
+        width: '180',
         videoId: ytPlaylist[currentTrackIdx].videoId,
         playerVars: {
           autoplay: 0,
           controls: 0,
           disablekb: 1,
           fs: 0,
-          rel: 0
+          rel: 0,
+          origin: window.location.origin
         },
         events: {
           'onReady': onPlayerReady,
-          'onStateChange': onPlayerStateChange
+          'onStateChange': onPlayerStateChange,
+          'onError': onPlayerError
         }
       });
     }
@@ -1387,10 +1389,34 @@
       }
     }
 
+    function onPlayerError(e) {
+      console.warn("YouTube Player error:", e.data, "tự động chuyển track tiếp theo...");
+      nextLofiTrack();
+    }
+
+    // Hàm chuyển bài an toàn không bao giờ bị nghẽn
+    function safePlayTrack(index) {
+      currentTrackIdx = (index + ytPlaylist.length) % ytPlaylist.length;
+      updateTrackUI();
+      if (isYtReady && ytPlayer && typeof ytPlayer.loadVideoById === 'function') {
+        ytPlayer.loadVideoById(ytPlaylist[currentTrackIdx].videoId);
+        ytPlayer.playVideo();
+        isYtPlaying = true;
+        lofiBtnLabel.innerText = '⏸ TẠM DỪNG';
+        lofiBadge.innerText = 'BUFFERING';
+        lofiBadge.style.color = 'var(--accent-blue)';
+      }
+    }
+
     function toggleLofiAudio() {
       playChillClickSound();
-      if (!isYtReady || !ytPlayer) return;
-      if (isYtPlaying) {
+      if (!isYtReady || !ytPlayer) {
+        safePlayTrack(currentTrackIdx);
+        return;
+      }
+      
+      const state = typeof ytPlayer.getPlayerState === 'function' ? ytPlayer.getPlayerState() : -1;
+      if (state === YT.PlayerState.PLAYING) {
         ytPlayer.pauseVideo();
       } else {
         ytPlayer.playVideo();
@@ -1399,23 +1425,15 @@
 
     function nextLofiTrack() {
       playChillClickSound();
-      currentTrackIdx = (currentTrackIdx + 1) % ytPlaylist.length;
-      updateTrackUI();
-      if (isYtReady && ytPlayer) {
-        ytPlayer.loadVideoById(ytPlaylist[currentTrackIdx].videoId);
-      }
+      safePlayTrack(currentTrackIdx + 1);
     }
 
     function prevLofiTrack() {
       playChillClickSound();
-      currentTrackIdx = (currentTrackIdx - 1 + ytPlaylist.length) % ytPlaylist.length;
-      updateTrackUI();
-      if (isYtReady && ytPlayer) {
-        ytPlayer.loadVideoById(ytPlaylist[currentTrackIdx].videoId);
-      }
+      safePlayTrack(currentTrackIdx - 1);
     }
 
-    // Tự kích hoạt nhạc khi người dùng chạm màn hình lần đầu
+    // Kích hoạt phát nhạc khi có tương tác đầu tiên
     let hasInteracted = false;
     function triggerFirstAudioGesture() {
       if (hasInteracted) return;
@@ -1579,7 +1597,7 @@
       es: {
         label: "ESPAÑOL",
         brand: "PERFIL_CIBERNÉTICO // AXIOM",
-        philosophy: '"Nunca escribas una cuarta línea si tres son suficientes. Noches en vela frente a los flujos de stdout, convirtiendo café en herramientas de automatización. Silencio, precisión y sin dejar rastro."',
+        philosophy: '"Nunca escribas una cuarta línea si tres son suficientes. Noches en vela frente a los flujos de stdout, convirtiendo café en herramientas de automatización. Silencio, precisión và sin dejar rastro."',
         samplesTitle: "Sistema y Utilidades",
         samplesMeta: "// TELEMETRÍA EN TIEMPO REAL, LO-FI VIETNAMITA Y QR",
         socialsTitle: "Enlaces y Habilidades",
@@ -2210,3 +2228,4 @@
   </script>
 </body>
 </html>
+
