@@ -507,18 +507,72 @@
       position: relative;
     }
 
+    /* =========================================================
+       ✨ DECOR KHUNG PROFILE HERO CHUẨN CODER X CYBER VIBE
+       ========================================================= */
+    .profile-card-decor {
+      position: relative;
+      padding: 44px 50px;
+      border-radius: 28px;
+    }
+
+    /* 4 Ngoàm Định Vị Lượng Tử Góc Khung */
+    .corner-bracket {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--accent);
+      pointer-events: none;
+      z-index: 12;
+      opacity: 0.85;
+      filter: drop-shadow(0 0 6px var(--accent-glow));
+    }
+    .corner-tl { top: 12px; left: 12px; border-right: none; border-bottom: none; }
+    .corner-tr { top: 12px; right: 12px; border-left: none; border-bottom: none; }
+    .corner-bl { bottom: 12px; left: 12px; border-right: none; border-top: none; }
+    .corner-br { bottom: 12px; right: 12px; border-left: none; border-top: none; }
+
+    /* Thanh Header HUD Cyber Coder */
+    .profile-hud-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
+      padding-bottom: 16px;
+      margin-bottom: 26px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      letter-spacing: 1.5px;
+    }
+
+    .hud-meta-tags {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--accent);
+    }
+
+    .hud-chip {
+      background: rgba(0, 243, 255, 0.1);
+      border: 1px solid rgba(0, 243, 255, 0.3);
+      color: var(--accent-blue);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 9.5px;
+    }
+
     .profile-avatar-wrap {
       position: relative;
-      width: 135px;
-      height: 135px;
+      width: 140px;
+      height: 140px;
       flex-shrink: 0;
     }
 
     .profile-avatar-inner {
       width: 100%;
       height: 100%;
-      border-radius: 50%;
-      border: 2.5px solid rgba(255, 255, 255, 0.45);
+      border-radius: 20px; /* Bo góc vuông vức kiểu Cyber-Identity */
+      border: 2px solid rgba(255, 157, 0, 0.5);
       box-shadow: 0 0 35px var(--accent-glow), inset 0 0 20px rgba(0, 243, 255, 0.3);
       overflow: hidden;
       position: relative;
@@ -534,15 +588,15 @@
     }
 
     .profile-avatar-wrap:hover .profile-avatar-img {
-      transform: scale(1.06);
+      transform: scale(1.08);
     }
 
     .profile-online-dot {
       position: absolute;
-      bottom: 5px;
-      right: 5px;
-      width: 24px;
-      height: 24px;
+      bottom: -4px;
+      right: -4px;
+      width: 22px;
+      height: 22px;
       background: #00ff66;
       border-radius: 50%;
       border: 3.5px solid #060913;
@@ -565,29 +619,63 @@
     }
 
     .bio-philosophy {
-      font-family: var(--font-body);
-      font-size: 15px;
-      line-height: 1.75;
+      font-family: var(--font-mono);
+      font-size: 13.5px;
+      line-height: 1.8;
       color: #c4d7e8;
-      border-left: 2.5px solid var(--accent);
-      padding-left: 16px;
+      border-left: 3px solid var(--accent);
+      padding: 10px 18px;
+      background: rgba(255, 157, 0, 0.03);
+      border-radius: 0 10px 10px 0;
       margin-bottom: 24px;
     }
 
-    .bio-badge {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      padding: 6px 14px;
-      border-radius: 20px;
+    /* =========================================================
+       🔥 DÀN BADGES CHUẨN CODER X VIBE PHÁT SÁNG NEON
+       ========================================================= */
+    .coder-badges-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 26px;
+    }
+
+    .coder-badge {
       font-family: var(--font-mono);
       font-size: 11px;
-      color: #9cb1c5;
+      font-weight: 600;
       letter-spacing: 0.5px;
+      padding: 6px 14px;
+      border-radius: 6px;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      transition: all 0.25s;
+      gap: 8px;
+      background: rgba(4, 8, 16, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
     }
+
+    .coder-badge::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: currentColor;
+    }
+
+    .coder-badge:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 20px currentColor;
+    }
+
+    .badge-python { color: #00f3ff; border-color: rgba(0, 243, 255, 0.35); background: rgba(0, 243, 255, 0.05); }
+    .badge-bot { color: #ff9d00; border-color: rgba(255, 157, 0, 0.35); background: rgba(255, 157, 0, 0.05); }
+    .badge-kernel { color: #00ff66; border-color: rgba(0, 255, 102, 0.35); background: rgba(0, 255, 102, 0.05); }
+    .badge-api { color: #b84dff; border-color: rgba(184, 77, 255, 0.35); background: rgba(184, 77, 255, 0.05); }
+    .badge-caffeine { color: #ff0055; border-color: rgba(255, 0, 85, 0.35); background: rgba(255, 0, 85, 0.05); }
+    .badge-discord { color: #8ea1ff; border-color: rgba(142, 161, 255, 0.35); background: rgba(142, 161, 255, 0.05); }
 
     .section-title {
       font-family: var(--font-display);
@@ -886,12 +974,13 @@
     @media (max-width: 768px) {
       header.nav-bar { padding: 18px 24px; }
       .content-stream { padding: 0 24px; }
-      footer.bottom-hud { display: none; }
+      .profile-card-decor { padding: 32px 24px; }
     }
   </style>
 </head>
 <body>
 
+  <!-- YOUTUBE PLAYER ẨN -->
   <div id="yt-hidden-player"></div>
 
   <canvas id="click-particles-canvas"></canvas>
@@ -981,19 +1070,30 @@
 
   <main class="content-stream">
 
+    <!-- 01: HERO PROFILE ĐƯỢC NÂNG CẤP DECOR CODER VIBE -->
     <section class="scene-section" id="sec-profile" style="display: flex; justify-content: center; align-items: center; padding: 100px 0;">
       <div class="liquid-glass-container" style="max-width: 980px; width: 100%;">
-        <div class="liquid-glass" style="padding: 42px 48px; border-radius: 28px;">
+        <div class="liquid-glass profile-card-decor">
+          
+          <!-- 4 Góc Định Vị Lượng Tử Cyber HUD -->
+          <div class="corner-bracket corner-tl"></div>
+          <div class="corner-bracket corner-tr"></div>
+          <div class="corner-bracket corner-bl"></div>
+          <div class="corner-bracket corner-br"></div>
+
           <div class="glass-glare"></div>
           <div class="glass-shimmer"></div>
 
-          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 16px; margin-bottom: 28px;">
-            <div style="font-family: var(--font-mono); font-size: 11.5px; color: var(--accent); letter-spacing: 2px;">
-              // DISCORD_API_UPLINK // LANYARD_REST_V1
+          <!-- Thanh Header HUD Cyber Coder -->
+          <div class="profile-hud-header">
+            <div class="hud-meta-tags">
+              <span>// DISCORD_API_UPLINK</span>
+              <span class="hud-chip">LANYARD_V1</span>
+              <span class="hud-chip">AXIOM_KERNEL_v6.10</span>
             </div>
             <div style="display: flex; align-items: center; gap: 8px;">
               <span class="singularity-beacon" style="width: 8px; height: 8px; background: #00ff66; box-shadow: 0 0 12px #00ff66;"></span>
-              <span style="font-family: var(--font-mono); font-size: 11px; color: #00ff66; font-weight: bold; letter-spacing: 1.5px;">ONLINE</span>
+              <span style="color: #00ff66; font-weight: bold; font-size: 11px;">SOCKET: ACTIVE</span>
             </div>
           </div>
 
@@ -1012,7 +1112,7 @@
               <div style="font-family: var(--font-mono); font-size: 12.5px; color: var(--accent); letter-spacing: 2px; margin-bottom: 6px;">
                 root@singularity:~$ whoami
               </div>
-              <h1 class="name-display" id="user-display-name" style="font-family: var(--font-display); font-size: clamp(40px, 5vw, 62px); font-weight: 400; line-height: 1.05; color: #fff; margin-bottom: 8px;">
+              <h1 class="name-display" id="user-display-name" style="font-family: var(--font-display); font-size: clamp(38px, 5vw, 62px); font-weight: 400; line-height: 1.05; color: #fff; margin-bottom: 8px;">
                 chiencuto18m ⚔
               </h1>
               <div style="font-family: var(--font-mono); font-size: 12.5px; color: var(--accent-blue); letter-spacing: 1px;">
@@ -1021,7 +1121,7 @@
             </div>
           </div>
 
-          <div style="background: rgba(2, 4, 8, 0.7); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 12px 18px; margin-bottom: 24px; display: flex; align-items: center; gap: 14px;">
+          <div style="background: rgba(2, 4, 8, 0.7); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 12px 18px; margin-bottom: 22px; display: flex; align-items: center; gap: 14px;">
             <div style="font-size: 20px;">🎮</div>
             <div style="font-family: var(--font-mono); font-size: 12px; color: #a0b8cc;">
               <span style="color: #788899;">ACTIVITY:</span> <strong id="discord-real-activity" style="color: #fff;">Đang debug hệ thống & phát triển bot ngầm...</strong>
@@ -1032,31 +1132,42 @@
             "Không viết dòng thứ tư nếu ba dòng là đủ tối ưu. Thức trắng đêm cùng stdout streams, biến cafe đen thành công cụ tự động hóa và kiến trúc ngầm. Tĩnh lặng, chính xác và không để lại dấu vết."
           </div>
 
-          <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px;">
-            <span class="bio-badge" style="border-color: rgba(0, 255, 102, 0.4); background: rgba(0, 255, 102, 0.08); color: #00ff66;">
-              <span>●</span> ONLINE
+          <!-- DÀN BADGES ĐẬM CHẤT CODER X CYBER VIBE -->
+          <div class="coder-badges-grid">
+            <span class="coder-badge badge-python">
+              <span>⚡</span> PYTHON_ASYNC // CORE
             </span>
-            <span class="bio-badge" style="border-color: rgba(0, 243, 255, 0.4); background: rgba(0, 243, 255, 0.08); color: #00f3ff;">
-              <span>🐕</span> SHIBA PET ACTIVE
+            <span class="coder-badge badge-bot">
+              <span>🤖</span> TELEGRAM_BOT // ARCHITECT
             </span>
-            <span class="bio-badge" style="border-color: rgba(255, 157, 0, 0.4); background: rgba(255, 157, 0, 0.08); color: var(--accent);">
-              <span>🐈‍⬛</span> BLACK CAT ACTIVE
+            <span class="coder-badge badge-kernel">
+              <span>🛡</span> KERNEL // HARDENED
             </span>
-            <span class="bio-badge" style="border-color: rgba(255, 68, 68, 0.4); background: rgba(255, 68, 68, 0.08); color: #ff5555;">
-              <span>🐉</span> FIRE DRAGON ACTIVE
+            <span class="coder-badge badge-api">
+              <span>🌐</span> REST_API // HOOKS
+            </span>
+            <span class="coder-badge badge-caffeine">
+              <span>☕</span> NOCTURNAL // SYSADMIN
+            </span>
+            <span class="coder-badge badge-discord">
+              <span>👾</span> DISCORD // LINKED
             </span>
           </div>
 
-          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; border-top: 1px dashed rgba(255,255,255,0.08); padding-top: 20px;">
             <a href="https://discord.com/users/1053893912466554922" target="_blank" class="copy-btn" style="text-decoration: none; padding: 12px 22px;">
               <span>💬 NHẮN TIN QUA DISCORD</span>
             </a>
+            <div style="font-family: var(--font-mono); font-size: 11px; color: #6e7f91; letter-spacing: 1px;">
+              ✦ CUỘN XUỐNG ĐỂ TƯƠNG TÁC THÚ CƯNG VÀ TERMINAL CLI
+            </div>
           </div>
 
         </div>
       </div>
     </section>
 
+    <!-- 02: 3 THẺ TIỆN ÍCH VỚI 3 CON PET PIXEL CHUẨN ĐẸP -->
     <section class="scene-section" id="sec-samples">
       <h2 class="section-title" id="i18n-samples-title">Hệ Thống & Thú Cưng Pixel</h2>
       <div class="section-meta" id="i18n-samples-meta">// INTERACTIVE PIXEL PETS: SHIBA, BLACK CAT & FIRE DRAGON</div>
