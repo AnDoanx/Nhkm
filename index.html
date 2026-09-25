@@ -518,102 +518,6 @@
       position: relative;
     }
 
-    /* Profile Card */
-    .profile-hero-card {
-      padding: 56px;
-      max-width: 960px;
-    }
-
-    .profile-top {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-      margin-bottom: 32px;
-      flex-wrap: wrap;
-    }
-
-    .avatar-box {
-      position: relative;
-      width: 130px;
-      height: 130px;
-      border-radius: 50%;
-      border: 2px solid rgba(255, 255, 255, 0.5);
-      box-shadow: 0 0 35px var(--accent-glow), inset 0 0 20px rgba(0, 243, 255, 0.3);
-      overflow: hidden;
-      flex-shrink: 0;
-    }
-
-    .avatar-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: grayscale(30%) contrast(125%);
-    }
-
-    .profile-names {
-      flex: 1;
-    }
-
-    .ascii-header {
-      font-family: var(--font-mono);
-      font-size: 13px;
-      color: var(--accent);
-      letter-spacing: 2px;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-    }
-
-    .name-display {
-      font-family: var(--font-display);
-      font-size: clamp(48px, 6vw, 76px);
-      font-weight: 400;
-      line-height: 1.0;
-      color: #fff;
-      margin-bottom: 8px;
-    }
-
-    .status-role {
-      font-family: var(--font-mono);
-      font-size: 13px;
-      color: var(--accent-blue);
-      letter-spacing: 1px;
-    }
-
-    .bio-philosophy {
-      font-family: var(--font-body);
-      font-size: 18px;
-      line-height: 1.7;
-      color: #b8cde0;
-      border-left: 2px solid var(--accent);
-      padding-left: 18px;
-      margin-bottom: 32px;
-      font-style: italic;
-    }
-
-    .badge-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 36px;
-    }
-
-    .bio-badge {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      padding: 6px 14px;
-      border-radius: 30px;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: #9cb1c5;
-      letter-spacing: 1px;
-    }
-
-    .bio-badge.active-badge {
-      color: var(--accent);
-      border-color: rgba(255, 157, 0, 0.4);
-      background: rgba(255, 157, 0, 0.1);
-    }
-
     /* Section 2: Dashboard Matrix */
     .section-title {
       font-family: var(--font-display);
@@ -845,8 +749,6 @@
       header.nav-bar { padding: 18px 24px; }
       .content-stream { padding: 0 24px; }
       footer.bottom-hud { display: none; }
-      .profile-hero-card { padding: 32px 24px; }
-      .name-display { font-size: 40px; }
     }
   </style>
 </head>
@@ -947,38 +849,37 @@
   <!-- Flowing Smooth-Scroll Content Stream -->
   <main class="content-stream">
 
-    <!-- 01: HERO PERSONAL BIO PROFILE -->
-    <section class="scene-section" id="sec-profile">
-      <div class="liquid-glass-container">
-        <div class="profile-hero-card liquid-glass">
+    <!-- 01: HERO DISCORD PROFILE CARD (ĐỒNG BỘ DISCORD CỦA BẠN) -->
+    <section class="scene-section" id="sec-profile" style="display: flex; justify-content: center; align-items: center;">
+      <div class="liquid-glass-container" style="max-width: 480px; width: 100%;">
+        <div class="liquid-glass" style="padding: 24px; border-radius: 22px;">
           <div class="glass-glare"></div>
           <div class="glass-shimmer"></div>
-          
-          <div class="profile-top">
-            <div class="avatar-box">
-              <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=400&auto=format&fit=crop&q=80" alt="Avatar" class="avatar-img">
+
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+            <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent); letter-spacing: 2px;">
+              // DISCORD_PRESENCE_UPLINK
             </div>
-            <div class="profile-names">
-              <div class="ascii-header">root@kernel:~$ whoami</div>
-              <h1 class="name-display" id="user-display-name">Cyber_Architect</h1>
-              <div class="status-role" id="i18n-role">[SYS] Role: System Architect // Security Enthusiast</div>
-            </div>
+            <div class="singularity-beacon" style="background:#5865F2; box-shadow: 0 0 12px #5865F2;"></div>
           </div>
 
-          <div class="bio-philosophy" id="i18n-philosophy">
-            "Không bao giờ viết dòng thứ tư nếu ba dòng là đủ giải quyết vấn đề. Sự tĩnh lặng và tốc độ là một. sudo shutdown -r now"
+          <!-- Lanyard Discord Widget với ID của bạn -->
+          <iframe 
+            src="https://lanyard.cnrad.dev/api/1053893912466554922?bg=transparent&animated=true&idleMessage=Offline%20Mode&borderRadius=16px"
+            frameborder="0" 
+            style="width: 100%; height: 215px; border: none; border-radius: 16px; display: block; overflow: hidden;" 
+            loading="lazy">
+          </iframe>
+
+          <!-- Nút bấm nhắn tin nhanh qua Discord -->
+          <div style="margin-top: 18px;">
+            <a href="https://discord.com/users/1053893912466554922" target="_blank" class="copy-btn" style="text-decoration: none;">
+              <span>💬 NHẮN TIN TRỰC TIẾP TRÊN DISCORD</span>
+            </a>
           </div>
 
-          <div class="badge-bar">
-            <span class="bio-badge active-badge" id="i18n-status">[STATUS: ONLINE]</span>
-            <span class="bio-badge" id="i18n-class">[CLASS: ELITE HACKER]</span>
-            <span class="bio-badge">[KERNEL: HARDENED LINUX]</span>
-            <span class="bio-badge">[CLEARANCE: 0x7F]</span>
-            <span class="bio-badge">[I18N: ACTIVE]</span>
-          </div>
-
-          <div style="font-family:var(--font-mono); font-size:11px; color:#788899; display:flex; gap:16px;">
-            <span id="i18n-scroll-hint">✦ CUỘN TRANG XUỐNG ĐỂ TRUY CẬP TIỆN ÍCH HỆ THỐNG VÀ THÔNG SỐ SERVER</span>
+          <div style="font-family: var(--font-mono); font-size: 10.5px; color: #788899; text-align: center; margin-top: 14px; letter-spacing: 1px;">
+            ✦ CUỘN XUỐNG ĐỂ TRUY CẬP TIỆN ÍCH HỆ THỐNG VÀ TERMINAL
           </div>
 
         </div>
@@ -1118,12 +1019,12 @@
         </div>
 
         <div class="liquid-glass-container">
-          <a href="https://discord.com" target="_blank" class="social-btn liquid-glass">
+          <a href="https://discord.com/users/1053893912466554922" target="_blank" class="social-btn liquid-glass">
             <div class="glass-glare"></div>
             <div class="glass-shimmer"></div>
             <div>
               <div class="social-name">Discord</div>
-              <div class="social-handle">axiom#0001</div>
+              <div class="social-handle">@1053893912466554922</div>
             </div>
             <span style="color:var(--accent);">↗</span>
           </a>
@@ -1224,7 +1125,7 @@
   <!-- Sticky Footer -->
   <footer class="bottom-hud">
     <div class="hud-left">
-      <span>PROFILE: <strong style="color:#fff;">CYBER_ARCHITECT</strong></span>
+      <span>DISCORD_UID: <strong style="color:#5865F2;">1053893912466554922</strong></span>
     </div>
     <div class="hud-right">
       <span>LANG: <strong id="hud-lang-tag" style="color:#00f3ff;">VI (TIẾNG VIỆT)</strong></span>
@@ -1240,11 +1141,6 @@
       vi: {
         label: "TIẾNG VIỆT",
         brand: "CYBER_PROFILE // AXIOM",
-        role: "[SYS] Role: System Architect // Security Enthusiast",
-        philosophy: '"Không bao giờ viết dòng thứ tư nếu ba dòng là đủ giải quyết vấn đề. Sự tĩnh lặng và tốc độ là một. sudo shutdown -r now"',
-        status: "[TRẠNG THÁI: TRỰC TUYẾN]",
-        class: "[CẤP BẬC: HACKER TINH ANH]",
-        scrollHint: "✦ CUỘN TRANG XUỐNG ĐỂ TRUY CẬP TIỆN ÍCH HỆ THỐNG VÀ THÔNG SỐ SERVER",
         samplesTitle: "Hệ Thống & Tiện Ích",
         samplesMeta: "// REAL-TIME TELEMETRY, LO-FI AUDIO & DONATION QR",
         socialsTitle: "Kênh Kết Nối & Kỹ Năng",
@@ -1255,11 +1151,6 @@
       en: {
         label: "ENGLISH",
         brand: "CYBER_PROFILE // AXIOM",
-        role: "[SYS] Role: System Architect // Security Enthusiast",
-        philosophy: '"Never write a fourth line if three can solve the problem. Stillness and speed are one. sudo shutdown -r now"',
-        status: "[STATUS: ONLINE]",
-        class: "[CLASS: ELITE HACKER]",
-        scrollHint: "✦ SCROLL DOWN FOR SYSTEM UTILITIES & SERVER TELEMETRY",
         samplesTitle: "System & Utilities",
         samplesMeta: "// REAL-TIME TELEMETRY, LO-FI AUDIO & DONATION QR",
         socialsTitle: "Social Uplinks & Skills",
@@ -1270,11 +1161,6 @@
       ja: {
         label: "日本語",
         brand: "サイバー・プロファイル // AXIOM",
-        role: "[SYS] 役割: システムアーキテクト // セキュリティ研究員",
-        philosophy: '"3行で解決できる問題なら、4行目を書くことはない。静寂と速度は一つなり。sudo shutdown -r now"',
-        status: "[ステータス: オンライン]",
-        class: "[クラス: エリートハッカー]",
-        scrollHint: "✦ スクロールしてシステムユーティリティを表示",
         samplesTitle: "システム & ユーティリティ",
         samplesMeta: "// リアルタイムテレメトリ、Lo-Fi、QR寄付",
         socialsTitle: "リンク＆スキルマトリクス",
@@ -1285,11 +1171,6 @@
       ko: {
         label: "한국어",
         brand: "사이버_프로필 // AXIOM",
-        role: "[SYS] 역할: 시스템 아키텍트 // 보안 엔지니어",
-        philosophy: '"세 줄로 해결될 문제에 네 번째 줄을 쓰지 않는다. 고요함과 속도는 하나다. sudo shutdown -r now"',
-        status: "[상태: 온라인]",
-        class: "[클래스: 엘리트 해커]",
-        scrollHint: "✦ 스크롤하여 시스템 유틸리티 및 서버 상태 확인",
         samplesTitle: "시스템 & 유틸리티",
         samplesMeta: "// 실시간 원격 측정, Lo-Fi 오디오 및 후원 QR",
         socialsTitle: "소셜 링크 & 스킬 매트릭스",
@@ -1300,11 +1181,6 @@
       zh: {
         label: "中文",
         brand: "网络配置文件 // AXIOM",
-        role: "[SYS] 职位: 系统架构师 // 安全研究员",
-        philosophy: '"如果三行代码能解决问题，绝不写第四行。寂静与极速合二为一。sudo shutdown -r now"',
-        status: "[状态: 在线]",
-        class: "[等级: 精英黑客]",
-        scrollHint: "✦ 向下滚动查看系统工具与遥测参数",
         samplesTitle: "系统与实用组件",
         samplesMeta: "// 实时遥测数据、LO-FI音乐与赞助通道",
         socialsTitle: "社交网络与技术矩阵",
@@ -1315,11 +1191,6 @@
       es: {
         label: "ESPAÑOL",
         brand: "PERFIL_CIBERNÉTICO // AXIOM",
-        role: "[SYS] Rol: Arquitecto de Sistemas // Investigador de Seguridad",
-        philosophy: '"Nunca escribas una cuarta línea si tres son suficientes. La quietud y la velocidad son una sola cosa. sudo shutdown -r now"',
-        status: "[ESTADO: EN LÍNEA]",
-        class: "[CLASE: HACKER ÉLITE]",
-        scrollHint: "✦ DESPLÁZATE PARA VER LAS UTILIDADES DEL SISTEMA",
         samplesTitle: "Sistema y Utilidades",
         samplesMeta: "// TELEMETRÍA EN TIEMPO REAL, AUDIO LO-FI Y QR",
         socialsTitle: "Enlaces y Habilidades",
@@ -1359,11 +1230,6 @@
       });
 
       document.getElementById('i18n-brand').innerText = dict.brand;
-      document.getElementById('i18n-role').innerText = dict.role;
-      document.getElementById('i18n-philosophy').innerText = dict.philosophy;
-      document.getElementById('i18n-status').innerText = dict.status;
-      document.getElementById('i18n-class').innerText = dict.class;
-      document.getElementById('i18n-scroll-hint').innerText = dict.scrollHint;
       document.getElementById('i18n-samples-title').innerText = dict.samplesTitle;
       document.getElementById('i18n-samples-meta').innerText = dict.samplesMeta;
       document.getElementById('i18n-socials-title').innerText = dict.socialsTitle;
@@ -1549,7 +1415,7 @@
     let loadPercent = 0;
     const loadSteps = [
       "SYNCHRONIZING GRAVITATIONAL FIELD [20%]",
-      "LOADING VIELOTTA TYPOGRAPHY MATRIX [45%]",
+      "CONNECTING TO DISCORD GATEWAY [45%]",
       "INITIALIZING EVENT HORIZON TEXTURES [70%]",
       "ENFORCING ANTI-DEBUGGER TRIPWIRES [90%]",
       "ACCESS GRANTED // READY [100%]"
@@ -2148,10 +2014,9 @@
             setTimeout(() => smoothAppendTerm(`• <b>weather</b>         : Dự báo thời tiết dạng đồ họa chữ ASCII`), 160);
             setTimeout(() => smoothAppendTerm(`• <b>pipes</b>           : Hiệu ứng đường ống mạng nghệ thuật`), 200);
             setTimeout(() => smoothAppendTerm(`• <b>color &lt;màu&gt;</b>     : Đổi tông màu web (cyan, red, green, purple, orange)`), 240);
-            setTimeout(() => smoothAppendTerm(`• <b>name &lt;tên&gt;</b>     : Thay đổi tên định danh trên Profile`), 280);
-            setTimeout(() => smoothAppendTerm(`• <b>matrix</b>          : Bật / Tắt mưa mã độc Matrix`), 320);
-            setTimeout(() => smoothAppendTerm(`• <b>warp</b>            : Lao camera vào tâm hố đen 3D`), 360);
-            setTimeout(() => smoothAppendTerm(`• <b>clear</b>           : Xóa sạch nhật ký màn hình`), 400);
+            setTimeout(() => smoothAppendTerm(`• <b>matrix</b>          : Bật / Tắt mưa mã độc Matrix`), 280);
+            setTimeout(() => smoothAppendTerm(`• <b>warp</b>            : Lao camera vào tâm hố đen 3D`), 320);
+            setTimeout(() => smoothAppendTerm(`• <b>clear</b>           : Xóa sạch nhật ký màn hình`), 360);
             break;
 
           case 'neofetch':
@@ -2221,17 +2086,6 @@
             }
             setTimeout(() => smoothAppendTerm(`<span style="color:#00f3ff;">${pipeLine}</span>`), 60);
             setTimeout(() => smoothAppendTerm(`<span style="color:#00ff66;">${pipeLine.split('').reverse().join('')}</span>`), 120);
-            break;
-
-          case 'name':
-            if (parts.length > 1) {
-              const newName = parts.slice(1).join(' ');
-              const nameEl = document.getElementById('user-display-name');
-              if (nameEl) nameEl.innerText = newName;
-              smoothAppendTerm(`<span style="color:#00ff66;">✔ ĐÃ CẬP NHẬT TÊN HIỂN THỊ THÀNH: '${newName}'</span>`);
-            } else {
-              smoothAppendTerm(`<span style="color:#ffaa00;">> Cú pháp: name &lt;Tên_Của_Bạn&gt;</span>`);
-            }
             break;
 
           case 'color':
