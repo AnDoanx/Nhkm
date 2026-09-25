@@ -518,87 +518,93 @@
       position: relative;
     }
 
-    /* Avatar Box & Live Status Dot */
-    .avatar-wrapper {
+    /* DISCORD CARD STYLING */
+    .discord-profile-card {
+      width: 100%;
+      max-width: 580px;
+      background: #111214;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
       position: relative;
-      width: 135px;
-      height: 135px;
-      flex-shrink: 0;
     }
 
-    .avatar-box {
+    .discord-banner {
+      width: 100%;
+      height: 140px;
+      background: linear-gradient(135deg, #1e1f22 0%, #2b2d31 50%, #18191c 100%);
+      position: relative;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .discord-avatar-anchor {
+      position: absolute;
+      bottom: -46px;
+      left: 28px;
+      width: 96px;
+      height: 96px;
+    }
+
+    .discord-avatar-img {
       width: 100%;
       height: 100%;
       border-radius: 50%;
-      border: 2px solid rgba(255, 255, 255, 0.4);
-      box-shadow: 0 0 35px var(--accent-glow), inset 0 0 20px rgba(0, 243, 255, 0.3);
-      overflow: hidden;
-      position: relative;
-    }
-
-    .avatar-img {
-      width: 100%;
-      height: 100%;
+      border: 6px solid #111214;
       object-fit: cover;
+      background: #2b2d31;
+      display: block;
     }
 
-    /* Chấm xanh online trên góc avatar */
-    .avatar-status-dot {
+    /* Chấm trạng thái tròn xanh online gắn sát viền góc avatar */
+    .discord-online-dot {
       position: absolute;
-      bottom: 6px;
-      right: 6px;
+      bottom: 2px;
+      right: 2px;
       width: 22px;
       height: 22px;
-      background: #00ff66;
+      background: #23a55a;
       border-radius: 50%;
-      border: 3.5px solid #060913;
-      box-shadow: 0 0 12px #00ff66, 0 0 24px #00ff66;
-      z-index: 5;
+      border: 4px solid #111214;
+      box-shadow: 0 0 10px #23a55a;
     }
 
-    .avatar-status-dot::after {
-      content: '';
-      position: absolute;
-      inset: -4px;
-      border-radius: 50%;
-      border: 2px solid #00ff66;
-      animation: pulse-ring 1.8s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+    .discord-badges-bar {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 24px 0 0;
+      min-height: 48px;
     }
 
-    @keyframes pulse-ring {
-      0% { transform: scale(0.8); opacity: 0.9; }
-      100% { transform: scale(1.8); opacity: 0; }
+    .d-badge {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 4px 8px;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .bio-philosophy {
-      font-family: var(--font-body);
-      font-size: 15px;
-      line-height: 1.75;
-      color: #c4d7e8;
-      border-left: 2.5px solid var(--accent);
-      padding-left: 16px;
-      margin-bottom: 24px;
+    .discord-inner-body {
+      background: #18191c;
+      margin: 16px 20px 20px;
+      padding: 20px 22px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
     }
 
-    .bio-badge {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      padding: 6px 14px;
-      border-radius: 20px;
+    .d-section-title {
       font-family: var(--font-mono);
       font-size: 11px;
-      color: #9cb1c5;
+      color: #b5bac1;
+      font-weight: 700;
+      text-transform: uppercase;
       letter-spacing: 0.5px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.25s;
-    }
-
-    .bio-badge:hover {
-      border-color: var(--accent);
-      color: #fff;
-      transform: translateY(-1px);
+      margin-bottom: 8px;
     }
 
     /* Section 2: Dashboard Matrix */
@@ -932,88 +938,74 @@
   <!-- Flowing Smooth-Scroll Content Stream -->
   <main class="content-stream">
 
-    <!-- 01: HERO PERSONAL BIO PROFILE (CHẤM XANH ONLINE TRỰC TIẾP TRÊN AVATAR) -->
-    <section class="scene-section" id="sec-profile" style="display: flex; justify-content: center; align-items: center; padding: 100px 0;">
-      <div class="liquid-glass-container" style="max-width: 980px; width: 100%;">
-        <div class="liquid-glass" style="padding: 42px 48px; border-radius: 28px;">
-          <div class="glass-glare"></div>
-          <div class="glass-shimmer"></div>
+    <!-- 01: HERO PROFILE CHUẨN CARD DISCORD NGUYÊN BẢN (KHÔNG BỊ LỖI TRẮNG) -->
+    <section class="scene-section" id="sec-profile" style="display: flex; justify-content: center; align-items: center; padding: 110px 0;">
+      
+      <!-- Thẻ Card Discord -->
+      <div class="discord-profile-card">
+        
+        <!-- Banner Discord -->
+        <div class="discord-banner">
+          <div class="discord-avatar-anchor">
+            <!-- Avatar chó mũ xanh / cute như trong ảnh Discord -->
+            <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=400&auto=format&fit=crop&q=80" alt="Avatar" class="discord-avatar-img">
+            <!-- Chấm online tròn xanh gắn sát góc avatar -->
+            <div class="discord-online-dot" title="Online"></div>
+          </div>
+        </div>
 
-          <!-- Header top của Profile -->
-          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 16px; margin-bottom: 30px;">
-            <div style="font-family: var(--font-mono); font-size: 11.5px; color: var(--accent); letter-spacing: 2px;">
-              // ROOT_ACCESS_GRANTED // IDENTITY_MATRIX
-            </div>
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <span class="singularity-beacon" style="width: 7px; height: 7px; background: #00ff66; box-shadow: 0 0 10px #00ff66;"></span>
-              <span style="font-family: var(--font-mono); font-size: 11px; color: #00ff66; font-weight: bold; letter-spacing: 1px;">ONLINE</span>
-            </div>
+        <!-- Hàng Badges Discord -->
+        <div class="discord-badges-bar">
+          <div class="d-badge" title="Early Supporter">⚔</div>
+          <div class="d-badge" title="Bot Developer">⚡</div>
+          <div class="d-badge" title="Active Developer">🔮</div>
+          <div class="d-badge" title="Nitro Subscriber">💎</div>
+        </div>
+
+        <!-- Tên và Username Discord -->
+        <div style="padding: 12px 28px 0;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <h1 id="user-display-name" style="font-family: var(--font-body); font-size: 24px; font-weight: 700; color: #f2f3f5; letter-spacing: 0.5px;">
+              chiencuto18m ⚔
+            </h1>
+          </div>
+          <div style="font-family: var(--font-body); font-size: 13.5px; color: #949ba4; margin-top: 2px;">
+            chiencuto18m <span style="font-size: 11px; color: #5865f2; background: rgba(88,101,242,0.15); padding: 2px 6px; border-radius: 4px; font-family: var(--font-mono); margin-left: 6px;">[UID: 1053893912466554922]</span>
+          </div>
+        </div>
+
+        <!-- Khung Nội Dung Tiểu Sử Bên Trong Card -->
+        <div class="discord-inner-body">
+          
+          <!-- VỀ TÔI (ABOUT ME) -->
+          <div class="d-section-title">VỀ TÔI // ABOUT ME</div>
+          <div id="i18n-philosophy" style="font-family: var(--font-body); font-size: 13px; line-height: 1.7; color: #dbdee1; margin-bottom: 16px;">
+            "Thức trắng đêm debug giữa dòng log, biến cafe đen thành bot tự động hóa và script ngầm. Không bao giờ viết dòng code thứ tư nếu ba dòng là đủ giải quyết vấn đề. Tĩnh lặng, chính xác và không để lại dấu vết."
           </div>
 
-          <div style="display: flex; align-items: center; gap: 36px; margin-bottom: 28px; flex-wrap: wrap;">
-            
-            <!-- AVATAR VỚI CHẤM ONLINE XANH NEON TỰ NHIÊN -->
-            <div class="avatar-wrapper">
-              <div class="avatar-box">
-                <!-- Avatar nhân vật anime/cyberpunk đồng bộ theo tài khoản -->
-                <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=400&auto=format&fit=crop&q=80" alt="Avatar" class="avatar-img">
-              </div>
-              <!-- Chấm xanh Online gắn góc avatar -->
-              <div class="avatar-status-dot" title="Trạng thái: Trực tuyến (Online)"></div>
+          <div style="height: 1px; background: rgba(255, 255, 255, 0.06); margin-bottom: 16px;"></div>
+
+          <!-- HOẠT ĐỘNG (ACTIVITY) -->
+          <div class="d-section-title">HOẠT ĐỘNG // PLAYING A GAME</div>
+          <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px;">
+            <div style="width: 44px; height: 44px; border-radius: 10px; background: #000; border: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: center; align-items: center; font-size: 22px; flex-shrink: 0;">
+              💻
             </div>
-
-            <div style="flex: 1; min-width: 260px;">
-              <div style="font-family: var(--font-mono); font-size: 13px; color: var(--accent); letter-spacing: 2px; margin-bottom: 6px;">
-                root@singularity:~$ whoami
-              </div>
-              <h1 class="name-display" id="user-display-name" style="font-family: var(--font-display); font-size: clamp(42px, 5vw, 64px); font-weight: 400; line-height: 1.05; color: #fff; margin-bottom: 8px;">
-                chiencuto18m ⚔
-              </h1>
-              <div style="font-family: var(--font-mono); font-size: 12.5px; color: var(--accent-blue); letter-spacing: 1px;">
-                [UID: 1053893912466554922] // Full-Stack & Tool Maker
-              </div>
-            </div>
-
-          </div>
-
-          <!-- ĐOẠN TIỂU SỬ HAY, CHẤT DÀNH CHO CODER / BOT MAKER -->
-          <div class="bio-philosophy" id="i18n-philosophy">
-            "Không viết dòng thứ tư nếu ba dòng là đủ tối ưu. Thức trắng đêm cùng những dòng log, biến cà phê đen thành công cụ tự động hóa và kiến trúc ngầm. Tĩnh lặng, chính xác và không để lại dấu vết. sudo shutdown -r now"
-          </div>
-
-          <!-- DÀN BADGE SẮC NÉT, TINH TẾ -->
-          <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px;">
-            <span class="bio-badge" style="border-color: rgba(0, 255, 102, 0.4); background: rgba(0, 255, 102, 0.08); color: #00ff66;">
-              <span>●</span> ONLINE
-            </span>
-            <span class="bio-badge" style="border-color: rgba(88, 101, 242, 0.4); background: rgba(88, 101, 242, 0.1); color: #8ea1ff;">
-              <span>👾</span> DISCORD USER
-            </span>
-            <span class="bio-badge" style="border-color: rgba(0, 243, 255, 0.4); background: rgba(0, 243, 255, 0.08); color: #00f3ff;">
-              <span>⚡</span> BOT DEVELOPER
-            </span>
-            <span class="bio-badge" style="border-color: rgba(255, 157, 0, 0.4); background: rgba(255, 157, 0, 0.08); color: var(--accent);">
-              <span>🛡</span> KERNEL REVERSE
-            </span>
-            <span class="bio-badge" style="border-color: rgba(255, 68, 68, 0.4); background: rgba(255, 68, 68, 0.08); color: #ff6666;">
-              <span>☕</span> CAFFEINE OVERFLOW
-            </span>
-            <span class="bio-badge">
-              <span>🚀</span> AUTOMATION ARCHITECT
-            </span>
-          </div>
-
-          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
-            <a href="https://discord.com/users/1053893912466554922" target="_blank" class="copy-btn" style="text-decoration: none; padding: 12px 22px;">
-              <span>💬 NHẮN TIN TRỰC TIẾP QUA DISCORD</span>
-            </a>
-            <div style="font-family: var(--font-mono); font-size: 11px; color: #6e7f91; letter-spacing: 1px;">
-              ✦ CUỘN TRANG XUỐNG ĐỂ TRUY CẬP TIỆN ÍCH HỆ THỐNG VÀ TERMINAL
+            <div>
+              <div style="font-family: var(--font-body); font-size: 13.5px; font-weight: 600; color: #f2f3f5;">Visual Studio Code</div>
+              <div style="font-family: var(--font-body); font-size: 12px; color: #949ba4;">Đang code dự án ngầm • 04:20:18 trôi qua</div>
             </div>
           </div>
+
+          <!-- NÚT GỬI TIN NHẮN DISCORD CHUẨN FORM -->
+          <a href="https://discord.com/users/1053893912466554922" target="_blank" style="display: flex; justify-content: center; align-items: center; gap: 8px; width: 100%; background: #5865f2; color: #fff; text-decoration: none; padding: 11px; border-radius: 8px; font-family: var(--font-body); font-size: 13px; font-weight: 600; transition: background 0.2s;">
+            <span>💬 Nhắn tin trực tiếp qua Discord</span>
+          </a>
 
         </div>
+
       </div>
+
     </section>
 
     <!-- 02: TIỆN ÍCH HỆ THỐNG & DASHBOARD MATRIX -->
@@ -1154,7 +1146,7 @@
             <div class="glass-shimmer"></div>
             <div>
               <div class="social-name">Discord</div>
-              <div class="social-handle">@1053893912466554922</div>
+              <div class="social-handle">@chiencuto18m</div>
             </div>
             <span style="color:var(--accent);">↗</span>
           </a>
@@ -1255,7 +1247,7 @@
   <!-- Sticky Footer -->
   <footer class="bottom-hud">
     <div class="hud-left">
-      <span>PROFILE: <strong style="color:#fff;">CHIENCUTO18M</strong></span>
+      <span>PROFILE: <strong style="color:#5865F2;">CHIENCUTO18M</strong></span>
     </div>
     <div class="hud-right">
       <span>LANG: <strong id="hud-lang-tag" style="color:#00f3ff;">VI (TIẾNG VIỆT)</strong></span>
@@ -1271,7 +1263,7 @@
       vi: {
         label: "TIẾNG VIỆT",
         brand: "CYBER_PROFILE // AXIOM",
-        philosophy: '"Không viết dòng thứ tư nếu ba dòng là đủ tối ưu. Thức trắng đêm cùng những dòng log, biến cà phê đen thành công cụ tự động hóa và kiến trúc ngầm. Tĩnh lặng, chính xác và không để lại dấu vết. sudo shutdown -r now"',
+        philosophy: '"Thức trắng đêm debug giữa dòng log, biến cafe đen thành bot tự động hóa và script ngầm. Không bao giờ viết dòng code thứ tư nếu ba dòng là đủ giải quyết vấn đề. Tĩnh lặng, chính xác và không để lại dấu vết."',
         samplesTitle: "Hệ Thống & Tiện Ích",
         samplesMeta: "// REAL-TIME TELEMETRY, LO-FI AUDIO & DONATION QR",
         socialsTitle: "Kênh Kết Nối & Kỹ Năng",
@@ -1282,7 +1274,7 @@
       en: {
         label: "ENGLISH",
         brand: "CYBER_PROFILE // AXIOM",
-        philosophy: '"Never write a fourth line if three can optimize the problem. Late nights with stdout streams, turning black coffee into bots and stealth architectures. Stillness, precision, no traces left. sudo shutdown -r now"',
+        philosophy: '"Late nights debugging log streams, turning black coffee into automation bots and underground scripts. Never write a fourth line if three can solve the problem. Stillness, precision, no traces left."',
         samplesTitle: "System & Utilities",
         samplesMeta: "// REAL-TIME TELEMETRY, LO-FI AUDIO & DONATION QR",
         socialsTitle: "Social Uplinks & Skills",
@@ -1293,7 +1285,7 @@
       ja: {
         label: "日本語",
         brand: "サイバー・プロファイル // AXIOM",
-        philosophy: '"3行で解決できる問題なら、4行目を書くことはない。夜を徹してログを見つめ、ブラックコーヒーを自動化ツールへと変える。静寂、正確、痕跡なし。sudo shutdown -r now"',
+        philosophy: '"夜を徹してログを見つめ、ブラックコーヒーを自動化ツールへと変える。3行で解決できる問題なら、4行目を書くことはない。静寂、正確、痕跡なし。"',
         samplesTitle: "システム & ユーティリティ",
         samplesMeta: "// リアルタイムテレメトリ、Lo-Fi、QR寄付",
         socialsTitle: "リンク＆スキルマトリクス",
@@ -1304,7 +1296,7 @@
       ko: {
         label: "한국어",
         brand: "사이버_프로필 // AXIOM",
-        philosophy: '"세 줄로 해결될 문제에 네 번째 줄을 쓰지 않는다. 밤새 로그를 지켜보며 블랙커피를 자동화 도구로 바꾼다. 고요함, 정확함, 흔적은 남기지 않는다. sudo shutdown -r now"',
+        philosophy: '"밤새 로그를 지켜보며 블랙커피를 자동화 도구로 바꾼다. 세 줄로 해결될 문제에 네 번째 줄을 쓰지 않는다. 고요함, 정확함, 흔적은 남기지 않는다."',
         samplesTitle: "시스템 & 유틸리티",
         samplesMeta: "// 실시간 원격 측정, Lo-Fi 오디오 및 후원 QR",
         socialsTitle: "소셜 링크 & 스킬 매트릭스",
@@ -1315,7 +1307,7 @@
       zh: {
         label: "中文",
         brand: "网络配置文件 // AXIOM",
-        philosophy: '"如果三行代码能解决问题，绝不写第四行。通宵凝视日志流，将黑咖啡转化为自动化工具与隐秘架构。寂静、精准、不留痕迹。sudo shutdown -r now"',
+        philosophy: '"通宵凝视日志流，将黑咖啡转化为自动化脚本与工具。如果三行代码能解决问题，绝不写第四行。寂静、精准、不留痕迹。"',
         samplesTitle: "系统与实用组件",
         samplesMeta: "// 实时遥测数据、LO-FI音乐与赞助通道",
         socialsTitle: "社交网络与技术矩阵",
@@ -1326,7 +1318,7 @@
       es: {
         label: "ESPAÑOL",
         brand: "PERFIL_CIBERNÉTICO // AXIOM",
-        philosophy: '"Nunca escribas una cuarta línea si tres son suficientes. Noches en vela frente a los logs, convirtiendo café en herramientas de automatización. Silencio, precisión y sin dejar rastro. sudo shutdown -r now"',
+        philosophy: '"Noches en vela frente a los logs, convirtiendo café en herramientas de automatización. Nunca escribas una cuarta línea si tres son suficientes. Silencio, precisión y sin dejar rastro."',
         samplesTitle: "Sistema y Utilidades",
         samplesMeta: "// TELEMETRÍA EN TIEMPO REAL, AUDIO LO-FI Y QR",
         socialsTitle: "Enlaces y Habilidades",
