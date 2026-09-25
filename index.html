@@ -23,7 +23,6 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
-  <!-- YouTube IFrame Player API -->
   <script src="https://www.youtube.com/iframe_api"></script>
 
   <style>
@@ -637,6 +636,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      position: relative;
     }
 
     .sample-head {
@@ -672,6 +672,75 @@
       color: #a0b8cc;
       margin-bottom: 20px;
       min-height: 150px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* =========================================================
+       🐱 PIXEL CAT ANIMATION STYLING
+       ========================================================= */
+    .pixel-cat-track {
+      position: relative;
+      width: 100%;
+      height: 38px;
+      margin-bottom: 10px;
+      background: rgba(0, 243, 255, 0.03);
+      border-radius: 8px;
+      border: 1px dashed rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    .pixel-cat {
+      position: absolute;
+      bottom: 4px;
+      left: 0;
+      width: 36px;
+      height: 30px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      transition: transform 0.2s ease;
+      filter: drop-shadow(0 0 6px rgba(255, 157, 0, 0.7));
+      animation: catRunTrack 12s linear infinite;
+    }
+
+    .cat-floor-line {
+      position: absolute;
+      bottom: 2px;
+      left: 0;
+      width: 100%;
+      height: 1.5px;
+      background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.4), rgba(255, 157, 0, 0.6), transparent);
+    }
+
+    @keyframes catRunTrack {
+      0% {
+        left: -38px;
+        transform: scaleX(1);
+      }
+      48% {
+        left: calc(100% - 2px);
+        transform: scaleX(1);
+      }
+      50% {
+        left: calc(100% - 2px);
+        transform: scaleX(-1);
+      }
+      98% {
+        left: -38px;
+        transform: scaleX(-1);
+      }
+      100% {
+        left: -38px;
+        transform: scaleX(1);
+      }
+    }
+
+    .sample-card:hover .pixel-cat {
+      animation-duration: 6s;
     }
 
     .copy-btn {
@@ -858,7 +927,6 @@
       color: var(--accent);
     }
 
-    /* ẨN PLAYER YOUTUBE */
     #yt-hidden-player {
       position: absolute;
       top: -9999px;
@@ -1056,6 +1124,7 @@
 
       <div class="bio-samples-grid">
         
+        <!-- THẺ 1: STATUS CÓ MÈO PIXEL CHẠY ĐỘC ĐÁO & GIỮ NGUYÊN STATUS -->
         <div class="liquid-glass-container">
           <div class="sample-card liquid-glass">
             <div class="glass-glare"></div>
@@ -1069,7 +1138,33 @@
                 <span class="sample-target" id="sys-status-badge" style="color:#00ff66; background:rgba(0,255,102,0.1); border:1px solid rgba(0,255,102,0.3);">ONLINE</span>
               </div>
 
+              <!-- KHUNG STATUS KÈM MÈO PIXEL CHẠY -->
               <div class="sample-box" style="font-family: var(--font-mono); font-size: 11px; line-height: 1.8; padding: 14px 16px;">
+                
+                <!-- ĐƯỜNG CHẠY CỦA MÈO PIXEL RETRO -->
+                <div class="pixel-cat-track" title="Pixel Cyber Cat Companion">
+                  <div class="pixel-cat" id="pixel-cat-sprite">
+                    <!-- Ảnh SVG Vector Mèo Pixel Nét Căng Chạy Bộ -->
+                    <svg viewBox="0 0 32 24" width="34" height="26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="6" y="2" width="4" height="6" fill="#ff9d00"/>
+                      <rect x="18" y="2" width="4" height="6" fill="#ff9d00"/>
+                      <rect x="8" y="6" width="12" height="10" fill="#ffa726"/>
+                      <rect x="10" y="8" width="3" height="3" fill="#000"/>
+                      <rect x="15" y="8" width="3" height="3" fill="#000"/>
+                      <rect x="11" y="9" width="1" height="1" fill="#00f3ff"/>
+                      <rect x="16" y="9" width="1" height="1" fill="#00f3ff"/>
+                      <rect x="12" y="12" width="4" height="2" fill="#ff5722"/>
+                      <rect x="4" y="12" width="20" height="8" fill="#fb8c00"/>
+                      <rect x="22" y="10" width="4" height="4" fill="#fb8c00"/>
+                      <rect x="24" y="8" width="4" height="4" fill="#ff9d00"/>
+                      <rect x="6" y="20" width="4" height="4" fill="#e65100"/>
+                      <rect x="18" y="20" width="4" height="4" fill="#e65100"/>
+                      <rect x="2" y="14" width="4" height="2" fill="#ffe082"/>
+                    </svg>
+                  </div>
+                  <div class="cat-floor-line"></div>
+                </div>
+
                 <div style="display:flex; justify-content:space-between;">
                   <span style="color:#788899;">CLIENT HOST:</span>
                   <span id="sys-detected-os" style="color:#00f3ff; font-weight:bold;">Detecting...</span>
@@ -1110,7 +1205,7 @@
           </div>
         </div>
 
-        <!-- THẺ JUKEBOX YOUTUBE LOFI VIỆT NAM (ĐÃ FIX TRACK 3 & 4) -->
+        <!-- THẺ 2: JUKEBOX YOUTUBE LOFI VIỆT NAM -->
         <div class="liquid-glass-container">
           <div class="sample-card liquid-glass">
             <div class="glass-glare"></div>
@@ -1140,6 +1235,7 @@
           </div>
         </div>
 
+        <!-- THẺ 3: DONATE QR -->
         <div class="liquid-glass-container">
           <div class="sample-card liquid-glass">
             <div class="glass-glare"></div>
@@ -1394,7 +1490,6 @@
       nextLofiTrack();
     }
 
-    // Hàm chuyển bài an toàn không bao giờ bị nghẽn
     function safePlayTrack(index) {
       currentTrackIdx = (index + ytPlaylist.length) % ytPlaylist.length;
       updateTrackUI();
@@ -1433,7 +1528,6 @@
       safePlayTrack(currentTrackIdx - 1);
     }
 
-    // Kích hoạt phát nhạc khi có tương tác đầu tiên
     let hasInteracted = false;
     function triggerFirstAudioGesture() {
       if (hasInteracted) return;
@@ -2228,4 +2322,5 @@
   </script>
 </body>
 </html>
+
 
