@@ -113,7 +113,7 @@
       #cursor-dot, #cursor-ring, #cursor-tag { display: block; }
     }
 
-    /* LOADER GUI ĐÃ ĐƯỢC FIX AN TOÀN TRÊN SAFARI/IOS */
+    /* LOADER GUI */
     #loader-gui {
       position: fixed;
       inset: 0;
@@ -882,7 +882,7 @@
     <div class="loader-bar-bg">
       <div class="loader-bar-fill" id="loader-progress"></div>
     </div>
-    <div style="font-family: var(--font-mono); font-size: 10px; color: #5c6a78; margin-top: 18px; letter-spacing: 1px;">[CHẠM VÀO MÀN HÌNH ĐỂ VÀO NGAY]</div>
+    <div style="font-family: var(--font-mono); font-size: 10px; color: #5c6a78; margin-top: 18px; letter-spacing: 1px;">[CHẠM VÀO MÀN HÌNH ĐỂ VÀO NGAY & PHÁT NHẠC]</div>
   </div>
 
   <!-- CẢNH BÁO TOAST -->
@@ -1049,7 +1049,7 @@
     <!-- 02: TIỆN ÍCH HỆ THỐNG & DASHBOARD MATRIX -->
     <section class="scene-section" id="sec-samples">
       <h2 class="section-title" id="i18n-samples-title">Hệ Thống & Tiện Ích</h2>
-      <div class="section-meta" id="i18n-samples-meta">// REAL-TIME TELEMETRY, LO-FI PLAYLIST & DONATION QR</div>
+      <div class="section-meta" id="i18n-samples-meta">// REAL-TIME TELEMETRY, VIETNAMESE LO-FI & DONATION QR</div>
 
       <div class="bio-samples-grid">
         
@@ -1108,22 +1108,22 @@
           </div>
         </div>
 
-        <!-- THẺ 2: MINI LOFI PLAYLIST PLAYER -->
+        <!-- THẺ 2: PLAYLIST LOFI VIỆT NAM CHILL TỰ ĐỘNG PHÁT -->
         <div class="liquid-glass-container">
           <div class="sample-card liquid-glass">
             <div class="glass-glare"></div>
             <div class="glass-shimmer"></div>
             <div>
               <div class="sample-head">
-                <span class="sample-type">Lo-Fi Jukebox</span>
-                <span class="sample-target" id="lofi-track-status">PAUSED</span>
+                <span class="sample-type">V-Lofi Jukebox</span>
+                <span class="sample-target" id="lofi-track-status">CONNECTING</span>
               </div>
               <div class="sample-box" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 8px; min-height: 165px;">
                 <div style="font-size: 26px; animation: beacon-pulse 2s infinite ease-in-out;">🎧</div>
-                <div style="color: #fff; font-weight: bold; font-size: 13.5px;" id="lofi-title">Loading Track...</div>
-                <div style="color: #7b8896; font-size: 11px;" id="lofi-artist">Lo-Fi Cyber Collective</div>
+                <div style="color: #fff; font-weight: bold; font-size: 13.5px;" id="lofi-title">Đang tải nhạc Việt...</div>
+                <div style="color: #7b8896; font-size: 11px;" id="lofi-artist">Lofi Chill Việt Nam</div>
                 <div style="color: var(--accent-blue); font-size: 10px; font-family: var(--font-mono);" id="lofi-track-counter">TRACK 1 / 4</div>
-                <audio id="lofi-audio" preload="metadata"></audio>
+                <audio id="lofi-audio" preload="auto"></audio>
               </div>
             </div>
 
@@ -1131,7 +1131,7 @@
               <div class="player-controls">
                 <button class="player-sub-btn" onclick="prevLofiTrack()" title="Bài trước">⏮ PREV</button>
                 <button class="copy-btn" id="lofi-play-btn" style="flex: 1; padding: 10px 14px;" onclick="toggleLofiAudio()">
-                  <span id="lofi-btn-label">▶ PHÁT NHẠC</span>
+                  <span id="lofi-btn-label">⏸ TẠM DỪNG</span>
                 </button>
                 <button class="player-sub-btn" onclick="nextLofiTrack()" title="Bài kế tiếp">NEXT ⏭</button>
               </div>
@@ -1157,7 +1157,7 @@
                        style="width: 100%; height: 100%; object-fit: cover; display: block;">
                 </div>
                 <div style="font-size: 11px; color: #a0b8cc; margin-top: 10px; font-family: var(--font-mono); text-align: center;">
-                  Quét mã QR để ủng hộ ly cafe ☕
+                  Quét mã QR để mời mình ly cafe ☕
                 </div>
               </div>
             </div>
@@ -1305,7 +1305,119 @@
 
   <script>
     /* =========================================================
-       0. FIX LỖI LOADER ĐỨNG HÌNH TRÊN SAFARI/IOS & FALLBACK AN TOÀN
+       🎵 1. DANH SÁCH NHẠC LO-FI VIỆT NAM & ENGINE TỰ ĐỘNG PHÁT
+       ========================================================= */
+    const lofiPlaylist = [
+      {
+        title: "Tình Yêu Ngủ Quên (Chill Ver)",
+        artist: "Hoàng Tôn x LyHan (V-Lofi Chill)",
+        url: "https://ia601408.us.archive.org/26/items/tinh-yeu-ngu-quen-chill-version-hoang-ton-ly-han-o-nha-len-nhac-v.-a-playlist-nhac-cua-tui/TinhYeuNguQuenChillVersion-HoangTonLyHan-7036720.mp3"
+      },
+      {
+        title: "Dễ Đến Dễ Đi (Lofi Version)",
+        artist: "Quang Hùng MasterD (Lofi Mix)",
+        url: "https://ia804702.us.archive.org/26/items/de-den-de-di-lofi-version-quang-hung-master-d-nhung-ban-lofi-viet-nhe-nhang-cuc-_202207/DeDenDeDiLofiVersion-QuangHungMasterD-6933568.mp3"
+      },
+      {
+        title: "Giữ Riêng Anh (Lofi Version)",
+        artist: "Thanh Bình (V-Lofi Chill Rain)",
+        url: "https://ia804702.us.archive.org/16/items/giu-rieng-anh-lofi-version-thanh-binh-nhung-ban-lofi-viet-nhe-nhang-cuc-chill-nh_202207/GiuRiengAnhLofiVersion-ThanhBinh-7043867.mp3"
+      },
+      {
+        title: "Sài Gòn Mưa Đêm (Acoustic Chill)",
+        artist: "V-Indie Acoustic Lofi Collective",
+        url: "https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=lofi-chill-medium-version-159456.mp3"
+      }
+    ];
+
+    let currentTrackIdx = 0;
+    let hasUserInteracted = false;
+    const lofiAudio = document.getElementById('lofi-audio');
+    const lofiBtnLabel = document.getElementById('lofi-btn-label');
+    const lofiBadge = document.getElementById('lofi-track-status');
+    const lofiTitle = document.getElementById('lofi-title');
+    const lofiArtist = document.getElementById('lofi-artist');
+    const lofiCounter = document.getElementById('lofi-track-counter');
+
+    function loadTrack(idx) {
+      currentTrackIdx = (idx + lofiPlaylist.length) % lofiPlaylist.length;
+      const track = lofiPlaylist[currentTrackIdx];
+      lofiAudio.src = track.url;
+      lofiTitle.innerText = track.title;
+      lofiArtist.innerText = track.artist;
+      lofiCounter.innerText = `TRACK ${currentTrackIdx + 1} / ${lofiPlaylist.length}`;
+    }
+    loadTrack(0);
+
+    // Hàm tự động phát nhạc không bao giờ hiện alert
+    function startAutoMusic() {
+      if (!lofiAudio) return;
+      lofiAudio.play().then(() => {
+        lofiBtnLabel.innerText = '⏸ TẠM DỪNG';
+        lofiBadge.innerText = 'PLAYING';
+        lofiBadge.style.color = '#00ff66';
+      }).catch(() => {
+        // Trình duyệt chặn autoplay khi chưa chạm, chờ chạm vào màn hình
+        lofiBadge.innerText = 'PAUSED';
+      });
+    }
+
+    // Tự động phát khi người dùng chạm hoặc click bất cứ đâu mà không cần hỏi
+    function handleFirstUserAction() {
+      if (hasUserInteracted) return;
+      hasUserInteracted = true;
+      startAutoMusic();
+      window.removeEventListener('click', handleFirstUserAction);
+      window.removeEventListener('touchstart', handleFirstUserAction);
+      window.removeEventListener('keydown', handleFirstUserAction);
+    }
+    window.addEventListener('click', handleFirstUserAction, { passive: true });
+    window.addEventListener('touchstart', handleFirstUserAction, { passive: true });
+    window.addEventListener('keydown', handleFirstUserAction, { passive: true });
+
+    function toggleLofiAudio() {
+      playChillClickSound();
+      if (!lofiAudio) return;
+      if (lofiAudio.paused) {
+        lofiAudio.play().then(() => {
+          lofiBtnLabel.innerText = '⏸ TẠM DỪNG';
+          lofiBadge.innerText = 'PLAYING';
+          lofiBadge.style.color = '#00ff66';
+        }).catch(() => {});
+      } else {
+        lofiAudio.pause();
+        lofiBtnLabel.innerText = '▶ PHÁT NHẠC';
+        lofiBadge.innerText = 'PAUSED';
+        lofiBadge.style.color = 'var(--accent)';
+      }
+    }
+
+    function nextLofiTrack() {
+      playChillClickSound();
+      loadTrack(currentTrackIdx + 1);
+      lofiAudio.play().then(() => {
+        lofiBtnLabel.innerText = '⏸ TẠM DỪNG';
+        lofiBadge.innerText = 'PLAYING';
+        lofiBadge.style.color = '#00ff66';
+      }).catch(() => {});
+    }
+
+    function prevLofiTrack() {
+      playChillClickSound();
+      loadTrack(currentTrackIdx - 1);
+      lofiAudio.play().then(() => {
+        lofiBtnLabel.innerText = '⏸ TẠM DỪNG';
+        lofiBadge.innerText = 'PLAYING';
+        lofiBadge.style.color = '#00ff66';
+      }).catch(() => {});
+    }
+
+    lofiAudio.addEventListener('ended', () => {
+      nextLofiTrack();
+    });
+
+    /* =========================================================
+       2. LOADER GUI LOGIC (AN TOÀN SAFARI / IOS)
        ========================================================= */
     const loaderGui = document.getElementById('loader-gui');
     const loaderProgress = document.getElementById('loader-progress');
@@ -1315,7 +1427,7 @@
     const loadSteps = [
       "SYNCHRONIZING GRAVITATIONAL FIELD [20%]",
       "SYNCING DISCORD LANYARD API [45%]",
-      "LOADING CHILL PLAYLIST BUFFERS [70%]",
+      "BUFFERING VIETNAMESE LO-FI [70%]",
       "ENFORCING ANTI-DEBUGGER TRIPWIRES [90%]",
       "ACCESS GRANTED // READY [100%]"
     ];
@@ -1323,6 +1435,7 @@
     function dismissLoader() {
       if (!loaderGui || loaderGui.classList.contains('loaded')) return;
       loaderGui.classList.add('loaded');
+      startAutoMusic();
       setTimeout(() => {
         loaderGui.style.display = 'none';
         try { loaderGui.remove(); } catch(e){}
@@ -1345,15 +1458,14 @@
 
       if (loadPercent >= 100) {
         clearInterval(loadInterval);
-        setTimeout(dismissLoader, 200);
+        setTimeout(dismissLoader, 150);
       }
     }, 35);
 
-    // Cơ chế khẩn cấp: Tự tắt sau 1.8s bất chấp điều kiện mạng
-    setTimeout(dismissLoader, 1800);
+    setTimeout(dismissLoader, 1600);
 
     /* =========================================================
-       🔥 1. FETCH REAL DISCORD AVATAR & INFO TỪ LANYARD API
+       🔥 3. FETCH REAL DISCORD AVATAR & INFO TỪ LANYARD API
        ========================================================= */
     const DISCORD_USER_ID = "1053893912466554922";
 
@@ -1391,98 +1503,7 @@
     syncDiscordProfile();
 
     /* =========================================================
-       🎵 2. PLAYLIST NHẠC LO-FI CHILL
-       ========================================================= */
-    const lofiPlaylist = [
-      {
-        title: "Midnight City Cyber Beat",
-        artist: "ChillHop & Lo-Fi Beats",
-        url: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3"
-      },
-      {
-        title: "Coffee & Code Drift",
-        artist: "Lofi Room // Tokyo Station",
-        url: "https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=lofi-chill-medium-version-159456.mp3"
-      },
-      {
-        title: "Rainy Terminal Stride",
-        artist: "Underground Synthetics",
-        url: "https://cdn.pixabay.com/download/audio/2023/07/30/audio_51a24d852a.mp3?filename=good-night-lofi-cozy-chill-160166.mp3"
-      },
-      {
-        title: "Lofi Live 24/7 Radio Stream",
-        artist: "Global Chill Radio",
-        url: "https://stream.zeno.fm/f3wvbbqmdg8uv"
-      }
-    ];
-
-    let currentTrackIdx = 0;
-    const lofiAudio = document.getElementById('lofi-audio');
-    const lofiBtnLabel = document.getElementById('lofi-btn-label');
-    const lofiBadge = document.getElementById('lofi-track-status');
-    const lofiTitle = document.getElementById('lofi-title');
-    const lofiArtist = document.getElementById('lofi-artist');
-    const lofiCounter = document.getElementById('lofi-track-counter');
-
-    function loadTrack(idx) {
-      currentTrackIdx = (idx + lofiPlaylist.length) % lofiPlaylist.length;
-      const track = lofiPlaylist[currentTrackIdx];
-      lofiAudio.src = track.url;
-      lofiTitle.innerText = track.title;
-      lofiArtist.innerText = track.artist;
-      lofiCounter.innerText = `TRACK ${currentTrackIdx + 1} / ${lofiPlaylist.length}`;
-    }
-    loadTrack(0);
-
-    function toggleLofiAudio() {
-      playChillClickSound();
-      if (!lofiAudio) return;
-      if (lofiAudio.paused) {
-        lofiAudio.play().then(() => {
-          lofiBtnLabel.innerText = '⏸ TẠM DỪNG';
-          lofiBadge.innerText = 'PLAYING';
-          lofiBadge.style.color = '#00ff66';
-        }).catch(() => {
-          alert('Vui lòng chạm/nhấp vào trang để cấp quyền phát audio.');
-        });
-      } else {
-        lofiAudio.pause();
-        lofiBtnLabel.innerText = '▶ PHÁT NHẠC';
-        lofiBadge.innerText = 'PAUSED';
-        lofiBadge.style.color = 'var(--accent)';
-      }
-    }
-
-    function nextLofiTrack() {
-      playChillClickSound();
-      const wasPlaying = !lofiAudio.paused;
-      loadTrack(currentTrackIdx + 1);
-      if (wasPlaying) {
-        lofiAudio.play();
-        lofiBtnLabel.innerText = '⏸ TẠM DỪNG';
-        lofiBadge.innerText = 'PLAYING';
-        lofiBadge.style.color = '#00ff66';
-      }
-    }
-
-    function prevLofiTrack() {
-      playChillClickSound();
-      const wasPlaying = !lofiAudio.paused;
-      loadTrack(currentTrackIdx - 1);
-      if (wasPlaying) {
-        lofiAudio.play();
-        lofiBtnLabel.innerText = '⏸ TẠM DỪNG';
-        lofiBadge.innerText = 'PLAYING';
-        lofiBadge.style.color = '#00ff66';
-      }
-    }
-
-    lofiAudio.addEventListener('ended', () => {
-      nextLofiTrack();
-    });
-
-    /* =========================================================
-       🌐 3. I18N MULTI-LANGUAGE
+       🌐 4. I18N MULTI-LANGUAGE
        ========================================================= */
     const i18nData = {
       vi: {
@@ -1490,7 +1511,7 @@
         brand: "CYBER_PROFILE // AXIOM",
         philosophy: '"Không viết dòng thứ tư nếu ba dòng là đủ tối ưu. Thức trắng đêm cùng stdout streams, biến cafe đen thành công cụ tự động hóa và kiến trúc ngầm. Tĩnh lặng, chính xác và không để lại dấu vết."',
         samplesTitle: "Hệ Thống & Tiện Ích",
-        samplesMeta: "// REAL-TIME TELEMETRY, LO-FI PLAYLIST & DONATION QR",
+        samplesMeta: "// REAL-TIME TELEMETRY, VIETNAMESE LO-FI & DONATION QR",
         socialsTitle: "Kênh Kết Nối & Kỹ Năng",
         socialsMeta: "// SOCIAL PROFILES & PROFICIENCY",
         termTitle: "Trung Tâm Điều Hành",
@@ -1501,7 +1522,7 @@
         brand: "CYBER_PROFILE // AXIOM",
         philosophy: '"Never write a fourth line if three can optimize the problem. Late nights with stdout streams, turning black coffee into automation bots and underground architectures. Stillness, precision, no traces left."',
         samplesTitle: "System & Utilities",
-        samplesMeta: "// REAL-TIME TELEMETRY, LO-FI PLAYLIST & DONATION QR",
+        samplesMeta: "// REAL-TIME TELEMETRY, VIETNAMESE LO-FI & DONATION QR",
         socialsTitle: "Social Uplinks & Skills",
         socialsMeta: "// SOCIAL PROFILES & PROFICIENCY",
         termTitle: "Command Center",
@@ -1512,7 +1533,7 @@
         brand: "サイバー・プロファイル // AXIOM",
         philosophy: '"3行で解決できる問題なら、4行目を書くことはない。夜を徹してstdoutを見つめ、ブラックコーヒーを自動化ツールへと変える。静寂、正確、痕跡なし。"',
         samplesTitle: "システム & ユーティリティ",
-        samplesMeta: "// リアルタイムテレメトリ、プレイリスト、QR寄付",
+        samplesMeta: "// リアルタイムテレメトリ、ベトナムLo-Fi、QR寄付",
         socialsTitle: "リンク＆スキルマトリクス",
         socialsMeta: "// ソーシャルプロファイル & 習熟度",
         termTitle: "オペレーション・ターミナル",
@@ -1523,7 +1544,7 @@
         brand: "사이버_프로필 // AXIOM",
         philosophy: '"세 줄로 해결될 문제에 네 번째 줄을 쓰지 않는다. 밤새 stdout 스트림을 지켜보며 블랙커피를 자동화 도구로 바꾼다. 고요함, 정확함, 흔적은 남기지 않는다."',
         samplesTitle: "시스템 & 유틸리티",
-        samplesMeta: "// 실시간 원격 측정, Lo-Fi 플레이리스트 및 후원 QR",
+        samplesMeta: "// 실시간 원격 측정, 베트남 Lo-Fi 및 후원 QR",
         socialsTitle: "소셜 링크 & 스킬 매트릭스",
         socialsMeta: "// 소셜 프로필 & 기술 숙련도",
         termTitle: "커맨드 센터",
@@ -1534,7 +1555,7 @@
         brand: "网络配置文件 // AXIOM",
         philosophy: '"如果三行代码能解决问题，绝不写第四行。通宵凝视终端日志流，将黑咖啡转化为自动化工具与隐秘架构。寂静、精准、不留痕迹。"',
         samplesTitle: "系统与实用组件",
-        samplesMeta: "// 实时遥测数据、LO-FI播放列表与赞助通道",
+        samplesMeta: "// 实时遥测数据、越南LO-FI音乐与赞助通道",
         socialsTitle: "社交网络与技术矩阵",
         socialsMeta: "// 社交主页与技术熟练度",
         termTitle: "控制终端",
@@ -1545,8 +1566,8 @@
         brand: "PERFIL_CIBERNÉTICO // AXIOM",
         philosophy: '"Nunca escribas una cuarta línea si tres son suficientes. Noches en vela frente a los flujos de stdout, convirtiendo café en herramientas de automatización. Silencio, precisión y sin dejar rastro."',
         samplesTitle: "Sistema y Utilidades",
-        samplesMeta: "// TELEMETRÍA EN TIEMPO REAL, LISTA LO-FI Y QR",
-        socialsTitle: "Enlaces và Habilidades",
+        samplesMeta: "// TELEMETRÍA EN TIEMPO REAL, LO-FI VIETNAMITA Y QR",
+        socialsTitle: "Enlaces y Habilidades",
         socialsMeta: "// PERFILES SOCIALES Y DOMINIO TÉCNICO",
         termTitle: "Centro de Comando",
         termMeta: "// CONTROLADOR DE PERFIL POR COMANDOS"
@@ -1596,7 +1617,7 @@
     }
 
     /* =========================================================
-       4. ÂM THANH CLICK AN TOÀN TRÊN SAFARI
+       5. ÂM THANH CLICK AN TOÀN TRÊN SAFARI
        ========================================================= */
     let audioOn = true;
     let audioCtx = null;
@@ -1634,7 +1655,7 @@
     }
 
     /* =========================================================
-       5. CLICK PARTICLES ENGINE
+       6. CLICK PARTICLES ENGINE
        ========================================================= */
     const particleCanvas = document.getElementById('click-particles-canvas');
     const pCtx = particleCanvas.getContext('2d');
@@ -1699,7 +1720,7 @@
     });
 
     /* =========================================================
-       6. PHÒNG THỦ: CHỐNG DEVTOOLS AN TOÀN TRÊN MOBILE
+       7. PHÒNG THỦ: CHỐNG DEVTOOLS AN TOÀN TRÊN MOBILE
        ========================================================= */
     const securityToast = document.getElementById('security-toast');
     const toastTitle = document.getElementById('toast-title');
@@ -1762,7 +1783,7 @@
     }, 800);
 
     /* =========================================================
-       7. LIQUID GLASS 3D TILT
+       8. LIQUID GLASS 3D TILT
        ========================================================= */
     document.querySelectorAll('.liquid-glass').forEach(card => {
       card.addEventListener('mousemove', (e) => {
@@ -1787,7 +1808,7 @@
     });
 
     /* =========================================================
-       8. CUSTOM CURSOR
+       9. CUSTOM CURSOR
        ========================================================= */
     const cursorDot = document.getElementById('cursor-dot');
     const cursorRing = document.getElementById('cursor-ring');
@@ -1827,7 +1848,7 @@
     });
 
     /* =========================================================
-       9. SMOOTH SCROLL (LENIS)
+       10. SMOOTH SCROLL (LENIS)
        ========================================================= */
     const lenis = new Lenis({
       duration: 1.2,
@@ -1845,7 +1866,7 @@
     requestAnimationFrame(raf);
 
     /* =========================================================
-       10. TELEMETRY & SYSTEM STATS
+       11. TELEMETRY & SYSTEM STATS
        ========================================================= */
     function detectRealClientOS() {
       const ua = navigator.userAgent;
@@ -1944,7 +1965,7 @@
     setInterval(updateTelemetryLoad, 650);
 
     /* =========================================================
-       11. 3D BLACK HOLE BACKGROUND
+       12. 3D BLACK HOLE BACKGROUND
        ========================================================= */
     const canvas = document.getElementById('blackhole-canvas');
     const scene = new THREE.Scene();
@@ -2074,7 +2095,7 @@
     });
 
     /* =========================================================
-       12. TERMINAL CONTROLLER (TERMUX/CLI STYLE)
+       13. TERMINAL CONTROLLER
        ========================================================= */
     const termDisplay = document.getElementById('term-display');
     const termIn = document.getElementById('term-in');
