@@ -22,6 +22,8 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <!-- YouTube IFrame Player API -->
+  <script src="https://www.youtube.com/iframe_api"></script>
 
   <style>
     :root {
@@ -855,6 +857,17 @@
       color: var(--accent);
     }
 
+    /* ẨN PLAYER YOUTUBE KHỎI MÀN HÌNH */
+    #yt-hidden-player {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
     @media (max-width: 768px) {
       header.nav-bar { padding: 18px 24px; }
       .content-stream { padding: 0 24px; }
@@ -863,6 +876,9 @@
   </style>
 </head>
 <body>
+
+  <!-- KHUNG YOUTUBE IFRAME ẨN -->
+  <div id="yt-hidden-player"></div>
 
   <canvas id="click-particles-canvas"></canvas>
 
@@ -1093,21 +1109,21 @@
           </div>
         </div>
 
+        <!-- THẺ PLAYLIST YOUTUBE LOFI VIỆT NAM CHUẨN 100% -->
         <div class="liquid-glass-container">
           <div class="sample-card liquid-glass">
             <div class="glass-glare"></div>
             <div class="glass-shimmer"></div>
             <div>
               <div class="sample-head">
-                <span class="sample-type">V-Lofi Jukebox</span>
-                <span class="sample-target" id="lofi-track-status">PAUSED</span>
+                <span class="sample-type">V-Lofi YouTube</span>
+                <span class="sample-target" id="lofi-track-status">STANDBY</span>
               </div>
               <div class="sample-box" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 8px; min-height: 165px;">
                 <div style="font-size: 26px; animation: beacon-pulse 2s infinite ease-in-out;">🎧</div>
-                <div style="color: #fff; font-weight: bold; font-size: 13.5px;" id="lofi-title">Đang kết nối...</div>
-                <div style="color: #7b8896; font-size: 11px;" id="lofi-artist">Lofi Chill Việt Nam</div>
+                <div style="color: #fff; font-weight: bold; font-size: 13px;" id="lofi-title">Đang đồng bộ YouTube...</div>
+                <div style="color: #7b8896; font-size: 11px;" id="lofi-artist">Lofi Chill Việt Nam Live</div>
                 <div style="color: var(--accent-blue); font-size: 10px; font-family: var(--font-mono);" id="lofi-track-counter">TRACK 1 / 4</div>
-                <audio id="lofi-audio" playsinline webkit-playsinline></audio>
               </div>
             </div>
 
@@ -1285,116 +1301,128 @@
 
   <script>
     /* =========================================================
-       🎵 1. JUKEBOX ENGINE LOFI CHILL VIỆT NAM (STREAM ỔN ĐỊNH 100%)
+       🎵 1. YOUTUBE IFRAME ENGINE - LOFI VIỆT NAM CHILL BẤT TỬ
        ========================================================= */
-    const lofiPlaylist = [
+    const ytPlaylist = [
       {
-        title: "Sài Gòn Mưa Đêm (Acoustic Rain)",
-        artist: "V-Indie Acoustic Collective",
-        url: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3"
+        videoId: "1fueZCTYkpA", // Lofi Việt Chill Nhẹ Nhàng 24/7
+        title: "Những Bản Lofi Việt Chill Nhẹ Nhàng",
+        artist: "1 9 6 7 Lofi Collective"
       },
       {
-        title: "Cà Phê Một Mình (Lofi Chill)",
-        artist: "Coffee & Code Midnight",
-        url: "https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=lofi-chill-medium-version-159456.mp3"
+        videoId: "4xDzrJKXOOY", // Lofi Hip Hop Radio Chill
+        title: "Synthwave & Midnight Beats",
+        artist: "Lofi Girl Radio"
       },
       {
-        title: "Đêm Ngắm Phố Phường (Chillhop)",
-        artist: "Underground Synthetics VN",
-        url: "https://cdn.pixabay.com/download/audio/2023/07/30/audio_51a24d852a.mp3?filename=good-night-lofi-cozy-chill-160166.mp3"
+        videoId: "jfKfPfyJRdk", // Lofi Cafe Beats
+        title: "Cà Phê Một Mình // Rainy Lofi",
+        artist: "Lofi Coffee Corner"
       },
       {
-        title: "V-Lofi 24/7 Live Radio Stream",
-        artist: "ChillHop Vietnam Streams",
-        url: "https://stream.zeno.fm/f3wvbbqmdg8uv"
+        videoId: "turbvfnm3bE", // Lofi Acoustic Việt
+        title: "Acoustic Guitar Lofi Chill",
+        artist: "Vietnam ChillHop Network"
       }
     ];
 
     let currentTrackIdx = 0;
-    let consecutiveErrors = 0;
-    const lofiAudio = document.getElementById('lofi-audio');
+    let ytPlayer = null;
+    let isYtReady = false;
+    let isYtPlaying = false;
+
     const lofiBtnLabel = document.getElementById('lofi-btn-label');
     const lofiBadge = document.getElementById('lofi-track-status');
     const lofiTitle = document.getElementById('lofi-title');
     const lofiArtist = document.getElementById('lofi-artist');
     const lofiCounter = document.getElementById('lofi-track-counter');
 
-    function loadTrack(idx) {
-      currentTrackIdx = (idx + lofiPlaylist.length) % lofiPlaylist.length;
-      const track = lofiPlaylist[currentTrackIdx];
-      lofiAudio.src = track.url;
-      lofiAudio.load();
-      lofiTitle.innerText = track.title;
-      lofiArtist.innerText = track.artist;
-      lofiCounter.innerText = `TRACK ${currentTrackIdx + 1} / ${lofiPlaylist.length}`;
+    function updateTrackUI() {
+      const cur = ytPlaylist[currentTrackIdx];
+      lofiTitle.innerText = cur.title;
+      lofiArtist.innerText = cur.artist;
+      lofiCounter.innerText = `TRACK ${currentTrackIdx + 1} / ${ytPlaylist.length}`;
     }
-    loadTrack(0);
+    updateTrackUI();
 
-    function setAudioPlayingUI() {
-      lofiBtnLabel.innerText = '⏸ TẠM DỪNG';
-      lofiBadge.innerText = 'PLAYING';
-      lofiBadge.style.color = '#00ff66';
-      consecutiveErrors = 0;
+    // Callback tự động khi thư viện YouTube tải xong
+    function onYouTubeIframeAPIReady() {
+      ytPlayer = new YT.Player('yt-hidden-player', {
+        height: '1',
+        width: '1',
+        videoId: ytPlaylist[currentTrackIdx].videoId,
+        playerVars: {
+          autoplay: 0,
+          controls: 0,
+          disablekb: 1,
+          fs: 0,
+          rel: 0
+        },
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        }
+      });
     }
 
-    function setAudioPausedUI() {
-      lofiBtnLabel.innerText = '▶ PHÁT NHẠC';
-      lofiBadge.innerText = 'PAUSED';
+    function onPlayerReady(event) {
+      isYtReady = true;
+      lofiBadge.innerText = 'READY';
       lofiBadge.style.color = 'var(--accent)';
     }
 
-    function executePlay() {
-      const playPromise = lofiAudio.play();
-      if (playPromise !== undefined) {
-        playPromise.then(() => {
-          setAudioPlayingUI();
-        }).catch(() => {
-          setAudioPausedUI();
-        });
+    function onPlayerStateChange(event) {
+      if (event.data === YT.PlayerState.PLAYING) {
+        isYtPlaying = true;
+        lofiBtnLabel.innerText = '⏸ TẠM DỪNG';
+        lofiBadge.innerText = 'PLAYING';
+        lofiBadge.style.color = '#00ff66';
+      } else if (event.data === YT.PlayerState.PAUSED) {
+        isYtPlaying = false;
+        lofiBtnLabel.innerText = '▶ PHÁT NHẠC';
+        lofiBadge.innerText = 'PAUSED';
+        lofiBadge.style.color = 'var(--accent)';
+      } else if (event.data === YT.PlayerState.ENDED) {
+        nextLofiTrack();
       }
     }
 
     function toggleLofiAudio() {
       playChillClickSound();
-      if (!lofiAudio) return;
-      if (lofiAudio.paused) {
-        executePlay();
+      if (!isYtReady || !ytPlayer) return;
+      if (isYtPlaying) {
+        ytPlayer.pauseVideo();
       } else {
-        lofiAudio.pause();
-        setAudioPausedUI();
+        ytPlayer.playVideo();
       }
     }
 
     function nextLofiTrack() {
       playChillClickSound();
-      loadTrack(currentTrackIdx + 1);
-      executePlay();
+      currentTrackIdx = (currentTrackIdx + 1) % ytPlaylist.length;
+      updateTrackUI();
+      if (isYtReady && ytPlayer) {
+        ytPlayer.loadVideoById(ytPlaylist[currentTrackIdx].videoId);
+      }
     }
 
     function prevLofiTrack() {
       playChillClickSound();
-      loadTrack(currentTrackIdx - 1);
-      executePlay();
+      currentTrackIdx = (currentTrackIdx - 1 + ytPlaylist.length) % ytPlaylist.length;
+      updateTrackUI();
+      if (isYtReady && ytPlayer) {
+        ytPlayer.loadVideoById(ytPlaylist[currentTrackIdx].videoId);
+      }
     }
 
-    lofiAudio.addEventListener('ended', () => {
-      nextLofiTrack();
-    });
-
-    lofiAudio.addEventListener('error', () => {
-      consecutiveErrors++;
-      if (consecutiveErrors < lofiPlaylist.length) {
-        setTimeout(nextLofiTrack, 500);
-      } else {
-        setAudioPausedUI();
-      }
-    });
-
+    // Tự kích hoạt nhạc khi người dùng chạm màn hình lần đầu
     let hasInteracted = false;
     function triggerFirstAudioGesture() {
       if (hasInteracted) return;
       hasInteracted = true;
-      executePlay();
+      if (isYtReady && ytPlayer) {
+        ytPlayer.playVideo();
+      }
       ['click', 'touchstart', 'keydown'].forEach(evt => {
         window.removeEventListener(evt, triggerFirstAudioGesture);
       });
@@ -1414,7 +1442,7 @@
     const loadSteps = [
       "SYNCHRONIZING GRAVITATIONAL FIELD [20%]",
       "SYNCING DISCORD LANYARD API [45%]",
-      "BUFFERING VIETNAMESE LO-FI [70%]",
+      "CONNECTING YOUTUBE LO-FI CORE [70%]",
       "ENFORCING ANTI-DEBUGGER TRIPWIRES [90%]",
       "ACCESS GRANTED // READY [100%]"
     ];
@@ -1623,7 +1651,7 @@
         const gain1 = audioCtx.createGain();
         gain1.gain.setValueAtTime(0.001, now);
         gain1.gain.linearRampToValueAtTime(0.05, now + 0.008);
-        gain1.gain.exponentialRampToValueAtTime(0.0001, now + 0.16);
+        gain1.exponentialRampToValueAtTime(0.0001, now + 0.16);
 
         osc1.connect(gain1);
         gain1.connect(audioCtx.destination);
@@ -2128,10 +2156,10 @@
             const sub = parts[1]?.toLowerCase();
             if (sub === 'next') {
               nextLofiTrack();
-              smoothAppendTerm(`<span style="color:#00ff66;">✔ Bài kế: ${lofiPlaylist[currentTrackIdx].title}</span>`);
+              smoothAppendTerm(`<span style="color:#00ff66;">✔ Bài kế: ${ytPlaylist[currentTrackIdx].title}</span>`);
             } else if (sub === 'prev') {
               prevLofiTrack();
-              smoothAppendTerm(`<span style="color:#00ff66;">✔ Bài trước: ${lofiPlaylist[currentTrackIdx].title}</span>`);
+              smoothAppendTerm(`<span style="color:#00ff66;">✔ Bài trước: ${ytPlaylist[currentTrackIdx].title}</span>`);
             } else {
               toggleLofiAudio();
               smoothAppendTerm(`<span style="color:#00f3ff;">✔ Đã chuyển đổi phát nhạc.</span>`);
