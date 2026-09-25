@@ -58,6 +58,16 @@
       z-index: 100005;
     }
 
+    /* LIGHTNING CHAINS CANVAS */
+    #lightning-chains-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 8;
+    }
+
     /* CUSTOM SKIN CURSOR */
     #cursor-dot {
       position: fixed;
@@ -241,9 +251,10 @@
     .lockdown-title { font-family: var(--font-display); font-size: clamp(32px, 5vw, 56px); color: #ff0055; margin-bottom: 16px; text-shadow: 0 0 20px #ff0055; }
     .lockdown-desc { font-family: var(--font-mono); font-size: 14px; color: #ffb3c6; max-width: 600px; line-height: 1.8; }
 
-    /* LIQUID GLASS CONTAINERS & PHYSICS (TÔNG NGUYÊN BẢN) */
+    /* LIQUID GLASS CONTAINERS & PHYSICS */
     .liquid-glass-container {
       perspective: 1400px;
+      position: relative;
     }
 
     .liquid-glass {
@@ -847,6 +858,9 @@
   <!-- CLICK PARTICLES CANVAS -->
   <canvas id="click-particles-canvas"></canvas>
 
+  <!-- LIGHTNING CHAINS CANVAS -->
+  <canvas id="lightning-chains-canvas"></canvas>
+
   <!-- LOADER GUI -->
   <div id="loader-gui">
     <div class="loader-core">
@@ -963,7 +977,6 @@
             <!-- AVATAR KÉO TỪ DISCORD KÈM CHẤM XANH ONLINE GẮN GÓC -->
             <div class="profile-avatar-wrap">
               <div class="profile-avatar-inner">
-                <!-- Avatar tự động cập nhật từ API Lanyard của bạn -->
                 <img id="discord-real-avatar" 
                      src="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=400&auto=format&fit=crop&q=80" 
                      alt="Discord Avatar" 
@@ -1296,14 +1309,7 @@
           // 1. Cập nhật ảnh đại diện thật từ Discord
           if (user.avatar) {
             const ext = user.avatar.startsWith('a_') ? 'gif' : 'png';
-            const avatarUrl = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=256`;
-            document.getElementById('discord-real-avatar').src = avatarUrl;
-          }
-
-          // 2. Cập nhật Username / Nickname thật
-          if (user.global_name || user.username) {
-            const displayName = user.global_name || user.username;
-            document.getElementById('user-display-name').innerText = `${displayName} ⚔`;
+            const avatarUrl = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=256`;             document.getElementById('discord-real-avatar').src = avatarUrl;           }            // 2. Cập nhật Username / Nickname thật           if (user.global_name \vert{}\vert{} user.username) {             const displayName = user.global_name \vert{}\vert{} user.username;             document.getElementById('user-display-name').innerText = `${displayName} ⚔`;
             document.getElementById('discord-real-username').innerText = user.username;
           }
 
@@ -1321,6 +1327,103 @@
       }
     }
     syncDiscordProfile();
+
+    /* =========================================================
+       ⚡ 0.1. REAL-TIME LIGHTNING CHAINS MATRIX (XÍCH SẤM SÉT)
+       ========================================================= */
+    const lCanvas = document.getElementById('lightning-chains-canvas');
+    const lCtx = lCanvas.getContext('2d');
+
+    function resizeLightningCanvas() {
+      lCanvas.width = window.innerWidth;
+      lCanvas.height = window.innerHeight;
+    }
+    resizeLightningCanvas();
+    window.addEventListener('resize', resizeLightningCanvas);
+
+    // Thuật toán vẽ tia chớp giật ziczac tự nhiên
+    function drawLightningBolt(x1, y1, x2, y2, color, coreWidth, displace = 22) {
+      if (displace < 2.5) {
+        lCtx.beginPath();
+        lCtx.moveTo(x1, y1);
+        lCtx.lineTo(x2, y2);
+        lCtx.strokeStyle = color;
+        lCtx.lineWidth = coreWidth;
+        lCtx.stroke();
+        return;
+      }
+
+      const midX = (x1 + x2) / 2 + (Math.random() - 0.5) * displace;
+      const midY = (y1 + y2) / 2 + (Math.random() - 0.5) * displace;
+
+      // Nhánh phụ phóng ngẫu nhiên
+      if (Math.random() < 0.14) {
+        const branchX = midX + (Math.random() - 0.5) * displace * 1.5;
+        const branchY = midY + (Math.random() - 0.5) * displace * 1.5;
+        drawLightningBolt(midX, midY, branchX, branchY, color, coreWidth * 0.5, displace * 0.45);
+      }
+
+      drawLightningBolt(x1, y1, midX, midY, color, coreWidth, displace * 0.5);
+      drawLightningBolt(midX, midY, x2, y2, color, coreWidth, displace * 0.5);
+    }
+
+    function renderLightningChains() {
+      lCtx.clearRect(0, 0, lCanvas.width, lCanvas.height);
+
+      // Tìm tất cả các thẻ kính đang hiển thị trên viewport
+      const containers = Array.from(document.querySelectorAll('.scene-section:not([style*="display: none"]) .liquid-glass-container'));
+      const activeTargets = [];
+
+      containers.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        // Chỉ quét các ô nằm trong khung nhìn
+        if (rect.bottom > -50 && rect.top < window.innerHeight + 50) {
+          activeTargets.push({
+            cx: rect.left + rect.width / 2,
+            cy: rect.top + rect.height / 2,
+            left: rect.left + 15,
+            right: rect.right - 15,
+            top: rect.top + 15,
+            bottom: rect.bottom - 15
+          });
+        }
+      });
+
+      // Tạo xích điện giật nối giữa các ô kề nhau
+      if (activeTargets.length > 1) {
+        lCtx.save();
+        lCtx.lineCap = 'round';
+
+        for (let i = 0; i < activeTargets.length - 1; i++) {
+          const a = activeTargets[i];
+          const b = activeTargets[i + 1];
+
+          // Khoảng cách giữa 2 ô
+          const dist = Math.hypot(a.cx - b.cx, a.cy - b.cy);
+          if (dist < 850) {
+            // Điểm neo tia sét (Góc/cạnh gần nhất)
+            const startX = a.cx < b.cx ? a.right : (a.cx > b.cx ? a.left : a.cx);
+            const startY = a.cy < b.cy ? a.bottom : (a.cy > b.cy ? a.top : a.cy);
+            const endX = b.cx < a.cx ? b.right : (b.cx > a.cx ? b.left : b.cx);
+            const endY = b.cy < a.cy ? b.bottom : (b.cy > a.cy ? b.top : b.cy);
+
+            // 1. Quầng sáng sét lan tỏa bên ngoài (Glow)
+            lCtx.shadowBlur = 15;
+            lCtx.shadowColor = Math.random() > 0.4 ? '#00f3ff' : '#ff9d00';
+            drawLightningBolt(startX, startY, endX, endY, 'rgba(0, 243, 255, 0.45)', 2.5, 30);
+
+            // 2. Lõi hồ quang trắng nóng cực sáng ở giữa (Core)
+            lCtx.shadowBlur = 6;
+            lCtx.shadowColor = '#ffffff';
+            drawLightningBolt(startX, startY, endX, endY, 'rgba(255, 255, 255, 0.95)', 1.2, 24);
+          }
+        }
+        lCtx.restore();
+      }
+
+      requestAnimationFrame(renderLightningChains);
+    }
+    requestAnimationFrame(renderLightningChains);
 
     /* =========================================================
        🌐 1. I18N MULTI-LANGUAGE DICTIONARY & SWITCH ENGINE
@@ -1499,71 +1602,7 @@
     function toggleAudio() {
       audioOn = !audioOn;
       const btn = document.getElementById('audio-toggle');
-      btn.innerText = `SOUND: ${audioOn ? 'ON' : 'OFF'}`;
-      btn.classList.toggle('active', audioOn);
-      if (audioOn) playChillClickSound();
-    }
-
-    /* =========================================================
-       3. CLICK PARTICLES ENGINE
-       ========================================================= */
-    const particleCanvas = document.getElementById('click-particles-canvas');
-    const pCtx = particleCanvas.getContext('2d');
-
-    function resizeParticleCanvas() {
-      particleCanvas.width = window.innerWidth;
-      particleCanvas.height = window.innerHeight;
-    }
-    resizeParticleCanvas();
-    window.addEventListener('resize', resizeParticleCanvas);
-
-    const activeParticles = [];
-    const particleColors = ['#ffaa00', '#00f3ff', '#ffffff', '#ff7700', '#ffd27f'];
-
-    function spawnClickParticles(x, y) {
-      activeParticles.push({
-        type: 'ring',
-        x: x, y: y,
-        radius: 2,
-        maxRadius: Math.random() * 25 + 30,
-        alpha: 0.8,
-        color: '#ffaa00'
-      });
-
-      const count = Math.floor(Math.random() * 8) + 18;
-      for (let i = 0; i < count; i++) {
-        const angle = Math.random() * Math.PI * 2;
-        const speed = Math.random() * 4.5 + 1.8;
-        activeParticles.push({
-          type: 'spark',
-          x: x, y: y,
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed,
-          size: Math.random() * 3 + 1.5,
-          color: particleColors[Math.floor(Math.random() * particleColors.length)],
-          alpha: 1.0,
-          decay: Math.random() * 0.02 + 0.02,
-          drag: 0.94
-        });
-      }
-    }
-
-    function updateAndRenderParticles() {
-      pCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
-
-      for (let i = activeParticles.length - 1; i >= 0; i--) {
-        const p = activeParticles[i];
-
-        if (p.type === 'ring') {
-          p.radius += (p.maxRadius - p.radius) * 0.15;
-          p.alpha -= 0.035;
-          if (p.alpha <= 0) {
-            activeParticles.splice(i, 1);
-            continue;
-          }
-          pCtx.beginPath();
-          pCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-          pCtx.strokeStyle = `rgba(255, 170, 0, ${p.alpha})`;
+      btn.innerText = `SOUND: ${audioOn ? 'ON' : 'OFF'}`;       btn.classList.toggle('active', audioOn);       if (audioOn) playChillClickSound();     }      /* =========================================================        3. CLICK PARTICLES ENGINE        ========================================================= */     const particleCanvas = document.getElementById('click-particles-canvas');     const pCtx = particleCanvas.getContext('2d');      function resizeParticleCanvas() {       particleCanvas.width = window.innerWidth;       particleCanvas.height = window.innerHeight;     }     resizeParticleCanvas();     window.addEventListener('resize', resizeParticleCanvas);      const activeParticles = [];     const particleColors = ['#ffaa00', '#00f3ff', '#ffffff', '#ff7700', '#ffd27f'];      function spawnClickParticles(x, y) {       activeParticles.push({         type: 'ring',         x: x, y: y,         radius: 2,         maxRadius: Math.random() * 25 + 30,         alpha: 0.8,         color: '#ffaa00'       });        const count = Math.floor(Math.random() * 8) + 18;       for (let i = 0; i < count; i++) {         const angle = Math.random() * Math.PI * 2;         const speed = Math.random() * 4.5 + 1.8;         activeParticles.push({           type: 'spark',           x: x, y: y,           vx: Math.cos(angle) * speed,           vy: Math.sin(angle) * speed,           size: Math.random() * 3 + 1.5,           color: particleColors[Math.floor(Math.random() * particleColors.length)],           alpha: 1.0,           decay: Math.random() * 0.02 + 0.02,           drag: 0.94         });       }     }      function updateAndRenderParticles() {       pCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);        for (let i = activeParticles.length - 1; i >= 0; i--) {         const p = activeParticles[i];          if (p.type === 'ring') {           p.radius += (p.maxRadius - p.radius) * 0.15;           p.alpha -= 0.035;           if (p.alpha <= 0) {             activeParticles.splice(i, 1);             continue;           }           pCtx.beginPath();           pCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);           pCtx.strokeStyle = `rgba(255, 170, 0, ${p.alpha})`;
           pCtx.lineWidth = 1.5;
           pCtx.stroke();
         } else if (p.type === 'spark') {
@@ -1610,7 +1649,7 @@
     let loadPercent = 0;
     const loadSteps = [
       "SYNCHRONIZING GRAVITATIONAL FIELD [20%]",
-      "SYNCING DISCORD LANYARD API [45%]",
+      "DECRYPTING PROFILE MATRIX [45%]",
       "INITIALIZING EVENT HORIZON TEXTURES [70%]",
       "ENFORCING ANTI-DEBUGGER TRIPWIRES [90%]",
       "ACCESS GRANTED // READY [100%]"
@@ -1619,121 +1658,9 @@
     const loadInterval = setInterval(() => {
       loadPercent += Math.floor(Math.random() * 8) + 4;
       if (loadPercent > 100) loadPercent = 100;
-      loaderProgress.style.width = `${loadPercent}%`;
-
-      const stepIndex = Math.min(Math.floor((loadPercent / 100) * loadSteps.length), loadSteps.length - 1);
-      loaderStatus.innerText = loadSteps[stepIndex];
-
-      if (loadPercent >= 100) {
-        clearInterval(loadInterval);
-        setTimeout(() => {
-          loaderGui.classList.add('loaded');
-          playChillClickSound();
-        }, 300);
-      }
-    }, 45);
-
-    /* =========================================================
-       5. PHÒNG THỦ: CHỐNG DEVTOOLS & SỬA LỖI TRÊN IOS
-       ========================================================= */
-    const securityToast = document.getElementById('security-toast');
-    const toastTitle = document.getElementById('toast-title');
-    const toastDesc = document.getElementById('toast-desc');
-    let toastTimeout = null;
-
-    function triggerSecurityBreach(cause) {
-      toastTitle.innerText = `[PHÁT HIỆN CAN THIỆP]: ${cause.toUpperCase()}`;
-      toastDesc.innerText = `Hành động đã bị khóa: Hệ thống bảo mật đã vô hiệu hóa thao tác ${cause}.`;
-      securityToast.classList.add('active');
-
-      clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(() => {
-        securityToast.classList.remove('active');
-      }, 3000);
-    }
-
-    document.addEventListener('contextmenu', (e) => {
-      e.preventDefault();
-      triggerSecurityBreach('Chuột phải (Context Menu)');
-      return false;
-    });
-
-    document.addEventListener('selectstart', (e) => {
-      e.preventDefault();
-      triggerSecurityBreach('Bôi đen văn bản (Selection)');
-      return false;
-    });
-
-    document.addEventListener('copy', (e) => {
-      e.preventDefault();
-      triggerSecurityBreach('Sao chép trái phép (Copy)');
-      return false;
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'F12' || e.keyCode === 123) {
-        e.preventDefault();
-        triggerSecurityBreach('Phím F12 (Developer Tools)');
-        return false;
-      }
-      if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
-        e.preventDefault();
-        triggerSecurityBreach('Tổ hợp Inspect Element');
-        return false;
-      }
-      if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
-        e.preventDefault();
-        triggerSecurityBreach('Xem mã nguồn (Ctrl+U)');
-        return false;
-      }
-      if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
-        e.preventDefault();
-        triggerSecurityBreach('Lưu trang web (Ctrl+S)');
-        return false;
-      }
-    });
-
-    // TỐI ƯU HÓA KHÓA F12 TRÊN PC, KHÔNG KHÓA NHẦM TRÊN IOS/MOBILE
-    const devtoolsLockdown = document.getElementById('devtools-lockdown');
-    const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
-      (navigator.maxTouchPoints && navigator.maxTouchPoints > 2);
-
-    setInterval(() => {
-      if (isMobileDevice) {
-        devtoolsLockdown.classList.remove('active');
-        return;
-      }
-      const threshold = 180;
-      const widthDiff = window.outerWidth - window.innerWidth > threshold;
-      const heightDiff = window.outerHeight - window.innerHeight > threshold;
-      if (widthDiff || heightDiff) {
-        devtoolsLockdown.classList.add('active');
-      } else {
-        devtoolsLockdown.classList.remove('active');
-      }
-    }, 600);
-
-    /* =========================================================
-       6. LIQUID GLASS 3D TILT & PRISM GLARE
-       ========================================================= */
-    document.querySelectorAll('.liquid-glass').forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        card.style.setProperty('--mouse-x', `${x}px`);
-        card.style.setProperty('--mouse-y', `${y}px`);
-
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = ((y - centerY) / centerY) * -7;
-        const rotateY = ((x - centerX) / centerX) * 7;
-
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.015, 1.015, 1.015)`;
-
-        const angle = Math.atan2(y - centerY, x - centerX) * (180 / Math.PI) + 90;
-        card.style.setProperty('--prism-angle', `${angle}deg`);
+      loaderProgress.style.width = `${loadPercent}\%`;        const stepIndex = Math.min(Math.floor((loadPercent / 100) * loadSteps.length), loadSteps.length - 1);       loaderStatus.innerText = loadSteps[stepIndex];        if (loadPercent >= 100) {         clearInterval(loadInterval);         setTimeout(() => {           loaderGui.classList.add('loaded');           playChillClickSound();         }, 300);       }     }, 45);      /* =========================================================        5. PHÒNG THỦ: CHỐNG DEVTOOLS & SỬA LỖI TRÊN IOS        ========================================================= */     const securityToast = document.getElementById('security-toast');     const toastTitle = document.getElementById('toast-title');     const toastDesc = document.getElementById('toast-desc');     let toastTimeout = null;      function triggerSecurityBreach(cause) {       toastTitle.innerText = `[PHÁT HIỆN CAN THIỆP]: ${cause.toUpperCase()}`;
+      toastDesc.innerText = `Hành động đã bị khóa: Hệ thống bảo mật đã vô hiệu hóa thao tác ${cause}.`;       securityToast.classList.add('active');        clearTimeout(toastTimeout);       toastTimeout = setTimeout(() => {         securityToast.classList.remove('active');       }, 3000);     }      document.addEventListener('contextmenu', (e) => {       e.preventDefault();       triggerSecurityBreach('Chuột phải (Context Menu)');       return false;     });      document.addEventListener('selectstart', (e) => {       e.preventDefault();       triggerSecurityBreach('Bôi đen văn bản (Selection)');       return false;     });      document.addEventListener('copy', (e) => {       e.preventDefault();       triggerSecurityBreach('Sao chép trái phép (Copy)');       return false;     });      document.addEventListener('keydown', (e) => {       if (e.key === 'F12' \vert{}\vert{} e.keyCode === 123) {         e.preventDefault();         triggerSecurityBreach('Phím F12 (Developer Tools)');         return false;       }       if (e.ctrlKey && e.shiftKey && (e.key === 'I' \vert{}\vert{} e.key === 'i' \vert{}\vert{} e.key === 'J' \vert{}\vert{} e.key === 'j' \vert{}\vert{} e.key === 'C' \vert{}\vert{} e.key === 'c')) {         e.preventDefault();         triggerSecurityBreach('Tổ hợp Inspect Element');         return false;       }       if (e.ctrlKey && (e.key === 'U' \vert{}\vert{} e.key === 'u')) {         e.preventDefault();         triggerSecurityBreach('Xem mã nguồn (Ctrl+U)');         return false;       }       if (e.ctrlKey && (e.key === 'S' \vert{}\vert{} e.key === 's')) {         e.preventDefault();         triggerSecurityBreach('Lưu trang web (Ctrl+S)');         return false;       }     });      // TỐI ƯU HÓA KHÓA F12 TRÊN PC, KHÔNG KHÓA NHẦM TRÊN IOS/MOBILE     const devtoolsLockdown = document.getElementById('devtools-lockdown');     const isMobileDevice = /Android\vert{}webOS\vert{}iPhone\vert{}iPad\vert{}iPod\vert{}BlackBerry\vert{}IEMobile\vert{}Opera Mini/i.test(navigator.userAgent) \vert{}\vert{}        (navigator.maxTouchPoints && navigator.maxTouchPoints > 2);      setInterval(() => {       if (isMobileDevice) {         devtoolsLockdown.classList.remove('active');         return;       }       const threshold = 180;       const widthDiff = window.outerWidth - window.innerWidth > threshold;       const heightDiff = window.outerHeight - window.innerHeight > threshold;       if (widthDiff \vert{}\vert{} heightDiff) {         devtoolsLockdown.classList.add('active');       } else {         devtoolsLockdown.classList.remove('active');       }     }, 600);      /* =========================================================        6. LIQUID GLASS 3D TILT & PRISM GLARE        ========================================================= */     document.querySelectorAll('.liquid-glass').forEach(card => {       card.addEventListener('mousemove', (e) => {         const rect = card.getBoundingClientRect();         const x = e.clientX - rect.left;         const y = e.clientY - rect.top;                  card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);          const centerX = rect.width / 2;         const centerY = rect.height / 2;         const rotateX = ((y - centerY) / centerY) * -7;         const rotateY = ((x - centerX) / centerX) * 7;          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.015, 1.015, 1.015)`;          const angle = Math.atan2(y - centerY, x - centerX) * (180 / Math.PI) + 90;         card.style.setProperty('--prism-angle', `${angle}deg`);
       });
 
       card.addEventListener('mouseleave', () => {
@@ -1754,18 +1681,15 @@
     window.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      cursorDot.style.left = `${mouseX}px`;
-      cursorDot.style.top = `${mouseY}px`;
-      cursorTag.style.left = `${mouseX}px`;
-      cursorTag.style.top = `${mouseY}px`;
+      cursorDot.style.left = `${mouseX}px`;       cursorDot.style.top = `${mouseY}px`;
+      cursorTag.style.left = `${mouseX}px`;       cursorTag.style.top = `${mouseY}px`;
       cursorTag.innerText = `X:${mouseX} Y:${mouseY}`;
     });
 
     function renderCursor() {
       ringX += (mouseX - ringX) * 0.18;
       ringY += (mouseY - ringY) * 0.18;
-      cursorRing.style.left = `${ringX}px`;
-      cursorRing.style.top = `${ringY}px`;
+      cursorRing.style.left = `${ringX}px`;       cursorRing.style.top = `${ringY}px`;
       requestAnimationFrame(renderCursor);
     }
     renderCursor();
@@ -1811,19 +1735,7 @@
 
       const coresEl = document.getElementById('sys-cores');
       const coreCount = navigator.hardwareConcurrency || 8;
-      if (coresEl) coresEl.innerText = `${coreCount} Threads // Active`;
-    }
-    detectRealClientOS();
-
-    // 2. BỘ ĐẾM SESSION UPTIME THỰC TẾ
-    let sessionSeconds = 0;
-    const uptimeEl = document.getElementById('sys-uptime');
-    setInterval(() => {
-      sessionSeconds++;
-      const hrs = String(Math.floor(sessionSeconds / 3600)).padStart(2, '0');
-      const mins = String(Math.floor((sessionSeconds % 3600) / 60)).padStart(2, '0');
-      const secs = String(sessionSeconds % 60).padStart(2, '0');
-      if (uptimeEl) uptimeEl.innerText = `${hrs}:${mins}:${secs}`;
+      if (coresEl) coresEl.innerText = `${coreCount} Threads // Active`;     }     detectRealClientOS();      // 2. BỘ ĐẾM SESSION UPTIME THỰC TẾ     let sessionSeconds = 0;     const uptimeEl = document.getElementById('sys-uptime');     setInterval(() => {       sessionSeconds++;       const hrs = String(Math.floor(sessionSeconds / 3600)).padStart(2, '0');       const mins = String(Math.floor((sessionSeconds \% 3600) / 60)).padStart(2, '0');       const secs = String(sessionSeconds \% 60).padStart(2, '0');       if (uptimeEl) uptimeEl.innerText = `${hrs}:${mins}:${secs}`;
     }, 1000);
 
     // 3. ĐO PING THỰC TẾ BẰNG HEAD FETCH
@@ -1840,9 +1752,7 @@
           mode: 'no-cors'
         });
         const duration = Math.max(14, Math.round(performance.now() - start));
-        if (pingEl) pingEl.innerText = `${duration} ms (Real)`;
-      } catch (e) {
-        if (pingEl) pingEl.innerText = `${Math.floor(Math.random() * 12 + 18)} ms`;
+        if (pingEl) pingEl.innerText = `${duration} ms (Real)`;       } catch (e) {         if (pingEl) pingEl.innerText = `${Math.floor(Math.random() * 12 + 18)} ms`;
       }
 
       if (btn) {
@@ -1868,8 +1778,7 @@
 
       const loadValEl = document.getElementById('sys-load-val');
       const loadBarEl = document.getElementById('sys-load-bar');
-      if (loadValEl) loadValEl.innerText = `${Math.round(lastVal)}%`;
-      if (loadBarEl) loadBarEl.style.width = `${lastVal}%`;
+      if (loadValEl) loadValEl.innerText = `${Math.round(lastVal)}\%`;       if (loadBarEl) loadBarEl.style.width = `${lastVal}%`;
 
       if (sCtx) {
         const w = sparkCanvas.width;
@@ -2120,60 +2029,7 @@
       const line = document.createElement('div');
       line.style.margin = '3px 0';
       if (isUser) {
-        line.innerHTML = `<span style="color:var(--accent); font-weight:bold;">root@profile:~$</span>${textHtml}`;
-        termDisplay.appendChild(line);
-        termDisplay.scrollTop = termDisplay.scrollHeight;
-      } else {
-        line.innerHTML = '';
-        termDisplay.appendChild(line);
-        let idx = 0;
-        function step() {
-          if (idx <= textHtml.length) {
-            line.innerHTML = textHtml.slice(0, idx);
-            idx += 4;
-            termDisplay.scrollTop = termDisplay.scrollHeight;
-            setTimeout(step, 8);
-          } else {
-            line.innerHTML = textHtml;
-          }
-        }
-        step();
-      }
-    }
-
-    // Biến quản lý hiệu ứng Matrix Canvas
-    let matrixCanvas = null;
-    let matrixInterval = null;
-
-    function toggleMatrixRain() {
-      if (matrixCanvas) {
-        clearInterval(matrixInterval);
-        matrixCanvas.remove();
-        matrixCanvas = null;
-        return false;
-      }
-      matrixCanvas = document.createElement('canvas');
-      matrixCanvas.style.position = 'fixed';
-      matrixCanvas.style.inset = '0';
-      matrixCanvas.style.pointerEvents = 'none';
-      matrixCanvas.style.zIndex = '99990';
-      matrixCanvas.style.opacity = '0.55';
-      document.body.appendChild(matrixCanvas);
-
-      const mCtx = matrixCanvas.getContext('2d');
-      matrixCanvas.width = window.innerWidth;
-      matrixCanvas.height = window.innerHeight;
-
-      const chars = '0123456789ABCDEF$#@%&*+-/<>~';
-      const fontSize = 14;
-      const columns = Math.floor(matrixCanvas.width / fontSize);
-      const drops = Array(columns).fill(1);
-
-      matrixInterval = setInterval(() => {
-        mCtx.fillStyle = 'rgba(2, 3, 6, 0.08)';
-        mCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
-        mCtx.fillStyle = '#00ff66';
-        mCtx.font = `${fontSize}px monospace`;
+        line.innerHTML = `<span style="color:var(--accent); font-weight:bold;">root@profile:~$</span> ${textHtml}`;         termDisplay.appendChild(line);         termDisplay.scrollTop = termDisplay.scrollHeight;       } else {         line.innerHTML = '';         termDisplay.appendChild(line);         let idx = 0;         function step() {           if (idx <= textHtml.length) {             line.innerHTML = textHtml.slice(0, idx);             idx += 4;             termDisplay.scrollTop = termDisplay.scrollHeight;             setTimeout(step, 8);           } else {             line.innerHTML = textHtml;           }         }         step();       }     }      // Biến quản lý hiệu ứng Matrix Canvas     let matrixCanvas = null;     let matrixInterval = null;      function toggleMatrixRain() {       if (matrixCanvas) {         clearInterval(matrixInterval);         matrixCanvas.remove();         matrixCanvas = null;         return false;       }       matrixCanvas = document.createElement('canvas');       matrixCanvas.style.position = 'fixed';       matrixCanvas.style.inset = '0';       matrixCanvas.style.pointerEvents = 'none';       matrixCanvas.style.zIndex = '99990';       matrixCanvas.style.opacity = '0.55';       document.body.appendChild(matrixCanvas);        const mCtx = matrixCanvas.getContext('2d');       matrixCanvas.width = window.innerWidth;       matrixCanvas.height = window.innerHeight;        const chars = '0123456789ABCDEF$#@\%&*+-/<>~';       const fontSize = 14;       const columns = Math.floor(matrixCanvas.width / fontSize);       const drops = Array(columns).fill(1);        matrixInterval = setInterval(() => {         mCtx.fillStyle = 'rgba(2, 3, 6, 0.08)';         mCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);         mCtx.fillStyle = '#00ff66';         mCtx.font = `${fontSize}px monospace`;
 
         for (let i = 0; i < drops.length; i++) {
           const text = chars.charAt(Math.floor(Math.random() * chars.length));
@@ -2225,8 +2081,7 @@
             else if (/Windows/i.test(ua)) detectedOS = "Windows NT 11/10";
 
             const cores = navigator.hardwareConcurrency || 8;
-            const res = `${window.screen.width}x${window.screen.height}`;
-            const ram = navigator.deviceMemory ? `~${navigator.deviceMemory} GB` : "Unified Architecture";
+            const res = `${window.screen.width}x${window.screen.height}`;             const ram = navigator.deviceMemory ? `~${navigator.deviceMemory} GB` : "Unified Architecture";
 
             const logo = 
 `<span style="color:#00f3ff;">   /\\___/\\   </span> <span style="color:var(--accent); font-weight:bold;">root@singularity</span>
