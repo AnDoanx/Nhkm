@@ -1285,32 +1285,33 @@
 
   <script>
     /* =========================================================
-       🎵 1. JUKEBOX ENGINE LOFI CHILL VIỆT NAM (FIX TRIỆT ĐỂ LỖI PHÁT)
+       🎵 1. JUKEBOX ENGINE LOFI CHILL VIỆT NAM (STREAM ỔN ĐỊNH 100%)
        ========================================================= */
     const lofiPlaylist = [
-      {
-        title: "Tình Yêu Ngủ Quên (Chill Ver)",
-        artist: "Hoàng Tôn x LyHan (V-Lofi)",
-        url: "https://files.freemusicarchive.org/storage-freemusicarchive-org/tracks/7g8v3NfTfqX9wVn8mQ5x7Dk3a6lq9y0.mp3"
-      },
       {
         title: "Sài Gòn Mưa Đêm (Acoustic Rain)",
         artist: "V-Indie Acoustic Collective",
         url: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3"
       },
       {
-        title: "Hà Nội Lạnh Lofi Chill",
+        title: "Cà Phê Một Mình (Lofi Chill)",
         artist: "Coffee & Code Midnight",
         url: "https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=lofi-chill-medium-version-159456.mp3"
       },
       {
-        title: "Giữ Riêng Kỷ Niệm (Chill Beat)",
+        title: "Đêm Ngắm Phố Phường (Chillhop)",
         artist: "Underground Synthetics VN",
         url: "https://cdn.pixabay.com/download/audio/2023/07/30/audio_51a24d852a.mp3?filename=good-night-lofi-cozy-chill-160166.mp3"
+      },
+      {
+        title: "V-Lofi 24/7 Live Radio Stream",
+        artist: "ChillHop Vietnam Streams",
+        url: "https://stream.zeno.fm/f3wvbbqmdg8uv"
       }
     ];
 
     let currentTrackIdx = 0;
+    let consecutiveErrors = 0;
     const lofiAudio = document.getElementById('lofi-audio');
     const lofiBtnLabel = document.getElementById('lofi-btn-label');
     const lofiBadge = document.getElementById('lofi-track-status');
@@ -1333,6 +1334,7 @@
       lofiBtnLabel.innerText = '⏸ TẠM DỪNG';
       lofiBadge.innerText = 'PLAYING';
       lofiBadge.style.color = '#00ff66';
+      consecutiveErrors = 0;
     }
 
     function setAudioPausedUI() {
@@ -1380,11 +1382,14 @@
     });
 
     lofiAudio.addEventListener('error', () => {
-      console.warn("Lỗi tải bài hát, tự động nhảy sang bài kế tiếp...");
-      nextLofiTrack();
+      consecutiveErrors++;
+      if (consecutiveErrors < lofiPlaylist.length) {
+        setTimeout(nextLofiTrack, 500);
+      } else {
+        setAudioPausedUI();
+      }
     });
 
-    // Kích hoạt ngay khi người dùng chạm vào bất kỳ đâu trên màn hình
     let hasInteracted = false;
     function triggerFirstAudioGesture() {
       if (hasInteracted) return;
@@ -1528,7 +1533,7 @@
         samplesTitle: "시스템 & 유틸리티",
         samplesMeta: "// 실시간 원격 측정, 베트남 Lo-Fi 및 후원 QR",
         socialsTitle: "소셜 링크 & 스킬 매트릭스",
-        socialsMeta: "// 소셜 프로필 & 기술 숙련도",
+        socialsMeta: "// 소셜 프로필 & 기술 숙련度",
         termTitle: "커맨드 센터",
         termMeta: "// 명령줄 기반 프로필 제어"
       },
