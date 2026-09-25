@@ -518,6 +518,30 @@
       position: relative;
     }
 
+    .bio-philosophy {
+      font-family: var(--font-body);
+      font-size: 18px;
+      line-height: 1.7;
+      color: #b8cde0;
+      border-left: 2px solid var(--accent);
+      padding-left: 18px;
+      margin-bottom: 32px;
+      font-style: italic;
+    }
+
+    .bio-badge {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: #9cb1c5;
+      letter-spacing: 0.5px;
+      display: inline-flex;
+      align-items: center;
+    }
+
     /* Section 2: Dashboard Matrix */
     .section-title {
       font-family: var(--font-display);
@@ -849,37 +873,86 @@
   <!-- Flowing Smooth-Scroll Content Stream -->
   <main class="content-stream">
 
-    <!-- 01: HERO DISCORD PROFILE CARD (ĐỒNG BỘ DISCORD CỦA BẠN) -->
-    <section class="scene-section" id="sec-profile" style="display: flex; justify-content: center; align-items: center;">
-      <div class="liquid-glass-container" style="max-width: 480px; width: 100%;">
-        <div class="liquid-glass" style="padding: 24px; border-radius: 22px;">
+    <!-- 01: HERO DISCORD PROFILE RỘNG NGANG + TIỂU SỬ + BADGES + STATUS ONLINE -->
+    <section class="scene-section" id="sec-profile" style="display: flex; justify-content: center; align-items: center; padding: 100px 0;">
+      <div class="liquid-glass-container" style="max-width: 980px; width: 100%;">
+        <div class="liquid-glass" style="padding: 38px 42px; border-radius: 28px;">
           <div class="glass-glare"></div>
           <div class="glass-shimmer"></div>
 
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-            <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent); letter-spacing: 2px;">
-              // DISCORD_PRESENCE_UPLINK
+          <!-- THANH HEADER TRẠNG THÁI LUÔN ONLINE (MÀU XANH NEON) -->
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 16px; margin-bottom: 26px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span class="singularity-beacon" style="width: 9px; height: 9px; background: #00ff66; box-shadow: 0 0 12px #00ff66, 0 0 24px #00ff66;"></span>
+              <span style="font-family: var(--font-mono); font-size: 11.5px; color: #00ff66; font-weight: bold; letter-spacing: 2px;">
+                STATUS: ONLINE // DISCORD PRESENCE SYNCHRONIZED
+              </span>
             </div>
-            <div class="singularity-beacon" style="background:#5865F2; box-shadow: 0 0 12px #5865F2;"></div>
+            <div style="font-family: var(--font-mono); font-size: 10.5px; color: #788899; letter-spacing: 1px;">
+              UID: <span style="color: #fff;">1053893912466554922</span>
+            </div>
           </div>
 
-          <!-- Lanyard Discord Widget với ID của bạn -->
-          <iframe 
-            src="https://lanyard.cnrad.dev/api/1053893912466554922?bg=transparent&animated=true&idleMessage=Offline%20Mode&borderRadius=16px"
-            frameborder="0" 
-            style="width: 100%; height: 215px; border: none; border-radius: 16px; display: block; overflow: hidden;" 
-            loading="lazy">
-          </iframe>
+          <!-- BỐ CỤC CHÍNH 2 CỘT: TRÁI DISCORD CARD - PHẢI TIỂU SỬ VÀ BADGES -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 32px; align-items: center;">
+            
+            <!-- CỘT TRÁI: DISCORD CARD WIDGET TỰ ĐỘNG THEO ID -->
+            <div style="background: rgba(4, 6, 12, 0.65); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 18px; padding: 14px; overflow: hidden; box-shadow: inset 0 0 20px rgba(0,0,0,0.5);">
+              <iframe 
+                src="https://lanyard.cnrad.dev/api/1053893912466554922?bg=transparent&animated=true&idleMessage=Offline%20Mode&borderRadius=14px"
+                frameborder="0" 
+                style="width: 100%; height: 215px; border: none; border-radius: 14px; display: block;" 
+                loading="lazy">
+              </iframe>
+              <a href="https://discord.com/users/1053893912466554922" target="_blank" class="copy-btn" style="text-decoration: none; margin-top: 12px; padding: 11px;">
+                <span>💬 NHẮN TIN TRỰC TIẾP QUA DISCORD</span>
+              </a>
+            </div>
 
-          <!-- Nút bấm nhắn tin nhanh qua Discord -->
-          <div style="margin-top: 18px;">
-            <a href="https://discord.com/users/1053893912466554922" target="_blank" class="copy-btn" style="text-decoration: none;">
-              <span>💬 NHẮN TIN TRỰC TIẾP TRÊN DISCORD</span>
-            </a>
-          </div>
+            <!-- CỘT PHẢI: TIỂU SỬ & BỘ BADGES CYBERPUNK -->
+            <div style="display: flex; flex-direction: column; justify-content: center;">
+              
+              <div style="font-family: var(--font-mono); font-size: 12px; color: var(--accent); letter-spacing: 2px; margin-bottom: 8px;">
+                root@singularity:~$ cat profile.bio
+              </div>
+              
+              <h1 class="name-display" id="user-display-name" style="font-family: var(--font-display); font-size: clamp(38px, 4vw, 54px); margin-bottom: 12px; line-height: 1.1; color: #fff;">
+                Cyber_Architect
+              </h1>
 
-          <div style="font-family: var(--font-mono); font-size: 10.5px; color: #788899; text-align: center; margin-top: 14px; letter-spacing: 1px;">
-            ✦ CUỘN XUỐNG ĐỂ TRUY CẬP TIỆN ÍCH HỆ THỐNG VÀ TERMINAL
+              <!-- TIỂU SỬ CÁ NHÂN -->
+              <div class="bio-philosophy" style="font-size: 14.5px; margin-bottom: 22px; padding-left: 14px; color: #c4d7e8; line-height: 1.7;">
+                "Code sạch, kiến trúc tĩnh lặng và hệ thống tối ưu. Không bao giờ viết dòng thứ tư nếu ba dòng là đủ giải quyết vấn đề. sudo shutdown -r now"
+              </div>
+
+              <!-- DÀN BADGES CYBERPUNK NỔI BẬT -->
+              <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px;">
+                <span class="bio-badge" style="border-color: rgba(0,243,255,0.4); background: rgba(0,243,255,0.08); color: #00f3ff; font-weight: 500;">
+                  <span style="margin-right: 4px;">✔</span> VERIFIED DEV
+                </span>
+                <span class="bio-badge" style="border-color: rgba(255,157,0,0.4); background: rgba(255,157,0,0.08); color: var(--accent); font-weight: 500;">
+                  <span style="margin-right: 4px;">⚡</span> BOT ARCHITECT
+                </span>
+                <span class="bio-badge" style="border-color: rgba(88,101,242,0.4); background: rgba(88,101,242,0.12); color: #8ea1ff;">
+                  <span style="margin-right: 4px;">👾</span> DISCORD PRO
+                </span>
+                <span class="bio-badge" style="border-color: rgba(0,255,102,0.4); background: rgba(0,255,102,0.08); color: #00ff66;">
+                  <span style="margin-right: 4px;">🛡</span> KERNEL SEC
+                </span>
+                <span class="bio-badge">
+                  <span style="margin-right: 4px;">☕</span> COFFEE FUEL
+                </span>
+                <span class="bio-badge" style="color: #ff5599; border-color: rgba(255,85,153,0.3);">
+                  <span style="margin-right: 4px;">🔮</span> REVERSE ENG
+                </span>
+              </div>
+
+              <div style="font-family: var(--font-mono); font-size: 10.5px; color: #6b7a8a; letter-spacing: 1px;">
+                ✦ CUỘN TRANG XUỐNG ĐỂ XEM LIVE TELEMETRY VÀ DÙNG TERMINAL
+              </div>
+
+            </div>
+
           </div>
 
         </div>
