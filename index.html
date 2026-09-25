@@ -38,14 +38,19 @@
       --font-body: 'Plus Jakarta Sans', sans-serif;
     }
 
-    /* TRIỆT ĐỂ CHỐNG BÔI ĐEN VÀ CHỌN VĂN BẢN */
+    /* TRIỆT ĐỂ CHỐNG BÔI ĐEN VÀ CHỌN VĂN BẢN TRÊN PC */
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      cursor: none !important;
       user-select: none !important;
       -webkit-user-select: none !important;
+    }
+
+    @media (pointer: fine) {
+      *, *::before, *::after {
+        cursor: none !important;
+      }
     }
 
     #click-particles-canvas {
@@ -68,6 +73,7 @@
       transform: translate(-50%, -50%);
       box-shadow: 0 0 10px #fff, 0 0 20px var(--accent);
       transition: transform 0.08s ease-out;
+      display: none;
     }
 
     #cursor-ring {
@@ -80,6 +86,7 @@
       z-index: 99999;
       transform: translate(-50%, -50%);
       transition: width 0.25s, height 0.25s, border-color 0.25s, background-color 0.25s;
+      display: none;
     }
 
     #cursor-ring.hovering {
@@ -103,9 +110,10 @@
     }
 
     @media (pointer: fine) {
-      #cursor-tag { display: block; }
+      #cursor-dot, #cursor-ring, #cursor-tag { display: block; }
     }
 
+    /* LOADER GUI ĐÃ ĐƯỢC FIX AN TOÀN TRÊN SAFARI/IOS */
     #loader-gui {
       position: fixed;
       inset: 0;
@@ -115,13 +123,14 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s;
+      transition: opacity 0.5s ease;
     }
 
     #loader-gui.loaded {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+      display: none !important;
     }
 
     .loader-core {
@@ -164,11 +173,13 @@
 
     .loader-title {
       font-family: var(--font-display);
-      font-size: 26px;
+      font-size: 24px;
       color: #fff;
-      letter-spacing: 3px;
+      letter-spacing: 2px;
       margin-bottom: 12px;
       text-transform: uppercase;
+      text-align: center;
+      padding: 0 16px;
     }
 
     .loader-status-stream {
@@ -178,10 +189,11 @@
       letter-spacing: 2px;
       margin-bottom: 24px;
       height: 18px;
+      text-align: center;
     }
 
     .loader-bar-bg {
-      width: 280px; height: 3px;
+      width: 260px; height: 3px;
       background: rgba(255, 255, 255, 0.1);
       border-radius: 10px;
       overflow: hidden;
@@ -237,7 +249,6 @@
     .lockdown-title { font-family: var(--font-display); font-size: clamp(32px, 5vw, 56px); color: #ff0055; margin-bottom: 16px; text-shadow: 0 0 20px #ff0055; }
     .lockdown-desc { font-family: var(--font-mono); font-size: 14px; color: #ffb3c6; max-width: 600px; line-height: 1.8; }
 
-    /* LIQUID GLASS CONTAINERS */
     .liquid-glass-container {
       perspective: 1400px;
     }
@@ -821,12 +832,11 @@
       gap: 20px;
     }
 
-    /* Tùy biến bộ điều khiển Player */
     .player-controls {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
+      gap: 10px;
       width: 100%;
       margin-top: 8px;
     }
@@ -872,6 +882,7 @@
     <div class="loader-bar-bg">
       <div class="loader-bar-fill" id="loader-progress"></div>
     </div>
+    <div style="font-family: var(--font-mono); font-size: 10px; color: #5c6a78; margin-top: 18px; letter-spacing: 1px;">[CHẠM VÀO MÀN HÌNH ĐỂ VÀO NGAY]</div>
   </div>
 
   <!-- CẢNH BÁO TOAST -->
@@ -883,12 +894,12 @@
     </div>
   </div>
 
-  <!-- FULLSCREEN DEVTOOLS LOCKDOWN -->
+  <!-- DEVTOOLS LOCKDOWN -->
   <div id="devtools-lockdown">
     <div class="lockdown-title">SECURITY LOCKDOWN</div>
     <div class="lockdown-desc" id="lockdown-desc">
-      [CẢNH BÁO MÃ ĐỘC]: Đã phát hiện công cụ kiểm tra mã nguồn (Developer Tools / Inspect Mode) đang hoạt động.<br>
-      Toàn bộ giao diện và dữ liệu đã được mã hóa tự động để bảo vệ quyền sở hữu trí tuệ.<br><br>
+      [CẢNH BÁO MÃ ĐỘC]: Đã phát hiện công cụ kiểm tra mã nguồn đang hoạt động.<br>
+      Toàn bộ giao diện đã được mã hóa tự động để bảo vệ quyền sở hữu trí tuệ.<br><br>
       <strong>VUI LÒNG ĐÓNG DEVELOPER TOOLS ĐỂ MỞ KHÓA GIAO DIỆN.</strong>
     </div>
   </div>
@@ -948,7 +959,7 @@
     </div>
   </header>
 
-  <!-- Flowing Smooth-Scroll Content Stream -->
+  <!-- Flowing Content Stream -->
   <main class="content-stream">
 
     <!-- 01: HERO PROFILE -->
@@ -1097,7 +1108,7 @@
           </div>
         </div>
 
-        <!-- THẺ 2: MINI LOFI PLAYLIST PLAYER CÓ CHỌN & CHUYỂN BÀI -->
+        <!-- THẺ 2: MINI LOFI PLAYLIST PLAYER -->
         <div class="liquid-glass-container">
           <div class="sample-card liquid-glass">
             <div class="glass-glare"></div>
@@ -1128,7 +1139,7 @@
           </div>
         </div>
 
-        <!-- THẺ 3: QR DONATE (ĐÃ CẬP NHẬT ẢNH QR MỚI CỦA BẠN) -->
+        <!-- THẺ 3: QR DONATE -->
         <div class="liquid-glass-container">
           <div class="sample-card liquid-glass">
             <div class="glass-glare"></div>
@@ -1139,8 +1150,7 @@
                 <span class="sample-target">QR SCAN</span>
               </div>
               <div class="sample-box" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px;">
-                <!-- ẢNH QR CỦA BẠN ĐƯỢC LOAD TỪ CDN CHUẨN XÁC -->
-                <div style="position: relative; width: 120px; height: 120px; border-radius: 12px; overflow: hidden; border: 1.5px solid rgba(255, 157, 0, 0.4); box-shadow: 0 0 20px rgba(255, 157, 0, 0.2);">
+                <div style="position: relative; width: 125px; height: 125px; border-radius: 12px; overflow: hidden; border: 1.5px solid rgba(255, 157, 0, 0.4); box-shadow: 0 0 20px rgba(255, 157, 0, 0.2);">
                   <img id="donate-qr-img" 
                        src="https://cdn.upanhlaylink.com/i/bhMtLMHZ.jpeg" 
                        alt="Donate QR Pay" 
@@ -1254,7 +1264,7 @@
       </div>
     </section>
 
-    <!-- 04: TERMINAL BIO CONTROLLER -->
+    <!-- 04: TERMINAL CONTROLLER -->
     <section class="scene-section" id="sec-terminal">
       <h2 class="section-title" id="i18n-term-title">Trung Tâm Điều Hành</h2>
       <div class="section-meta" id="i18n-term-meta">// TÙY BIẾN PROFILE QUA DÒNG LỆNH</div>
@@ -1295,7 +1305,55 @@
 
   <script>
     /* =========================================================
-       🔥 0. FETCH REAL DISCORD AVATAR & INFO TỪ LANYARD API
+       0. FIX LỖI LOADER ĐỨNG HÌNH TRÊN SAFARI/IOS & FALLBACK AN TOÀN
+       ========================================================= */
+    const loaderGui = document.getElementById('loader-gui');
+    const loaderProgress = document.getElementById('loader-progress');
+    const loaderStatus = document.getElementById('loader-status');
+
+    let loadPercent = 0;
+    const loadSteps = [
+      "SYNCHRONIZING GRAVITATIONAL FIELD [20%]",
+      "SYNCING DISCORD LANYARD API [45%]",
+      "LOADING CHILL PLAYLIST BUFFERS [70%]",
+      "ENFORCING ANTI-DEBUGGER TRIPWIRES [90%]",
+      "ACCESS GRANTED // READY [100%]"
+    ];
+
+    function dismissLoader() {
+      if (!loaderGui || loaderGui.classList.contains('loaded')) return;
+      loaderGui.classList.add('loaded');
+      setTimeout(() => {
+        loaderGui.style.display = 'none';
+        try { loaderGui.remove(); } catch(e){}
+      }, 500);
+    }
+
+    if (loaderGui) {
+      loaderGui.addEventListener('click', dismissLoader);
+      loaderGui.addEventListener('touchstart', dismissLoader, { passive: true });
+    }
+
+    const loadInterval = setInterval(() => {
+      loadPercent += Math.floor(Math.random() * 12) + 8;
+      if (loadPercent > 100) loadPercent = 100;
+      
+      if (loaderProgress) loaderProgress.style.width = `${loadPercent}%`;
+
+      const stepIndex = Math.min(Math.floor((loadPercent / 100) * loadSteps.length), loadSteps.length - 1);
+      if (loaderStatus) loaderStatus.innerText = loadSteps[stepIndex];
+
+      if (loadPercent >= 100) {
+        clearInterval(loadInterval);
+        setTimeout(dismissLoader, 200);
+      }
+    }, 35);
+
+    // Cơ chế khẩn cấp: Tự tắt sau 1.8s bất chấp điều kiện mạng
+    setTimeout(dismissLoader, 1800);
+
+    /* =========================================================
+       🔥 1. FETCH REAL DISCORD AVATAR & INFO TỪ LANYARD API
        ========================================================= */
     const DISCORD_USER_ID = "1053893912466554922";
 
@@ -1308,26 +1366,32 @@
           
           if (user.avatar) {
             const ext = user.avatar.startsWith('a_') ? 'gif' : 'png';
-            const avatarUrl = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=256`;             document.getElementById('discord-real-avatar').src = avatarUrl;           }            if (user.global_name \vert{}\vert{} user.username) {             const displayName = user.global_name \vert{}\vert{} user.username;             document.getElementById('user-display-name').innerText = `${displayName} ⚔`;
+            const avatarUrl = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=256`;
+            document.getElementById('discord-real-avatar').src = avatarUrl;
+          }
+
+          if (user.global_name || user.username) {
+            const displayName = user.global_name || user.username;
+            document.getElementById('user-display-name').innerText = `${displayName} ⚔`;
             document.getElementById('discord-real-username').innerText = user.username;
           }
 
           const actEl = document.getElementById('discord-real-activity');
           if (json.data.listening_to_spotify && json.data.spotify) {
-            actEl.innerHTML = `🎧 Đang nghe Spotify: <span style="color:#1db954; font-weight:bold;">${json.data.spotify.song}</span> -${json.data.spotify.artist}`;
+            actEl.innerHTML = `🎧 Đang nghe Spotify: <span style="color:#1db954; font-weight:bold;">${json.data.spotify.song}</span> - ${json.data.spotify.artist}`;
           } else if (json.data.activities && json.data.activities.length > 0) {
             const mainAct = json.data.activities.find(a => a.type !== 4) || json.data.activities[0];
             actEl.innerText = `${mainAct.name}${mainAct.details ? ' • ' + mainAct.details : ''}`;
           }
         }
       } catch (err) {
-        console.warn("Không thể tải API Lanyard Discord:", err);
+        console.warn("Lanyard API unreachable:", err);
       }
     }
     syncDiscordProfile();
 
     /* =========================================================
-       🎵 PLAYLIST NHẠC LO-FI CHILL THỰC SỰ
+       🎵 2. PLAYLIST NHẠC LO-FI CHILL
        ========================================================= */
     const lofiPlaylist = [
       {
@@ -1366,7 +1430,7 @@
       lofiAudio.src = track.url;
       lofiTitle.innerText = track.title;
       lofiArtist.innerText = track.artist;
-      lofiCounter.innerText = `TRACK ${currentTrackIdx + 1} /${lofiPlaylist.length}`;
+      lofiCounter.innerText = `TRACK ${currentTrackIdx + 1} / ${lofiPlaylist.length}`;
     }
     loadTrack(0);
 
@@ -1418,7 +1482,7 @@
     });
 
     /* =========================================================
-       🌐 1. I18N MULTI-LANGUAGE DICTIONARY & SWITCH ENGINE
+       🌐 3. I18N MULTI-LANGUAGE
        ========================================================= */
     const i18nData = {
       vi: {
@@ -1482,7 +1546,7 @@
         philosophy: '"Nunca escribas una cuarta línea si tres son suficientes. Noches en vela frente a los flujos de stdout, convirtiendo café en herramientas de automatización. Silencio, precisión y sin dejar rastro."',
         samplesTitle: "Sistema y Utilidades",
         samplesMeta: "// TELEMETRÍA EN TIEMPO REAL, LISTA LO-FI Y QR",
-        socialsTitle: "Enlaces y Habilidades",
+        socialsTitle: "Enlaces và Habilidades",
         socialsMeta: "// PERFILES SOCIALES Y DOMINIO TÉCNICO",
         termTitle: "Centro de Comando",
         termMeta: "// CONTROLADOR DE PERFIL POR COMANDOS"
@@ -1532,96 +1596,99 @@
     }
 
     /* =========================================================
-       2. CHILL CLICK SOUND SYNTHESIZER
+       4. ÂM THANH CLICK AN TOÀN TRÊN SAFARI
        ========================================================= */
     let audioOn = true;
     let audioCtx = null;
 
-    function getAudio() {
-      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      if (audioCtx.state === 'suspended') audioCtx.resume();
-      return audioCtx;
-    }
-
-    const chillScale = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25];
-    let noteIndex = 0;
-
     function playChillClickSound() {
       if (!audioOn) return;
       try {
-        const ctx = getAudio();
-        const now = ctx.currentTime;
-        
-        const freq = chillScale[noteIndex % chillScale.length];
-        noteIndex++;
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const now = audioCtx.currentTime;
 
-        const osc1 = ctx.createOscillator();
+        const osc1 = audioCtx.createOscillator();
         osc1.type = 'sine';
-        osc1.frequency.setValueAtTime(freq, now);
+        osc1.frequency.setValueAtTime(392, now);
 
-        const osc2 = ctx.createOscillator();
-        osc2.type = 'triangle';
-        osc2.frequency.setValueAtTime(freq * 1.5, now);
-
-        const filter = ctx.createBiquadFilter();
-        filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(950, now);
-        filter.frequency.exponentialRampToValueAtTime(300, now + 0.22);
-
-        const gain1 = ctx.createGain();
+        const gain1 = audioCtx.createGain();
         gain1.gain.setValueAtTime(0.001, now);
-        gain1.gain.linearRampToValueAtTime(0.07, now + 0.008);
-        gain1.gain.exponentialRampToValueAtTime(0.0001, now + 0.22);
-
-        const gain2 = ctx.createGain();
-        gain2.gain.setValueAtTime(0.001, now);
-        gain2.gain.linearRampToValueAtTime(0.025, now + 0.008);
-        gain2.gain.exponentialRampToValueAtTime(0.0001, now + 0.16);
+        gain1.gain.linearRampToValueAtTime(0.05, now + 0.008);
+        gain1.gain.exponentialRampToValueAtTime(0.0001, now + 0.16);
 
         osc1.connect(gain1);
-        osc2.connect(gain2);
-        gain1.connect(filter);
-        gain2.connect(filter);
-        filter.connect(ctx.destination);
+        gain1.connect(audioCtx.destination);
 
         osc1.start(now);
-        osc2.start(now);
-        osc1.stop(now + 0.24);
-        osc2.stop(now + 0.24);
+        osc1.stop(now + 0.18);
       } catch (e) {}
     }
 
     function toggleAudio() {
       audioOn = !audioOn;
       const btn = document.getElementById('audio-toggle');
-      btn.innerText = `SOUND: ${audioOn ? 'ON' : 'OFF'}`;       btn.classList.toggle('active', audioOn);       if (audioOn) playChillClickSound();     }      /* =========================================================        3. CLICK PARTICLES ENGINE        ========================================================= */     const particleCanvas = document.getElementById('click-particles-canvas');     const pCtx = particleCanvas.getContext('2d');      function resizeParticleCanvas() {       particleCanvas.width = window.innerWidth;       particleCanvas.height = window.innerHeight;     }     resizeParticleCanvas();     window.addEventListener('resize', resizeParticleCanvas);      const activeParticles = [];     const particleColors = ['#ffaa00', '#00f3ff', '#ffffff', '#ff7700', '#ffd27f'];      function spawnClickParticles(x, y) {       activeParticles.push({         type: 'ring',         x: x, y: y,         radius: 2,         maxRadius: Math.random() * 25 + 30,         alpha: 0.8,         color: '#ffaa00'       });        const count = Math.floor(Math.random() * 8) + 18;       for (let i = 0; i < count; i++) {         const angle = Math.random() * Math.PI * 2;         const speed = Math.random() * 4.5 + 1.8;         activeParticles.push({           type: 'spark',           x: x, y: y,           vx: Math.cos(angle) * speed,           vy: Math.sin(angle) * speed,           size: Math.random() * 3 + 1.5,           color: particleColors[Math.floor(Math.random() * particleColors.length)],           alpha: 1.0,           decay: Math.random() * 0.02 + 0.02,           drag: 0.94         });       }     }      function updateAndRenderParticles() {       pCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);        for (let i = activeParticles.length - 1; i >= 0; i--) {         const p = activeParticles[i];          if (p.type === 'ring') {           p.radius += (p.maxRadius - p.radius) * 0.15;           p.alpha -= 0.035;           if (p.alpha <= 0) {             activeParticles.splice(i, 1);             continue;           }           pCtx.beginPath();           pCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);           pCtx.strokeStyle = `rgba(255, 170, 0, ${p.alpha})`;
-          pCtx.lineWidth = 1.5;
-          pCtx.stroke();
-        } else if (p.type === 'spark') {
-          p.x += p.vx;
-          p.y += p.vy;
-          p.vx *= p.drag;
-          p.vy *= p.drag;
-          p.vy += 0.04;
-          p.alpha -= p.decay;
+      btn.innerText = `SOUND: ${audioOn ? 'ON' : 'OFF'}`;
+      btn.classList.toggle('active', audioOn);
+      if (audioOn) playChillClickSound();
+    }
 
-          if (p.alpha <= 0) {
-            activeParticles.splice(i, 1);
-            continue;
-          }
+    /* =========================================================
+       5. CLICK PARTICLES ENGINE
+       ========================================================= */
+    const particleCanvas = document.getElementById('click-particles-canvas');
+    const pCtx = particleCanvas.getContext('2d');
 
-          pCtx.save();
-          pCtx.globalAlpha = p.alpha;
-          pCtx.shadowBlur = 10;
-          pCtx.shadowColor = p.color;
-          pCtx.fillStyle = p.color;
-          pCtx.beginPath();
-          pCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-          pCtx.fill();
-          pCtx.restore();
-        }
+    function resizeParticleCanvas() {
+      particleCanvas.width = window.innerWidth;
+      particleCanvas.height = window.innerHeight;
+    }
+    resizeParticleCanvas();
+    window.addEventListener('resize', resizeParticleCanvas);
+
+    const activeParticles = [];
+    const particleColors = ['#ffaa00', '#00f3ff', '#ffffff', '#ff7700'];
+
+    function spawnClickParticles(x, y) {
+      const count = Math.floor(Math.random() * 6) + 12;
+      for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 4 + 1.5;
+        activeParticles.push({
+          x: x, y: y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          size: Math.random() * 2.5 + 1.5,
+          color: particleColors[Math.floor(Math.random() * particleColors.length)],
+          alpha: 1.0,
+          decay: Math.random() * 0.025 + 0.02
+        });
       }
+    }
 
+    function updateAndRenderParticles() {
+      pCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+      for (let i = activeParticles.length - 1; i >= 0; i--) {
+        const p = activeParticles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vx *= 0.94;
+        p.vy *= 0.94;
+        p.alpha -= p.decay;
+
+        if (p.alpha <= 0) {
+          activeParticles.splice(i, 1);
+          continue;
+        }
+
+        pCtx.save();
+        pCtx.globalAlpha = p.alpha;
+        pCtx.fillStyle = p.color;
+        pCtx.beginPath();
+        pCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        pCtx.fill();
+        pCtx.restore();
+      }
       requestAnimationFrame(updateAndRenderParticles);
     }
     requestAnimationFrame(updateAndRenderParticles);
@@ -1632,27 +1699,86 @@
     });
 
     /* =========================================================
-       4. LOADER GUI LOGIC
+       6. PHÒNG THỦ: CHỐNG DEVTOOLS AN TOÀN TRÊN MOBILE
        ========================================================= */
-    const loaderGui = document.getElementById('loader-gui');
-    const loaderProgress = document.getElementById('loader-progress');
-    const loaderStatus = document.getElementById('loader-status');
+    const securityToast = document.getElementById('security-toast');
+    const toastTitle = document.getElementById('toast-title');
+    const toastDesc = document.getElementById('toast-desc');
+    let toastTimeout = null;
 
-    let loadPercent = 0;
-    const loadSteps = [
-      "SYNCHRONIZING GRAVITATIONAL FIELD [20%]",
-      "SYNCING DISCORD LANYARD API [45%]",
-      "LOADING CHILL PLAYLIST BUFFERS [70%]",
-      "ENFORCING ANTI-DEBUGGER TRIPWIRES [90%]",
-      "ACCESS GRANTED // READY [100%]"
-    ];
+    function triggerSecurityBreach(cause) {
+      if (!securityToast) return;
+      toastTitle.innerText = `[PHÁT HIỆN CAN THIỆP]: ${cause.toUpperCase()}`;
+      toastDesc.innerText = `Hành động đã bị khóa: Hệ thống bảo mật đã vô hiệu hóa thao tác ${cause}.`;
+      securityToast.classList.add('active');
 
-    const loadInterval = setInterval(() => {
-      loadPercent += Math.floor(Math.random() * 8) + 4;
-      if (loadPercent > 100) loadPercent = 100;
-      loaderProgress.style.width = `${loadPercent}\%`;        const stepIndex = Math.min(Math.floor((loadPercent / 100) * loadSteps.length), loadSteps.length - 1);       loaderStatus.innerText = loadSteps[stepIndex];        if (loadPercent >= 100) {         clearInterval(loadInterval);         setTimeout(() => {           loaderGui.classList.add('loaded');           playChillClickSound();         }, 300);       }     }, 45);      /* =========================================================        5. PHÒNG THỦ: CHỐNG DEVTOOLS & BẢO VỆ MÃ NGUỒN        ========================================================= */     const securityToast = document.getElementById('security-toast');     const toastTitle = document.getElementById('toast-title');     const toastDesc = document.getElementById('toast-desc');     let toastTimeout = null;      function triggerSecurityBreach(cause) {       toastTitle.innerText = `[PHÁT HIỆN CAN THIỆP]: ${cause.toUpperCase()}`;
-      toastDesc.innerText = `Hành động đã bị khóa: Hệ thống bảo mật đã vô hiệu hóa thao tác ${cause}.`;       securityToast.classList.add('active');        clearTimeout(toastTimeout);       toastTimeout = setTimeout(() => {         securityToast.classList.remove('active');       }, 3000);     }      document.addEventListener('contextmenu', (e) => {       e.preventDefault();       triggerSecurityBreach('Chuột phải (Context Menu)');       return false;     });      document.addEventListener('selectstart', (e) => {       e.preventDefault();       triggerSecurityBreach('Bôi đen văn bản (Selection)');       return false;     });      document.addEventListener('copy', (e) => {       e.preventDefault();       triggerSecurityBreach('Sao chép trái phép (Copy)');       return false;     });      document.addEventListener('keydown', (e) => {       if (e.key === 'F12' \vert{}\vert{} e.keyCode === 123) {         e.preventDefault();         triggerSecurityBreach('Phím F12 (Developer Tools)');         return false;       }       if (e.ctrlKey && e.shiftKey && (e.key === 'I' \vert{}\vert{} e.key === 'i' \vert{}\vert{} e.key === 'J' \vert{}\vert{} e.key === 'j' \vert{}\vert{} e.key === 'C' \vert{}\vert{} e.key === 'c')) {         e.preventDefault();         triggerSecurityBreach('Tổ hợp Inspect Element');         return false;       }       if (e.ctrlKey && (e.key === 'U' \vert{}\vert{} e.key === 'u')) {         e.preventDefault();         triggerSecurityBreach('Xem mã nguồn (Ctrl+U)');         return false;       }       if (e.ctrlKey && (e.key === 'S' \vert{}\vert{} e.key === 's')) {         e.preventDefault();         triggerSecurityBreach('Lưu trang web (Ctrl+S)');         return false;       }     });      const devtoolsLockdown = document.getElementById('devtools-lockdown');     const isMobileDevice = /Android\vert{}webOS\vert{}iPhone\vert{}iPad\vert{}iPod\vert{}BlackBerry\vert{}IEMobile\vert{}Opera Mini/i.test(navigator.userAgent) \vert{}\vert{}        (navigator.maxTouchPoints && navigator.maxTouchPoints > 2);      setInterval(() => {       if (isMobileDevice) {         devtoolsLockdown.classList.remove('active');         return;       }       const threshold = 180;       const widthDiff = window.outerWidth - window.innerWidth > threshold;       const heightDiff = window.outerHeight - window.innerHeight > threshold;       if (widthDiff \vert{}\vert{} heightDiff) {         devtoolsLockdown.classList.add('active');       } else {         devtoolsLockdown.classList.remove('active');       }     }, 600);      /* =========================================================        6. LIQUID GLASS 3D TILT & PRISM GLARE        ========================================================= */     document.querySelectorAll('.liquid-glass').forEach(card => {       card.addEventListener('mousemove', (e) => {         const rect = card.getBoundingClientRect();         const x = e.clientX - rect.left;         const y = e.clientY - rect.top;                  card.style.setProperty('--mouse-x', `${x}px`);
-        card.style.setProperty('--mouse-y', `${y}px`);          const centerX = rect.width / 2;         const centerY = rect.height / 2;         const rotateX = ((y - centerY) / centerY) * -7;         const rotateY = ((x - centerX) / centerX) * 7;          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.015, 1.015, 1.015)`;          const angle = Math.atan2(y - centerY, x - centerX) * (180 / Math.PI) + 90;         card.style.setProperty('--prism-angle', `${angle}deg`);
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        securityToast.classList.remove('active');
+      }, 3000);
+    }
+
+    document.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      triggerSecurityBreach('Chuột phải (Context Menu)');
+      return false;
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'F12' || e.keyCode === 123) {
+        e.preventDefault();
+        triggerSecurityBreach('Phím F12 (Developer Tools)');
+        return false;
+      }
+      if (e.ctrlKey && e.shiftKey && ['I','J','C','i','j','c'].includes(e.key)) {
+        e.preventDefault();
+        triggerSecurityBreach('Tổ hợp Inspect Element');
+        return false;
+      }
+      if (e.ctrlKey && ['U','u','S','s'].includes(e.key)) {
+        e.preventDefault();
+        triggerSecurityBreach('Xem/Lưu mã nguồn');
+        return false;
+      }
+    });
+
+    const devtoolsLockdown = document.getElementById('devtools-lockdown');
+    const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+      (navigator.maxTouchPoints && navigator.maxTouchPoints > 2);
+
+    setInterval(() => {
+      if (isMobileDevice) {
+        if (devtoolsLockdown) devtoolsLockdown.classList.remove('active');
+        return;
+      }
+      const threshold = 180;
+      const widthDiff = window.outerWidth - window.innerWidth > threshold;
+      const heightDiff = window.outerHeight - window.innerHeight > threshold;
+      if (widthDiff || heightDiff) {
+        if (devtoolsLockdown) devtoolsLockdown.classList.add('active');
+      } else {
+        if (devtoolsLockdown) devtoolsLockdown.classList.remove('active');
+      }
+    }, 800);
+
+    /* =========================================================
+       7. LIQUID GLASS 3D TILT
+       ========================================================= */
+    document.querySelectorAll('.liquid-glass').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -6;
+        const rotateY = ((x - centerX) / centerX) * 6;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
       });
 
       card.addEventListener('mouseleave', () => {
@@ -1661,7 +1787,7 @@
     });
 
     /* =========================================================
-       7. CUSTOM SKIN CURSOR
+       8. CUSTOM CURSOR
        ========================================================= */
     const cursorDot = document.getElementById('cursor-dot');
     const cursorRing = document.getElementById('cursor-ring');
@@ -1673,29 +1799,38 @@
     window.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      cursorDot.style.left = `${mouseX}px`;       cursorDot.style.top = `${mouseY}px`;
-      cursorTag.style.left = `${mouseX}px`;       cursorTag.style.top = `${mouseY}px`;
-      cursorTag.innerText = `X:${mouseX} Y:${mouseY}`;
+      if (cursorDot) {
+        cursorDot.style.left = `${mouseX}px`;
+        cursorDot.style.top = `${mouseY}px`;
+      }
+      if (cursorTag) {
+        cursorTag.style.left = `${mouseX}px`;
+        cursorTag.style.top = `${mouseY}px`;
+        cursorTag.innerText = `X:${mouseX} Y:${mouseY}`;
+      }
     });
 
     function renderCursor() {
-      ringX += (mouseX - ringX) * 0.18;
-      ringY += (mouseY - ringY) * 0.18;
-      cursorRing.style.left = `${ringX}px`;       cursorRing.style.top = `${ringY}px`;
+      if (cursorRing) {
+        ringX += (mouseX - ringX) * 0.18;
+        ringY += (mouseY - ringY) * 0.18;
+        cursorRing.style.left = `${ringX}px`;
+        cursorRing.style.top = `${ringY}px`;
+      }
       requestAnimationFrame(renderCursor);
     }
     renderCursor();
 
     document.querySelectorAll('a, button, .sample-card, .social-btn, input, .liquid-glass, .lang-item').forEach(el => {
-      el.addEventListener('mouseenter', () => cursorRing.classList.add('hovering'));
-      el.addEventListener('mouseleave', () => cursorRing.classList.remove('hovering'));
+      el.addEventListener('mouseenter', () => cursorRing && cursorRing.classList.add('hovering'));
+      el.addEventListener('mouseleave', () => cursorRing && cursorRing.classList.remove('hovering'));
     });
 
     /* =========================================================
-       8. LENIS SMOOTH SCROLL WITH PARALLAX ZOOM
+       9. SMOOTH SCROLL (LENIS)
        ========================================================= */
     const lenis = new Lenis({
-      duration: 1.4,
+      duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
       smoothTouch: false
@@ -1710,7 +1845,7 @@
     requestAnimationFrame(raf);
 
     /* =========================================================
-       9. DASHBOARD UTILITIES: REAL TELEMETRY
+       10. TELEMETRY & SYSTEM STATS
        ========================================================= */
     function detectRealClientOS() {
       const ua = navigator.userAgent;
@@ -1726,7 +1861,18 @@
 
       const coresEl = document.getElementById('sys-cores');
       const coreCount = navigator.hardwareConcurrency || 8;
-      if (coresEl) coresEl.innerText = `${coreCount} Threads // Active`;     }     detectRealClientOS();      let sessionSeconds = 0;     const uptimeEl = document.getElementById('sys-uptime');     setInterval(() => {       sessionSeconds++;       const hrs = String(Math.floor(sessionSeconds / 3600)).padStart(2, '0');       const mins = String(Math.floor((sessionSeconds \% 3600) / 60)).padStart(2, '0');       const secs = String(sessionSeconds \% 60).padStart(2, '0');       if (uptimeEl) uptimeEl.innerText = `${hrs}:${mins}:${secs}`;
+      if (coresEl) coresEl.innerText = `${coreCount} Threads // Active`;
+    }
+    detectRealClientOS();
+
+    let sessionSeconds = 0;
+    const uptimeEl = document.getElementById('sys-uptime');
+    setInterval(() => {
+      sessionSeconds++;
+      const hrs = String(Math.floor(sessionSeconds / 3600)).padStart(2, '0');
+      const mins = String(Math.floor((sessionSeconds % 3600) / 60)).padStart(2, '0');
+      const secs = String(sessionSeconds % 60).padStart(2, '0');
+      if (uptimeEl) uptimeEl.innerText = `${hrs}:${mins}:${secs}`;
     }, 1000);
 
     async function measureRealPing(btn) {
@@ -1742,7 +1888,9 @@
           mode: 'no-cors'
         });
         const duration = Math.max(14, Math.round(performance.now() - start));
-        if (pingEl) pingEl.innerText = `${duration} ms (Real)`;       } catch (e) {         if (pingEl) pingEl.innerText = `${Math.floor(Math.random() * 12 + 18)} ms`;
+        if (pingEl) pingEl.innerText = `${duration} ms (Real)`;
+      } catch (e) {
+        if (pingEl) pingEl.innerText = `${Math.floor(Math.random() * 12 + 18)} ms`;
       }
 
       if (btn) {
@@ -1767,7 +1915,8 @@
 
       const loadValEl = document.getElementById('sys-load-val');
       const loadBarEl = document.getElementById('sys-load-bar');
-      if (loadValEl) loadValEl.innerText = `${Math.round(lastVal)}\%`;       if (loadBarEl) loadBarEl.style.width = `${lastVal}%`;
+      if (loadValEl) loadValEl.innerText = `${Math.round(lastVal)}%`;
+      if (loadBarEl) loadBarEl.style.width = `${lastVal}%`;
 
       if (sCtx) {
         const w = sparkCanvas.width;
@@ -1795,7 +1944,7 @@
     setInterval(updateTelemetryLoad, 650);
 
     /* =========================================================
-       10. GARGANTUA 3D BLACK HOLE BACKGROUND
+       11. 3D BLACK HOLE BACKGROUND
        ========================================================= */
     const canvas = document.getElementById('blackhole-canvas');
     const scene = new THREE.Scene();
@@ -1806,67 +1955,51 @@
 
     const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 
     const blackHoleGroup = new THREE.Group();
     scene.add(blackHoleGroup);
 
-    const eventHorizonGeo = new THREE.SphereGeometry(3.6, 64, 64);
-    const eventHorizonMat = new THREE.MeshBasicMaterial({ color: 0x000000 });
-    const eventHorizon = new THREE.Mesh(eventHorizonGeo, eventHorizonMat);
+    const eventHorizon = new THREE.Mesh(
+      new THREE.SphereGeometry(3.6, 32, 32),
+      new THREE.MeshBasicMaterial({ color: 0x000000 })
+    );
     blackHoleGroup.add(eventHorizon);
 
-    const photonRingGeo = new THREE.TorusGeometry(3.75, 0.06, 32, 160);
-    const photonRingMat = new THREE.MeshBasicMaterial({ color: 0xfff0dd, transparent: true, opacity: 0.95 });
-    const photonRing = new THREE.Mesh(photonRingGeo, photonRingMat);
+    const photonRing = new THREE.Mesh(
+      new THREE.TorusGeometry(3.75, 0.06, 16, 100),
+      new THREE.MeshBasicMaterial({ color: 0xfff0dd, transparent: true, opacity: 0.95 })
+    );
     blackHoleGroup.add(photonRing);
 
     function createAccretionTexture() {
       const c = document.createElement('canvas');
-      c.width = 1024; c.height = 128;
+      c.width = 512; c.height = 64;
       const ctx = c.getContext('2d');
-      const grad = ctx.createLinearGradient(0, 0, 1024, 0);
+      const grad = ctx.createLinearGradient(0, 0, 512, 0);
       grad.addColorStop(0.0, 'rgba(255,255,255,1)');
-      grad.addColorStop(0.12, 'rgba(255,210,120,0.95)');
-      grad.addColorStop(0.35, 'rgba(255,140,20,0.8)');
-      grad.addColorStop(0.65, 'rgba(210,50,5,0.45)');
-      grad.addColorStop(0.95, 'rgba(60,10,0,0.15)');
+      grad.addColorStop(0.2, 'rgba(255,180,60,0.9)');
+      grad.addColorStop(0.6, 'rgba(210,50,5,0.4)');
       grad.addColorStop(1.0, 'rgba(0,0,0,0)');
       ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, 1024, 128);
-
-      for (let i = 0; i < 300; i++) {
-        ctx.fillStyle = `rgba(255, ${Math.random()*180 + 75}, 30,${Math.random() * 0.4})`;
-        ctx.fillRect(Math.random() * 1024, Math.random() * 128, Math.random() * 40 + 10, Math.random() * 3 + 1);
-      }
+      ctx.fillRect(0, 0, 512, 64);
       return new THREE.CanvasTexture(c);
     }
     const plasmaTex = createAccretionTexture();
 
-    const diskGeo = new THREE.RingGeometry(3.8, 14.0, 128, 8);
+    const diskGeo = new THREE.RingGeometry(3.8, 14.0, 64, 4);
     const diskMat = new THREE.MeshBasicMaterial({
       map: plasmaTex,
       side: THREE.DoubleSide,
       transparent: true,
-      opacity: 0.88,
+      opacity: 0.85,
       blending: THREE.AdditiveBlending
     });
     const accretionDisk = new THREE.Mesh(diskGeo, diskMat);
     accretionDisk.rotation.x = Math.PI / 2.2;
     blackHoleGroup.add(accretionDisk);
 
-    const lensedDiskGeo = new THREE.RingGeometry(3.8, 11.0, 128, 8);
-    const lensedDiskMat = new THREE.MeshBasicMaterial({
-      map: plasmaTex,
-      side: THREE.DoubleSide,
-      transparent: true,
-      opacity: 0.65,
-      blending: THREE.AdditiveBlending
-    });
-    const lensedDisk = new THREE.Mesh(lensedDiskGeo, lensedDiskMat);
-    blackHoleGroup.add(lensedDisk);
-
-    const particleCount = 6000;
+    const particleCount = 2500;
     const particleGeo = new THREE.BufferGeometry();
     const particlePos = new Float32Array(particleCount * 3);
     const particleAngle = new Float32Array(particleCount);
@@ -1878,7 +2011,7 @@
       const angle = Math.random() * Math.PI * 2;
       particleRadius[i] = r;
       particleAngle[i] = angle;
-      particleSpeed[i] = (1 / Math.sqrt(r)) * 0.025;
+      particleSpeed[i] = (1 / Math.sqrt(r)) * 0.02;
 
       particlePos[i * 3] = Math.cos(angle) * r;
       particlePos[i * 3 + 1] = (Math.random() - 0.5) * (r * 0.15);
@@ -1886,47 +2019,27 @@
     }
 
     particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePos, 3));
-    const particleMat = new THREE.PointsMaterial({
-      color: 0xffb74d,
-      size: 0.11,
-      transparent: true,
-      opacity: 0.85,
-      blending: THREE.AdditiveBlending
-    });
-    const accretionParticles = new THREE.Points(particleGeo, particleMat);
+    const accretionParticles = new THREE.Points(
+      particleGeo, 
+      new THREE.PointsMaterial({ color: 0xffb74d, size: 0.12, transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending })
+    );
     accretionDisk.add(accretionParticles);
-
-    const starCount = 2000;
-    const starGeo = new THREE.BufferGeometry();
-    const starPos = new Float32Array(starCount * 3);
-    for (let i = 0; i < starCount * 3; i++) {
-      starPos[i] = (Math.random() - 0.5) * 120;
-    }
-    starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
-    const starMat = new THREE.PointsMaterial({ color: 0x90b0d0, size: 0.12, opacity: 0.4, transparent: true });
-    scene.add(new THREE.Points(starGeo, starMat));
 
     let mouseNormX = 0, mouseNormY = 0;
     let targetRotX = 0, targetRotY = 0;
     const zoomEl = document.getElementById('hud-zoom');
 
     window.addEventListener('mousemove', (e) => {
-      mouseNormX = (e.clientX - window.innerWidth / 2) * 0.0008;
-      mouseNormY = (e.clientY - window.innerHeight / 2) * 0.0008;
+      mouseNormX = (e.clientX - window.innerWidth / 2) * 0.0006;
+      mouseNormY = (e.clientY - window.innerHeight / 2) * 0.0006;
     });
-
-    let wheelZoomOffset = 0;
-    window.addEventListener('wheel', (e) => {
-      wheelZoomOffset = Math.min(Math.max(wheelZoomOffset + e.deltaY * 0.015, -12), 15);
-    }, { passive: true });
 
     let speedBoost = 1.0;
 
     function animate() {
       requestAnimationFrame(animate);
 
-      accretionDisk.rotation.z += 0.004 * speedBoost;
-      lensedDisk.rotation.z += 0.003 * speedBoost;
+      accretionDisk.rotation.z += 0.003 * speedBoost;
 
       const positions = accretionParticles.geometry.attributes.position.array;
       for (let i = 0; i < particleCount; i++) {
@@ -1946,12 +2059,10 @@
       blackHoleGroup.rotation.y = targetRotY * 1.5;
 
       const scrollProgress = currentScroll * 0.0016;
-      const targetZ = 28 - Math.min(scrollProgress * 6.5, 18) + wheelZoomOffset;
+      const targetZ = 28 - Math.min(scrollProgress * 6.5, 18);
       camera.position.z += (targetZ - camera.position.z) * 0.1;
-      blackHoleGroup.position.y = -Math.sin(scrollProgress * 0.8) * 4;
 
       if (zoomEl) zoomEl.innerText = camera.position.z.toFixed(1);
-
       renderer.render(scene, camera);
     }
     animate();
@@ -1963,7 +2074,7 @@
     });
 
     /* =========================================================
-       11. ENHANCED TERMINAL (TERMUX/CLI STYLE)
+       12. TERMINAL CONTROLLER (TERMUX/CLI STYLE)
        ========================================================= */
     const termDisplay = document.getElementById('term-display');
     const termIn = document.getElementById('term-in');
@@ -1972,18 +2083,14 @@
       const line = document.createElement('div');
       line.style.margin = '3px 0';
       if (isUser) {
-        line.innerHTML = `<span style="color:var(--accent); font-weight:bold;">root@profile:~$</span> ${textHtml}`;         termDisplay.appendChild(line);         termDisplay.scrollTop = termDisplay.scrollHeight;       } else {         line.innerHTML = '';         termDisplay.appendChild(line);         let idx = 0;         function step() {           if (idx <= textHtml.length) {             line.innerHTML = textHtml.slice(0, idx);             idx += 4;             termDisplay.scrollTop = termDisplay.scrollHeight;             setTimeout(step, 8);           } else {             line.innerHTML = textHtml;           }         }         step();       }     }      let matrixCanvas = null;     let matrixInterval = null;      function toggleMatrixRain() {       if (matrixCanvas) {         clearInterval(matrixInterval);         matrixCanvas.remove();         matrixCanvas = null;         return false;       }       matrixCanvas = document.createElement('canvas');       matrixCanvas.style.position = 'fixed';       matrixCanvas.style.inset = '0';       matrixCanvas.style.pointerEvents = 'none';       matrixCanvas.style.zIndex = '99990';       matrixCanvas.style.opacity = '0.55';       document.body.appendChild(matrixCanvas);        const mCtx = matrixCanvas.getContext('2d');       matrixCanvas.width = window.innerWidth;       matrixCanvas.height = window.innerHeight;        const chars = '0123456789ABCDEF$#@\%&*+-/<>~';       const fontSize = 14;       const columns = Math.floor(matrixCanvas.width / fontSize);       const drops = Array(columns).fill(1);        matrixInterval = setInterval(() => {         mCtx.fillStyle = 'rgba(2, 3, 6, 0.08)';         mCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);         mCtx.fillStyle = '#00ff66';         mCtx.font = `${fontSize}px monospace`;
-
-        for (let i = 0; i < drops.length; i++) {
-          const text = chars.charAt(Math.floor(Math.random() * chars.length));
-          mCtx.fillText(text, i * fontSize, drops[i] * fontSize);
-          if (drops[i] * fontSize > matrixCanvas.height && Math.random() > 0.975) {
-            drops[i] = 0;
-          }
-          drops[i]++;
-        }
-      }, 33);
-      return true;
+        line.innerHTML = `<span style="color:var(--accent); font-weight:bold;">root@profile:~$</span> ${textHtml}`;
+        termDisplay.appendChild(line);
+        termDisplay.scrollTop = termDisplay.scrollHeight;
+      } else {
+        line.innerHTML = textHtml;
+        termDisplay.appendChild(line);
+        termDisplay.scrollTop = termDisplay.scrollHeight;
+      }
     }
 
     function handleCommand(e) {
@@ -2001,110 +2108,40 @@
       setTimeout(() => {
         switch(cmd) {
           case 'help':
-            smoothAppendTerm(`<span style="color:var(--accent);">=== HỆ THỐNG LỆNH ĐIỀU HÀNH KERNEL ===</span>`);
-            setTimeout(() => smoothAppendTerm(`• <b>neofetch</b>        : In bảng thông số phần cứng thiết bị`), 40);
-            setTimeout(() => smoothAppendTerm(`• <b>fastfetch</b>       : In logo Tux và dải bảng màu Palette`), 80);
-            setTimeout(() => smoothAppendTerm(`• <b>btop</b> / <b>htop</b>   : Bảng theo dõi tiến trình CPU/RAM thời gian thực`), 120);
-            setTimeout(() => smoothAppendTerm(`• <b>weather</b>         : Dự báo thời tiết dạng đồ họa chữ ASCII`), 160);
-            setTimeout(() => smoothAppendTerm(`• <b>pipes</b>           : Hiệu ứng đường ống mạng nghệ thuật`), 200);
-            setTimeout(() => smoothAppendTerm(`• <b>music</b>           : Lệnh tắt điều khiển máy phát nhạc (next, prev, pause)`), 240);
-            setTimeout(() => smoothAppendTerm(`• <b>color &lt;màu&gt;</b>     : Đổi tông màu web (cyan, red, green, purple, orange)`), 280);
-            setTimeout(() => smoothAppendTerm(`• <b>name &lt;tên&gt;</b>     : Thay đổi tên định danh trên Profile`), 320);
-            setTimeout(() => smoothAppendTerm(`• <b>matrix</b>          : Bật / Tắt mưa mã độc Matrix`), 360);
-            setTimeout(() => smoothAppendTerm(`• <b>warp</b>            : Lao camera vào tâm hố đen 3D`), 400);
-            setTimeout(() => smoothAppendTerm(`• <b>clear</b>           : Xóa sạch nhật ký màn hình`), 440);
+            smoothAppendTerm(`<span style="color:var(--accent);">=== HỆ THỐNG LỆNH KERNEL ===</span>`);
+            smoothAppendTerm(`• <b>neofetch</b>        : In bảng thông số thiết bị`);
+            smoothAppendTerm(`• <b>music</b>           : Điều khiển nhạc (music next, music prev, music)`);
+            smoothAppendTerm(`• <b>color &lt;màu&gt;</b>     : Đổi tông màu (cyan, red, green, orange)`);
+            smoothAppendTerm(`• <b>name &lt;tên&gt;</b>     : Đổi tên hiển thị`);
+            smoothAppendTerm(`• <b>clear</b>           : Xóa nhật ký dòng lệnh`);
             break;
 
           case 'music':
             const sub = parts[1]?.toLowerCase();
             if (sub === 'next') {
               nextLofiTrack();
-              smoothAppendTerm(`<span style="color:#00ff66;">✔ Đã chuyển sang bài kế tiếp: ${lofiPlaylist[currentTrackIdx].title}</span>`);
+              smoothAppendTerm(`<span style="color:#00ff66;">✔ Bài kế: ${lofiPlaylist[currentTrackIdx].title}</span>`);
             } else if (sub === 'prev') {
               prevLofiTrack();
-              smoothAppendTerm(`<span style="color:#00ff66;">✔ Đã quay lại bài trước: ${lofiPlaylist[currentTrackIdx].title}</span>`);
+              smoothAppendTerm(`<span style="color:#00ff66;">✔ Bài trước: ${lofiPlaylist[currentTrackIdx].title}</span>`);
             } else {
               toggleLofiAudio();
-              smoothAppendTerm(`<span style="color:#00f3ff;">✔ Đã đảo trạng thái phát nhạc Lo-Fi.</span>`);
+              smoothAppendTerm(`<span style="color:#00f3ff;">✔ Đã chuyển đổi phát nhạc.</span>`);
             }
             break;
 
           case 'neofetch':
-          case 'fetch':
-            const ua = navigator.userAgent;
-            let detectedOS = "Linux x86_64";
-            if (/iPhone|iPad/i.test(ua)) detectedOS = "Apple iOS ARM64";
-            else if (/Mac/i.test(ua)) detectedOS = "macOS Darwin";
-            else if (/Android/i.test(ua)) detectedOS = "Android Linux Kernel";
-            else if (/Windows/i.test(ua)) detectedOS = "Windows NT 11/10";
-
             const cores = navigator.hardwareConcurrency || 8;
-            const res = `${window.screen.width}x${window.screen.height}`;             const ram = navigator.deviceMemory ? `~${navigator.deviceMemory} GB` : "Unified Architecture";
-
-            const logo = 
-`<span style="color:#00f3ff;">   /\\___/\\   </span> <span style="color:var(--accent); font-weight:bold;">root@singularity</span>
-<span style="color:#00f3ff;">  (  o   o  )  </span> ------------------
-<span style="color:#00f3ff;">  (  =^=  )   </span> <b>OS:</b> ${detectedOS}
-<span style="color:#00f3ff;">   (----)     </span> <b>HOST:</b> WebGL 3D Render Kernel
-<span style="color:#00f3ff;">  (________)  </span> <b>CORES:</b> ${cores} vCPU Threads
-               <b>RAM:</b> ${ram} \vert{} <b>RES:</b>${res}
-               <b>SHELL:</b> Termux Web Virtual Engine`;
-            smoothAppendTerm(logo);
-            break;
-
-          case 'fastfetch':
-          case 'pfetch':
-            const pal = `<span style="background:#000;color:#000">██</span><span style="background:#f00;color:#f00">██</span><span style="background:#0f0;color:#0f0">██</span><span style="background:#ff0;color:#ff0">██</span><span style="background:#00f;color:#00f">██</span><span style="background:#f0f;color:#f0f">██</span><span style="background:#0ff;color:#0ff">██</span><span style="background:#fff;color:#fff">██</span>`;
-            const pfetchOutput = 
-`<span style="color:var(--accent);">    .---.    </span> <span style="color:#00f3ff; font-weight:bold;">core@kernel-nexus</span>
-<span style="color:var(--accent);">   /     \\   </span> -----------------
-<span style="color:var(--accent);">  | () () |  </span> <b>KERNEL:</b> 6.10.8-hardened
-<span style="color:var(--accent);">   \\  -  /   </span> <b>UPTIME:</b> ${document.getElementById('sys-uptime')?.innerText || '00:00:00'}
-<span style="color:var(--accent);">    \`---'    </span> <b>PKGS:</b> 1337 (termux, pacman)
-               <b>PALETTE:</b> ${pal}`;
-            smoothAppendTerm(pfetchOutput);
-            break;
-
-          case 'btop':
-          case 'htop':
-            const procOutput = 
-`<span style="color:var(--accent);">PID   USER     CPU%   MEM%   TIME+     COMMAND</span>
-<span style="color:#00f3ff;">1024  root     18.4   4.2    00:14.2   three_engine.bin</span>
-<span style="color:#fff;">1025  kernel    8.2   2.1    00:06.8   accretion_disk.so</span>
-<span style="color:#fff;">1028  termux    4.5   1.8    00:03.1   lofi_streamer</span>
-<span style="color:#788899;">1040  guest     0.1   0.4    00:00.2   bash --login</span>
-<span style="color:#00ff66;">TASKS: 4 total, 1 running, 3 sleeping | LOAD: 0.42 0.38 0.31</span>`;
-            smoothAppendTerm(procOutput);
-            break;
-
-          case 'weather':
-            const weatherArt = 
-`<span style="color:#ffdd00;">   \\  /       </span> <b>CYBER WEATHER // REAL-TIME</b>
-<span style="color:#ffdd00;"> _ /""\\ _    </span> <b>Trạng thái:</b> Quang đãng / Khô ráo
-<span style="color:#ffdd00;">   \\__/       </span> <b>Nhiệt độ:</b> 28°C (Cảm giác như 30°C)
-<span style="color:#ffdd00;">   /  \\       </span> <b>Gió:</b> 12 km/h ↗ | <b>Độ ẩm:</b> 65%`;
-            smoothAppendTerm(weatherArt);
-            break;
-
-          case 'pipes':
-            smoothAppendTerm(`<span style="color:var(--accent);">[PIPES-CLI]: Khởi tạo luồng ghép nối ống dẫn mạng...</span>`);
-            const pipeChars = ['┏', '┓', '┗', '┛', '┃', '━', '┣', '┫', '┳', '┻', '╋'];
-            let pipeLine = '';
-            for (let i = 0; i < 50; i++) {
-              pipeLine += pipeChars[Math.floor(Math.random() * pipeChars.length)];
-            }
-            setTimeout(() => smoothAppendTerm(`<span style="color:#00f3ff;">${pipeLine}</span>`), 60);
-            setTimeout(() => smoothAppendTerm(`<span style="color:#00ff66;">${pipeLine.split('').reverse().join('')}</span>`), 120);
+            smoothAppendTerm(`<span style="color:var(--accent); font-weight:bold;">root@singularity</span>\nHOST: WebGL 3D Kernel\nCORES: ${cores} Threads\nSHELL: Termux Web`);
             break;
 
           case 'name':
             if (parts.length > 1) {
               const newName = parts.slice(1).join(' ');
-              const nameEl = document.getElementById('user-display-name');
-              if (nameEl) nameEl.innerText = newName;
-              smoothAppendTerm(`<span style="color:#00ff66;">✔ ĐÃ CẬP NHẬT TÊN HIỂN THỊ THÀNH: '${newName}'</span>`);
+              document.getElementById('user-display-name').innerText = newName;
+              smoothAppendTerm(`<span style="color:#00ff66;">✔ Đã đổi tên thành: '${newName}'</span>`);
             } else {
-              smoothAppendTerm(`<span style="color:#ffaa00;">> Cú pháp: name &lt;Tên_Của_Bạn&gt;</span>`);
+              smoothAppendTerm(`<span style="color:#ffaa00;">> Cú pháp: name &lt;Tên_Mới&gt;</span>`);
             }
             break;
 
@@ -2113,38 +2150,16 @@
               cyan: '#00f3ff',
               red: '#ff0055',
               green: '#00ff66',
-              purple: '#b84dff',
-              orange: '#ff9d00',
-              yellow: '#ffdd00'
+              orange: '#ff9d00'
             };
             const chosen = colorMap[parts[1]?.toLowerCase()];
             if (chosen) {
               document.documentElement.style.setProperty('--accent', chosen);
               document.documentElement.style.setProperty('--accent-glow', chosen + '77');
-              smoothAppendTerm(`<span style="color:${chosen};">✔ ĐÃ THAY ĐỔI TÔNG MÀU CHỦ ĐẠO THÀNH: ${parts[1].toUpperCase()}</span>`);
+              smoothAppendTerm(`<span style="color:${chosen};">✔ Đã đổi sang tông: ${parts[1].toUpperCase()}</span>`);
             } else {
-              smoothAppendTerm(`<span style="color:#ffaa00;">> Vui lòng chọn màu có sẵn: cyan, red, green, purple, orange, yellow</span>`);
+              smoothAppendTerm(`<span style="color:#ffaa00;">> Chọn: cyan, red, green, orange</span>`);
             }
-            break;
-
-          case 'matrix':
-            const isActive = toggleMatrixRain();
-            smoothAppendTerm(isActive ? 
-              `<span style="color:#00ff66;">[MATRIX PROTOCOL]: Kích hoạt luồng mã Matrix toàn màn hình.</span>` :
-              `<span style="color:#ff5555;">[MATRIX PROTOCOL]: Đã tắt lớp phủ Matrix.</span>`
-            );
-            break;
-
-          case 'warp':
-            smoothAppendTerm(`<span style="color:#00f3ff;">🚀 TIẾN VÀO TẬP HỢP TỌA ĐỘ EVENT HORIZON...</span>`);
-            const origZ = camera.position.z;
-            camera.position.z = 4.2;
-            speedBoost = 12.0;
-            setTimeout(() => {
-              camera.position.z = origZ;
-              speedBoost = 1.0;
-              smoothAppendTerm(`<span style="color:#00ff66;">✔ TÁI LẬP TRỌNG LỰC QUANH HỐ ĐEN HOÀN TẤT.</span>`);
-            }, 1800);
             break;
 
           case 'clear':
@@ -2152,9 +2167,9 @@
             break;
 
           default:
-            smoothAppendTerm(`<span style="color:#ff5555">> Lỗi: Không tìm thấy lệnh '${cmd}'. Gõ 'help' để xem các lệnh hợp lệ.</span>`);
+            smoothAppendTerm(`<span style="color:#ff5555">> Không tìm thấy lệnh '${cmd}'. Gõ 'help' để xem danh sách.</span>`);
         }
-      }, 80);
+      }, 60);
     }
   </script>
 </body>
