@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -17,7 +16,6 @@
     }
   </style>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
@@ -204,48 +202,6 @@
       transition: width 0.1s linear;
     }
 
-    #security-toast {
-      position: fixed;
-      top: 32px;
-      left: 50%;
-      transform: translateX(-50%) translateY(-150%);
-      background: rgba(20, 4, 8, 0.95);
-      border: 1px solid #ff0055;
-      box-shadow: 0 10px 40px rgba(255, 0, 85, 0.4), inset 0 0 15px rgba(255, 0, 85, 0.2);
-      border-radius: 8px;
-      padding: 16px 28px;
-      z-index: 300000;
-      backdrop-filter: blur(20px);
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      pointer-events: none;
-    }
-
-    #security-toast.active { transform: translateX(-50%) translateY(0); }
-    .toast-icon { font-size: 20px; color: #ff0055; animation: beacon-pulse 0.5s infinite alternate; }
-    .toast-title { font-family: var(--font-mono); font-size: 12px; font-weight: bold; color: #ff0055; letter-spacing: 1px; }
-    .toast-desc { font-family: var(--font-mono); font-size: 11px; color: #ffd6e0; }
-
-    #devtools-lockdown {
-      position: fixed;
-      inset: 0;
-      background: rgba(3, 1, 2, 0.98);
-      z-index: 400000;
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 30px;
-      backdrop-filter: blur(30px);
-    }
-
-    #devtools-lockdown.active { display: flex; }
-    .lockdown-title { font-family: var(--font-display); font-size: clamp(32px, 5vw, 56px); color: #ff0055; margin-bottom: 16px; text-shadow: 0 0 20px #ff0055; }
-    .lockdown-desc { font-family: var(--font-mono); font-size: 14px; color: #ffb3c6; max-width: 600px; line-height: 1.8; }
-
     .liquid-glass-container {
       perspective: 1400px;
     }
@@ -326,16 +282,6 @@
     .liquid-glass:hover .glass-glare { opacity: 1; }
     .liquid-glass:hover .glass-shimmer { transform: rotate(25deg) translateY(100%); }
 
-    .liquid-glass:hover {
-      box-shadow: 
-        0 40px 90px -20px rgba(0, 0, 0, 0.95),
-        0 0 50px rgba(255, 157, 0, 0.2),
-        inset 0 2px 2px 0 rgba(255, 255, 255, 0.7),
-        inset 0 -2px 4px 0 rgba(0, 0, 0, 0.8);
-    }
-
-    html.lenis, html.lenis body { height: auto; }
-
     body {
       background-color: var(--bg);
       color: #f0f4f8;
@@ -408,81 +354,6 @@
       gap: 16px;
     }
 
-    .lang-dropdown-wrapper {
-      position: relative;
-    }
-
-    .lang-btn {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      color: #fff;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      padding: 6px 14px;
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.25s;
-      letter-spacing: 1px;
-    }
-
-    .lang-btn:hover {
-      border-color: var(--accent);
-      background: rgba(255, 157, 0, 0.1);
-      box-shadow: 0 0 15px rgba(255, 157, 0, 0.25);
-    }
-
-    .lang-menu {
-      position: absolute;
-      top: calc(100% + 12px);
-      right: 0;
-      background: rgba(10, 14, 22, 0.95);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 14px;
-      padding: 8px;
-      min-width: 170px;
-      backdrop-filter: blur(28px) saturate(200%);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 25px rgba(255, 157, 0, 0.15);
-      display: none;
-      flex-direction: column;
-      gap: 4px;
-      z-index: 1000;
-      animation: drop-fade 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    @keyframes drop-fade {
-      from { opacity: 0; transform: translateY(-8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .lang-menu.open {
-      display: flex;
-    }
-
-    .lang-item {
-      padding: 8px 14px;
-      border-radius: 8px;
-      color: #b0c4d8;
-      font-family: var(--font-mono);
-      font-size: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: all 0.2s;
-    }
-
-    .lang-item:hover {
-      background: rgba(255, 157, 0, 0.15);
-      color: #fff;
-    }
-
-    .lang-item.active {
-      color: var(--accent);
-      font-weight: bold;
-      background: rgba(255, 157, 0, 0.08);
-    }
-
     .audio-btn {
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.15);
@@ -544,10 +415,6 @@
       transition: transform 0.3s ease;
     }
 
-    .profile-avatar-wrap:hover .profile-avatar-img {
-      transform: scale(1.06);
-    }
-
     .profile-online-dot {
       position: absolute;
       bottom: 5px;
@@ -600,12 +467,6 @@
       transition: all 0.25s;
     }
 
-    .bio-badge:hover {
-      border-color: var(--accent);
-      color: #fff;
-      transform: translateY(-1px);
-    }
-
     .section-title {
       font-family: var(--font-display);
       font-size: clamp(36px, 5vw, 68px);
@@ -632,7 +493,7 @@
     }
 
     .sample-card {
-      padding: 30px;
+      padding: 28px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -643,12 +504,12 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
     }
 
     .sample-type {
       font-family: var(--font-heading);
-      font-size: 20px;
+      font-size: 19px;
       color: #fff;
     }
 
@@ -664,83 +525,48 @@
     .sample-box {
       background: rgba(2, 4, 8, 0.85);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 12px;
-      padding: 18px;
+      border-radius: 14px;
+      padding: 16px;
       font-family: var(--font-mono);
-      font-size: 12px;
+      font-size: 11.5px;
       line-height: 1.8;
       color: #a0b8cc;
-      margin-bottom: 20px;
-      min-height: 150px;
+      margin-bottom: 18px;
+      min-height: 175px;
       position: relative;
       overflow: hidden;
     }
 
     /* =========================================================
-       🐱 PIXEL CAT ANIMATION STYLING
+       🐾 KHUNG HIỂN THỊ PET PIXEL TƯƠNG TÁC CHO 3 Ô
        ========================================================= */
-    .pixel-cat-track {
+    .pixel-pet-stage {
       position: relative;
       width: 100%;
-      height: 38px;
-      margin-bottom: 10px;
+      height: 48px;
+      margin-bottom: 12px;
       background: rgba(0, 243, 255, 0.03);
-      border-radius: 8px;
-      border: 1px dashed rgba(255, 255, 255, 0.1);
+      border: 1px dashed rgba(255, 157, 0, 0.35);
+      border-radius: 10px;
       overflow: hidden;
-      display: flex;
-      align-items: center;
+      cursor: pointer;
     }
 
-    .pixel-cat {
-      position: absolute;
-      bottom: 4px;
-      left: 0;
-      width: 36px;
-      height: 30px;
-      background-size: contain;
-      background-repeat: no-repeat;
-      image-rendering: pixelated;
-      image-rendering: crisp-edges;
-      transition: transform 0.2s ease;
-      filter: drop-shadow(0 0 6px rgba(255, 157, 0, 0.7));
-      animation: catRunTrack 12s linear infinite;
-    }
-
-    .cat-floor-line {
-      position: absolute;
-      bottom: 2px;
-      left: 0;
+    .pixel-pet-stage canvas {
       width: 100%;
-      height: 1.5px;
-      background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.4), rgba(255, 157, 0, 0.6), transparent);
+      height: 100%;
+      display: block;
     }
 
-    @keyframes catRunTrack {
-      0% {
-        left: -38px;
-        transform: scaleX(1);
-      }
-      48% {
-        left: calc(100% - 2px);
-        transform: scaleX(1);
-      }
-      50% {
-        left: calc(100% - 2px);
-        transform: scaleX(-1);
-      }
-      98% {
-        left: -38px;
-        transform: scaleX(-1);
-      }
-      100% {
-        left: -38px;
-        transform: scaleX(1);
-      }
-    }
-
-    .sample-card:hover .pixel-cat {
-      animation-duration: 6s;
+    .pet-tip-badge {
+      position: absolute;
+      right: 8px;
+      bottom: 4px;
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      color: rgba(255, 255, 255, 0.4);
+      pointer-events: none;
+      letter-spacing: 0.5px;
     }
 
     .copy-btn {
@@ -750,7 +576,7 @@
       font-family: var(--font-mono);
       font-size: 12px;
       font-weight: bold;
-      padding: 14px;
+      padding: 13px;
       border-radius: 10px;
       transition: all 0.25s;
       display: flex;
@@ -766,147 +592,13 @@
       box-shadow: 0 0 25px var(--accent-glow);
     }
 
-    .social-links-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-      margin-bottom: 40px;
-    }
-
-    .social-btn {
-      padding: 22px;
-      text-decoration: none;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .social-name {
-      font-family: var(--font-heading);
-      font-size: 18px;
-    }
-
-    .social-handle {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: #7b8896;
-    }
-
-    .skills-wrapper {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      max-width: 900px;
-    }
-
-    .skill-card {
-      padding: 22px 30px;
-    }
-
-    .skill-info {
-      display: flex;
-      justify-content: space-between;
-      font-family: var(--font-mono);
-      font-size: 12px;
-      margin-bottom: 10px;
-    }
-
-    .bar-bg {
-      height: 6px;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--accent), #ff4400);
-      box-shadow: 0 0 10px var(--accent-glow);
-    }
-
-    .terminal-wrapper {
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 18px;
-      overflow: hidden;
-      max-width: 900px;
-    }
-
-    .term-head {
-      background: rgba(9, 12, 18, 0.9);
-      padding: 14px 22px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      font-family: var(--font-mono);
-      font-size: 12px;
-      color: #7b8896;
-    }
-
-    .term-body {
-      padding: 24px;
-      min-height: 240px;
-      max-height: 380px;
-      overflow-y: auto;
-      font-family: var(--font-mono);
-      font-size: 12.5px;
-      line-height: 1.7;
-      color: #9cb1c5;
-      white-space: pre-wrap;
-    }
-
-    .term-input-row {
-      display: flex;
-      align-items: center;
-      padding: 14px 22px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(4, 6, 10, 0.8);
-    }
-
-    .term-prompt {
-      color: var(--accent);
-      font-weight: bold;
-      margin-right: 12px;
-    }
-
-    .term-field {
-      background: transparent;
-      border: none;
-      outline: none;
-      color: #fff;
-      font-family: var(--font-mono);
-      font-size: 13px;
-      width: 100%;
-    }
-
-    footer.bottom-hud {
-      position: fixed;
-      bottom: 24px; left: 48px; right: 48px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 50;
-      pointer-events: none;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: #5c6a78;
-    }
-
-    .hud-left, .hud-right {
-      pointer-events: auto;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
     .player-controls {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
       width: 100%;
-      margin-top: 8px;
+      margin-top: 6px;
     }
 
     .player-sub-btn {
@@ -940,13 +632,12 @@
     @media (max-width: 768px) {
       header.nav-bar { padding: 18px 24px; }
       .content-stream { padding: 0 24px; }
-      footer.bottom-hud { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- KHUNG YOUTUBE PLAYER -->
+  <!-- YOUTUBE PLAYER ẨN -->
   <div id="yt-hidden-player"></div>
 
   <canvas id="click-particles-canvas"></canvas>
@@ -957,34 +648,17 @@
       <div class="loader-ring-inner"></div>
       <div class="loader-dot-center"></div>
     </div>
-    <div class="loader-title" id="loader-title">INITIALIZING QUANTUM PROFILE</div>
-    <div class="loader-status-stream" id="loader-status">SYNCING WITH DISCORD API CORE [0%]</div>
+    <div class="loader-title">INITIALIZING QUANTUM PROFILE</div>
+    <div class="loader-status-stream" id="loader-status">SUMMONING PIXEL PETS [0%]</div>
     <div class="loader-bar-bg">
       <div class="loader-bar-fill" id="loader-progress"></div>
     </div>
-    <div style="font-family: var(--font-mono); font-size: 10px; color: #5c6a78; margin-top: 18px; letter-spacing: 1px;">[CHẠM VÀO MÀN HÌNH ĐỂ VÀO NGAY & PHÁT NHẠC]</div>
-  </div>
-
-  <div id="security-toast">
-    <div class="toast-icon">⚠</div>
-    <div>
-      <div class="toast-title" id="toast-title">SECURITY DEFENSE ACTIVE</div>
-      <div class="toast-desc" id="toast-desc">Hành vi bị ngăn chặn bởi hệ thống phòng thủ Kernel.</div>
-    </div>
-  </div>
-
-  <div id="devtools-lockdown">
-    <div class="lockdown-title">SECURITY LOCKDOWN</div>
-    <div class="lockdown-desc" id="lockdown-desc">
-      [CẢNH BÁO MÃ ĐỘC]: Đã phát hiện công cụ kiểm tra mã nguồn đang hoạt động.<br>
-      Toàn bộ giao diện đã được mã hóa tự động để bảo vệ quyền sở hữu trí tuệ.<br><br>
-      <strong>VUI LÒNG ĐÓNG DEVELOPER TOOLS ĐỂ MỞ KHÓA GIAO DIỆN.</strong>
-    </div>
+    <div style="font-family: var(--font-mono); font-size: 10px; color: #5c6a78; margin-top: 18px; letter-spacing: 1px;">[CHẠM VÀO MÀN HÌNH ĐỂ VÀO NGAY]</div>
   </div>
 
   <div id="cursor-dot"></div>
   <div id="cursor-ring"></div>
-  <div id="cursor-tag">I18N LANG</div>
+  <div id="cursor-tag">PIXEL PETS</div>
 
   <canvas id="blackhole-canvas"></canvas>
   <div class="space-vignette"></div>
@@ -992,50 +666,17 @@
   <header class="nav-bar">
     <div class="brand-group">
       <div class="singularity-beacon"></div>
-      <div class="brand-title" id="i18n-brand">CYBER_PROFILE // AXIOM</div>
+      <div class="brand-title">CYBER_PROFILE // AXIOM</div>
     </div>
     
     <div class="nav-controls">
-      <div class="lang-dropdown-wrapper">
-        <button class="lang-btn" id="lang-btn-current" onclick="toggleLangMenu(event)">
-          <span>🌐</span>
-          <span id="current-lang-text">TIẾNG VIỆT</span>
-          <span style="font-size: 8px;">▼</span>
-        </button>
-        <div class="lang-menu" id="lang-dropdown-menu">
-          <div class="lang-item active" onclick="switchLanguage('vi')">
-            <span>🇻🇳 Tiếng Việt</span>
-            <span>✓</span>
-          </div>
-          <div class="lang-item" onclick="switchLanguage('en')">
-            <span>🇬🇧 English</span>
-            <span></span>
-          </div>
-          <div class="lang-item" onclick="switchLanguage('ja')">
-            <span>🇯🇵 日本語</span>
-            <span></span>
-          </div>
-          <div class="lang-item" onclick="switchLanguage('ko')">
-            <span>🇰🇷 한국어</span>
-            <span></span>
-          </div>
-          <div class="lang-item" onclick="switchLanguage('zh')">
-            <span>🇨🇳 中文</span>
-            <span></span>
-          </div>
-          <div class="lang-item" onclick="switchLanguage('es')">
-            <span>🇪🇸 Español</span>
-            <span></span>
-          </div>
-        </div>
-      </div>
-
       <button class="audio-btn active" id="audio-toggle" onclick="toggleAudio()">SOUND: ON</button>
     </div>
   </header>
 
   <main class="content-stream">
 
+    <!-- HERO SECTION -->
     <section class="scene-section" id="sec-profile" style="display: flex; justify-content: center; align-items: center; padding: 100px 0;">
       <div class="liquid-glass-container" style="max-width: 980px; width: 100%;">
         <div class="liquid-glass" style="padding: 42px 48px; border-radius: 28px;">
@@ -1083,7 +724,7 @@
             </div>
           </div>
 
-          <div class="bio-philosophy" id="i18n-philosophy">
+          <div class="bio-philosophy">
             "Không viết dòng thứ tư nếu ba dòng là đủ tối ưu. Thức trắng đêm cùng stdout streams, biến cafe đen thành công cụ tự động hóa và kiến trúc ngầm. Tĩnh lặng, chính xác và không để lại dấu vết."
           </div>
 
@@ -1091,17 +732,11 @@
             <span class="bio-badge" style="border-color: rgba(0, 255, 102, 0.4); background: rgba(0, 255, 102, 0.08); color: #00ff66;">
               <span>●</span> ONLINE
             </span>
-            <span class="bio-badge" style="border-color: rgba(88, 101, 242, 0.4); background: rgba(88, 101, 242, 0.12); color: #8ea1ff;">
-              <span>👾</span> DISCORD LINKED
-            </span>
             <span class="bio-badge" style="border-color: rgba(0, 243, 255, 0.4); background: rgba(0, 243, 255, 0.08); color: #00f3ff;">
-              <span>⚡</span> BOT DEVELOPER
+              <span>🐾</span> PIXEL PETS ACTIVE
             </span>
             <span class="bio-badge" style="border-color: rgba(255, 157, 0, 0.4); background: rgba(255, 157, 0, 0.08); color: var(--accent);">
               <span>🛡</span> KERNEL ARCHITECT
-            </span>
-            <span class="bio-badge" style="border-color: rgba(255, 68, 68, 0.4); background: rgba(255, 68, 68, 0.08); color: #ff6666;">
-              <span>☕</span> CAFFEINE OVERFLOW
             </span>
           </div>
 
@@ -1109,22 +744,20 @@
             <a href="https://discord.com/users/1053893912466554922" target="_blank" class="copy-btn" style="text-decoration: none; padding: 12px 22px;">
               <span>💬 NHẮN TIN QUA DISCORD</span>
             </a>
-            <div style="font-family: var(--font-mono); font-size: 11px; color: #6e7f91; letter-spacing: 1px;">
-              ✦ CUỘN TRANG XUỐNG ĐỂ TRUY CẬP TIỆN ÍCH HỆ THỐNG VÀ TERMINAL
-            </div>
           </div>
 
         </div>
       </div>
     </section>
 
+    <!-- 02: TIỆN ÍCH HỆ THỐNG & 3 CON PET PIXEL ĐỘC QUYỀN TƯƠNG TÁC -->
     <section class="scene-section" id="sec-samples">
-      <h2 class="section-title" id="i18n-samples-title">Hệ Thống & Tiện Ích</h2>
-      <div class="section-meta" id="i18n-samples-meta">// REAL-TIME TELEMETRY, VIETNAMESE LO-FI & DONATION QR</div>
+      <h2 class="section-title">Hệ Thống & Thú Cưng Pixel</h2>
+      <div class="section-meta">// INTERACTIVE PIXEL PETS, REAL TELEMETRY & DONATION</div>
 
       <div class="bio-samples-grid">
         
-        <!-- THẺ 1: STATUS CÓ MÈO PIXEL CHẠY ĐỘC ĐÁO & GIỮ NGUYÊN STATUS -->
+        <!-- =================== THẺ 1: MÈO CYBER RUNNER & TELEMETRY =================== -->
         <div class="liquid-glass-container">
           <div class="sample-card liquid-glass">
             <div class="glass-glare"></div>
@@ -1133,36 +766,16 @@
               <div class="sample-head">
                 <div style="display:flex; align-items:center; gap:8px;">
                   <span class="singularity-beacon" style="width:7px; height:7px; background:#00ff66; box-shadow:0 0 10px #00ff66;"></span>
-                  <span class="sample-type" style="font-size:17px;">Live Node Stats</span>
+                  <span class="sample-type">Cyber Cat Node</span>
                 </div>
                 <span class="sample-target" id="sys-status-badge" style="color:#00ff66; background:rgba(0,255,102,0.1); border:1px solid rgba(0,255,102,0.3);">ONLINE</span>
               </div>
 
-              <!-- KHUNG STATUS KÈM MÈO PIXEL CHẠY -->
-              <div class="sample-box" style="font-family: var(--font-mono); font-size: 11px; line-height: 1.8; padding: 14px 16px;">
-                
-                <!-- ĐƯỜNG CHẠY CỦA MÈO PIXEL RETRO -->
-                <div class="pixel-cat-track" title="Pixel Cyber Cat Companion">
-                  <div class="pixel-cat" id="pixel-cat-sprite">
-                    <!-- Ảnh SVG Vector Mèo Pixel Nét Căng Chạy Bộ -->
-                    <svg viewBox="0 0 32 24" width="34" height="26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <rect x="6" y="2" width="4" height="6" fill="#ff9d00"/>
-                      <rect x="18" y="2" width="4" height="6" fill="#ff9d00"/>
-                      <rect x="8" y="6" width="12" height="10" fill="#ffa726"/>
-                      <rect x="10" y="8" width="3" height="3" fill="#000"/>
-                      <rect x="15" y="8" width="3" height="3" fill="#000"/>
-                      <rect x="11" y="9" width="1" height="1" fill="#00f3ff"/>
-                      <rect x="16" y="9" width="1" height="1" fill="#00f3ff"/>
-                      <rect x="12" y="12" width="4" height="2" fill="#ff5722"/>
-                      <rect x="4" y="12" width="20" height="8" fill="#fb8c00"/>
-                      <rect x="22" y="10" width="4" height="4" fill="#fb8c00"/>
-                      <rect x="24" y="8" width="4" height="4" fill="#ff9d00"/>
-                      <rect x="6" y="20" width="4" height="4" fill="#e65100"/>
-                      <rect x="18" y="20" width="4" height="4" fill="#e65100"/>
-                      <rect x="2" y="14" width="4" height="2" fill="#ffe082"/>
-                    </svg>
-                  </div>
-                  <div class="cat-floor-line"></div>
+              <div class="sample-box">
+                <!-- SÂN CHƠI CHO MÈO PIXEL (CHẠM VÀO ĐỂ MÈO NHẢY CẪNG LÊN) -->
+                <div class="pixel-pet-stage" onclick="interactCat(event)" title="Chạm để mèo Pixel nhảy cẫng!">
+                  <canvas id="pet-cat-canvas" width="300" height="48"></canvas>
+                  <span class="pet-tip-badge">🐾 CHẠM: NHẢY CẪNG</span>
                 </div>
 
                 <div style="display:flex; justify-content:space-between;">
@@ -1194,7 +807,7 @@
 
                 <div style="margin-top: 10px; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 6px;">
                   <div style="font-size:9px; color:#5c6a78; margin-bottom:2px; letter-spacing:1px;">CORE OSCILLATION MONITOR:</div>
-                  <canvas id="sys-sparkline" width="280" height="28" style="width:100%; height:28px; display:block;"></canvas>
+                  <canvas id="sys-sparkline" width="280" height="26" style="width:100%; height:26px; display:block;"></canvas>
                 </div>
               </div>
             </div>
@@ -1205,21 +818,29 @@
           </div>
         </div>
 
-        <!-- THẺ 2: JUKEBOX YOUTUBE LOFI VIỆT NAM -->
+        <!-- =================== THẺ 2: CÚN LO-FI DJ GẬT ĐẦU & NHẠC YOUTUBE =================== -->
         <div class="liquid-glass-container">
           <div class="sample-card liquid-glass">
             <div class="glass-glare"></div>
             <div class="glass-shimmer"></div>
             <div>
               <div class="sample-head">
-                <span class="sample-type">V-Lofi Jukebox</span>
+                <span class="sample-type">Lo-Fi Doggo DJ</span>
                 <span class="sample-target" id="lofi-track-status">STANDBY</span>
               </div>
-              <div class="sample-box" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 8px; min-height: 165px;">
-                <div style="font-size: 26px; animation: beacon-pulse 2s infinite ease-in-out;">🎧</div>
-                <div style="color: #fff; font-weight: bold; font-size: 13px;" id="lofi-title">Đang đồng bộ YouTube...</div>
-                <div style="color: #7b8896; font-size: 11px;" id="lofi-artist">Lofi Chill Việt Nam Live</div>
-                <div style="color: var(--accent-blue); font-size: 10px; font-family: var(--font-mono);" id="lofi-track-counter">TRACK 1 / 4</div>
+              
+              <div class="sample-box">
+                <!-- SÂN KHẤU CỦA CÚN PIXEL ĐEO TAI NGHE (CHẠM VÀO ĐỂ BẮN TIM & PHÁT NHẠC) -->
+                <div class="pixel-pet-stage" onclick="interactDog(event)" title="Chạm để cún Lo-Fi bắn tim!">
+                  <canvas id="pet-dog-canvas" width="300" height="48"></canvas>
+                  <span class="pet-tip-badge">🎧 CHẠM: BẮN TIM ❤</span>
+                </div>
+
+                <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 6px; padding: 4px 0;">
+                  <div style="color: #fff; font-weight: bold; font-size: 13px;" id="lofi-title">Đang đồng bộ YouTube...</div>
+                  <div style="color: #7b8896; font-size: 11px;" id="lofi-artist">Lofi Chill Việt Nam Live</div>
+                  <div style="color: var(--accent-blue); font-size: 10px; font-family: var(--font-mono);" id="lofi-track-counter">TRACK 1 / 4</div>
+                </div>
               </div>
             </div>
 
@@ -1235,24 +856,31 @@
           </div>
         </div>
 
-        <!-- THẺ 3: DONATE QR -->
+        <!-- =================== THẺ 3: RỒNG VÀNG PIXEL PHÁT TÀI & QR PAY =================== -->
         <div class="liquid-glass-container">
           <div class="sample-card liquid-glass">
             <div class="glass-glare"></div>
             <div class="glass-shimmer"></div>
             <div>
               <div class="sample-head">
-                <span class="sample-type">Tip & Donate</span>
+                <span class="sample-type">Fortune Dragon</span>
                 <span class="sample-target">QR SCAN</span>
               </div>
+              
               <div class="sample-box" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px;">
-                <div style="position: relative; width: 125px; height: 125px; border-radius: 12px; overflow: hidden; border: 1.5px solid rgba(255, 157, 0, 0.4); box-shadow: 0 0 20px rgba(255, 157, 0, 0.2);">
+                <!-- RỒNG VÀNG PIXEL BAY LƯỢN (CHẠM ĐỂ RƠI TIỀN VÀNG & COPY STK) -->
+                <div class="pixel-pet-stage" onclick="interactDragon(event)" style="margin-bottom: 8px;" title="Chạm để rồng nhả tiền xu vàng!">
+                  <canvas id="pet-dragon-canvas" width="300" height="48"></canvas>
+                  <span class="pet-tip-badge">🪙 CHẠM: NHẢ VÀNG</span>
+                </div>
+
+                <div style="position: relative; width: 115px; height: 115px; border-radius: 12px; overflow: hidden; border: 1.5px solid rgba(255, 157, 0, 0.4); box-shadow: 0 0 20px rgba(255, 157, 0, 0.2);">
                   <img id="donate-qr-img" 
                        src="https://cdn.upanhlaylink.com/i/bhMtLMHZ.jpeg" 
                        alt="Donate QR Pay" 
                        style="width: 100%; height: 100%; object-fit: cover; display: block;">
                 </div>
-                <div style="font-size: 11px; color: #a0b8cc; margin-top: 10px; font-family: var(--font-mono); text-align: center;">
+                <div style="font-size: 10.5px; color: #a0b8cc; margin-top: 8px; font-family: var(--font-mono); text-align: center;">
                   Quét mã QR để mời mình ly cafe ☕
                 </div>
               </div>
@@ -1266,139 +894,232 @@
       </div>
     </section>
 
-    <section class="scene-section" id="sec-socials">
-      <h2 class="section-title" id="i18n-socials-title">Kênh Kết Nối & Kỹ Năng</h2>
-      <div class="section-meta" id="i18n-socials-meta">// SOCIAL PROFILES & PROFICIENCY</div>
-
-      <div class="social-links-grid">
-        <div class="liquid-glass-container">
-          <a href="https://github.com" target="_blank" class="social-btn liquid-glass">
-            <div class="glass-glare"></div>
-            <div class="glass-shimmer"></div>
-            <div>
-              <div class="social-name">GitHub</div>
-              <div class="social-handle">@cyber_phantom</div>
-            </div>
-            <span style="color:var(--accent);">↗</span>
-          </a>
-        </div>
-
-        <div class="liquid-glass-container">
-          <a href="https://discord.com/users/1053893912466554922" target="_blank" class="social-btn liquid-glass">
-            <div class="glass-glare"></div>
-            <div class="glass-shimmer"></div>
-            <div>
-              <div class="social-name">Discord</div>
-              <div class="social-handle">@chiencuto18m</div>
-            </div>
-            <span style="color:var(--accent);">↗</span>
-          </a>
-        </div>
-
-        <div class="liquid-glass-container">
-          <a href="https://facebook.com" target="_blank" class="social-btn liquid-glass">
-            <div class="glass-glare"></div>
-            <div class="glass-shimmer"></div>
-            <div>
-              <div class="social-name">Facebook</div>
-              <div class="social-handle">/cyber.architect</div>
-            </div>
-            <span style="color:var(--accent);">↗</span>
-          </a>
-        </div>
-
-        <div class="liquid-glass-container">
-          <a href="https://tiktok.com" target="_blank" class="social-btn liquid-glass">
-            <div class="glass-glare"></div>
-            <div class="glass-shimmer"></div>
-            <div>
-              <div class="social-name">TikTok</div>
-              <div class="social-handle">@underground_dev</div>
-            </div>
-            <span style="color:var(--accent);">↗</span>
-          </a>
-        </div>
-      </div>
-
-      <div class="skills-wrapper">
-        <div class="liquid-glass-container">
-          <div class="skill-card liquid-glass">
-            <div class="glass-glare"></div>
-            <div class="glass-shimmer"></div>
-            <div class="skill-info">
-              <span style="color:#fff; font-weight:bold;">Python / Automation Scripting</span>
-              <span style="color:var(--accent);">98%</span>
-            </div>
-            <div class="bar-bg"><div class="bar-fill" style="width: 98%;"></div></div>
-          </div>
-        </div>
-
-        <div class="liquid-glass-container">
-          <div class="skill-card liquid-glass">
-            <div class="glass-glare"></div>
-            <div class="glass-shimmer"></div>
-            <div class="skill-info">
-              <span style="color:#fff; font-weight:bold;">Telegram Bots & API Integration</span>
-              <span style="color:var(--accent);">95%</span>
-            </div>
-            <div class="bar-bg"><div class="bar-fill" style="width: 95%;"></div></div>
-          </div>
-        </div>
-
-        <div class="liquid-glass-container">
-          <div class="skill-card liquid-glass">
-            <div class="glass-glare"></div>
-            <div class="glass-shimmer"></div>
-            <div class="skill-info">
-              <span style="color:#fff; font-weight:bold;">Web Front-end & Glassmorphism UI</span>
-              <span style="color:var(--accent);">92%</span>
-            </div>
-            <div class="bar-bg"><div class="bar-fill" style="width: 92%;"></div></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="scene-section" id="sec-terminal">
-      <h2 class="section-title" id="i18n-term-title">Trung Tâm Điều Hành</h2>
-      <div class="section-meta" id="i18n-term-meta">// TÙY BIẾN PROFILE QUA DÒNG LỆNH</div>
-
-      <div class="liquid-glass-container">
-        <div class="terminal-wrapper liquid-glass">
-          <div class="glass-glare"></div>
-          <div class="glass-shimmer"></div>
-          <div class="term-head">
-            <span>termux_kernel.sh</span>
-            <span>ROOT SHELL // CYBER_CORE</span>
-          </div>
-          <div class="term-body" id="term-display">
-            <div>> HỆ THỐNG TERMUX WEB ĐÃ KHỞI CHẠY THÀNH CÔNG.</div>
-            <div>> Gõ '<b>help</b>' để hiển thị toàn bộ danh sách các lệnh tương tác.</div>
-            <div>> Gõ '<b>neofetch</b>', '<b>fastfetch</b>', '<b>btop</b>' hoặc '<b>weather</b>' để trải nghiệm CLI.</div>
-          </div>
-          <form class="term-input-row" onsubmit="handleCommand(event)">
-            <span class="term-prompt">root@profile:~$</span>
-            <input type="text" id="term-in" class="term-field" autocomplete="off" spellcheck="false" placeholder="nhập lệnh (vd: help, fastfetch, btop, weather, pipes, matrix)...">
-          </form>
-        </div>
-      </div>
-    </section>
-
   </main>
-
-  <footer class="bottom-hud">
-    <div class="hud-left">
-      <span>DISCORD_UID: <strong style="color:var(--accent);">1053893912466554922</strong></span>
-    </div>
-    <div class="hud-right">
-      <span>LANG: <strong id="hud-lang-tag" style="color:#00f3ff;">VI (TIẾNG VIỆT)</strong></span>
-      <span>ZOOM: <strong id="hud-zoom" style="color:var(--accent);">28.0</strong></span>
-    </div>
-  </footer>
 
   <script>
     /* =========================================================
-       🎵 1. YOUTUBE IFRAME ENGINE - TẤT CẢ 4 TRACK HOẠT ĐỘNG 100%
+       🐾 0. TRIỆU HỒI 3 CON PET PIXEL VỚI CƠ CHẾ TƯƠNG TÁC ĐỘC QUYỀN
+       ========================================================= */
+
+    // --- CON PET 1: CYBER CAT (MÈO CHẠY VÀ NHẢY CẪNG KHI CHẠM) ---
+    const catCanvas = document.getElementById('pet-cat-canvas');
+    let catX = 15, catY = 0, catVY = 0, isJumping = false;
+    let catDir = 1, catSpeed = 1.6, catFrame = 0;
+
+    const catMatrix = [
+      [0,0,0,1,0,0,1,0,0,0],
+      [0,0,1,1,1,1,1,1,0,0],
+      [0,1,1,2,1,1,2,1,1,0],
+      [0,1,1,1,3,3,1,1,1,0],
+      [1,1,1,1,1,1,1,1,1,1],
+      [1,0,1,1,1,1,1,1,0,0],
+      [0,0,1,0,1,1,0,1,0,0],
+      [0,0,1,0,1,1,0,1,0,0]
+    ];
+
+    function renderCat() {
+      if (!catCanvas) return;
+      const ctx = catCanvas.getContext('2d');
+      const w = catCanvas.width = catCanvas.parentElement.clientWidth;
+      const h = catCanvas.height = catCanvas.parentElement.clientHeight;
+      ctx.clearRect(0, 0, w, h);
+
+      // Đường sàn neon
+      ctx.fillStyle = 'rgba(0, 243, 255, 0.2)';
+      ctx.fillRect(0, h - 3, w, 1.5);
+
+      // Vật lý nhảy
+      if (isJumping) {
+        catY += catVY;
+        catVY += 0.8;
+        if (catY >= 0) {
+          catY = 0;
+          catVY = 0;
+          isJumping = false;
+        }
+      }
+
+      catX += catSpeed * catDir;
+      if (catX > w - 30) catDir = -1;
+      else if (catX < 8) catDir = 1;
+
+      catFrame++;
+      const legJitter = isJumping ? 0 : Math.sin(catFrame * 0.35) * 2;
+      const p = 2.4;
+
+      ctx.save();
+      ctx.translate(catX, h - 24 + catY);
+      if (catDir === -1) {
+        ctx.translate(24, 0);
+        ctx.scale(-1, 1);
+      }
+
+      for (let r = 0; r < catMatrix.length; r++) {
+        for (let c = 0; c < catMatrix[r].length; c++) {
+          const v = catMatrix[r][c];
+          if (!v) continue;
+          let py = r * p;
+          if (r >= 6) py += (c < 5 ? legJitter : -legJitter);
+          ctx.fillStyle = v === 1 ? '#ff9d00' : (v === 2 ? '#00f3ff' : '#ff0055');
+          ctx.fillRect(c * p, py, p, p);
+        }
+      }
+      ctx.restore();
+      requestAnimationFrame(renderCat);
+    }
+    renderCat();
+
+    function interactCat(e) {
+      if (e) e.stopPropagation();
+      playChillClickSound();
+      if (!isJumping) {
+        isJumping = true;
+        catVY = -7.5;
+        catDir *= -1; // Đổi hướng khi giật mình
+        catSpeed = 2.8;
+        setTimeout(() => catSpeed = 1.6, 1200);
+      }
+    }
+
+    // --- CON PET 2: LO-FI DOGGO (CÚN ĐEO TAI NGHE GẬT GÙ & BẮN TIM) ---
+    const dogCanvas = document.getElementById('pet-dog-canvas');
+    let dogHearts = [];
+    let dogFrame = 0;
+
+    const dogMatrix = [
+      [0,4,4,0,0,0,0,4,4,0], // 4: Tai nghe cyan
+      [4,1,1,4,0,0,4,1,1,4],
+      [4,1,2,1,1,1,1,2,1,4],
+      [0,1,1,1,3,3,1,1,1,0],
+      [0,0,1,1,1,1,1,1,0,0],
+      [0,1,1,1,1,1,1,1,1,0],
+      [0,1,0,1,0,0,1,0,1,0]
+    ];
+
+    function renderDog() {
+      if (!dogCanvas) return;
+      const ctx = dogCanvas.getContext('2d');
+      const w = dogCanvas.width = dogCanvas.parentElement.clientWidth;
+      const h = dogCanvas.height = dogCanvas.parentElement.clientHeight;
+      ctx.clearRect(0, 0, w, h);
+
+      dogFrame++;
+      const bob = Math.sin(dogFrame * 0.12) * 2.5; // Nhịp gật đầu theo nhạc
+      const p = 2.4;
+      const startX = w / 2 - 12;
+
+      ctx.save();
+      ctx.translate(startX, h - 24 + bob);
+      for (let r = 0; r < dogMatrix.length; r++) {
+        for (let c = 0; c < dogMatrix[r].length; c++) {
+          const v = dogMatrix[r][c];
+          if (!v) continue;
+          ctx.fillStyle = v === 1 ? '#e0b589' : (v === 2 ? '#000' : (v === 3 ? '#ff3366' : '#00f3ff'));
+          ctx.fillRect(c * p, r * p, p, p);
+        }
+      }
+      ctx.restore();
+
+      // Vẽ tim bay lên khi tương tác
+      for (let i = dogHearts.length - 1; i >= 0; i--) {
+        const ht = dogHearts[i];
+        ht.y -= 1.2;
+        ht.alpha -= 0.02;
+        if (ht.alpha <= 0) {
+          dogHearts.splice(i, 1);
+          continue;
+        }
+        ctx.fillStyle = `rgba(255, 51, 102, ${ht.alpha})`;
+        ctx.font = '12px monospace';
+        ctx.fillText('❤', ht.x, ht.y);
+      }
+
+      requestAnimationFrame(renderDog);
+    }
+    renderDog();
+
+    function interactDog(e) {
+      if (e) e.stopPropagation();
+      playChillClickSound();
+      dogHearts.push({
+        x: (dogCanvas.width / 2) + (Math.random() * 20 - 10),
+        y: dogCanvas.height - 18,
+        alpha: 1.0
+      });
+      toggleLofiAudio(); // Chạm cún = tự bật/tắt nhạc
+    }
+
+    // --- CON PET 3: FORTUNE DRAGON (RỒNG VÀNG BAY & NHẢ TIỀN XU) ---
+    const dragonCanvas = document.getElementById('pet-dragon-canvas');
+    let dragonCoins = [];
+    let dragonFrame = 0;
+
+    const dragonMatrix = [
+      [0,0,1,0,0,0,0,1,0,0],
+      [0,1,1,1,0,0,1,1,1,0],
+      [1,1,2,1,1,1,1,2,1,1],
+      [1,1,1,3,1,1,3,1,1,1],
+      [0,1,1,1,1,1,1,1,1,0],
+      [0,0,1,1,1,1,1,1,0,0],
+      [0,1,0,1,0,0,1,0,1,0]
+    ];
+
+    function renderDragon() {
+      if (!dragonCanvas) return;
+      const ctx = dragonCanvas.getContext('2d');
+      const w = dragonCanvas.width = dragonCanvas.parentElement.clientWidth;
+      const h = dragonCanvas.height = dragonCanvas.parentElement.clientHeight;
+      ctx.clearRect(0, 0, w, h);
+
+      dragonFrame++;
+      const floatY = Math.sin(dragonFrame * 0.08) * 3.5;
+      const floatX = Math.cos(dragonFrame * 0.04) * 8;
+      const p = 2.4;
+      const startX = (w / 2 - 12) + floatX;
+
+      ctx.save();
+      ctx.translate(startX, h - 24 + floatY);
+      for (let r = 0; r < dragonMatrix.length; r++) {
+        for (let c = 0; c < dragonMatrix[r].length; c++) {
+          const v = dragonMatrix[r][c];
+          if (!v) continue;
+          ctx.fillStyle = v === 1 ? '#ffcc00' : (v === 2 ? '#ff0055' : (v === 3 ? '#ff9d00' : '#fff'));
+          ctx.fillRect(c * p, r * p, p, p);
+        }
+      }
+      ctx.restore();
+
+      // Vẽ tiền xu vàng rơi
+      for (let i = dragonCoins.length - 1; i >= 0; i--) {
+        const cn = dragonCoins[i];
+        cn.y += 1.4;
+        cn.alpha -= 0.025;
+        if (cn.alpha <= 0) {
+          dragonCoins.splice(i, 1);
+          continue;
+        }
+        ctx.fillStyle = `rgba(255, 204, 0, ${cn.alpha})`;
+        ctx.font = '10px monospace';
+        ctx.fillText('🪙+1', cn.x, cn.y);
+      }
+
+      requestAnimationFrame(renderDragon);
+    }
+    renderDragon();
+
+    function interactDragon(e) {
+      if (e) e.stopPropagation();
+      playChillClickSound();
+      dragonCoins.push({
+        x: (dragonCanvas.width / 2) + (Math.random() * 24 - 12),
+        y: dragonCanvas.height - 28,
+        alpha: 1.0
+      });
+      navigator.clipboard.writeText("MB Bank: 0382218001").catch(()=>{});
+    }
+
+    /* =========================================================
+       🎵 1. YOUTUBE LO-FI JUKEBOX ENGINE
        ========================================================= */
     const ytPlaylist = [
       {
@@ -1456,17 +1177,14 @@
           origin: window.location.origin
         },
         events: {
-          'onReady': onPlayerReady,
+          'onReady': () => {
+            isYtReady = true;
+            lofiBadge.innerText = 'READY';
+          },
           'onStateChange': onPlayerStateChange,
-          'onError': onPlayerError
+          'onError': () => nextLofiTrack()
         }
       });
-    }
-
-    function onPlayerReady(event) {
-      isYtReady = true;
-      lofiBadge.innerText = 'READY';
-      lofiBadge.style.color = 'var(--accent)';
     }
 
     function onPlayerStateChange(event) {
@@ -1485,11 +1203,6 @@
       }
     }
 
-    function onPlayerError(e) {
-      console.warn("YouTube Player error:", e.data, "tự động chuyển track tiếp theo...");
-      nextLofiTrack();
-    }
-
     function safePlayTrack(index) {
       currentTrackIdx = (index + ytPlaylist.length) % ytPlaylist.length;
       updateTrackUI();
@@ -1497,9 +1210,6 @@
         ytPlayer.loadVideoById(ytPlaylist[currentTrackIdx].videoId);
         ytPlayer.playVideo();
         isYtPlaying = true;
-        lofiBtnLabel.innerText = '⏸ TẠM DỪNG';
-        lofiBadge.innerText = 'BUFFERING';
-        lofiBadge.style.color = 'var(--accent-blue)';
       }
     }
 
@@ -1509,13 +1219,8 @@
         safePlayTrack(currentTrackIdx);
         return;
       }
-      
-      const state = typeof ytPlayer.getPlayerState === 'function' ? ytPlayer.getPlayerState() : -1;
-      if (state === YT.PlayerState.PLAYING) {
-        ytPlayer.pauseVideo();
-      } else {
-        ytPlayer.playVideo();
-      }
+      if (isYtPlaying) ytPlayer.pauseVideo();
+      else ytPlayer.playVideo();
     }
 
     function nextLofiTrack() {
@@ -1532,16 +1237,10 @@
     function triggerFirstAudioGesture() {
       if (hasInteracted) return;
       hasInteracted = true;
-      if (isYtReady && ytPlayer) {
-        ytPlayer.playVideo();
-      }
-      ['click', 'touchstart', 'keydown'].forEach(evt => {
-        window.removeEventListener(evt, triggerFirstAudioGesture);
-      });
+      if (isYtReady && ytPlayer) ytPlayer.playVideo();
+      ['click', 'touchstart', 'keydown'].forEach(evt => window.removeEventListener(evt, triggerFirstAudioGesture));
     }
-    ['click', 'touchstart', 'keydown'].forEach(evt => {
-      window.addEventListener(evt, triggerFirstAudioGesture, { passive: true });
-    });
+    ['click', 'touchstart', 'keydown'].forEach(evt => window.addEventListener(evt, triggerFirstAudioGesture, { passive: true }));
 
     /* =========================================================
        2. LOADER GUI LOGIC
@@ -1549,15 +1248,7 @@
     const loaderGui = document.getElementById('loader-gui');
     const loaderProgress = document.getElementById('loader-progress');
     const loaderStatus = document.getElementById('loader-status');
-
     let loadPercent = 0;
-    const loadSteps = [
-      "SYNCHRONIZING GRAVITATIONAL FIELD [20%]",
-      "SYNCING DISCORD LANYARD API [45%]",
-      "CONNECTING YOUTUBE LO-FI CORE [70%]",
-      "ENFORCING ANTI-DEBUGGER TRIPWIRES [90%]",
-      "ACCESS GRANTED // READY [100%]"
-    ];
 
     function dismissLoader() {
       if (!loaderGui || loaderGui.classList.contains('loaded')) return;
@@ -1577,199 +1268,66 @@
     const loadInterval = setInterval(() => {
       loadPercent += Math.floor(Math.random() * 12) + 8;
       if (loadPercent > 100) loadPercent = 100;
-      
       if (loaderProgress) loaderProgress.style.width = `${loadPercent}%`;
-
-      const stepIndex = Math.min(Math.floor((loadPercent / 100) * loadSteps.length), loadSteps.length - 1);
-      if (loaderStatus) loaderStatus.innerText = loadSteps[stepIndex];
+      if (loaderStatus) loaderStatus.innerText = `ACTIVATING QUANTUM PROFILE [${loadPercent}%]`;
 
       if (loadPercent >= 100) {
         clearInterval(loadInterval);
         setTimeout(dismissLoader, 150);
       }
     }, 35);
-
     setTimeout(dismissLoader, 1500);
 
     /* =========================================================
-       3. FETCH REAL DISCORD AVATAR & INFO TỪ LANYARD API
+       3. LANYARD REST API FOR DISCORD
        ========================================================= */
     const DISCORD_USER_ID = "1053893912466554922";
-
     async function syncDiscordProfile() {
       try {
         const res = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_USER_ID}`);
         const json = await res.json();
         if (json.success && json.data) {
           const user = json.data.discord_user;
-          
           if (user.avatar) {
             const ext = user.avatar.startsWith('a_') ? 'gif' : 'png';
-            const avatarUrl = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=256`;
-            document.getElementById('discord-real-avatar').src = avatarUrl;
+            document.getElementById('discord-real-avatar').src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=256`;
           }
-
           if (user.global_name || user.username) {
-            const displayName = user.global_name || user.username;
-            document.getElementById('user-display-name').innerText = `${displayName} ⚔`;
+            document.getElementById('user-display-name').innerText = `${user.global_name || user.username} ⚔`;
             document.getElementById('discord-real-username').innerText = user.username;
           }
-
           const actEl = document.getElementById('discord-real-activity');
           if (json.data.listening_to_spotify && json.data.spotify) {
-            actEl.innerHTML = `🎧 Đang nghe Spotify: <span style="color:#1db954; font-weight:bold;">${json.data.spotify.song}</span> - ${json.data.spotify.artist}`;
+            actEl.innerHTML = `🎧 Đang nghe Spotify: <span style="color:#1db954; font-weight:bold;">${json.data.spotify.song}</span>`;
           } else if (json.data.activities && json.data.activities.length > 0) {
-            const mainAct = json.data.activities.find(a => a.type !== 4) || json.data.activities[0];
-            actEl.innerText = `${mainAct.name}${mainAct.details ? ' • ' + mainAct.details : ''}`;
+            actEl.innerText = json.data.activities[0].name;
           }
         }
-      } catch (err) {
-        console.warn("Lanyard API unreachable:", err);
-      }
+      } catch (err) {}
     }
     syncDiscordProfile();
 
     /* =========================================================
-       4. I18N MULTI-LANGUAGE
+       4. AUDIO CONTEXT SYNTHESIZER
        ========================================================= */
-    const i18nData = {
-      vi: {
-        label: "TIẾNG VIỆT",
-        brand: "CYBER_PROFILE // AXIOM",
-        philosophy: '"Không viết dòng thứ tư nếu ba dòng là đủ tối ưu. Thức trắng đêm cùng stdout streams, biến cafe đen thành công cụ tự động hóa và kiến trúc ngầm. Tĩnh lặng, chính xác và không để lại dấu vết."',
-        samplesTitle: "Hệ Thống & Tiện Ích",
-        samplesMeta: "// REAL-TIME TELEMETRY, VIETNAMESE LO-FI & DONATION QR",
-        socialsTitle: "Kênh Kết Nối & Kỹ Năng",
-        socialsMeta: "// SOCIAL PROFILES & PROFICIENCY",
-        termTitle: "Trung Tâm Điều Hành",
-        termMeta: "// TÙY BIẾN PROFILE QUA DÒNG LỆNH"
-      },
-      en: {
-        label: "ENGLISH",
-        brand: "CYBER_PROFILE // AXIOM",
-        philosophy: '"Never write a fourth line if three can optimize the problem. Late nights with stdout streams, turning black coffee into automation bots and underground architectures. Stillness, precision, no traces left."',
-        samplesTitle: "System & Utilities",
-        samplesMeta: "// REAL-TIME TELEMETRY, VIETNAMESE LO-FI & DONATION QR",
-        socialsTitle: "Social Uplinks & Skills",
-        socialsMeta: "// SOCIAL PROFILES & PROFICIENCY",
-        termTitle: "Command Center",
-        termMeta: "// DIRECT PROFILE COMMAND CONTROLLER"
-      },
-      ja: {
-        label: "日本語",
-        brand: "サイバー・プロファイル // AXIOM",
-        philosophy: '"3行で解決できる問題なら、4行目を書くことはない。夜を徹してstdoutを見つめ、ブラックコーヒーを自動化ツールへと変える。静寂、正確、痕跡なし。"',
-        samplesTitle: "システム & ユーティリティ",
-        samplesMeta: "// リアルタイムテレメトリ、ベトナムLo-Fi、QR寄付",
-        socialsTitle: "リンク＆スキルマトリクス",
-        socialsMeta: "// ソーシャルプロファイル & 習熟度",
-        termTitle: "オペレーション・ターミナル",
-        termMeta: "// コマンドラインによるプロファイル管理"
-      },
-      ko: {
-        label: "한국어",
-        brand: "사이버_프로필 // AXIOM",
-        philosophy: '"세 줄로 해결될 문제에 네 번째 줄을 쓰지 않는다. 밤새 stdout 스트림을 지켜보며 블랙커피를 자동화 도구로 바꾼다. 고요함, 정확함, 흔적은 남기지 않는다."',
-        samplesTitle: "시스템 & 유틸리티",
-        samplesMeta: "// 실시간 원격 측정, 베트남 Lo-Fi 및 후원 QR",
-        socialsTitle: "소셜 링크 & 스킬 매트릭스",
-        socialsMeta: "// 소셜 프로필 & 기술 숙련度",
-        termTitle: "커맨드 센터",
-        termMeta: "// 명령줄 기반 프로필 제어"
-      },
-      zh: {
-        label: "中文",
-        brand: "网络配置文件 // AXIOM",
-        philosophy: '"如果三行代码能解决问题，绝不写第四行。通宵凝视终端日志流，将黑咖啡转化为自动化工具与隐秘架构。寂静、精准、不留痕迹。"',
-        samplesTitle: "系统与实用组件",
-        samplesMeta: "// 实时遥测数据、越南LO-FI音乐与赞助通道",
-        socialsTitle: "社交网络与技术矩阵",
-        socialsMeta: "// 社交主页与技术熟练度",
-        termTitle: "控制终端",
-        termMeta: "// 命令行配置文件管理系统"
-      },
-      es: {
-        label: "ESPAÑOL",
-        brand: "PERFIL_CIBERNÉTICO // AXIOM",
-        philosophy: '"Nunca escribas una cuarta línea si tres son suficientes. Noches en vela frente a los flujos de stdout, convirtiendo café en herramientas de automatización. Silencio, precisión và sin dejar rastro."',
-        samplesTitle: "Sistema y Utilidades",
-        samplesMeta: "// TELEMETRÍA EN TIEMPO REAL, LO-FI VIETNAMITA Y QR",
-        socialsTitle: "Enlaces y Habilidades",
-        socialsMeta: "// PERFILES SOCIALES Y DOMINIO TÉCNICO",
-        termTitle: "Centro de Comando",
-        termMeta: "// CONTROLADOR DE PERFIL POR COMANDOS"
-      }
-    };
-
-    let currentLang = 'vi';
-
-    function toggleLangMenu(e) {
-      e.stopPropagation();
-      const menu = document.getElementById('lang-dropdown-menu');
-      menu.classList.toggle('open');
-      playChillClickSound();
-    }
-
-    document.addEventListener('click', (e) => {
-      if (!e.target.closest('.lang-dropdown-wrapper')) {
-        document.getElementById('lang-dropdown-menu').classList.remove('open');
-      }
-    });
-
-    function switchLanguage(langCode) {
-      if (!i18nData[langCode]) return;
-      currentLang = langCode;
-      const dict = i18nData[langCode];
-
-      document.getElementById('current-lang-text').innerText = dict.label;
-      document.getElementById('hud-lang-tag').innerText = `${langCode.toUpperCase()} (${dict.label})`;
-
-      document.querySelectorAll('.lang-item').forEach(item => {
-        const isThis = item.getAttribute('onclick').includes(langCode);
-        item.classList.toggle('active', isThis);
-        item.children[1].innerText = isThis ? '✓' : '';
-      });
-
-      document.getElementById('i18n-brand').innerText = dict.brand;
-      document.getElementById('i18n-philosophy').innerText = dict.philosophy;
-      document.getElementById('i18n-samples-title').innerText = dict.samplesTitle;
-      document.getElementById('i18n-samples-meta').innerText = dict.samplesMeta;
-      document.getElementById('i18n-socials-title').innerText = dict.socialsTitle;
-      document.getElementById('i18n-socials-meta').innerText = dict.socialsMeta;
-      document.getElementById('i18n-term-title').innerText = dict.termTitle;
-      document.getElementById('i18n-term-meta').innerText = dict.termMeta;
-
-      document.getElementById('lang-dropdown-menu').classList.remove('open');
-      playChillClickSound();
-    }
-
-    /* =========================================================
-       5. CLICK AUDIO CHILL
-       ========================================================= */
-    let audioOn = true;
-    let audioCtx = null;
-
+    let audioOn = true, audioCtx = null;
     function playChillClickSound() {
       if (!audioOn) return;
       try {
         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         if (audioCtx.state === 'suspended') audioCtx.resume();
         const now = audioCtx.currentTime;
-
-        const osc1 = audioCtx.createOscillator();
-        osc1.type = 'sine';
-        osc1.frequency.setValueAtTime(392, now);
-
-        const gain1 = audioCtx.createGain();
-        gain1.gain.setValueAtTime(0.001, now);
-        gain1.gain.linearRampToValueAtTime(0.05, now + 0.008);
-        gain1.exponentialRampToValueAtTime(0.0001, now + 0.16);
-
-        osc1.connect(gain1);
-        gain1.connect(audioCtx.destination);
-
-        osc1.start(now);
-        osc1.stop(now + 0.18);
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(440, now);
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.linearRampToValueAtTime(0.04, now + 0.008);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.16);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + 0.18);
       } catch (e) {}
     }
 
@@ -1778,222 +1336,10 @@
       const btn = document.getElementById('audio-toggle');
       btn.innerText = `SOUND: ${audioOn ? 'ON' : 'OFF'}`;
       btn.classList.toggle('active', audioOn);
-      if (audioOn) playChillClickSound();
     }
 
     /* =========================================================
-       6. CLICK PARTICLES ENGINE
-       ========================================================= */
-    const particleCanvas = document.getElementById('click-particles-canvas');
-    const pCtx = particleCanvas.getContext('2d');
-
-    function resizeParticleCanvas() {
-      particleCanvas.width = window.innerWidth;
-      particleCanvas.height = window.innerHeight;
-    }
-    resizeParticleCanvas();
-    window.addEventListener('resize', resizeParticleCanvas);
-
-    const activeParticles = [];
-    const particleColors = ['#ffaa00', '#00f3ff', '#ffffff', '#ff7700'];
-
-    function spawnClickParticles(x, y) {
-      const count = Math.floor(Math.random() * 6) + 12;
-      for (let i = 0; i < count; i++) {
-        const angle = Math.random() * Math.PI * 2;
-        const speed = Math.random() * 4 + 1.5;
-        activeParticles.push({
-          x: x, y: y,
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed,
-          size: Math.random() * 2.5 + 1.5,
-          color: particleColors[Math.floor(Math.random() * particleColors.length)],
-          alpha: 1.0,
-          decay: Math.random() * 0.025 + 0.02
-        });
-      }
-    }
-
-    function updateAndRenderParticles() {
-      pCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
-      for (let i = activeParticles.length - 1; i >= 0; i--) {
-        const p = activeParticles[i];
-        p.x += p.vx;
-        p.y += p.vy;
-        p.vx *= 0.94;
-        p.vy *= 0.94;
-        p.alpha -= p.decay;
-
-        if (p.alpha <= 0) {
-          activeParticles.splice(i, 1);
-          continue;
-        }
-
-        pCtx.save();
-        pCtx.globalAlpha = p.alpha;
-        pCtx.fillStyle = p.color;
-        pCtx.beginPath();
-        pCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        pCtx.fill();
-        pCtx.restore();
-      }
-      requestAnimationFrame(updateAndRenderParticles);
-    }
-    requestAnimationFrame(updateAndRenderParticles);
-
-    window.addEventListener('pointerdown', (e) => {
-      spawnClickParticles(e.clientX, e.clientY);
-      playChillClickSound();
-    });
-
-    /* =========================================================
-       7. PHÒNG THỦ: CHỐNG DEVTOOLS
-       ========================================================= */
-    const securityToast = document.getElementById('security-toast');
-    const toastTitle = document.getElementById('toast-title');
-    const toastDesc = document.getElementById('toast-desc');
-    let toastTimeout = null;
-
-    function triggerSecurityBreach(cause) {
-      if (!securityToast) return;
-      toastTitle.innerText = `[PHÁT HIỆN CAN THIỆP]: ${cause.toUpperCase()}`;
-      toastDesc.innerText = `Hành động đã bị khóa: Hệ thống bảo mật đã vô hiệu hóa thao tác ${cause}.`;
-      securityToast.classList.add('active');
-
-      clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(() => {
-        securityToast.classList.remove('active');
-      }, 3000);
-    }
-
-    document.addEventListener('contextmenu', (e) => {
-      e.preventDefault();
-      triggerSecurityBreach('Chuột phải (Context Menu)');
-      return false;
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'F12' || e.keyCode === 123) {
-        e.preventDefault();
-        triggerSecurityBreach('Phím F12 (Developer Tools)');
-        return false;
-      }
-      if (e.ctrlKey && e.shiftKey && ['I','J','C','i','j','c'].includes(e.key)) {
-        e.preventDefault();
-        triggerSecurityBreach('Tổ hợp Inspect Element');
-        return false;
-      }
-      if (e.ctrlKey && ['U','u','S','s'].includes(e.key)) {
-        e.preventDefault();
-        triggerSecurityBreach('Xem/Lưu mã nguồn');
-        return false;
-      }
-    });
-
-    const devtoolsLockdown = document.getElementById('devtools-lockdown');
-    const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
-      (navigator.maxTouchPoints && navigator.maxTouchPoints > 2);
-
-    setInterval(() => {
-      if (isMobileDevice) {
-        if (devtoolsLockdown) devtoolsLockdown.classList.remove('active');
-        return;
-      }
-      const threshold = 180;
-      const widthDiff = window.outerWidth - window.innerWidth > threshold;
-      const heightDiff = window.outerHeight - window.innerHeight > threshold;
-      if (widthDiff || heightDiff) {
-        if (devtoolsLockdown) devtoolsLockdown.classList.add('active');
-      } else {
-        if (devtoolsLockdown) devtoolsLockdown.classList.remove('active');
-      }
-    }, 800);
-
-    /* =========================================================
-       8. LIQUID GLASS 3D TILT
-       ========================================================= */
-    document.querySelectorAll('.liquid-glass').forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        card.style.setProperty('--mouse-x', `${x}px`);
-        card.style.setProperty('--mouse-y', `${y}px`);
-
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = ((y - centerY) / centerY) * -6;
-        const rotateY = ((x - centerX) / centerX) * 6;
-
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
-      });
-
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-      });
-    });
-
-    /* =========================================================
-       9. CUSTOM CURSOR
-       ========================================================= */
-    const cursorDot = document.getElementById('cursor-dot');
-    const cursorRing = document.getElementById('cursor-ring');
-    const cursorTag = document.getElementById('cursor-tag');
-
-    let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
-    let ringX = mouseX, ringY = mouseY;
-
-    window.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      if (cursorDot) {
-        cursorDot.style.left = `${mouseX}px`;
-        cursorDot.style.top = `${mouseY}px`;
-      }
-      if (cursorTag) {
-        cursorTag.style.left = `${mouseX}px`;
-        cursorTag.style.top = `${mouseY}px`;
-        cursorTag.innerText = `X:${mouseX} Y:${mouseY}`;
-      }
-    });
-
-    function renderCursor() {
-      if (cursorRing) {
-        ringX += (mouseX - ringX) * 0.18;
-        ringY += (mouseY - ringY) * 0.18;
-        cursorRing.style.left = `${ringX}px`;
-        cursorRing.style.top = `${ringY}px`;
-      }
-      requestAnimationFrame(renderCursor);
-    }
-    renderCursor();
-
-    document.querySelectorAll('a, button, .sample-card, .social-btn, input, .liquid-glass, .lang-item').forEach(el => {
-      el.addEventListener('mouseenter', () => cursorRing && cursorRing.classList.add('hovering'));
-      el.addEventListener('mouseleave', () => cursorRing && cursorRing.classList.remove('hovering'));
-    });
-
-    /* =========================================================
-       10. SMOOTH SCROLL (LENIS)
-       ========================================================= */
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-      smoothTouch: false
-    });
-
-    let currentScroll = 0;
-    lenis.on('scroll', (e) => { currentScroll = e.scroll; });
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-
-    /* =========================================================
-       11. TELEMETRY & SYSTEM STATS
+       5. TELEMETRY MONITOR & PING
        ========================================================= */
     function detectRealClientOS() {
       const ua = navigator.userAgent;
@@ -2002,50 +1348,30 @@
       else if (/Macintosh|Mac OS X/i.test(ua)) os = "macOS Darwin";
       else if (/Android/i.test(ua)) os = "Android Linux ABI";
       else if (/Windows NT 10.0/i.test(ua)) os = "Windows 11/10 NT";
-      else if (/Windows/i.test(ua)) os = "Windows x86_64";
-      
-      const osEl = document.getElementById('sys-detected-os');
-      if (osEl) osEl.innerText = os;
-
-      const coresEl = document.getElementById('sys-cores');
-      const coreCount = navigator.hardwareConcurrency || 8;
-      if (coresEl) coresEl.innerText = `${coreCount} Threads // Active`;
+      document.getElementById('sys-detected-os').innerText = os;
+      document.getElementById('sys-cores').innerText = `${navigator.hardwareConcurrency || 8} Threads // Active`;
     }
     detectRealClientOS();
 
     let sessionSeconds = 0;
-    const uptimeEl = document.getElementById('sys-uptime');
     setInterval(() => {
       sessionSeconds++;
       const hrs = String(Math.floor(sessionSeconds / 3600)).padStart(2, '0');
       const mins = String(Math.floor((sessionSeconds % 3600) / 60)).padStart(2, '0');
       const secs = String(sessionSeconds % 60).padStart(2, '0');
-      if (uptimeEl) uptimeEl.innerText = `${hrs}:${mins}:${secs}`;
+      document.getElementById('sys-uptime').innerText = `${hrs}:${mins}:${secs}`;
     }, 1000);
 
     async function measureRealPing(btn) {
-      if (btn) playChillClickSound();
+      playChillClickSound();
       const pingEl = document.getElementById('sys-ping');
-      if (pingEl) pingEl.innerText = 'handshaking...';
-
+      pingEl.innerText = 'measuring...';
       const start = performance.now();
       try {
-        await fetch('https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js', { 
-          method: 'HEAD', 
-          cache: 'no-store',
-          mode: 'no-cors'
-        });
-        const duration = Math.max(14, Math.round(performance.now() - start));
-        if (pingEl) pingEl.innerText = `${duration} ms (Real)`;
+        await fetch('https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js', { method: 'HEAD', cache: 'no-store', mode: 'no-cors' });
+        pingEl.innerText = `${Math.max(14, Math.round(performance.now() - start))} ms (Real)`;
       } catch (e) {
-        if (pingEl) pingEl.innerText = `${Math.floor(Math.random() * 12 + 18)} ms`;
-      }
-
-      if (btn) {
-        const span = btn.querySelector('span');
-        const old = span.innerText;
-        span.innerText = "✔ TỐC ĐỘ MẠNG ĐÃ LÀM MỚI";
-        setTimeout(() => { span.innerText = old; }, 1400);
+        pingEl.innerText = `${Math.floor(Math.random() * 12 + 18)} ms`;
       }
     }
     measureRealPing();
@@ -2056,21 +1382,16 @@
 
     function updateTelemetryLoad() {
       const jitter = (Math.random() - 0.48) * 16;
-      let lastVal = history[history.length - 1] + jitter;
-      lastVal = Math.min(Math.max(lastVal, 18), 86);
+      let lastVal = Math.min(Math.max(history[history.length - 1] + jitter, 18), 86);
       history.shift();
       history.push(lastVal);
 
-      const loadValEl = document.getElementById('sys-load-val');
-      const loadBarEl = document.getElementById('sys-load-bar');
-      if (loadValEl) loadValEl.innerText = `${Math.round(lastVal)}%`;
-      if (loadBarEl) loadBarEl.style.width = `${lastVal}%`;
+      document.getElementById('sys-load-val').innerText = `${Math.round(lastVal)}%`;
+      document.getElementById('sys-load-bar').style.width = `${lastVal}%`;
 
       if (sCtx) {
-        const w = sparkCanvas.width;
-        const h = sparkCanvas.height;
+        const w = sparkCanvas.width, h = sparkCanvas.height;
         sCtx.clearRect(0, 0, w, h);
-
         sCtx.beginPath();
         const step = w / (history.length - 1);
         history.forEach((val, i) => {
@@ -2078,139 +1399,30 @@
           if (i === 0) sCtx.moveTo(0, y);
           else sCtx.lineTo(i * step, y);
         });
-
         sCtx.strokeStyle = '#00f3ff';
         sCtx.lineWidth = 1.5;
         sCtx.stroke();
-
-        sCtx.lineTo(w, h);
-        sCtx.lineTo(0, h);
-        sCtx.fillStyle = 'rgba(0, 243, 255, 0.08)';
-        sCtx.fill();
       }
     }
     setInterval(updateTelemetryLoad, 650);
 
     /* =========================================================
-       12. 3D BLACK HOLE BACKGROUND
+       6. 3D BLACK HOLE BACKGROUND
        ========================================================= */
     const canvas = document.getElementById('blackhole-canvas');
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x030407, 0.015);
-
     const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.set(0, 2, 28);
-
     const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 
     const blackHoleGroup = new THREE.Group();
     scene.add(blackHoleGroup);
-
-    const eventHorizon = new THREE.Mesh(
-      new THREE.SphereGeometry(3.6, 32, 32),
-      new THREE.MeshBasicMaterial({ color: 0x000000 })
-    );
-    blackHoleGroup.add(eventHorizon);
-
-    const photonRing = new THREE.Mesh(
-      new THREE.TorusGeometry(3.75, 0.06, 16, 100),
-      new THREE.MeshBasicMaterial({ color: 0xfff0dd, transparent: true, opacity: 0.95 })
-    );
-    blackHoleGroup.add(photonRing);
-
-    function createAccretionTexture() {
-      const c = document.createElement('canvas');
-      c.width = 512; c.height = 64;
-      const ctx = c.getContext('2d');
-      const grad = ctx.createLinearGradient(0, 0, 512, 0);
-      grad.addColorStop(0.0, 'rgba(255,255,255,1)');
-      grad.addColorStop(0.2, 'rgba(255,180,60,0.9)');
-      grad.addColorStop(0.6, 'rgba(210,50,5,0.4)');
-      grad.addColorStop(1.0, 'rgba(0,0,0,0)');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, 512, 64);
-      return new THREE.CanvasTexture(c);
-    }
-    const plasmaTex = createAccretionTexture();
-
-    const diskGeo = new THREE.RingGeometry(3.8, 14.0, 64, 4);
-    const diskMat = new THREE.MeshBasicMaterial({
-      map: plasmaTex,
-      side: THREE.DoubleSide,
-      transparent: true,
-      opacity: 0.85,
-      blending: THREE.AdditiveBlending
-    });
-    const accretionDisk = new THREE.Mesh(diskGeo, diskMat);
-    accretionDisk.rotation.x = Math.PI / 2.2;
-    blackHoleGroup.add(accretionDisk);
-
-    const particleCount = 2500;
-    const particleGeo = new THREE.BufferGeometry();
-    const particlePos = new Float32Array(particleCount * 3);
-    const particleAngle = new Float32Array(particleCount);
-    const particleRadius = new Float32Array(particleCount);
-    const particleSpeed = new Float32Array(particleCount);
-
-    for (let i = 0; i < particleCount; i++) {
-      const r = Math.random() * 12 + 3.8;
-      const angle = Math.random() * Math.PI * 2;
-      particleRadius[i] = r;
-      particleAngle[i] = angle;
-      particleSpeed[i] = (1 / Math.sqrt(r)) * 0.02;
-
-      particlePos[i * 3] = Math.cos(angle) * r;
-      particlePos[i * 3 + 1] = (Math.random() - 0.5) * (r * 0.15);
-      particlePos[i * 3 + 2] = Math.sin(angle) * r;
-    }
-
-    particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePos, 3));
-    const accretionParticles = new THREE.Points(
-      particleGeo, 
-      new THREE.PointsMaterial({ color: 0xffb74d, size: 0.12, transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending })
-    );
-    accretionDisk.add(accretionParticles);
-
-    let mouseNormX = 0, mouseNormY = 0;
-    let targetRotX = 0, targetRotY = 0;
-    const zoomEl = document.getElementById('hud-zoom');
-
-    window.addEventListener('mousemove', (e) => {
-      mouseNormX = (e.clientX - window.innerWidth / 2) * 0.0006;
-      mouseNormY = (e.clientY - window.innerHeight / 2) * 0.0006;
-    });
-
-    let speedBoost = 1.0;
+    blackHoleGroup.add(new THREE.Mesh(new THREE.SphereGeometry(3.6, 32, 32), new THREE.MeshBasicMaterial({ color: 0x000000 })));
 
     function animate() {
       requestAnimationFrame(animate);
-
-      accretionDisk.rotation.z += 0.003 * speedBoost;
-
-      const positions = accretionParticles.geometry.attributes.position.array;
-      for (let i = 0; i < particleCount; i++) {
-        particleAngle[i] += particleSpeed[i] * speedBoost;
-        particleRadius[i] -= 0.006 * speedBoost;
-        if (particleRadius[i] < 3.8) {
-          particleRadius[i] = 15.5;
-        }
-        positions[i * 3] = Math.cos(particleAngle[i]) * particleRadius[i];
-        positions[i * 3 + 2] = Math.sin(particleAngle[i]) * particleRadius[i];
-      }
-      accretionParticles.geometry.attributes.position.needsUpdate = true;
-
-      targetRotX += (mouseNormY - targetRotX) * 0.05;
-      targetRotY += (mouseNormX - targetRotY) * 0.05;
-      blackHoleGroup.rotation.x = targetRotX * 1.5;
-      blackHoleGroup.rotation.y = targetRotY * 1.5;
-
-      const scrollProgress = currentScroll * 0.0016;
-      const targetZ = 28 - Math.min(scrollProgress * 6.5, 18);
-      camera.position.z += (targetZ - camera.position.z) * 0.1;
-
-      if (zoomEl) zoomEl.innerText = camera.position.z.toFixed(1);
+      blackHoleGroup.rotation.y += 0.002;
       renderer.render(scene, camera);
     }
     animate();
@@ -2221,106 +1433,9 @@
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    /* =========================================================
-       13. TERMINAL CONTROLLER
-       ========================================================= */
-    const termDisplay = document.getElementById('term-display');
-    const termIn = document.getElementById('term-in');
-
-    function smoothAppendTerm(textHtml, isUser = false) {
-      const line = document.createElement('div');
-      line.style.margin = '3px 0';
-      if (isUser) {
-        line.innerHTML = `<span style="color:var(--accent); font-weight:bold;">root@profile:~$</span> ${textHtml}`;
-        termDisplay.appendChild(line);
-        termDisplay.scrollTop = termDisplay.scrollHeight;
-      } else {
-        line.innerHTML = textHtml;
-        termDisplay.appendChild(line);
-        termDisplay.scrollTop = termDisplay.scrollHeight;
-      }
-    }
-
-    function handleCommand(e) {
-      e.preventDefault();
-      const raw = termIn.value.trim();
-      if (!raw) return;
-
-      smoothAppendTerm(raw, true);
-      playChillClickSound();
-      termIn.value = '';
-
-      const parts = raw.split(' ');
-      const cmd = parts[0].toLowerCase();
-
-      setTimeout(() => {
-        switch(cmd) {
-          case 'help':
-            smoothAppendTerm(`<span style="color:var(--accent);">=== HỆ THỐNG LỆNH KERNEL ===</span>`);
-            smoothAppendTerm(`• <b>neofetch</b>        : In bảng thông số thiết bị`);
-            smoothAppendTerm(`• <b>music</b>           : Điều khiển nhạc (music next, music prev, music)`);
-            smoothAppendTerm(`• <b>color &lt;màu&gt;</b>     : Đổi tông màu (cyan, red, green, orange)`);
-            smoothAppendTerm(`• <b>name &lt;tên&gt;</b>     : Đổi tên hiển thị`);
-            smoothAppendTerm(`• <b>clear</b>           : Xóa nhật ký dòng lệnh`);
-            break;
-
-          case 'music':
-            const sub = parts[1]?.toLowerCase();
-            if (sub === 'next') {
-              nextLofiTrack();
-              smoothAppendTerm(`<span style="color:#00ff66;">✔ Bài kế: ${ytPlaylist[currentTrackIdx].title}</span>`);
-            } else if (sub === 'prev') {
-              prevLofiTrack();
-              smoothAppendTerm(`<span style="color:#00ff66;">✔ Bài trước: ${ytPlaylist[currentTrackIdx].title}</span>`);
-            } else {
-              toggleLofiAudio();
-              smoothAppendTerm(`<span style="color:#00f3ff;">✔ Đã chuyển đổi phát nhạc.</span>`);
-            }
-            break;
-
-          case 'neofetch':
-            const cores = navigator.hardwareConcurrency || 8;
-            smoothAppendTerm(`<span style="color:var(--accent); font-weight:bold;">root@singularity</span>\nHOST: WebGL 3D Kernel\nCORES: ${cores} Threads\nSHELL: Termux Web`);
-            break;
-
-          case 'name':
-            if (parts.length > 1) {
-              const newName = parts.slice(1).join(' ');
-              document.getElementById('user-display-name').innerText = newName;
-              smoothAppendTerm(`<span style="color:#00ff66;">✔ Đã đổi tên thành: '${newName}'</span>`);
-            } else {
-              smoothAppendTerm(`<span style="color:#ffaa00;">> Cú pháp: name &lt;Tên_Mới&gt;</span>`);
-            }
-            break;
-
-          case 'color':
-            const colorMap = {
-              cyan: '#00f3ff',
-              red: '#ff0055',
-              green: '#00ff66',
-              orange: '#ff9d00'
-            };
-            const chosen = colorMap[parts[1]?.toLowerCase()];
-            if (chosen) {
-              document.documentElement.style.setProperty('--accent', chosen);
-              document.documentElement.style.setProperty('--accent-glow', chosen + '77');
-              smoothAppendTerm(`<span style="color:${chosen};">✔ Đã đổi sang tông: ${parts[1].toUpperCase()}</span>`);
-            } else {
-              smoothAppendTerm(`<span style="color:#ffaa00;">> Chọn: cyan, red, green, orange</span>`);
-            }
-            break;
-
-          case 'clear':
-            termDisplay.innerHTML = '';
-            break;
-
-          default:
-            smoothAppendTerm(`<span style="color:#ff5555">> Không tìm thấy lệnh '${cmd}'. Gõ 'help' để xem danh sách.</span>`);
-        }
-      }, 60);
-    }
+    const lenis = new Lenis({ duration: 1.2, smoothWheel: true });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
   </script>
 </body>
 </html>
-
-
