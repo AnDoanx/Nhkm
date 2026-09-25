@@ -614,7 +614,7 @@
       background: rgba(255, 157, 0, 0.1);
     }
 
-    /* Section 2: 3 Bio Samples */
+    /* Section 2: Dashboard Matrix */
     .section-title {
       font-family: var(--font-display);
       font-size: clamp(36px, 5vw, 68px);
@@ -636,12 +636,12 @@
 
     .bio-samples-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 24px;
     }
 
     .sample-card {
-      padding: 34px;
+      padding: 30px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -678,7 +678,6 @@
       font-size: 12px;
       line-height: 1.8;
       color: #a0b8cc;
-      white-space: pre-wrap;
       margin-bottom: 20px;
       min-height: 150px;
     }
@@ -848,7 +847,7 @@
     }
   </style>
 </head>
-<body oncontextmenu="triggerSecurityBreach('Chuột phải'); return false;">
+<body>
 
   <!-- CLICK PARTICLES CANVAS -->
   <canvas id="click-particles-canvas"></canvas>
@@ -976,81 +975,88 @@
           </div>
 
           <div style="font-family:var(--font-mono); font-size:11px; color:#788899; display:flex; gap:16px;">
-            <span id="i18n-scroll-hint">✦ CUỘN TRANG XUỐNG ĐỂ LẤY MẪU BIO COPY CHO DISCORD / FB / TIKTOK</span>
+            <span id="i18n-scroll-hint">✦ CUỘN TRANG XUỐNG ĐỂ TRUY CẬP TIỆN ÍCH HỆ THỐNG VÀ THÔNG SỐ SERVER</span>
           </div>
 
         </div>
       </div>
     </section>
 
-    <!-- 02: 3 MẪU BIO SẴN SÀNG COPY -->
+    <!-- 02: TIỆN ÍCH HỆ THỐNG & DASHBOARD MATRIX (ĐÃ THAY THẾ 3 Ô CŨ) -->
     <section class="scene-section" id="sec-samples">
-      <h2 class="section-title" id="i18n-samples-title">Mẫu Bio Mạng Xã Hội</h2>
-      <div class="section-meta" id="i18n-samples-meta">// COPY TRỰC TIẾP DÁN VÀO PROFILE CÁ NHÂN</div>
+      <h2 class="section-title" id="i18n-samples-title">Hệ Thống & Tiện Ích</h2>
+      <div class="section-meta" id="i18n-samples-meta">// SYSTEM STATUS, LO-FI AUDIO & DONATION QR</div>
 
       <div class="bio-samples-grid">
         
-        <!-- BẢN 1: Minimalist Terminal -->
+        <!-- THẺ 1: SYSTEM INFO -->
         <div class="liquid-glass-container">
           <div class="sample-card liquid-glass">
             <div class="glass-glare"></div>
             <div class="glass-shimmer"></div>
             <div>
               <div class="sample-head">
-                <span class="sample-type">Minimalist Terminal</span>
-                <span class="sample-target">LINUX / GITHUB</span>
+                <span class="sample-type">System Info</span>
+                <span class="sample-target" id="sys-status-badge">ONLINE</span>
               </div>
-              <div class="sample-box" id="bio-copy-1">root@kernel:~$ whoami
-[ C Y B E R _ A R C H I T E C T ]
-[SYS] Role: System Architect // Security
-root@kernel:~$ cat skills.log
->> [C++] [Linux Kernel] [Reverse Engineering]
-root@kernel:~$ sudo shutdown -r now</div>
+              <div class="sample-box" style="font-family: var(--font-mono); font-size: 11.5px; line-height: 1.8;">
+                <div>OS: <span style="color:#00f3ff;">Arch Linux x86_64</span></div>
+                <div>KERNEL: <span style="color:#fff;">Hardened 6.10-arch</span></div>
+                <div>SERVER PING: <span id="sys-ping" style="color:var(--accent);">-- ms</span></div>
+                <div>UPTIME: <span id="sys-uptime" style="color:#00ff66;">00h 00m 00s</span></div>
+                <div style="margin-top: 4px;">RAM: [███████░░░] 68%</div>
+                <div>TEMP: 41.5°C // NORMAL</div>
+              </div>
             </div>
-            <button class="copy-btn" onclick="copyBio('bio-copy-1', this)">
-              <span class="i18n-copy-text">[COPY BIO BẢN 1]</span>
+            <button class="copy-btn" onclick="refreshPing(this)">
+              <span>⚡ KIỂM TRA LẠI PING</span>
             </button>
           </div>
         </div>
 
-        <!-- BẢN 2: Cyber Glitch / Hardcore Hacker -->
+        <!-- THẺ 2: MINI LOFI PLAYER -->
         <div class="liquid-glass-container">
           <div class="sample-card liquid-glass">
             <div class="glass-glare"></div>
             <div class="glass-shimmer"></div>
             <div>
               <div class="sample-head">
-                <span class="sample-type">Cyber Glitch Hacker</span>
-                <span class="sample-target">DISCORD / FB</span>
+                <span class="sample-type">Lo-Fi Player</span>
+                <span class="sample-target" id="lofi-track-status">PAUSED</span>
               </div>
-              <div class="sample-box" id="bio-copy-2">█▄░█ ▄▀█ █▀▄▀█ █▀▀
-█░▀█ █▀█ █░▀░█ ██▄
-[STATUS: ACTIVE] | 0x7F_OVERRIDE
-► Class: Elite Hacker // Reverse Engineer
-► Tech: [C++] | [Linux] | [Game Modding]
-► System Load: ████████▒▒ 85%
->> chmod +x life.sh && ./life.sh</div>
+              <div class="sample-box" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 8px;">
+                <div style="font-size: 28px; animation: beacon-pulse 2s infinite ease-in-out;">🎧</div>
+                <div style="color: #fff; font-weight: bold; font-size: 13px;" id="lofi-title">Midnight Coding Beats</div>
+                <div style="color: #7b8896; font-size: 11px;">Lo-Fi Chill Stream // 128kbps</div>
+                <audio id="lofi-audio" loop src="https://stream.zeno.fm/f3wvbbqmdg8uv"></audio>
+              </div>
             </div>
-            <button class="copy-btn" onclick="copyBio('bio-copy-2', this)">
-              <span class="i18n-copy-text">[COPY BIO BẢN 2]</span>
+            <button class="copy-btn" id="lofi-play-btn" onclick="toggleLofiAudio()">
+              <span>▶ PHÁT NHẠC LO-FI</span>
             </button>
           </div>
         </div>
 
-        <!-- BẢN 3: Compact One-liner -->
+        <!-- THẺ 3: QR DONATE -->
         <div class="liquid-glass-container">
           <div class="sample-card liquid-glass">
             <div class="glass-glare"></div>
             <div class="glass-shimmer"></div>
             <div>
               <div class="sample-head">
-                <span class="sample-type">Compact One-Liner</span>
-                <span class="sample-target">TIKTOK / INSTAGRAM</span>
+                <span class="sample-type">Tip & Donate</span>
+                <span class="sample-target">VIETQR</span>
               </div>
-              <div class="sample-box" id="bio-copy-3">root@cyber:~$ // [C++ | Linux | Modding] | ███▒▒ 85% | exit(0);</div>
+              <div class="sample-box" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px;">
+                <img id="donate-qr-img" 
+                     src="https://api.vietqr.io/image/970422-0382218001-compact.jpg?accountName=DONATE&amount=10000" 
+                     alt="Donate QR" 
+                     style="width: 115px; height: 115px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); object-fit: cover;">
+                <div style="font-size: 10.5px; color: #9cb1c5; margin-top: 6px;">Mời mình 1 ly cafe / server fee ☕</div>
+              </div>
             </div>
-            <button class="copy-btn" onclick="copyBio('bio-copy-3', this)">
-              <span class="i18n-copy-text">[COPY BIO BẢN 3]</span>
+            <button class="copy-btn" onclick="copyDonateAccount(this)">
+              <span>📋 COPY STK NGÂN HÀNG</span>
             </button>
           </div>
         </div>
@@ -1203,16 +1209,13 @@ root@kernel:~$ sudo shutdown -r now</div>
         philosophy: '"Không bao giờ viết dòng thứ tư nếu ba dòng là đủ giải quyết vấn đề. Sự tĩnh lặng và tốc độ là một. sudo shutdown -r now"',
         status: "[TRẠNG THÁI: TRỰC TUYẾN]",
         class: "[CẤP BẬC: HACKER TINH ANH]",
-        scrollHint: "✦ CUỘN TRANG XUỐNG ĐỂ LẤY MẪU BIO COPY CHO DISCORD / FB / TIKTOK",
-        samplesTitle: "Mẫu Bio Mạng Xã Hội",
-        samplesMeta: "// COPY TRỰC TIẾP DÁN VÀO PROFILE CÁ NHÂN",
-        copyBtn: "[COPY BIO]",
-        copied: "✔ ĐÃ COPY VÀO CLIPBOARD!",
+        scrollHint: "✦ CUỘN TRANG XUỐNG ĐỂ TRUY CẬP TIỆN ÍCH HỆ THỐNG VÀ THÔNG SỐ SERVER",
+        samplesTitle: "Hệ Thống & Tiện Ích",
+        samplesMeta: "// SYSTEM STATUS, LO-FI AUDIO & DONATION QR",
         socialsTitle: "Kênh Kết Nối & Kỹ Năng",
         socialsMeta: "// SOCIAL PROFILES & PROFICIENCY",
         termTitle: "Trung Tâm Điều Hành",
-        termMeta: "// TÙY BIẾN PROFILE QUA DÒNG LỆNH",
-        termWelcome: "> HỆ THỐNG PROFILE ĐÃ ĐƯỢC ĐỒNG BỘ ĐA NGÔN NGỮ (I18N)."
+        termMeta: "// TÙY BIẾN PROFILE QUA DÒNG LỆNH"
       },
       en: {
         label: "ENGLISH",
@@ -1221,16 +1224,13 @@ root@kernel:~$ sudo shutdown -r now</div>
         philosophy: '"Never write a fourth line if three can solve the problem. Stillness and speed are one. sudo shutdown -r now"',
         status: "[STATUS: ONLINE]",
         class: "[CLASS: ELITE HACKER]",
-        scrollHint: "✦ SCROLL DOWN TO ACQUIRE READY-TO-COPY BIOS FOR DISCORD / FB / TIKTOK",
-        samplesTitle: "Social Bio Templates",
-        samplesMeta: "// 1-CLICK COPY DIRECTLY INTO YOUR PROFILE",
-        copyBtn: "[COPY BIO]",
-        copied: "✔ COPIED TO CLIPBOARD!",
+        scrollHint: "✦ SCROLL DOWN FOR SYSTEM UTILITIES & SERVER TELEMETRY",
+        samplesTitle: "System & Utilities",
+        samplesMeta: "// SYSTEM STATUS, LO-FI AUDIO & DONATION QR",
         socialsTitle: "Social Uplinks & Skills",
         socialsMeta: "// SOCIAL PROFILES & PROFICIENCY",
         termTitle: "Command Center",
-        termMeta: "// DIRECT PROFILE COMMAND CONTROLLER",
-        termWelcome: "> MULTI-LANGUAGE I18N SYSTEM INITIALIZED AND SYNCHRONIZED."
+        termMeta: "// DIRECT PROFILE COMMAND CONTROLLER"
       },
       ja: {
         label: "日本語",
@@ -1239,16 +1239,13 @@ root@kernel:~$ sudo shutdown -r now</div>
         philosophy: '"3行で解決できる問題なら、4行目を書くことはない。静寂と速度は一つなり。sudo shutdown -r now"',
         status: "[ステータス: オンライン]",
         class: "[クラス: エリートハッカー]",
-        scrollHint: "✦ スクロールしてDiscord / FB / TikTok用バイオを取得",
-        samplesTitle: "ソーシャル・バイオ・テンプレート",
-        samplesMeta: "// ワンクリックでコピーしてプロファイルに貼り付け",
-        copyBtn: "[バイオをコピー]",
-        copied: "✔ クリップボードにコピー完了！",
+        scrollHint: "✦ スクロールしてシステムユーティリティを表示",
+        samplesTitle: "システム & ユーティリティ",
+        samplesMeta: "// システムステータス、Lo-Fi、QR寄付",
         socialsTitle: "リンク＆スキルマトリクス",
         socialsMeta: "// ソーシャルプロファイル & 習熟度",
         termTitle: "オペレーション・ターミナル",
-        termMeta: "// コマンドラインによるプロファイル管理",
-        termWelcome: "> 多言語システム (i18n) が正常に同期されました。"
+        termMeta: "// コマンドラインによるプロファイル管理"
       },
       ko: {
         label: "한국어",
@@ -1257,16 +1254,13 @@ root@kernel:~$ sudo shutdown -r now</div>
         philosophy: '"세 줄로 해결될 문제에 네 번째 줄을 쓰지 않는다. 고요함과 속도는 하나다. sudo shutdown -r now"',
         status: "[상태: 온라인]",
         class: "[클래스: 엘리트 해커]",
-        scrollHint: "✦ 스크롤하여 Discord / FB / TikTok용 바이오 확인",
-        samplesTitle: "소셜 바이오 템플릿",
-        samplesMeta: "// 원클릭으로 복사하여 프로필에 적용",
-        copyBtn: "[바이오 복사]",
-        copied: "✔ 클립보드 복사 완료!",
+        scrollHint: "✦ 스크롤하여 시스템 유틸리티 및 서버 상태 확인",
+        samplesTitle: "시스템 & 유틸리티",
+        samplesMeta: "// 시스템 상태, Lo-Fi 오디오 및 후원 QR",
         socialsTitle: "소셜 링크 & 스킬 매트릭스",
         socialsMeta: "// 소셜 프로필 & 기술 숙련도",
         termTitle: "커맨드 센터",
-        termMeta: "// 명령줄 기반 프로필 제어",
-        termWelcome: "> 다국어 i18n 시스템이 성공적으로 동기화되었습니다."
+        termMeta: "// 명령줄 기반 프로필 제어"
       },
       zh: {
         label: "中文",
@@ -1275,16 +1269,13 @@ root@kernel:~$ sudo shutdown -r now</div>
         philosophy: '"如果三行代码能解决问题，绝不写第四行。寂静与极速合二为一。sudo shutdown -r now"',
         status: "[状态: 在线]",
         class: "[等级: 精英黑客]",
-        scrollHint: "✦ 向下滚动获取适用于 Discord / FB / TikTok 的签名模板",
-        samplesTitle: "社交个性签名模板",
-        samplesMeta: "// 一键复制至个人资料",
-        copyBtn: "[复制签名]",
-        copied: "✔ 已成功复制至剪贴板！",
+        scrollHint: "✦ 向下滚动查看系统工具与遥测参数",
+        samplesTitle: "系统与实用组件",
+        samplesMeta: "// 实时状态、LO-FI音乐与赞助通道",
         socialsTitle: "社交网络与技术矩阵",
         socialsMeta: "// 社交主页与技术熟练度",
         termTitle: "控制终端",
-        termMeta: "// 命令行配置文件管理系统",
-        termWelcome: "> 多语言 (i18n) 系统已成功连接并同步。"
+        termMeta: "// 命令行配置文件管理系统"
       },
       es: {
         label: "ESPAÑOL",
@@ -1293,16 +1284,13 @@ root@kernel:~$ sudo shutdown -r now</div>
         philosophy: '"Nunca escribas una cuarta línea si tres son suficientes. La quietud y la velocidad son una sola cosa. sudo shutdown -r now"',
         status: "[ESTADO: EN LÍNEA]",
         class: "[CLASE: HACKER ÉLITE]",
-        scrollHint: "✦ DESPLÁZATE PARA COPIAR TU BIO DE DISCORD / FB / TIKTOK",
-        samplesTitle: "Plantillas de Biografía",
-        samplesMeta: "// COPIA DIRECTA PARA TU PERFIL",
-        copyBtn: "[COPIAR BIO]",
-        copied: "✔ ¡COPIADO AL PORTAPAPELES!",
+        scrollHint: "✦ DESPLÁZATE PARA VER LAS UTILIDADES DEL SISTEMA",
+        samplesTitle: "Sistema y Utilidades",
+        samplesMeta: "// ESTADO DEL SISTEMA, AUDIO LO-FI Y QR",
         socialsTitle: "Enlaces y Habilidades",
         socialsMeta: "// PERFILES SOCIALES Y DOMINIO TÉCNICO",
         termTitle: "Centro de Comando",
-        termMeta: "// CONTROLADOR DE PERFIL POR COMANDOS",
-        termWelcome: "> SISTEMA MULTILINGÜE I18N INICIALIZADO Y SINCRONIZADO."
+        termMeta: "// CONTROLADOR DE PERFIL POR COMANDOS"
       }
     };
 
@@ -1326,18 +1314,15 @@ root@kernel:~$ sudo shutdown -r now</div>
       currentLang = langCode;
       const dict = i18nData[langCode];
 
-      // Update button text & hud tag
       document.getElementById('current-lang-text').innerText = dict.label;
       document.getElementById('hud-lang-tag').innerText = `${langCode.toUpperCase()} (${dict.label})`;
 
-      // Update menu items active state
       document.querySelectorAll('.lang-item').forEach(item => {
         const isThis = item.getAttribute('onclick').includes(langCode);
         item.classList.toggle('active', isThis);
         item.children[1].innerText = isThis ? '✓' : '';
       });
 
-      // Update page text elements
       document.getElementById('i18n-brand').innerText = dict.brand;
       document.getElementById('i18n-role').innerText = dict.role;
       document.getElementById('i18n-philosophy').innerText = dict.philosophy;
@@ -1351,17 +1336,12 @@ root@kernel:~$ sudo shutdown -r now</div>
       document.getElementById('i18n-term-title').innerText = dict.termTitle;
       document.getElementById('i18n-term-meta').innerText = dict.termMeta;
 
-      document.querySelectorAll('.i18n-copy-text').forEach((el, idx) => {
-        el.innerText = `${dict.copyBtn} BẢN ${idx + 1}`;
-      });
-
-      // Close menu & play sound
       document.getElementById('lang-dropdown-menu').classList.remove('open');
       playChillClickSound();
     }
 
     /* =========================================================
-       2. CHILL CLICK SOUND SYNTHESIZER (Lo-Fi Warm Kalimba)
+       2. CHILL CLICK SOUND SYNTHESIZER
        ========================================================= */
     let audioOn = true;
     let audioCtx = null;
@@ -1558,7 +1538,7 @@ root@kernel:~$ sudo shutdown -r now</div>
     }, 45);
 
     /* =========================================================
-       5. PHÒNG THỦ: CHỐNG DEVTOOLS, CHỐNG F12, CHỐNG CHUỘT PHẢI
+       5. PHÒNG THỦ: CHỐNG DEVTOOLS & SỬA LỖI TRÊN IOS
        ========================================================= */
     const securityToast = document.getElementById('security-toast');
     const toastTitle = document.getElementById('toast-title');
@@ -1617,24 +1597,19 @@ root@kernel:~$ sudo shutdown -r now</div>
       }
     });
 
+    // TỐI ƯU HÓA KHÓA F12 TRÊN PC, KHÔNG KHÓA NHẦM TRÊN IOS/MOBILE
     const devtoolsLockdown = document.getElementById('devtools-lockdown');
-
-    // 1. Nhận diện thiết bị di động/máy tính bảng (iOS, Android, iPadOS)
     const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
       (navigator.maxTouchPoints && navigator.maxTouchPoints > 2);
 
     setInterval(() => {
-      // Nếu là điện thoại / iOS thì tuyệt đối không dùng logic đo kích thước (tránh bị nhảy nhầm do thanh Safari & bàn phím ảo)
       if (isMobileDevice) {
         devtoolsLockdown.classList.remove('active');
         return;
       }
-
-      // Trên máy tính (PC/Laptop): Kiểm tra chênh lệch khung hình
       const threshold = 180;
       const widthDiff = window.outerWidth - window.innerWidth > threshold;
       const heightDiff = window.outerHeight - window.innerHeight > threshold;
-
       if (widthDiff || heightDiff) {
         devtoolsLockdown.classList.add('active');
       } else {
@@ -1642,9 +1617,8 @@ root@kernel:~$ sudo shutdown -r now</div>
       }
     }, 600);
 
-
     /* =========================================================
-       6. LIQUID GLASS 3D GYROSCOPIC TILT & PRISM GLARE
+       6. LIQUID GLASS 3D TILT & PRISM GLARE
        ========================================================= */
     document.querySelectorAll('.liquid-glass').forEach(card => {
       card.addEventListener('mousemove', (e) => {
@@ -1724,16 +1698,72 @@ root@kernel:~$ sudo shutdown -r now</div>
     requestAnimationFrame(raf);
 
     /* =========================================================
-       9. 1-CLICK COPY BIO ENGINE
+       9. DASHBOARD UTILITIES: SYSTEM INFO, LO-FI & QR DONATE
        ========================================================= */
-    function copyBio(id, btn) {
-      const text = document.getElementById(id).innerText;
-      navigator.clipboard.writeText(text).then(() => {
-        playChillClickSound();
-        const originalText = btn.innerHTML;
-        const currentDict = i18nData[currentLang] || i18nData.vi;
-        btn.innerHTML = `<span style="color:#00ff66;">${currentDict.copied}</span>`;
-        setTimeout(() => { btn.innerHTML = originalText; }, 1800);
+    // 1. System Info Telemetry
+    let uptimeSeconds = 14250;
+    const uptimeEl = document.getElementById('sys-uptime');
+    const pingEl = document.getElementById('sys-ping');
+
+    setInterval(() => {
+      uptimeSeconds++;
+      const hrs = String(Math.floor(uptimeSeconds / 3600)).padStart(2, '0');
+      const mins = String(Math.floor((uptimeSeconds % 3600) / 60)).padStart(2, '0');
+      const secs = String(uptimeSeconds % 60).padStart(2, '0');
+      if (uptimeEl) uptimeEl.innerText = `${hrs}h ${mins}m ${secs}s`;
+    }, 1000);
+
+    function updatePing() {
+      const ping = Math.floor(Math.random() * 15) + 12;
+      if (pingEl) pingEl.innerText = `${ping} ms`;
+    }
+    updatePing();
+
+    function refreshPing(btn) {
+      playChillClickSound();
+      if (pingEl) pingEl.innerText = 'measuring...';
+      setTimeout(() => {
+        updatePing();
+        const span = btn.querySelector('span');
+        const oldText = span.innerText;
+        span.innerText = '✔ ĐÃ CẬP NHẬT';
+        setTimeout(() => { span.innerText = oldText; }, 1400);
+      }, 400);
+    }
+
+    // 2. Mini Lo-Fi Player
+    const lofiAudio = document.getElementById('lofi-audio');
+    const lofiBtn = document.getElementById('lofi-play-btn');
+    const lofiBadge = document.getElementById('lofi-track-status');
+
+    function toggleLofiAudio() {
+      playChillClickSound();
+      if (!lofiAudio) return;
+      if (lofiAudio.paused) {
+        lofiAudio.play().then(() => {
+          lofiBtn.querySelector('span').innerText = '⏸ TẠM DỪNG';
+          lofiBadge.innerText = 'PLAYING';
+          lofiBadge.style.color = '#00ff66';
+        }).catch(() => {
+          alert('Chính sách trình duyệt yêu cầu bạn chạm vào trang trước khi phát audio.');
+        });
+      } else {
+        lofiAudio.pause();
+        lofiBtn.querySelector('span').innerText = '▶ PHÁT NHẠC LO-FI';
+        lofiBadge.innerText = 'PAUSED';
+        lofiBadge.style.color = 'var(--accent)';
+      }
+    }
+
+    // 3. QR Donate: Copy STK nhanh
+    function copyDonateAccount(btn) {
+      playChillClickSound();
+      const bankInfo = "MB Bank: 0382218001";
+      navigator.clipboard.writeText(bankInfo).then(() => {
+        const span = btn.querySelector('span');
+        const oldText = span.innerText;
+        span.innerText = "✔ ĐÃ COPY STK!";
+        setTimeout(() => { span.innerText = oldText; }, 1800);
       });
     }
 
@@ -1877,7 +1907,6 @@ root@kernel:~$ sudo shutdown -r now</div>
 
     function animate() {
       requestAnimationFrame(animate);
-      const delta = clock.getDelta();
 
       accretionDisk.rotation.z += 0.004 * speedBoost;
       lensedDisk.rotation.z += 0.003 * speedBoost;
@@ -1899,7 +1928,6 @@ root@kernel:~$ sudo shutdown -r now</div>
       blackHoleGroup.rotation.x = targetRotX * 1.5;
       blackHoleGroup.rotation.y = targetRotY * 1.5;
 
-      // Parallax Zoom
       const scrollProgress = currentScroll * 0.0016;
       const targetZ = 28 - Math.min(scrollProgress * 6.5, 18) + wheelZoomOffset;
       camera.position.z += (targetZ - camera.position.z) * 0.1;
