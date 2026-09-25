@@ -445,9 +445,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .lang-menu.open {
-      display: flex;
-    }
+    .lang-menu.open { display: flex; }
 
     .lang-item {
       padding: 8px 14px;
@@ -508,7 +506,7 @@
     }
 
     /* =========================================================
-       ✨ DECOR KHUNG PROFILE HERO CHUẨN CODER X CYBER VIBE
+       ✨ PROFILE HERO CARD
        ========================================================= */
     .profile-card-decor {
       position: relative;
@@ -516,7 +514,6 @@
       border-radius: 28px;
     }
 
-    /* 4 Ngoàm Định Vị Lượng Tử Góc Khung */
     .corner-bracket {
       position: absolute;
       width: 18px;
@@ -532,7 +529,6 @@
     .corner-bl { bottom: 12px; left: 12px; border-right: none; border-top: none; }
     .corner-br { bottom: 12px; right: 12px; border-left: none; border-top: none; }
 
-    /* Thanh Header HUD Cyber Coder */
     .profile-hud-header {
       display: flex;
       justify-content: space-between;
@@ -571,7 +567,7 @@
     .profile-avatar-inner {
       width: 100%;
       height: 100%;
-      border-radius: 20px; /* Bo góc vuông vức kiểu Cyber-Identity */
+      border-radius: 20px;
       border: 2px solid rgba(255, 157, 0, 0.5);
       box-shadow: 0 0 35px var(--accent-glow), inset 0 0 20px rgba(0, 243, 255, 0.3);
       overflow: hidden;
@@ -618,20 +614,107 @@
       100% { transform: scale(1.85); opacity: 0; }
     }
 
+    /* =========================================================
+       ✨ UPGRADED BIO PHILOSOPHY SECTION
+       ========================================================= */
+    .bio-philosophy-wrapper {
+      position: relative;
+      margin-bottom: 28px;
+      padding: 2px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--accent), #ff4400, var(--accent-blue), var(--accent));
+      background-size: 300% 300%;
+      animation: bio-border-flow 6s ease infinite;
+    }
+
+    @keyframes bio-border-flow {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
     .bio-philosophy {
       font-family: var(--font-mono);
       font-size: 13.5px;
-      line-height: 1.8;
-      color: #c4d7e8;
-      border-left: 3px solid var(--accent);
-      padding: 10px 18px;
-      background: rgba(255, 157, 0, 0.03);
-      border-radius: 0 10px 10px 0;
-      margin-bottom: 24px;
+      line-height: 2;
+      color: #d4e7f8;
+      padding: 22px 28px;
+      background: rgba(2, 3, 8, 0.92);
+      border-radius: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bio-philosophy::before {
+      content: '❝';
+      position: absolute;
+      top: 8px;
+      left: 14px;
+      font-size: 48px;
+      color: rgba(255, 157, 0, 0.12);
+      font-family: serif;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .bio-philosophy::after {
+      content: '❞';
+      position: absolute;
+      bottom: 4px;
+      right: 18px;
+      font-size: 48px;
+      color: rgba(0, 243, 255, 0.1);
+      font-family: serif;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .bio-text-line {
+      display: block;
+      opacity: 0;
+      transform: translateX(-12px);
+      animation: bio-line-in 0.6s ease forwards;
+    }
+
+    .bio-text-line:nth-child(1) { animation-delay: 0.3s; }
+    .bio-text-line:nth-child(2) { animation-delay: 0.6s; }
+    .bio-text-line:nth-child(3) { animation-delay: 0.9s; }
+
+    @keyframes bio-line-in {
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .bio-highlight {
+      color: var(--accent);
+      font-weight: bold;
+      text-shadow: 0 0 8px var(--accent-glow);
+    }
+
+    .bio-highlight-cyan {
+      color: var(--accent-blue);
+      font-weight: bold;
+      text-shadow: 0 0 8px rgba(0, 243, 255, 0.4);
+    }
+
+    .bio-tag-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .bio-micro-tag {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 1px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #8899aa;
+      background: rgba(255, 255, 255, 0.03);
     }
 
     /* =========================================================
-       🔥 DÀN BADGES CHUẨN CODER X VIBE PHÁT SÁNG NEON
+       🔥 BADGES
        ========================================================= */
     .coder-badges-grid {
       display: flex;
@@ -800,6 +883,182 @@
       box-shadow: 0 0 25px var(--accent-glow);
     }
 
+    /* =========================================================
+       🎵 UPGRADED MUSIC PLAYER
+       ========================================================= */
+    .music-player-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      padding: 8px 0;
+    }
+
+    .vinyl-disc-wrap {
+      position: relative;
+      width: 100px;
+      height: 100px;
+    }
+
+    .vinyl-disc {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, #111, #222, #111, #1a1a1a, #111, #222, #111);
+      border: 3px solid rgba(255, 157, 0, 0.3);
+      box-shadow: 0 0 25px rgba(255, 157, 0, 0.15), inset 0 0 20px rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.3s;
+    }
+
+    .vinyl-disc.spinning {
+      animation: vinyl-spin 3s linear infinite;
+      border-color: var(--accent);
+      box-shadow: 0 0 30px var(--accent-glow), inset 0 0 20px rgba(0,0,0,0.8);
+    }
+
+    @keyframes vinyl-spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .vinyl-center {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--accent) 0%, #ff6600 50%, #1a1a1a 70%);
+      box-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    .vinyl-grooves {
+      position: absolute;
+      inset: 8px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      pointer-events: none;
+    }
+
+    .vinyl-grooves::before, .vinyl-grooves::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .vinyl-grooves::before { inset: 8px; }
+    .vinyl-grooves::after { inset: 16px; }
+
+    .music-track-info {
+      text-align: center;
+      width: 100%;
+    }
+
+    .music-track-title {
+      color: #fff;
+      font-weight: bold;
+      font-size: 13px;
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .music-track-artist {
+      color: #7b8896;
+      font-size: 11px;
+      margin-bottom: 6px;
+    }
+
+    .music-track-counter {
+      color: var(--accent-blue);
+      font-size: 10px;
+      font-family: var(--font-mono);
+    }
+
+    /* Equalizer bars */
+    .eq-visualizer {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 3px;
+      height: 24px;
+      margin-top: 4px;
+    }
+
+    .eq-bar {
+      width: 4px;
+      border-radius: 2px;
+      background: linear-gradient(to top, var(--accent), var(--accent-blue));
+      transition: height 0.15s ease;
+      height: 4px;
+    }
+
+    .eq-bar.active {
+      animation: eq-bounce var(--eq-speed, 0.5s) ease-in-out infinite alternate;
+    }
+
+    @keyframes eq-bounce {
+      0% { height: var(--eq-min, 4px); }
+      100% { height: var(--eq-max, 20px); }
+    }
+
+    /* Volume Slider */
+    .volume-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      padding: 0 4px;
+      margin-top: 2px;
+    }
+
+    .volume-icon {
+      font-size: 14px;
+      color: #7b8896;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    .volume-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      flex: 1;
+      height: 4px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.12);
+      outline: none;
+      cursor: pointer;
+    }
+
+    .volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent-glow);
+      cursor: pointer;
+    }
+
+    .volume-slider::-moz-range-thumb {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent-glow);
+      border: none;
+      cursor: pointer;
+    }
+
+    .volume-val {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--accent);
+      min-width: 30px;
+      text-align: right;
+    }
+
     .player-controls {
       display: flex;
       align-items: center;
@@ -854,36 +1113,159 @@
       color: #7b8896;
     }
 
+    /* =========================================================
+       🔥 UPGRADED SKILL BARS
+       ========================================================= */
     .skills-wrapper {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 18px;
       max-width: 900px;
     }
 
     .skill-card {
-      padding: 22px 30px;
+      padding: 24px 30px;
     }
 
-    .skill-info {
+    .skill-header {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       font-family: var(--font-mono);
       font-size: 12px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
-    .bar-bg {
-      height: 6px;
-      background: rgba(255, 255, 255, 0.08);
+    .skill-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .skill-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .skill-name {
+      color: #fff;
+      font-weight: bold;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+    }
+
+    .skill-sublabel {
+      font-size: 10px;
+      color: #6b7f92;
+      letter-spacing: 1px;
+      margin-top: 2px;
+    }
+
+    .skill-percent {
+      font-size: 22px;
+      font-weight: bold;
+      font-family: var(--font-mono);
+      letter-spacing: -1px;
+    }
+
+    .skill-percent .pct-num {
+      transition: color 0.3s;
+    }
+
+    .skill-percent .pct-sign {
+      font-size: 12px;
+      opacity: 0.6;
+      margin-left: 1px;
+    }
+
+    .skill-bar-track {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.06);
       border-radius: 10px;
       overflow: hidden;
+      position: relative;
     }
 
-    .bar-fill {
+    .skill-bar-track::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      pointer-events: none;
+    }
+
+    .skill-bar-fill {
       height: 100%;
-      background: linear-gradient(90deg, var(--accent), #ff4400);
-      box-shadow: 0 0 10px var(--accent-glow);
+      border-radius: 10px;
+      width: 0%;
+      position: relative;
+      transition: width 1.8s cubic-bezier(0.25, 1, 0.5, 1);
+      box-shadow: 0 0 12px var(--bar-glow, var(--accent-glow));
+    }
+
+    .skill-bar-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 20px;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4));
+      border-radius: 0 10px 10px 0;
+      opacity: 0;
+      transition: opacity 0.5s ease 1.5s;
+    }
+
+    .skill-bar-fill.animated::after {
+      opacity: 1;
+      animation: bar-pulse-glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes bar-pulse-glow {
+      0% { opacity: 0.3; }
+      100% { opacity: 0.8; }
+    }
+
+    .skill-bar-fill.fill-orange {
+      background: linear-gradient(90deg, #ff6600, #ff9d00, #ffbb33);
+      --bar-glow: rgba(255, 157, 0, 0.5);
+    }
+
+    .skill-bar-fill.fill-cyan {
+      background: linear-gradient(90deg, #0077ff, #00bbff, #00f3ff);
+      --bar-glow: rgba(0, 243, 255, 0.5);
+    }
+
+    .skill-bar-fill.fill-purple {
+      background: linear-gradient(90deg, #7722ff, #b84dff, #dd88ff);
+      --bar-glow: rgba(184, 77, 255, 0.5);
+    }
+
+    .skill-bar-fill.fill-green {
+      background: linear-gradient(90deg, #00aa44, #00dd66, #44ff88);
+      --bar-glow: rgba(0, 255, 102, 0.5);
+    }
+
+    .skill-bar-fill.fill-red {
+      background: linear-gradient(90deg, #cc0033, #ff0055, #ff4488);
+      --bar-glow: rgba(255, 0, 85, 0.5);
+    }
+
+    .skill-detail-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      color: #5c6a78;
+      letter-spacing: 0.5px;
     }
 
     .terminal-wrapper {
@@ -975,14 +1357,13 @@
       header.nav-bar { padding: 18px 24px; }
       .content-stream { padding: 0 24px; }
       .profile-card-decor { padding: 32px 24px; }
+      .hud-meta-tags span:first-child { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- YOUTUBE PLAYER ẨN -->
   <div id="yt-hidden-player"></div>
-
   <canvas id="click-particles-canvas"></canvas>
 
   <div id="loader-gui">
@@ -1037,45 +1418,25 @@
           <span style="font-size: 8px;">▼</span>
         </button>
         <div class="lang-menu" id="lang-dropdown-menu">
-          <div class="lang-item active" onclick="switchLanguage('vi')">
-            <span>🇻🇳 Tiếng Việt</span>
-            <span>✓</span>
-          </div>
-          <div class="lang-item" onclick="switchLanguage('en')">
-            <span>🇬🇧 English</span>
-            <span></span>
-          </div>
-          <div class="lang-item" onclick="switchLanguage('ja')">
-            <span>🇯🇵 日本語</span>
-            <span></span>
-          </div>
-          <div class="lang-item" onclick="switchLanguage('ko')">
-            <span>🇰🇷 한국어</span>
-            <span></span>
-          </div>
-          <div class="lang-item" onclick="switchLanguage('zh')">
-            <span>🇨🇳 中文</span>
-            <span></span>
-          </div>
-          <div class="lang-item" onclick="switchLanguage('es')">
-            <span>🇪🇸 Español</span>
-            <span></span>
-          </div>
+          <div class="lang-item active" onclick="switchLanguage('vi')"><span>🇻🇳 Tiếng Việt</span><span>✓</span></div>
+          <div class="lang-item" onclick="switchLanguage('en')"><span>🇬🇧 English</span><span></span></div>
+          <div class="lang-item" onclick="switchLanguage('ja')"><span>🇯🇵 日本語</span><span></span></div>
+          <div class="lang-item" onclick="switchLanguage('ko')"><span>🇰🇷 한국어</span><span></span></div>
+          <div class="lang-item" onclick="switchLanguage('zh')"><span>🇨🇳 中文</span><span></span></div>
+          <div class="lang-item" onclick="switchLanguage('es')"><span>🇪🇸 Español</span><span></span></div>
         </div>
       </div>
-
       <button class="audio-btn active" id="audio-toggle" onclick="toggleAudio()">SOUND: ON</button>
     </div>
   </header>
 
   <main class="content-stream">
 
-    <!-- 01: HERO PROFILE ĐƯỢC NÂNG CẤP DECOR CODER VIBE -->
+    <!-- 01: HERO PROFILE -->
     <section class="scene-section" id="sec-profile" style="display: flex; justify-content: center; align-items: center; padding: 100px 0;">
       <div class="liquid-glass-container" style="max-width: 980px; width: 100%;">
         <div class="liquid-glass profile-card-decor">
           
-          <!-- 4 Góc Định Vị Lượng Tử Cyber HUD -->
           <div class="corner-bracket corner-tl"></div>
           <div class="corner-bracket corner-tr"></div>
           <div class="corner-bracket corner-bl"></div>
@@ -1084,7 +1445,6 @@
           <div class="glass-glare"></div>
           <div class="glass-shimmer"></div>
 
-          <!-- Thanh Header HUD Cyber Coder -->
           <div class="profile-hud-header">
             <div class="hud-meta-tags">
               <span>// DISCORD_API_UPLINK</span>
@@ -1128,30 +1488,28 @@
             </div>
           </div>
 
-          <div class="bio-philosophy" id="i18n-philosophy">
-            "Không viết dòng thứ tư nếu ba dòng là đủ tối ưu. Thức trắng đêm cùng stdout streams, biến cafe đen thành công cụ tự động hóa và kiến trúc ngầm. Tĩnh lặng, chính xác và không để lại dấu vết."
+          <!-- ✨ UPGRADED BIO PHILOSOPHY -->
+          <div class="bio-philosophy-wrapper">
+            <div class="bio-philosophy" id="i18n-philosophy">
+              <span class="bio-text-line">Không viết dòng thứ tư nếu <span class="bio-highlight">ba dòng là đủ tối ưu</span>.</span>
+              <span class="bio-text-line">Thức trắng đêm cùng <span class="bio-highlight-cyan">stdout streams</span>, biến cafe đen thành công cụ <span class="bio-highlight">tự động hóa</span> và kiến trúc ngầm.</span>
+              <span class="bio-text-line">Tĩnh lặng, chính xác và <span class="bio-highlight-cyan">không để lại dấu vết</span>.</span>
+              <div class="bio-tag-row">
+                <span class="bio-micro-tag">#AUTOMATION</span>
+                <span class="bio-micro-tag">#NOCTURNAL_DEV</span>
+                <span class="bio-micro-tag">#ZERO_TRACE</span>
+                <span class="bio-micro-tag">#KERNEL_HACKER</span>
+              </div>
+            </div>
           </div>
 
-          <!-- DÀN BADGES ĐẬM CHẤT CODER X CYBER VIBE -->
           <div class="coder-badges-grid">
-            <span class="coder-badge badge-python">
-              <span>⚡</span> PYTHON_ASYNC // CORE
-            </span>
-            <span class="coder-badge badge-bot">
-              <span>🤖</span> TELEGRAM_BOT // ARCHITECT
-            </span>
-            <span class="coder-badge badge-kernel">
-              <span>🛡</span> KERNEL // HARDENED
-            </span>
-            <span class="coder-badge badge-api">
-              <span>🌐</span> REST_API // HOOKS
-            </span>
-            <span class="coder-badge badge-caffeine">
-              <span>☕</span> NOCTURNAL // SYSADMIN
-            </span>
-            <span class="coder-badge badge-discord">
-              <span>👾</span> DISCORD // LINKED
-            </span>
+            <span class="coder-badge badge-python"><span>⚡</span> PYTHON_ASYNC // CORE</span>
+            <span class="coder-badge badge-bot"><span>🤖</span> TELEGRAM_BOT // ARCHITECT</span>
+            <span class="coder-badge badge-kernel"><span>🛡</span> KERNEL // HARDENED</span>
+            <span class="coder-badge badge-api"><span>🌐</span> REST_API // HOOKS</span>
+            <span class="coder-badge badge-caffeine"><span>☕</span> NOCTURNAL // SYSADMIN</span>
+            <span class="coder-badge badge-discord"><span>👾</span> DISCORD // LINKED</span>
           </div>
 
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; border-top: 1px dashed rgba(255,255,255,0.08); padding-top: 20px;">
@@ -1167,14 +1525,14 @@
       </div>
     </section>
 
-    <!-- 02: 3 THẺ TIỆN ÍCH VỚI 3 CON PET PIXEL CHUẨN ĐẸP -->
+    <!-- 02: PIXEL PETS & SYSTEM -->
     <section class="scene-section" id="sec-samples">
       <h2 class="section-title" id="i18n-samples-title">Hệ Thống & Thú Cưng Pixel</h2>
       <div class="section-meta" id="i18n-samples-meta">// INTERACTIVE PIXEL PETS: SHIBA, BLACK CAT & FIRE DRAGON</div>
 
       <div class="bio-samples-grid">
         
-        <!-- THẺ 1: SHIBA INU & NODE STATS -->
+        <!-- SHIBA -->
         <div class="liquid-glass-container">
           <div class="sample-card liquid-glass">
             <div class="glass-glare"></div>
@@ -1216,8 +1574,8 @@
                     <span style="color:#788899;">CPU LOAD:</span>
                     <span id="sys-load-val" style="color:#fff;">34%</span>
                   </div>
-                  <div class="bar-bg" style="height:4px;">
-                    <div id="sys-load-bar" class="bar-fill" style="width: 34%; transition: width 0.4s ease;"></div>
+                  <div class="bar-bg" style="height:4px; background:rgba(255,255,255,0.08); border-radius:10px; overflow:hidden;">
+                    <div id="sys-load-bar" style="height:100%; background:linear-gradient(90deg, var(--accent), #ff4400); box-shadow:0 0 10px var(--accent-glow); width: 34%; transition: width 0.4s ease;"></div>
                   </div>
                 </div>
 
@@ -1234,7 +1592,7 @@
           </div>
         </div>
 
-        <!-- THẺ 2: MÈO ĐEN & LO-FI PLAYER -->
+        <!-- 🎵 UPGRADED MUSIC PLAYER CARD -->
         <div class="liquid-glass-container">
           <div class="sample-card liquid-glass">
             <div class="glass-glare"></div>
@@ -1248,13 +1606,45 @@
               <div class="sample-box">
                 <div class="pixel-pet-stage" onclick="interactBlackCat(event)" title="Chạm để Mèo Đen bắn tim & phát nhạc!">
                   <canvas id="pet-blackcat-canvas" width="300" height="52"></canvas>
-                  <span class="pet-tip-badge">🐈‍⬛ CHẠM: MEOW~ ❤</span>
+                  <span class="pet-tip-badge">🐈⬛ CHẠM: MEOW~ ❤</span>
                 </div>
 
-                <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 6px; padding: 4px 0;">
-                  <div style="color: #fff; font-weight: bold; font-size: 13px;" id="lofi-title">Đang đồng bộ YouTube...</div>
-                  <div style="color: #7b8896; font-size: 11px;" id="lofi-artist">Lofi Chill Việt Nam Live</div>
-                  <div style="color: var(--accent-blue); font-size: 10px; font-family: var(--font-mono);" id="lofi-track-counter">TRACK 1 / 4</div>
+                <div class="music-player-body">
+                  <!-- Vinyl Disc -->
+                  <div class="vinyl-disc-wrap">
+                    <div class="vinyl-disc" id="vinyl-disc">
+                      <div class="vinyl-grooves"></div>
+                      <div class="vinyl-center"></div>
+                    </div>
+                  </div>
+
+                  <!-- Track Info -->
+                  <div class="music-track-info">
+                    <div class="music-track-title" id="lofi-title">Đang đồng bộ YouTube...</div>
+                    <div class="music-track-artist" id="lofi-artist">Lofi Chill Việt Nam Live</div>
+                    <div class="music-track-counter" id="lofi-track-counter">TRACK 1 / 4</div>
+                  </div>
+
+                  <!-- Equalizer -->
+                  <div class="eq-visualizer" id="eq-visualizer">
+                    <div class="eq-bar" style="--eq-speed:0.45s; --eq-min:3px; --eq-max:14px;"></div>
+                    <div class="eq-bar" style="--eq-speed:0.35s; --eq-min:4px; --eq-max:20px;"></div>
+                    <div class="eq-bar" style="--eq-speed:0.50s; --eq-min:2px; --eq-max:16px;"></div>
+                    <div class="eq-bar" style="--eq-speed:0.40s; --eq-min:5px; --eq-max:22px;"></div>
+                    <div class="eq-bar" style="--eq-speed:0.55s; --eq-min:3px; --eq-max:18px;"></div>
+                    <div class="eq-bar" style="--eq-speed:0.38s; --eq-min:4px; --eq-max:24px;"></div>
+                    <div class="eq-bar" style="--eq-speed:0.48s; --eq-min:2px; --eq-max:15px;"></div>
+                    <div class="eq-bar" style="--eq-speed:0.42s; --eq-min:3px; --eq-max:20px;"></div>
+                    <div class="eq-bar" style="--eq-speed:0.52s; --eq-min:4px; --eq-max:12px;"></div>
+                    <div class="eq-bar" style="--eq-speed:0.36s; --eq-min:3px; --eq-max:17px;"></div>
+                  </div>
+
+                  <!-- Volume -->
+                  <div class="volume-row">
+                    <span class="volume-icon" id="vol-icon">🔊</span>
+                    <input type="range" class="volume-slider" id="volume-slider" min="0" max="100" value="70" oninput="changeVolume(this.value)">
+                    <span class="volume-val" id="vol-val">70%</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1271,7 +1661,7 @@
           </div>
         </div>
 
-        <!-- THẺ 3: RỒNG LỬA ĐỎ & QR PAY -->
+        <!-- DRAGON QR -->
         <div class="liquid-glass-container">
           <div class="sample-card liquid-glass">
             <div class="glass-glare"></div>
@@ -1308,7 +1698,7 @@
       </div>
     </section>
 
-    <!-- 03: MẠNG XÃ HỘI & KỸ NĂNG -->
+    <!-- 03: SOCIAL & UPGRADED SKILLS -->
     <section class="scene-section" id="sec-socials">
       <h2 class="section-title" id="i18n-socials-title">Kênh Kết Nối & Kỹ Năng</h2>
       <div class="section-meta" id="i18n-socials-meta">// SOCIAL PROFILES & PROFICIENCY</div>
@@ -1316,93 +1706,156 @@
       <div class="social-links-grid">
         <div class="liquid-glass-container">
           <a href="https://github.com" target="_blank" class="social-btn liquid-glass">
-            <div class="glass-glare"></div>
-            <div class="glass-shimmer"></div>
-            <div>
-              <div class="social-name">GitHub</div>
-              <div class="social-handle">@cyber_phantom</div>
-            </div>
+            <div class="glass-glare"></div><div class="glass-shimmer"></div>
+            <div><div class="social-name">GitHub</div><div class="social-handle">@cyber_phantom</div></div>
             <span style="color:var(--accent);">↗</span>
           </a>
         </div>
-
         <div class="liquid-glass-container">
           <a href="https://discord.com/users/1053893912466554922" target="_blank" class="social-btn liquid-glass">
-            <div class="glass-glare"></div>
-            <div class="glass-shimmer"></div>
-            <div>
-              <div class="social-name">Discord</div>
-              <div class="social-handle">@chiencuto18m</div>
-            </div>
+            <div class="glass-glare"></div><div class="glass-shimmer"></div>
+            <div><div class="social-name">Discord</div><div class="social-handle">@chiencuto18m</div></div>
             <span style="color:var(--accent);">↗</span>
           </a>
         </div>
-
         <div class="liquid-glass-container">
           <a href="https://facebook.com" target="_blank" class="social-btn liquid-glass">
-            <div class="glass-glare"></div>
-            <div class="glass-shimmer"></div>
-            <div>
-              <div class="social-name">Facebook</div>
-              <div class="social-handle">/cyber.architect</div>
-            </div>
+            <div class="glass-glare"></div><div class="glass-shimmer"></div>
+            <div><div class="social-name">Facebook</div><div class="social-handle">/cyber.architect</div></div>
             <span style="color:var(--accent);">↗</span>
           </a>
         </div>
-
         <div class="liquid-glass-container">
           <a href="https://tiktok.com" target="_blank" class="social-btn liquid-glass">
-            <div class="glass-glare"></div>
-            <div class="glass-shimmer"></div>
-            <div>
-              <div class="social-name">TikTok</div>
-              <div class="social-handle">@underground_dev</div>
-            </div>
+            <div class="glass-glare"></div><div class="glass-shimmer"></div>
+            <div><div class="social-name">TikTok</div><div class="social-handle">@underground_dev</div></div>
             <span style="color:var(--accent);">↗</span>
           </a>
         </div>
       </div>
 
-      <div class="skills-wrapper">
+      <!-- 🔥 UPGRADED SKILL BARS -->
+      <div class="skills-wrapper" id="skills-wrapper">
+
         <div class="liquid-glass-container">
-          <div class="skill-card liquid-glass">
-            <div class="glass-glare"></div>
-            <div class="glass-shimmer"></div>
-            <div class="skill-info">
-              <span style="color:#fff; font-weight:bold;">Python / Automation Scripting</span>
-              <span style="color:var(--accent);">98%</span>
+          <div class="skill-card liquid-glass" data-skill="98">
+            <div class="glass-glare"></div><div class="glass-shimmer"></div>
+            <div class="skill-header">
+              <div class="skill-label">
+                <div class="skill-icon" style="background: rgba(255, 157, 0, 0.15); border: 1px solid rgba(255, 157, 0, 0.3);">⚡</div>
+                <div>
+                  <div class="skill-name">Python / Automation Scripting</div>
+                  <div class="skill-sublabel">ASYNC • THREADING • SELENIUM • SCRAPY</div>
+                </div>
+              </div>
+              <div class="skill-percent" style="color: var(--accent);"><span class="pct-num" data-target="98">0</span><span class="pct-sign">%</span></div>
             </div>
-            <div class="bar-bg"><div class="bar-fill" style="width: 98%;"></div></div>
+            <div class="skill-bar-track">
+              <div class="skill-bar-fill fill-orange" data-width="98"></div>
+            </div>
+            <div class="skill-detail-row">
+              <span>5+ YEARS EXPERIENCE</span>
+              <span>MASTER LEVEL</span>
+            </div>
           </div>
         </div>
 
         <div class="liquid-glass-container">
-          <div class="skill-card liquid-glass">
-            <div class="glass-glare"></div>
-            <div class="glass-shimmer"></div>
-            <div class="skill-info">
-              <span style="color:#fff; font-weight:bold;">Telegram Bots & API Integration</span>
-              <span style="color:var(--accent);">95%</span>
+          <div class="skill-card liquid-glass" data-skill="95">
+            <div class="glass-glare"></div><div class="glass-shimmer"></div>
+            <div class="skill-header">
+              <div class="skill-label">
+                <div class="skill-icon" style="background: rgba(0, 243, 255, 0.12); border: 1px solid rgba(0, 243, 255, 0.3);">🤖</div>
+                <div>
+                  <div class="skill-name">Telegram Bots & API Integration</div>
+                  <div class="skill-sublabel">PYROGRAM • AIOGRAM • WEBHOOK • REST</div>
+                </div>
+              </div>
+              <div class="skill-percent" style="color: var(--accent-blue);"><span class="pct-num" data-target="95">0</span><span class="pct-sign">%</span></div>
             </div>
-            <div class="bar-bg"><div class="bar-fill" style="width: 95%;"></div></div>
+            <div class="skill-bar-track">
+              <div class="skill-bar-fill fill-cyan" data-width="95"></div>
+            </div>
+            <div class="skill-detail-row">
+              <span>50+ BOTS DEPLOYED</span>
+              <span>EXPERT LEVEL</span>
+            </div>
           </div>
         </div>
 
         <div class="liquid-glass-container">
-          <div class="skill-card liquid-glass">
-            <div class="glass-glare"></div>
-            <div class="glass-shimmer"></div>
-            <div class="skill-info">
-              <span style="color:#fff; font-weight:bold;">Web Front-end & Glassmorphism UI</span>
-              <span style="color:var(--accent);">92%</span>
+          <div class="skill-card liquid-glass" data-skill="92">
+            <div class="glass-glare"></div><div class="glass-shimmer"></div>
+            <div class="skill-header">
+              <div class="skill-label">
+                <div class="skill-icon" style="background: rgba(184, 77, 255, 0.12); border: 1px solid rgba(184, 77, 255, 0.3);">🎨</div>
+                <div>
+                  <div class="skill-name">Web Front-end & Glassmorphism UI</div>
+                  <div class="skill-sublabel">HTML5 • CSS3 • THREE.JS • WEBGL</div>
+                </div>
+              </div>
+              <div class="skill-percent" style="color: #b84dff;"><span class="pct-num" data-target="92">0</span><span class="pct-sign">%</span></div>
             </div>
-            <div class="bar-bg"><div class="bar-fill" style="width: 92%;"></div></div>
+            <div class="skill-bar-track">
+              <div class="skill-bar-fill fill-purple" data-width="92"></div>
+            </div>
+            <div class="skill-detail-row">
+              <span>GLASSMORPHISM SPECIALIST</span>
+              <span>ADVANCED LEVEL</span>
+            </div>
           </div>
         </div>
+
+        <div class="liquid-glass-container">
+          <div class="skill-card liquid-glass" data-skill="88">
+            <div class="glass-glare"></div><div class="glass-shimmer"></div>
+            <div class="skill-header">
+              <div class="skill-label">
+                <div class="skill-icon" style="background: rgba(0, 255, 102, 0.12); border: 1px solid rgba(0, 255, 102, 0.3);">🛡</div>
+                <div>
+                  <div class="skill-name">Linux Kernel & System Hardening</div>
+                  <div class="skill-sublabel">IPTABLES • SELINUX • SYSTEMD • DOCKER</div>
+                </div>
+              </div>
+              <div class="skill-percent" style="color: #00ff66;"><span class="pct-num" data-target="88">0</span><span class="pct-sign">%</span></div>
+            </div>
+            <div class="skill-bar-track">
+              <div class="skill-bar-fill fill-green" data-width="88"></div>
+            </div>
+            <div class="skill-detail-row">
+              <span>KERNEL CONTRIBUTOR</span>
+              <span>ADVANCED LEVEL</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="liquid-glass-container">
+          <div class="skill-card liquid-glass" data-skill="85">
+            <div class="glass-glare"></div><div class="glass-shimmer"></div>
+            <div class="skill-header">
+              <div class="skill-label">
+                <div class="skill-icon" style="background: rgba(255, 0, 85, 0.12); border: 1px solid rgba(255, 0, 85, 0.3);">🔥</div>
+                <div>
+                  <div class="skill-name">Reverse Engineering & Security</div>
+                  <div class="skill-sublabel">IDA PRO • GHIDRA • FRIDA • BURPSUITE</div>
+                </div>
+              </div>
+              <div class="skill-percent" style="color: #ff0055;"><span class="pct-num" data-target="85">0</span><span class="pct-sign">%</span></div>
+            </div>
+            <div class="skill-bar-track">
+              <div class="skill-bar-fill fill-red" data-width="85"></div>
+            </div>
+            <div class="skill-detail-row">
+              <span>CTF PLAYER</span>
+              <span>PROFICIENT LEVEL</span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
-    <!-- 04: TERMINAL BIO CONTROLLER -->
+    <!-- 04: TERMINAL -->
     <section class="scene-section" id="sec-terminal">
       <h2 class="section-title" id="i18n-term-title">Trung Tâm Điều Hành</h2>
       <div class="section-meta" id="i18n-term-meta">// TÙY BIẾN PROFILE QUA DÒNG LỆNH</div>
@@ -1442,10 +1895,8 @@
 
   <script>
     /* =========================================================
-       🐾 VẼ MA TRẬN 3 PET PIXEL: SHIBA, MÈO ĐEN & RỒNG LỬA ĐỎ
+       🐾 PIXEL PETS
        ========================================================= */
-
-    // 1. PET 1: CHÓ SHIBA VÀNG
     const shibaCanvas = document.getElementById('pet-shiba-canvas');
     let shibaX = 15, shibaY = 0, shibaVY = 0, shibaJumping = false;
     let shibaDir = 1, shibaSpeed = 1.6, shibaFrame = 0;
@@ -1469,100 +1920,50 @@
       const w = shibaCanvas.width = shibaCanvas.parentElement.clientWidth;
       const h = shibaCanvas.height = shibaCanvas.parentElement.clientHeight;
       ctx.clearRect(0, 0, w, h);
-
       ctx.fillStyle = 'rgba(0, 243, 255, 0.2)';
       ctx.fillRect(0, h - 3, w, 1.5);
-
-      if (shibaJumping) {
-        shibaY += shibaVY;
-        shibaVY += 0.8;
-        if (shibaY >= 0) {
-          shibaY = 0; shibaVY = 0; shibaJumping = false;
-        }
-      }
-
+      if (shibaJumping) { shibaY += shibaVY; shibaVY += 0.8; if (shibaY >= 0) { shibaY = 0; shibaVY = 0; shibaJumping = false; } }
       shibaX += shibaSpeed * shibaDir;
-      if (shibaX > w - 38) shibaDir = -1;
-      else if (shibaX < 8) shibaDir = 1;
-
+      if (shibaX > w - 38) shibaDir = -1; else if (shibaX < 8) shibaDir = 1;
       shibaFrame++;
       const legJitter = shibaJumping ? 0 : Math.sin(shibaFrame * 0.35) * 2;
       const tailWag = Math.sin(shibaFrame * 0.5) * 2;
       const p = 2.4;
-
-      ctx.save();
-      ctx.translate(shibaX, h - 26 + shibaY);
-      if (shibaDir === -1) {
-        ctx.translate(28, 0);
-        ctx.scale(-1, 1);
-      }
-
+      ctx.save(); ctx.translate(shibaX, h - 26 + shibaY);
+      if (shibaDir === -1) { ctx.translate(28, 0); ctx.scale(-1, 1); }
       for (let r = 0; r < shibaMatrix.length; r++) {
         for (let c = 0; c < shibaMatrix[r].length; c++) {
-          const v = shibaMatrix[r][c];
-          if (!v) continue;
-          let py = r * p;
-          let px = c * p;
+          const v = shibaMatrix[r][c]; if (!v) continue;
+          let py = r * p, px = c * p;
           if (r >= 7) py += (c < 6 ? legJitter : -legJitter);
           if (c >= 10) py += tailWag;
-
-          if (v === 1) ctx.fillStyle = '#ff9d00';
-          else if (v === 2) ctx.fillStyle = '#ffffff';
-          else if (v === 3) ctx.fillStyle = '#111111';
-
+          ctx.fillStyle = v===1?'#ff9d00':v===2?'#ffffff':'#111111';
           ctx.fillRect(px, py, p, p);
         }
       }
       ctx.restore();
-
       for (let i = shibaBarks.length - 1; i >= 0; i--) {
-        const b = shibaBarks[i];
-        b.y -= 1.1;
-        b.alpha -= 0.025;
-        if (b.alpha <= 0) {
-          shibaBarks.splice(i, 1);
-          continue;
-        }
-        ctx.fillStyle = `rgba(255, 157, 0, ${b.alpha})`;
-        ctx.font = 'bold 11px monospace';
+        const b = shibaBarks[i]; b.y -= 1.1; b.alpha -= 0.025;
+        if (b.alpha <= 0) { shibaBarks.splice(i, 1); continue; }
+        ctx.fillStyle = `rgba(255, 157, 0, ${b.alpha})`; ctx.font = 'bold 11px monospace';
         ctx.fillText('WOOF! 🐾', b.x, b.y);
       }
-
       requestAnimationFrame(renderShiba);
     }
     renderShiba();
 
     function interactShiba(e) {
-      if (e) e.stopPropagation();
-      playChillClickSound();
-      shibaBarks.push({
-        x: shibaX + (shibaDir === 1 ? 20 : -10),
-        y: shibaCanvas.height - 25,
-        alpha: 1.0
-      });
-      if (!shibaJumping) {
-        shibaJumping = true;
-        shibaVY = -7.5;
-        shibaDir *= -1;
-        shibaSpeed = 2.8;
-        setTimeout(() => shibaSpeed = 1.6, 1200);
-      }
+      if (e) e.stopPropagation(); playChillClickSound();
+      shibaBarks.push({ x: shibaX + (shibaDir === 1 ? 20 : -10), y: shibaCanvas.height - 25, alpha: 1.0 });
+      if (!shibaJumping) { shibaJumping = true; shibaVY = -7.5; shibaDir *= -1; shibaSpeed = 2.8; setTimeout(() => shibaSpeed = 1.6, 1200); }
     }
 
-    // 2. PET 2: MÈO ĐEN MẮT CYAN
     const catCanvas = document.getElementById('pet-blackcat-canvas');
-    let catX = 15, catDir = 1, catFrame = 0;
-    let catMeows = [];
-
+    let catX = 15, catDir = 1, catFrame = 0, catMeows = [];
     const blackCatMatrix = [
-      [0,1,0,0,0,0,1,0,0,0],
-      [1,4,1,0,0,1,4,1,0,0],
-      [1,1,1,1,1,1,1,1,0,1],
-      [1,2,1,1,1,2,1,1,0,1],
-      [1,1,1,3,1,1,1,1,1,1],
-      [0,1,1,1,1,1,1,1,1,0],
-      [0,1,1,1,1,1,1,1,0,0],
-      [0,1,0,1,0,1,0,1,0,0]
+      [0,1,0,0,0,0,1,0,0,0],[1,4,1,0,0,1,4,1,0,0],[1,1,1,1,1,1,1,1,0,1],
+      [1,2,1,1,1,2,1,1,0,1],[1,1,1,3,1,1,1,1,1,1],[0,1,1,1,1,1,1,1,1,0],
+      [0,1,1,1,1,1,1,1,0,0],[0,1,0,1,0,1,0,1,0,0]
     ];
 
     function renderBlackCat() {
@@ -1571,85 +1972,46 @@
       const w = catCanvas.width = catCanvas.parentElement.clientWidth;
       const h = catCanvas.height = catCanvas.parentElement.clientHeight;
       ctx.clearRect(0, 0, w, h);
-
-      ctx.fillStyle = 'rgba(0, 243, 255, 0.15)';
-      ctx.fillRect(0, h - 3, w, 1.5);
-
+      ctx.fillStyle = 'rgba(0, 243, 255, 0.15)'; ctx.fillRect(0, h - 3, w, 1.5);
       catX += 1.4 * catDir;
-      if (catX > w - 34) catDir = -1;
-      else if (catX < 8) catDir = 1;
-
+      if (catX > w - 34) catDir = -1; else if (catX < 8) catDir = 1;
       catFrame++;
-      const tailSway = Math.sin(catFrame * 0.2) * 2.5;
-      const legJitter = Math.sin(catFrame * 0.35) * 1.8;
-      const p = 2.4;
-
-      ctx.save();
-      ctx.translate(catX, h - 25);
-      if (catDir === -1) {
-        ctx.translate(26, 0);
-        ctx.scale(-1, 1);
-      }
-
+      const tailSway = Math.sin(catFrame * 0.2) * 2.5, legJitter = Math.sin(catFrame * 0.35) * 1.8, p = 2.4;
+      ctx.save(); ctx.translate(catX, h - 25);
+      if (catDir === -1) { ctx.translate(26, 0); ctx.scale(-1, 1); }
       for (let r = 0; r < blackCatMatrix.length; r++) {
         for (let c = 0; c < blackCatMatrix[r].length; c++) {
-          const v = blackCatMatrix[r][c];
-          if (!v) continue;
-          let py = r * p;
-          let px = c * p;
+          const v = blackCatMatrix[r][c]; if (!v) continue;
+          let py = r * p, px = c * p;
           if (r >= 7) py += (c < 5 ? legJitter : -legJitter);
           if (c >= 8) py += tailSway;
-
-          if (v === 1) ctx.fillStyle = '#080c14';
-          else if (v === 2) ctx.fillStyle = '#00f3ff';
-          else if (v === 3) ctx.fillStyle = '#ff0055';
-          else if (v === 4) ctx.fillStyle = '#334466';
-
+          ctx.fillStyle = v===1?'#080c14':v===2?'#00f3ff':v===3?'#ff0055':'#334466';
           ctx.fillRect(px, py, p, p);
         }
       }
       ctx.restore();
-
       for (let i = catMeows.length - 1; i >= 0; i--) {
-        const m = catMeows[i];
-        m.y -= 1.1;
-        m.alpha -= 0.02;
-        if (m.alpha <= 0) {
-          catMeows.splice(i, 1);
-          continue;
-        }
-        ctx.fillStyle = `rgba(0, 243, 255, ${m.alpha})`;
-        ctx.font = 'bold 11px monospace';
+        const m = catMeows[i]; m.y -= 1.1; m.alpha -= 0.02;
+        if (m.alpha <= 0) { catMeows.splice(i, 1); continue; }
+        ctx.fillStyle = `rgba(0, 243, 255, ${m.alpha})`; ctx.font = 'bold 11px monospace';
         ctx.fillText('MEOW~ ❤', m.x, m.y);
       }
-
       requestAnimationFrame(renderBlackCat);
     }
     renderBlackCat();
 
     function interactBlackCat(e) {
-      if (e) e.stopPropagation();
-      playChillClickSound();
-      catMeows.push({
-        x: catX,
-        y: catCanvas.height - 24,
-        alpha: 1.0
-      });
+      if (e) e.stopPropagation(); playChillClickSound();
+      catMeows.push({ x: catX, y: catCanvas.height - 24, alpha: 1.0 });
       toggleLofiAudio();
     }
 
-    // 3. PET 3: RỒNG LỬA ĐỎ BAY
     const dragonCanvas = document.getElementById('pet-firedragon-canvas');
-    let dragonFrame = 0;
-    let dragonFlames = [];
-
+    let dragonFrame = 0, dragonFlames = [];
     const fireDragonMatrix = [
-      [0,2,0,0,0,3,3,0,0,0,0],
-      [0,1,1,0,3,3,3,3,0,0,0],
-      [1,2,1,1,1,1,3,3,3,1,0],
-      [1,4,4,1,1,1,1,1,1,1,1],
-      [0,1,1,1,1,1,1,1,1,0,0],
-      [0,0,1,0,1,0,0,1,0,0,0]
+      [0,2,0,0,0,3,3,0,0,0,0],[0,1,1,0,3,3,3,3,0,0,0],
+      [1,2,1,1,1,1,3,3,3,1,0],[1,4,4,1,1,1,1,1,1,1,1],
+      [0,1,1,1,1,1,1,1,1,0,0],[0,0,1,0,1,0,0,1,0,0,0]
     ];
 
     function renderFireDragon() {
@@ -1658,103 +2020,62 @@
       const w = dragonCanvas.width = dragonCanvas.parentElement.clientWidth;
       const h = dragonCanvas.height = dragonCanvas.parentElement.clientHeight;
       ctx.clearRect(0, 0, w, h);
-
       dragonFrame++;
-      const floatY = Math.sin(dragonFrame * 0.08) * 4;
-      const wingFlap = Math.cos(dragonFrame * 0.25) * 2.5;
-      const p = 2.4;
+      const floatY = Math.sin(dragonFrame * 0.08) * 4, wingFlap = Math.cos(dragonFrame * 0.25) * 2.5, p = 2.4;
       const startX = w / 2 - 14;
-
-      ctx.save();
-      ctx.translate(startX, h - 30 + floatY);
-
+      ctx.save(); ctx.translate(startX, h - 30 + floatY);
       for (let r = 0; r < fireDragonMatrix.length; r++) {
         for (let c = 0; c < fireDragonMatrix[r].length; c++) {
-          const v = fireDragonMatrix[r][c];
-          if (!v) continue;
-          let py = r * p;
-          let px = c * p;
+          const v = fireDragonMatrix[r][c]; if (!v) continue;
+          let py = r * p, px = c * p;
           if (v === 3) py += wingFlap;
-
-          if (v === 1) ctx.fillStyle = '#ff1a40';
-          else if (v === 2) ctx.fillStyle = '#ffd700';
-          else if (v === 3) ctx.fillStyle = '#b30024';
-          else if (v === 4) ctx.fillStyle = '#ff9d00';
-
+          ctx.fillStyle = v===1?'#ff1a40':v===2?'#ffd700':v===3?'#b30024':'#ff9d00';
           ctx.fillRect(px, py, p, p);
         }
       }
       ctx.restore();
-
       for (let i = dragonFlames.length - 1; i >= 0; i--) {
-        const fl = dragonFlames[i];
-        fl.x += fl.vx;
-        fl.y += fl.vy;
-        fl.alpha -= 0.03;
-        if (fl.alpha <= 0) {
-          dragonFlames.splice(i, 1);
-          continue;
-        }
+        const fl = dragonFlames[i]; fl.x += fl.vx; fl.y += fl.vy; fl.alpha -= 0.03;
+        if (fl.alpha <= 0) { dragonFlames.splice(i, 1); continue; }
         ctx.fillStyle = `rgba(255, ${Math.floor(fl.alpha * 120)}, 0, ${fl.alpha})`;
-        ctx.font = 'bold 12px monospace';
-        ctx.fillText('🔥', fl.x, fl.y);
+        ctx.font = 'bold 12px monospace'; ctx.fillText('🔥', fl.x, fl.y);
       }
-
       requestAnimationFrame(renderFireDragon);
     }
     renderFireDragon();
 
     function interactFireDragon(e) {
-      if (e) e.stopPropagation();
-      playChillClickSound();
+      if (e) e.stopPropagation(); playChillClickSound();
       for (let i = 0; i < 4; i++) {
-        dragonFlames.push({
-          x: dragonCanvas.width / 2 + 10,
-          y: dragonCanvas.height - 26,
-          vx: Math.random() * 3 + 1,
-          vy: (Math.random() - 0.5) * 2,
-          alpha: 1.0
-        });
+        dragonFlames.push({ x: dragonCanvas.width/2+10, y: dragonCanvas.height-26, vx: Math.random()*3+1, vy: (Math.random()-0.5)*2, alpha: 1.0 });
       }
       navigator.clipboard.writeText("MB Bank: 0382218001").catch(()=>{});
     }
 
     /* =========================================================
-       🎵 YOUTUBE LO-FI JUKEBOX ENGINE
+       🎵 FIXED YOUTUBE LO-FI JUKEBOX ENGINE
        ========================================================= */
     const ytPlaylist = [
-      {
-        videoId: "1fueZCTYkpA",
-        title: "Những Bản Lofi Việt Chill Nhẹ Nhàng",
-        artist: "1 9 6 7 Lofi Collective"
-      },
-      {
-        videoId: "4xDzrJKXOOY",
-        title: "Synthwave & Midnight Beats",
-        artist: "Lofi Girl Radio"
-      },
-      {
-        videoId: "jfKfPfyJRdk",
-        title: "Cà Phê Một Mình // Rainy Day Lofi",
-        artist: "Lofi Coffee Corner"
-      },
-      {
-        videoId: "MCkTebktHVc",
-        title: "Acoustic Guitar Lofi Việt Thư Giãn",
-        artist: "Vietnam Chill Acoustic Vibe"
-      }
+      { videoId: "1fueZCTYkpA", title: "Những Bản Lofi Việt Chill Nhẹ Nhàng", artist: "1 9 6 7 Lofi Collective" },
+      { videoId: "4xDzrJKXOOY", title: "Synthwave & Midnight Beats", artist: "Lofi Girl Radio" },
+      { videoId: "jfKfPfyJRdk", title: "Cà Phê Một Mình // Rainy Day Lofi", artist: "Lofi Coffee Corner" },
+      { videoId: "MCkTebktHVc", title: "Acoustic Guitar Lofi Việt Thư Giãn", artist: "Vietnam Chill Acoustic Vibe" }
     ];
 
     let currentTrackIdx = 0;
     let ytPlayer = null;
     let isYtReady = false;
     let isYtPlaying = false;
+    let ytRetryCount = 0;
+    const MAX_YT_RETRIES = 3;
 
     const lofiBtnLabel = document.getElementById('lofi-btn-label');
     const lofiBadge = document.getElementById('lofi-track-status');
     const lofiTitle = document.getElementById('lofi-title');
     const lofiArtist = document.getElementById('lofi-artist');
     const lofiCounter = document.getElementById('lofi-track-counter');
+    const vinylDisc = document.getElementById('vinyl-disc');
+    const eqBars = document.querySelectorAll('.eq-bar');
 
     function updateTrackUI() {
       const cur = ytPlaylist[currentTrackIdx];
@@ -1763,6 +2084,16 @@
       lofiCounter.innerText = `TRACK ${currentTrackIdx + 1} / ${ytPlaylist.length}`;
     }
     updateTrackUI();
+
+    function setMusicVisualState(playing) {
+      if (playing) {
+        vinylDisc.classList.add('spinning');
+        eqBars.forEach(bar => bar.classList.add('active'));
+      } else {
+        vinylDisc.classList.remove('spinning');
+        eqBars.forEach(bar => bar.classList.remove('active'));
+      }
+    }
 
     function onYouTubeIframeAPIReady() {
       ytPlayer = new YT.Player('yt-hidden-player', {
@@ -1778,29 +2109,64 @@
           origin: window.location.origin
         },
         events: {
-          'onReady': () => {
-            isYtReady = true;
-            lofiBadge.innerText = 'READY';
-          },
+          'onReady': onPlayerReady,
           'onStateChange': onPlayerStateChange,
-          'onError': () => nextLofiTrack()
+          'onError': onPlayerError
         }
       });
+    }
+
+    function onPlayerReady() {
+      isYtReady = true;
+      lofiBadge.innerText = 'READY';
+      lofiBadge.style.color = 'var(--accent-blue)';
+      // Set initial volume
+      const volSlider = document.getElementById('volume-slider');
+      if (ytPlayer && typeof ytPlayer.setVolume === 'function') {
+        ytPlayer.setVolume(parseInt(volSlider.value));
+      }
     }
 
     function onPlayerStateChange(event) {
       if (event.data === YT.PlayerState.PLAYING) {
         isYtPlaying = true;
+        ytRetryCount = 0;
         lofiBtnLabel.innerText = '⏸ TẠM DỪNG';
-        lofiBadge.innerText = 'PLAYING';
+        lofiBadge.innerText = '♫ PLAYING';
         lofiBadge.style.color = '#00ff66';
+        lofiBadge.style.background = 'rgba(0,255,102,0.1)';
+        setMusicVisualState(true);
       } else if (event.data === YT.PlayerState.PAUSED) {
         isYtPlaying = false;
         lofiBtnLabel.innerText = '▶ PHÁT NHẠC';
         lofiBadge.innerText = 'PAUSED';
         lofiBadge.style.color = 'var(--accent)';
+        lofiBadge.style.background = 'rgba(255, 157, 0, 0.12)';
+        setMusicVisualState(false);
       } else if (event.data === YT.PlayerState.ENDED) {
         nextLofiTrack();
+      } else if (event.data === YT.PlayerState.BUFFERING) {
+        lofiBadge.innerText = 'LOADING...';
+        lofiBadge.style.color = '#ffbb33';
+      }
+    }
+
+    function onPlayerError(event) {
+      console.warn('YT Player error:', event.data);
+      ytRetryCount++;
+      if (ytRetryCount <= MAX_YT_RETRIES) {
+        // Skip to next track on error
+        setTimeout(() => {
+          currentTrackIdx = (currentTrackIdx + 1) % ytPlaylist.length;
+          updateTrackUI();
+          if (isYtReady && ytPlayer && typeof ytPlayer.loadVideoById === 'function') {
+            ytPlayer.loadVideoById(ytPlaylist[currentTrackIdx].videoId);
+          }
+        }, 500);
+      } else {
+        lofiBadge.innerText = 'ERROR';
+        lofiBadge.style.color = '#ff0055';
+        setMusicVisualState(false);
       }
     }
 
@@ -1808,20 +2174,34 @@
       currentTrackIdx = (index + ytPlaylist.length) % ytPlaylist.length;
       updateTrackUI();
       if (isYtReady && ytPlayer && typeof ytPlayer.loadVideoById === 'function') {
-        ytPlayer.loadVideoById(ytPlaylist[currentTrackIdx].videoId);
-        ytPlayer.playVideo();
-        isYtPlaying = true;
+        try {
+          ytPlayer.loadVideoById(ytPlaylist[currentTrackIdx].videoId);
+          // loadVideoById auto-plays, no need for separate playVideo()
+          isYtPlaying = true;
+        } catch(e) {
+          console.warn('Failed to load track:', e);
+        }
       }
     }
 
     function toggleLofiAudio() {
       playChillClickSound();
       if (!isYtReady || !ytPlayer) {
-        safePlayTrack(currentTrackIdx);
+        // YT not ready yet, try to play anyway
+        if (ytPlayer && typeof ytPlayer.playVideo === 'function') {
+          ytPlayer.playVideo();
+        }
         return;
       }
-      if (isYtPlaying) ytPlayer.pauseVideo();
-      else ytPlayer.playVideo();
+      try {
+        if (isYtPlaying) {
+          ytPlayer.pauseVideo();
+        } else {
+          ytPlayer.playVideo();
+        }
+      } catch(e) {
+        console.warn('Toggle audio error:', e);
+      }
     }
 
     function nextLofiTrack() {
@@ -1834,23 +2214,88 @@
       safePlayTrack(currentTrackIdx - 1);
     }
 
+    function changeVolume(val) {
+      const v = parseInt(val);
+      document.getElementById('vol-val').innerText = v + '%';
+      const icon = document.getElementById('vol-icon');
+      if (v === 0) icon.innerText = '🔇';
+      else if (v < 35) icon.innerText = '🔈';
+      else if (v < 70) icon.innerText = '🔉';
+      else icon.innerText = '🔊';
+
+      if (isYtReady && ytPlayer && typeof ytPlayer.setVolume === 'function') {
+        try { ytPlayer.setVolume(v); } catch(e) {}
+      }
+    }
+
+    // Remove aggressive auto-play on first interaction
     let hasInteracted = false;
     function triggerFirstAudioGesture() {
       if (hasInteracted) return;
       hasInteracted = true;
-      if (isYtReady && ytPlayer) ytPlayer.playVideo();
+      // Don't auto-play, just mark as interacted for AudioContext
       ['click', 'touchstart', 'keydown'].forEach(evt => window.removeEventListener(evt, triggerFirstAudioGesture));
     }
     ['click', 'touchstart', 'keydown'].forEach(evt => window.addEventListener(evt, triggerFirstAudioGesture, { passive: true }));
 
     /* =========================================================
-       🌐 BỘ ĐA NGÔN NGỮ (I18N)
+       🔥 SKILL BAR SCROLL ANIMATION (IntersectionObserver)
+       ========================================================= */
+    function animateSkillBars() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const card = entry.target;
+            const fill = card.querySelector('.skill-bar-fill');
+            const pctNum = card.querySelector('.pct-num');
+            
+            if (fill && !fill.classList.contains('animated')) {
+              const targetWidth = parseInt(fill.dataset.width);
+              
+              // Animate the bar fill
+              setTimeout(() => {
+                fill.style.width = targetWidth + '%';
+                fill.classList.add('animated');
+              }, 200);
+
+              // Animate the percentage counter
+              if (pctNum) {
+                const target = parseInt(pctNum.dataset.target);
+                let current = 0;
+                const duration = 1800;
+                const startTime = performance.now();
+                
+                function updateCounter(now) {
+                  const elapsed = now - startTime;
+                  const progress = Math.min(elapsed / duration, 1);
+                  // Ease out cubic
+                  const eased = 1 - Math.pow(1 - progress, 3);
+                  current = Math.round(eased * target);
+                  pctNum.innerText = current;
+                  if (progress < 1) requestAnimationFrame(updateCounter);
+                }
+                setTimeout(() => requestAnimationFrame(updateCounter), 200);
+              }
+            }
+            observer.unobserve(card);
+          }
+        });
+      }, { threshold: 0.3 });
+
+      document.querySelectorAll('.skill-card').forEach(card => observer.observe(card));
+    }
+
+    // Init after DOM ready
+    animateSkillBars();
+
+    /* =========================================================
+       🌐 I18N
        ========================================================= */
     const i18nData = {
       vi: {
         label: "TIẾNG VIỆT",
         brand: "CYBER_PROFILE // AXIOM",
-        philosophy: '"Không viết dòng thứ tư nếu ba dòng là đủ tối ưu. Thức trắng đêm cùng stdout streams, biến cafe đen thành công cụ tự động hóa và kiến trúc ngầm. Tĩnh lặng, chính xác và không để lại dấu vết."',
+        philosophy: '<span class="bio-text-line">Không viết dòng thứ tư nếu <span class="bio-highlight">ba dòng là đủ tối ưu</span>.</span><span class="bio-text-line">Thức trắng đêm cùng <span class="bio-highlight-cyan">stdout streams</span>, biến cafe đen thành công cụ <span class="bio-highlight">tự động hóa</span> và kiến trúc ngầm.</span><span class="bio-text-line">Tĩnh lặng, chính xác và <span class="bio-highlight-cyan">không để lại dấu vết</span>.</span><div class="bio-tag-row"><span class="bio-micro-tag">#AUTOMATION</span><span class="bio-micro-tag">#NOCTURNAL_DEV</span><span class="bio-micro-tag">#ZERO_TRACE</span><span class="bio-micro-tag">#KERNEL_HACKER</span></div>',
         samplesTitle: "Hệ Thống & Thú Cưng Pixel",
         samplesMeta: "// INTERACTIVE PIXEL PETS: SHIBA, BLACK CAT & FIRE DRAGON",
         socialsTitle: "Kênh Kết Nối & Kỹ Năng",
@@ -1861,7 +2306,7 @@
       en: {
         label: "ENGLISH",
         brand: "CYBER_PROFILE // AXIOM",
-        philosophy: '"Never write a fourth line if three can optimize the problem. Late nights with stdout streams, turning black coffee into automation bots and underground architectures. Stillness, precision, no traces left."',
+        philosophy: '<span class="bio-text-line">Never write a fourth line if <span class="bio-highlight">three can optimize the problem</span>.</span><span class="bio-text-line">Late nights with <span class="bio-highlight-cyan">stdout streams</span>, turning black coffee into <span class="bio-highlight">automation bots</span> and underground architectures.</span><span class="bio-text-line">Stillness, precision, <span class="bio-highlight-cyan">no traces left</span>.</span><div class="bio-tag-row"><span class="bio-micro-tag">#AUTOMATION</span><span class="bio-micro-tag">#NOCTURNAL_DEV</span><span class="bio-micro-tag">#ZERO_TRACE</span><span class="bio-micro-tag">#KERNEL_HACKER</span></div>',
         samplesTitle: "System & Pixel Pets",
         samplesMeta: "// INTERACTIVE PIXEL PETS: SHIBA, BLACK CAT & FIRE DRAGON",
         socialsTitle: "Social Uplinks & Skills",
@@ -1872,7 +2317,7 @@
       ja: {
         label: "日本語",
         brand: "サイバー・プロファイル // AXIOM",
-        philosophy: '"3行で解決できる問題なら、4行目を書くことはない。夜を徹してstdoutを見つめ、ブラックコーヒーを自動化ツールへと変える。静寂、正確、痕跡なし。"',
+        philosophy: '<span class="bio-text-line"><span class="bio-highlight">3行で解決</span>できる問題なら、4行目を書くことはない。</span><span class="bio-text-line">夜を徹して<span class="bio-highlight-cyan">stdout</span>を見つめ、ブラックコーヒーを<span class="bio-highlight">自動化ツール</span>へと変える。</span><span class="bio-text-line">静寂、正確、<span class="bio-highlight-cyan">痕跡なし</span>。</span><div class="bio-tag-row"><span class="bio-micro-tag">#自動化</span><span class="bio-micro-tag">#夜行性開発者</span><span class="bio-micro-tag">#痕跡ゼロ</span></div>',
         samplesTitle: "システム & ピクセルペット",
         samplesMeta: "// 柴犬、黒猫、火竜のインタラクティブペット",
         socialsTitle: "リンク＆スキルマトリクス",
@@ -1883,7 +2328,7 @@
       ko: {
         label: "한국어",
         brand: "사이버_프로필 // AXIOM",
-        philosophy: '"세 줄로 해결될 문제에 네 번째 줄을 쓰지 않는다. 밤새 stdout 스트림을 지켜보며 블랙커피를 자동화 도구로 바꾼다. 고요함, 정확함, 흔적은 남기지 않는다."',
+        philosophy: '<span class="bio-text-line">세 줄로 해결될 문제에 <span class="bio-highlight">네 번째 줄을 쓰지 않는다</span>.</span><span class="bio-text-line">밤새 <span class="bio-highlight-cyan">stdout 스트림</span>을 지켜보며 블랙커피를 <span class="bio-highlight">자동화 도구</span>로 바꾼다.</span><span class="bio-text-line">고요함, 정확함, <span class="bio-highlight-cyan">흔적은 남기지 않는다</span>.</span><div class="bio-tag-row"><span class="bio-micro-tag">#자동화</span><span class="bio-micro-tag">#야행성개발자</span><span class="bio-micro-tag">#제로트레이스</span></div>',
         samplesTitle: "시스템 & 픽셀 펫",
         samplesMeta: "// 시바견, 검은 고양이, 파이어 드래곤 상호작용",
         socialsTitle: "소셜 링크 & 스킬 매트릭스",
@@ -1894,7 +2339,7 @@
       zh: {
         label: "中文",
         brand: "网络配置文件 // AXIOM",
-        philosophy: '"如果三行代码能解决问题，绝不写第四行。通宵凝视终端日志流，将黑咖啡转化为自动化工具与隐秘架构。寂静、精准、不留痕迹。"',
+        philosophy: '<span class="bio-text-line">如果三行代码能解决问题，<span class="bio-highlight">绝不写第四行</span>。</span><span class="bio-text-line">通宵凝视<span class="bio-highlight-cyan">终端日志流</span>，将黑咖啡转化为<span class="bio-highlight">自动化工具</span>与隐秘架构。</span><span class="bio-text-line">寂静、精准、<span class="bio-highlight-cyan">不留痕迹</span>。</span><div class="bio-tag-row"><span class="bio-micro-tag">#自动化</span><span class="bio-micro-tag">#夜行开发者</span><span class="bio-micro-tag">#零痕迹</span></div>',
         samplesTitle: "系统与像素宠物",
         samplesMeta: "// 柴犬、黑猫与火龙的互动展示",
         socialsTitle: "社交网络与技术矩阵",
@@ -1905,7 +2350,7 @@
       es: {
         label: "ESPAÑOL",
         brand: "PERFIL_CIBERNÉTICO // AXIOM",
-        philosophy: '"Nunca escribas una cuarta línea si tres son suficientes. Noches en vela frente a los flujos de stdout, convirtiendo café en herramientas de automatización. Silencio, precisión và sin dejar rastro."',
+        philosophy: '<span class="bio-text-line">Nunca escribas una cuarta línea si <span class="bio-highlight">tres son suficientes</span>.</span><span class="bio-text-line">Noches en vela frente a los flujos de <span class="bio-highlight-cyan">stdout</span>, convirtiendo café en <span class="bio-highlight">herramientas de automatización</span>.</span><span class="bio-text-line">Silencio, precisión y <span class="bio-highlight-cyan">sin dejar rastro</span>.</span><div class="bio-tag-row"><span class="bio-micro-tag">#AUTOMATIZACIÓN</span><span class="bio-micro-tag">#DEV_NOCTURNO</span><span class="bio-micro-tag">#SIN_RASTRO</span></div>',
         samplesTitle: "Sistema y Mascotas Pixel",
         samplesMeta: "// MASCOTAS PIXEL: SHIBA, GATO NEGRO Y DRAGÓN",
         socialsTitle: "Enlaces y Habilidades",
@@ -1919,40 +2364,34 @@
 
     function toggleLangMenu(e) {
       e.stopPropagation();
-      const menu = document.getElementById('lang-dropdown-menu');
-      menu.classList.toggle('open');
+      document.getElementById('lang-dropdown-menu').classList.toggle('open');
       playChillClickSound();
     }
 
     document.addEventListener('click', (e) => {
-      if (!e.target.closest('.lang-dropdown-wrapper')) {
+      if (!e.target.closest('.lang-dropdown-wrapper'))
         document.getElementById('lang-dropdown-menu').classList.remove('open');
-      }
     });
 
     function switchLanguage(langCode) {
       if (!i18nData[langCode]) return;
       currentLang = langCode;
       const dict = i18nData[langCode];
-
       document.getElementById('current-lang-text').innerText = dict.label;
       document.getElementById('hud-lang-tag').innerText = `${langCode.toUpperCase()} (${dict.label})`;
-
       document.querySelectorAll('.lang-item').forEach(item => {
         const isThis = item.getAttribute('onclick').includes(langCode);
         item.classList.toggle('active', isThis);
         item.children[1].innerText = isThis ? '✓' : '';
       });
-
       document.getElementById('i18n-brand').innerText = dict.brand;
-      document.getElementById('i18n-philosophy').innerText = dict.philosophy;
+      document.getElementById('i18n-philosophy').innerHTML = dict.philosophy;
       document.getElementById('i18n-samples-title').innerText = dict.samplesTitle;
       document.getElementById('i18n-samples-meta').innerText = dict.samplesMeta;
       document.getElementById('i18n-socials-title').innerText = dict.socialsTitle;
       document.getElementById('i18n-socials-meta').innerText = dict.socialsMeta;
       document.getElementById('i18n-term-title').innerText = dict.termTitle;
       document.getElementById('i18n-term-meta').innerText = dict.termMeta;
-
       document.getElementById('lang-dropdown-menu').classList.remove('open');
       playChillClickSound();
     }
@@ -1969,10 +2408,7 @@
       if (!loaderGui || loaderGui.classList.contains('loaded')) return;
       loaderGui.classList.add('loaded');
       triggerFirstAudioGesture();
-      setTimeout(() => {
-        loaderGui.style.display = 'none';
-        try { loaderGui.remove(); } catch(e){}
-      }, 500);
+      setTimeout(() => { loaderGui.style.display = 'none'; try { loaderGui.remove(); } catch(e){} }, 500);
     }
 
     if (loaderGui) {
@@ -1985,20 +2421,13 @@
       if (loadPercent > 100) loadPercent = 100;
       if (loaderProgress) loaderProgress.style.width = `${loadPercent}%`;
       if (loaderStatus) loaderStatus.innerText = `SUMMONING SHIBA, BLACK CAT & FIRE DRAGON [${loadPercent}%]`;
-
-      if (loadPercent >= 100) {
-        clearInterval(loadInterval);
-        setTimeout(dismissLoader, 150);
-      }
+      if (loadPercent >= 100) { clearInterval(loadInterval); setTimeout(dismissLoader, 150); }
     }, 35);
     setTimeout(dismissLoader, 1500);
 
     const particleCanvas = document.getElementById('click-particles-canvas');
     const pCtx = particleCanvas.getContext('2d');
-    function resizeParticleCanvas() {
-      particleCanvas.width = window.innerWidth;
-      particleCanvas.height = window.innerHeight;
-    }
+    function resizeParticleCanvas() { particleCanvas.width = window.innerWidth; particleCanvas.height = window.innerHeight; }
     resizeParticleCanvas();
     window.addEventListener('resize', resizeParticleCanvas);
 
@@ -2010,15 +2439,7 @@
       for (let i = 0; i < count; i++) {
         const angle = Math.random() * Math.PI * 2;
         const speed = Math.random() * 4 + 1.5;
-        activeParticles.push({
-          x: x, y: y,
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed,
-          size: Math.random() * 2.5 + 1.5,
-          color: particleColors[Math.floor(Math.random() * particleColors.length)],
-          alpha: 1.0,
-          decay: Math.random() * 0.025 + 0.02
-        });
+        activeParticles.push({ x, y, vx: Math.cos(angle)*speed, vy: Math.sin(angle)*speed, size: Math.random()*2.5+1.5, color: particleColors[Math.floor(Math.random()*particleColors.length)], alpha: 1.0, decay: Math.random()*0.025+0.02 });
       }
     }
 
@@ -2026,34 +2447,20 @@
       pCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
       for (let i = activeParticles.length - 1; i >= 0; i--) {
         const p = activeParticles[i];
-        p.x += p.vx; p.y += p.vy;
-        p.vx *= 0.94; p.vy *= 0.94;
-        p.alpha -= p.decay;
-
-        if (p.alpha <= 0) {
-          activeParticles.splice(i, 1);
-          continue;
-        }
-
-        pCtx.save();
-        pCtx.globalAlpha = p.alpha;
-        pCtx.fillStyle = p.color;
-        pCtx.beginPath();
-        pCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        pCtx.fill();
+        p.x += p.vx; p.y += p.vy; p.vx *= 0.94; p.vy *= 0.94; p.alpha -= p.decay;
+        if (p.alpha <= 0) { activeParticles.splice(i, 1); continue; }
+        pCtx.save(); pCtx.globalAlpha = p.alpha; pCtx.fillStyle = p.color;
+        pCtx.beginPath(); pCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2); pCtx.fill();
         pCtx.restore();
       }
       requestAnimationFrame(updateAndRenderParticles);
     }
     requestAnimationFrame(updateAndRenderParticles);
 
-    window.addEventListener('pointerdown', (e) => {
-      spawnClickParticles(e.clientX, e.clientY);
-      playChillClickSound();
-    });
+    window.addEventListener('pointerdown', (e) => { spawnClickParticles(e.clientX, e.clientY); playChillClickSound(); });
 
     /* =========================================================
-       BẢO MẬT & CHỐNG DEVTOOLS
+       SECURITY
        ========================================================= */
     const securityToast = document.getElementById('security-toast');
     const toastTitle = document.getElementById('toast-title');
@@ -2065,50 +2472,23 @@
       toastTitle.innerText = `[PHÁT HIỆN CAN THIỆP]: ${cause.toUpperCase()}`;
       toastDesc.innerText = `Hành động đã bị khóa: Hệ thống bảo mật đã vô hiệu hóa thao tác ${cause}.`;
       securityToast.classList.add('active');
-
       clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(() => {
-        securityToast.classList.remove('active');
-      }, 3000);
+      toastTimeout = setTimeout(() => securityToast.classList.remove('active'), 3000);
     }
 
-    document.addEventListener('contextmenu', (e) => {
-      e.preventDefault();
-      triggerSecurityBreach('Chuột phải (Context Menu)');
-      return false;
-    });
-
+    document.addEventListener('contextmenu', (e) => { e.preventDefault(); triggerSecurityBreach('Chuột phải (Context Menu)'); return false; });
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'F12' || e.keyCode === 123) {
-        e.preventDefault();
-        triggerSecurityBreach('Phím F12 (Developer Tools)');
-        return false;
-      }
-      if (e.ctrlKey && e.shiftKey && ['I','J','C','i','j','c'].includes(e.key)) {
-        e.preventDefault();
-        triggerSecurityBreach('Tổ hợp Inspect Element');
-        return false;
-      }
-      if (e.ctrlKey && ['U','u','S','s'].includes(e.key)) {
-        e.preventDefault();
-        triggerSecurityBreach('Xem/Lưu mã nguồn');
-        return false;
-      }
+      if (e.key === 'F12' || e.keyCode === 123) { e.preventDefault(); triggerSecurityBreach('Phím F12 (Developer Tools)'); return false; }
+      if (e.ctrlKey && e.shiftKey && ['I','J','C','i','j','c'].includes(e.key)) { e.preventDefault(); triggerSecurityBreach('Tổ hợp Inspect Element'); return false; }
+      if (e.ctrlKey && ['U','u','S','s'].includes(e.key)) { e.preventDefault(); triggerSecurityBreach('Xem/Lưu mã nguồn'); return false; }
     });
 
     const devtoolsLockdown = document.getElementById('devtools-lockdown');
-    const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
-      (navigator.maxTouchPoints && navigator.maxTouchPoints > 2);
-
+    const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || (navigator.maxTouchPoints && navigator.maxTouchPoints > 2);
     setInterval(() => {
-      if (isMobileDevice) {
-        if (devtoolsLockdown) devtoolsLockdown.classList.remove('active');
-        return;
-      }
+      if (isMobileDevice) { if (devtoolsLockdown) devtoolsLockdown.classList.remove('active'); return; }
       const threshold = 180;
-      const widthDiff = window.outerWidth - window.innerWidth > threshold;
-      const heightDiff = window.outerHeight - window.innerHeight > threshold;
-      if (widthDiff || heightDiff) {
+      if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
         if (devtoolsLockdown) devtoolsLockdown.classList.add('active');
       } else {
         if (devtoolsLockdown) devtoolsLockdown.classList.remove('active');
@@ -2121,12 +2501,11 @@
     document.querySelectorAll('.liquid-glass').forEach(card => {
       card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+        const x = e.clientX - rect.left, y = e.clientY - rect.top;
         card.style.setProperty('--mouse-x', `${x}px`);
         card.style.setProperty('--mouse-y', `${y}px`);
-        const rotateX = ((y - rect.height / 2) / (rect.height / 2)) * -6;
-        const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 6;
+        const rotateX = ((y - rect.height/2) / (rect.height/2)) * -6;
+        const rotateY = ((x - rect.width/2) / (rect.width/2)) * 6;
         card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
       });
       card.addEventListener('mouseleave', () => {
@@ -2148,10 +2527,8 @@
 
     function renderCursor() {
       if (cursorRing) {
-        ringX += (mouseX - ringX) * 0.18;
-        ringY += (mouseY - ringY) * 0.18;
-        cursorRing.style.left = `${ringX}px`;
-        cursorRing.style.top = `${ringY}px`;
+        ringX += (mouseX - ringX) * 0.18; ringY += (mouseY - ringY) * 0.18;
+        cursorRing.style.left = `${ringX}px`; cursorRing.style.top = `${ringY}px`;
       }
       requestAnimationFrame(renderCursor);
     }
@@ -2192,7 +2569,7 @@
     syncDiscordProfile();
 
     /* =========================================================
-       TELEMETRY STATS & SPARKLINE
+       TELEMETRY
        ========================================================= */
     function detectRealClientOS() {
       const ua = navigator.userAgent;
@@ -2236,12 +2613,9 @@
     function updateTelemetryLoad() {
       const jitter = (Math.random() - 0.48) * 16;
       let lastVal = Math.min(Math.max(history[history.length - 1] + jitter, 18), 86);
-      history.shift();
-      history.push(lastVal);
-
+      history.shift(); history.push(lastVal);
       document.getElementById('sys-load-val').innerText = `${Math.round(lastVal)}%`;
       document.getElementById('sys-load-bar').style.width = `${lastVal}%`;
-
       if (sCtx) {
         const w = sparkCanvas.width, h = sparkCanvas.height;
         sCtx.clearRect(0, 0, w, h);
@@ -2249,52 +2623,42 @@
         const step = w / (history.length - 1);
         history.forEach((val, i) => {
           const y = h - (val / 100) * (h - 4) - 2;
-          if (i === 0) sCtx.moveTo(0, y);
-          else sCtx.lineTo(i * step, y);
+          if (i === 0) sCtx.moveTo(0, y); else sCtx.lineTo(i * step, y);
         });
-        sCtx.strokeStyle = '#00f3ff';
-        sCtx.lineWidth = 1.5;
-        sCtx.stroke();
+        sCtx.strokeStyle = '#00f3ff'; sCtx.lineWidth = 1.5; sCtx.stroke();
       }
     }
     setInterval(updateTelemetryLoad, 650);
 
     /* =========================================================
-       THREE.JS 3D BLACK HOLE BACKGROUND
+       THREE.JS BLACK HOLE
        ========================================================= */
     const canvas = document.getElementById('blackhole-canvas');
     const scene = new THREE.Scene();
     scene.fog = new THREE.FogExp2(0x030407, 0.015);
-
     const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.set(0, 2, 28);
-    const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 
     const blackHoleGroup = new THREE.Group();
     scene.add(blackHoleGroup);
-
     blackHoleGroup.add(new THREE.Mesh(new THREE.SphereGeometry(3.6, 32, 32), new THREE.MeshBasicMaterial({ color: 0x000000 })));
     blackHoleGroup.add(new THREE.Mesh(new THREE.TorusGeometry(3.75, 0.06, 16, 100), new THREE.MeshBasicMaterial({ color: 0xfff0dd, transparent: true, opacity: 0.95 })));
 
     function createAccretionTexture() {
-      const c = document.createElement('canvas');
-      c.width = 512; c.height = 64;
+      const c = document.createElement('canvas'); c.width = 512; c.height = 64;
       const ctx = c.getContext('2d');
       const grad = ctx.createLinearGradient(0, 0, 512, 0);
-      grad.addColorStop(0.0, 'rgba(255,255,255,1)');
-      grad.addColorStop(0.2, 'rgba(255,180,60,0.9)');
-      grad.addColorStop(0.6, 'rgba(210,50,5,0.4)');
-      grad.addColorStop(1.0, 'rgba(0,0,0,0)');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, 512, 64);
+      grad.addColorStop(0.0, 'rgba(255,255,255,1)'); grad.addColorStop(0.2, 'rgba(255,180,60,0.9)');
+      grad.addColorStop(0.6, 'rgba(210,50,5,0.4)'); grad.addColorStop(1.0, 'rgba(0,0,0,0)');
+      ctx.fillStyle = grad; ctx.fillRect(0, 0, 512, 64);
       return new THREE.CanvasTexture(c);
     }
-    const plasmaTex = createAccretionTexture();
 
     const diskGeo = new THREE.RingGeometry(3.8, 14.0, 64, 4);
-    const diskMat = new THREE.MeshBasicMaterial({ map: plasmaTex, side: THREE.DoubleSide, transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending });
+    const diskMat = new THREE.MeshBasicMaterial({ map: createAccretionTexture(), side: THREE.DoubleSide, transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending });
     const accretionDisk = new THREE.Mesh(diskGeo, diskMat);
     accretionDisk.rotation.x = Math.PI / 2.2;
     blackHoleGroup.add(accretionDisk);
@@ -2311,9 +2675,9 @@
       const angle = Math.random() * Math.PI * 2;
       particleRadius[i] = r; particleAngle[i] = angle;
       particleSpeed[i] = (1 / Math.sqrt(r)) * 0.02;
-      particlePos[i * 3] = Math.cos(angle) * r;
-      particlePos[i * 3 + 1] = (Math.random() - 0.5) * (r * 0.15);
-      particlePos[i * 3 + 2] = Math.sin(angle) * r;
+      particlePos[i*3] = Math.cos(angle) * r;
+      particlePos[i*3+1] = (Math.random() - 0.5) * (r * 0.15);
+      particlePos[i*3+2] = Math.sin(angle) * r;
     }
     particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePos, 3));
     const accretionParticles = new THREE.Points(particleGeo, new THREE.PointsMaterial({ color: 0xffb74d, size: 0.12, transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending }));
@@ -2325,21 +2689,18 @@
     function animate() {
       requestAnimationFrame(animate);
       accretionDisk.rotation.z += 0.003;
-
       const positions = accretionParticles.geometry.attributes.position.array;
       for (let i = 0; i < particleCount; i++) {
         particleAngle[i] += particleSpeed[i];
         particleRadius[i] -= 0.006;
         if (particleRadius[i] < 3.8) particleRadius[i] = 15.5;
-        positions[i * 3] = Math.cos(particleAngle[i]) * particleRadius[i];
-        positions[i * 3 + 2] = Math.sin(particleAngle[i]) * particleRadius[i];
+        positions[i*3] = Math.cos(particleAngle[i]) * particleRadius[i];
+        positions[i*3+2] = Math.sin(particleAngle[i]) * particleRadius[i];
       }
       accretionParticles.geometry.attributes.position.needsUpdate = true;
-
       const targetZ = 28 - Math.min(currentScroll * 0.0016 * 6.5, 18);
       camera.position.z += (targetZ - camera.position.z) * 0.1;
       if (zoomEl) zoomEl.innerText = camera.position.z.toFixed(1);
-
       renderer.render(scene, camera);
     }
     animate();
@@ -2356,7 +2717,7 @@
     requestAnimationFrame(raf);
 
     /* =========================================================
-       TERMINAL CLI (TERMUX CONTROLLER)
+       TERMINAL CLI
        ========================================================= */
     const termDisplay = document.getElementById('term-display');
     const termIn = document.getElementById('term-in');
@@ -2366,24 +2727,20 @@
       line.style.margin = '3px 0';
       if (isUser) {
         line.innerHTML = `<span style="color:var(--accent); font-weight:bold;">root@profile:~$</span> ${textHtml}`;
-        termDisplay.appendChild(line);
-        termDisplay.scrollTop = termDisplay.scrollHeight;
       } else {
         line.innerHTML = textHtml;
-        termDisplay.appendChild(line);
-        termDisplay.scrollTop = termDisplay.scrollHeight;
       }
+      termDisplay.appendChild(line);
+      termDisplay.scrollTop = termDisplay.scrollHeight;
     }
 
     function handleCommand(e) {
       e.preventDefault();
       const raw = termIn.value.trim();
       if (!raw) return;
-
       smoothAppendTerm(raw, true);
       playChillClickSound();
       termIn.value = '';
-
       const parts = raw.split(' ');
       const cmd = parts[0].toLowerCase();
 
@@ -2397,36 +2754,22 @@
             smoothAppendTerm(`• <b>name &lt;tên&gt;</b>     : Đổi tên hiển thị`);
             smoothAppendTerm(`• <b>clear</b>           : Xóa nhật ký dòng lệnh`);
             break;
-
           case 'music':
             const sub = parts[1]?.toLowerCase();
-            if (sub === 'next') {
-              nextLofiTrack();
-              smoothAppendTerm(`<span style="color:#00ff66;">✔ Bài kế: ${ytPlaylist[currentTrackIdx].title}</span>`);
-            } else if (sub === 'prev') {
-              prevLofiTrack();
-              smoothAppendTerm(`<span style="color:#00ff66;">✔ Bài trước: ${ytPlaylist[currentTrackIdx].title}</span>`);
-            } else {
-              toggleLofiAudio();
-              smoothAppendTerm(`<span style="color:#00f3ff;">✔ Đã chuyển đổi phát nhạc.</span>`);
-            }
+            if (sub === 'next') { nextLofiTrack(); smoothAppendTerm(`<span style="color:#00ff66;">✔ Bài kế: ${ytPlaylist[currentTrackIdx].title}</span>`); }
+            else if (sub === 'prev') { prevLofiTrack(); smoothAppendTerm(`<span style="color:#00ff66;">✔ Bài trước: ${ytPlaylist[currentTrackIdx].title}</span>`); }
+            else { toggleLofiAudio(); smoothAppendTerm(`<span style="color:#00f3ff;">✔ Đã chuyển đổi phát nhạc.</span>`); }
             break;
-
           case 'neofetch':
-            const cores = navigator.hardwareConcurrency || 8;
-            smoothAppendTerm(`<span style="color:var(--accent); font-weight:bold;">root@singularity</span>\nHOST: WebGL 3D Kernel\nCORES: ${cores} Threads\nSHELL: Termux Web`);
+            smoothAppendTerm(`<span style="color:var(--accent); font-weight:bold;">root@singularity</span>\nHOST: WebGL 3D Kernel\nCORES: ${navigator.hardwareConcurrency||8} Threads\nSHELL: Termux Web`);
             break;
-
           case 'name':
             if (parts.length > 1) {
               const newName = parts.slice(1).join(' ');
               document.getElementById('user-display-name').innerText = newName;
               smoothAppendTerm(`<span style="color:#00ff66;">✔ Đã đổi tên thành: '${newName}'</span>`);
-            } else {
-              smoothAppendTerm(`<span style="color:#ffaa00;">> Cú pháp: name &lt;Tên_Mới&gt;</span>`);
-            }
+            } else { smoothAppendTerm(`<span style="color:#ffaa00;">> Cú pháp: name &lt;Tên_Mới&gt;</span>`); }
             break;
-
           case 'color':
             const colorMap = { cyan: '#00f3ff', red: '#ff0055', green: '#00ff66', orange: '#ff9d00' };
             const chosen = colorMap[parts[1]?.toLowerCase()];
@@ -2434,23 +2777,16 @@
               document.documentElement.style.setProperty('--accent', chosen);
               document.documentElement.style.setProperty('--accent-glow', chosen + '77');
               smoothAppendTerm(`<span style="color:${chosen};">✔ Đã đổi sang tông: ${parts[1].toUpperCase()}</span>`);
-            } else {
-              smoothAppendTerm(`<span style="color:#ffaa00;">> Chọn: cyan, red, green, orange</span>`);
-            }
+            } else { smoothAppendTerm(`<span style="color:#ffaa00;">> Chọn: cyan, red, green, orange</span>`); }
             break;
-
-          case 'clear':
-            termDisplay.innerHTML = '';
-            break;
-
-          default:
-            smoothAppendTerm(`<span style="color:#ff5555">> Không tìm thấy lệnh '${cmd}'. Gõ 'help' để xem danh sách.</span>`);
+          case 'clear': termDisplay.innerHTML = ''; break;
+          default: smoothAppendTerm(`<span style="color:#ff5555">> Không tìm thấy lệnh '${cmd}'. Gõ 'help' để xem danh sách.</span>`);
         }
       }, 60);
     }
 
     /* =========================================================
-       AUDIO SYNTHESIZER
+       AUDIO
        ========================================================= */
     let audioOn = true, audioCtx = null;
     function playChillClickSound() {
@@ -2466,10 +2802,8 @@
         gain.gain.setValueAtTime(0.001, now);
         gain.gain.linearRampToValueAtTime(0.04, now + 0.008);
         gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.16);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start(now);
-        osc.stop(now + 0.18);
+        osc.connect(gain); gain.connect(audioCtx.destination);
+        osc.start(now); osc.stop(now + 0.18);
       } catch (e) {}
     }
 
