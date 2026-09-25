@@ -790,8 +790,8 @@
       max-height: 380px;
       overflow-y: auto;
       font-family: var(--font-mono);
-      font-size: 13px;
-      line-height: 1.8;
+      font-size: 12.5px;
+      line-height: 1.7;
       color: #9cb1c5;
       white-space: pre-wrap;
     }
@@ -1193,7 +1193,7 @@
       </div>
     </section>
 
-    <!-- 04: TERMINAL BIO CONTROLLER -->
+    <!-- 04: TERMINAL BIO CONTROLLER (TERMUX/CLI STYLE) -->
     <section class="scene-section" id="sec-terminal">
       <h2 class="section-title" id="i18n-term-title">Trung Tâm Điều Hành</h2>
       <div class="section-meta" id="i18n-term-meta">// TÙY BIẾN PROFILE QUA DÒNG LỆNH</div>
@@ -1208,12 +1208,12 @@
           </div>
           <div class="term-body" id="term-display">
             <div>> HỆ THỐNG TERMUX WEB ĐÃ KHỞI CHẠY THÀNH CÔNG.</div>
-            <div>> Gõ '<b>help</b>' để hiển thị danh sách các lệnh tương tác.</div>
-            <div>> Gõ '<b>neofetch</b>' để in thông số cấu hình thiết bị.</div>
+            <div>> Gõ '<b>help</b>' để hiển thị toàn bộ danh sách các lệnh tương tác.</div>
+            <div>> Gõ '<b>neofetch</b>', '<b>fastfetch</b>', '<b>btop</b>' hoặc '<b>weather</b>' để trải nghiệm CLI.</div>
           </div>
           <form class="term-input-row" onsubmit="handleCommand(event)">
             <span class="term-prompt">root@profile:~$</span>
-            <input type="text" id="term-in" class="term-field" autocomplete="off" spellcheck="false" placeholder="nhập lệnh (vd: help, neofetch, matrix, color cyan, warp)...">
+            <input type="text" id="term-in" class="term-field" autocomplete="off" spellcheck="false" placeholder="nhập lệnh (vd: help, fastfetch, btop, weather, pipes, matrix)...">
           </form>
         </div>
       </div>
@@ -1322,7 +1322,7 @@
         scrollHint: "✦ DESPLÁZATE PARA VER LAS UTILIDADES DEL SISTEMA",
         samplesTitle: "Sistema y Utilidades",
         samplesMeta: "// TELEMETRÍA EN TIEMPO REAL, AUDIO LO-FI Y QR",
-        socialsTitle: "Enlaces và Habilidades",
+        socialsTitle: "Enlaces y Habilidades",
         socialsMeta: "// PERFILES SOCIALES Y DOMINIO TÉCNICO",
         termTitle: "Centro de Comando",
         termMeta: "// CONTROLADOR DE PERFIL POR COMANDOS"
@@ -1916,7 +1916,7 @@
       ctx.fillRect(0, 0, 1024, 128);
 
       for (let i = 0; i < 300; i++) {
-        ctx.fillStyle = `rgba(255, ${Math.random()*180 + 75}, 30, ${Math.random() * 0.4})`;
+        ctx.fillStyle = `rgba(255, ${Math.random()*180 + 75}, 30,${Math.random() * 0.4})`;
         ctx.fillRect(Math.random() * 1024, Math.random() * 128, Math.random() * 40 + 10, Math.random() * 3 + 1);
       }
       return new THREE.CanvasTexture(c);
@@ -2050,7 +2050,7 @@
     });
 
     /* =========================================================
-       11. ENHANCED TERMINAL (TERMUX STYLE) WITH REAL EFFECTS
+       11. ENHANCED TERMINAL (TERMUX/CLI STYLE) WITH FULL SUITE
        ========================================================= */
     const termDisplay = document.getElementById('term-display');
     const termIn = document.getElementById('term-in');
@@ -2059,7 +2059,7 @@
       const line = document.createElement('div');
       line.style.margin = '3px 0';
       if (isUser) {
-        line.innerHTML = `<span style="color:var(--accent); font-weight:bold;">root@profile:~$</span> ${textHtml}`;
+        line.innerHTML = `<span style="color:var(--accent); font-weight:bold;">root@profile:~$</span>${textHtml}`;
         termDisplay.appendChild(line);
         termDisplay.scrollTop = termDisplay.scrollHeight;
       } else {
@@ -2143,13 +2143,15 @@
           case 'help':
             smoothAppendTerm(`<span style="color:var(--accent);">=== HỆ THỐNG LỆNH ĐIỀU HÀNH KERNEL ===</span>`);
             setTimeout(() => smoothAppendTerm(`• <b>neofetch</b>        : In bảng thông số phần cứng thiết bị`), 40);
-            setTimeout(() => smoothAppendTerm(`• <b>name &lt;tên&gt;</b>     : Thay đổi tên định danh trên Profile`), 80);
-            setTimeout(() => smoothAppendTerm(`• <b>color &lt;mã_màu&gt;</b> : Đổi tông màu web (cyan, red, green, purple, orange)`), 120);
-            setTimeout(() => smoothAppendTerm(`• <b>matrix</b>          : Bật / Tắt mưa mã độc Matrix trên màn hình`), 160);
-            setTimeout(() => smoothAppendTerm(`• <b>warp</b>            : Nhảy cóc không gian (Lao camera vào hố đen)`), 200);
-            setTimeout(() => smoothAppendTerm(`• <b>glitch</b>          : Kích hoạt xung đột hệ thống (Glitch Effect)`), 240);
-            setTimeout(() => smoothAppendTerm(`• <b>whoami</b>          : Trích xuất quyền hạn và IP hiện tại`), 280);
-            setTimeout(() => smoothAppendTerm(`• <b>clear</b>           : Xóa sạch nhật ký màn hình`), 320);
+            setTimeout(() => smoothAppendTerm(`• <b>fastfetch</b>       : In logo Tux và dải bảng màu Palette`), 80);
+            setTimeout(() => smoothAppendTerm(`• <b>btop</b> / <b>htop</b>   : Bảng theo dõi tiến trình CPU/RAM thời gian thực`), 120);
+            setTimeout(() => smoothAppendTerm(`• <b>weather</b>         : Dự báo thời tiết dạng đồ họa chữ ASCII`), 160);
+            setTimeout(() => smoothAppendTerm(`• <b>pipes</b>           : Hiệu ứng đường ống mạng nghệ thuật`), 200);
+            setTimeout(() => smoothAppendTerm(`• <b>color &lt;màu&gt;</b>     : Đổi tông màu web (cyan, red, green, purple, orange)`), 240);
+            setTimeout(() => smoothAppendTerm(`• <b>name &lt;tên&gt;</b>     : Thay đổi tên định danh trên Profile`), 280);
+            setTimeout(() => smoothAppendTerm(`• <b>matrix</b>          : Bật / Tắt mưa mã độc Matrix`), 320);
+            setTimeout(() => smoothAppendTerm(`• <b>warp</b>            : Lao camera vào tâm hố đen 3D`), 360);
+            setTimeout(() => smoothAppendTerm(`• <b>clear</b>           : Xóa sạch nhật ký màn hình`), 400);
             break;
 
           case 'neofetch':
@@ -2171,9 +2173,54 @@
 <span style="color:#00f3ff;">  (  =^=  )   </span> <b>OS:</b> ${detectedOS}
 <span style="color:#00f3ff;">   (----)     </span> <b>HOST:</b> WebGL 3D Render Kernel
 <span style="color:#00f3ff;">  (________)  </span> <b>CORES:</b> ${cores} vCPU Threads
-               <b>RAM:</b> ${ram} | <b>RES:</b> ${res}
+               <b>RAM:</b> ${ram} \vert{} <b>RES:</b>${res}
                <b>SHELL:</b> Termux Web Virtual Engine`;
             smoothAppendTerm(logo);
+            break;
+
+          case 'fastfetch':
+          case 'pfetch':
+            const pal = `<span style="background:#000;color:#000">██</span><span style="background:#f00;color:#f00">██</span><span style="background:#0f0;color:#0f0">██</span><span style="background:#ff0;color:#ff0">██</span><span style="background:#00f;color:#00f">██</span><span style="background:#f0f;color:#f0f">██</span><span style="background:#0ff;color:#0ff">██</span><span style="background:#fff;color:#fff">██</span>`;
+            const pfetchOutput = 
+`<span style="color:var(--accent);">    .---.    </span> <span style="color:#00f3ff; font-weight:bold;">core@kernel-nexus</span>
+<span style="color:var(--accent);">   /     \\   </span> -----------------
+<span style="color:var(--accent);">  | () () |  </span> <b>KERNEL:</b> 6.10.8-hardened
+<span style="color:var(--accent);">   \\  -  /   </span> <b>UPTIME:</b> ${document.getElementById('sys-uptime')?.innerText || '00:00:00'}
+<span style="color:var(--accent);">    \`---'    </span> <b>PKGS:</b> 1337 (termux, pacman)
+               <b>PALETTE:</b> ${pal}`;
+            smoothAppendTerm(pfetchOutput);
+            break;
+
+          case 'btop':
+          case 'htop':
+            const procOutput = 
+`<span style="color:var(--accent);">PID   USER     CPU%   MEM%   TIME+     COMMAND</span>
+<span style="color:#00f3ff;">1024  root     18.4   4.2    00:14.2   three_engine.bin</span>
+<span style="color:#fff;">1025  kernel    8.2   2.1    00:06.8   accretion_disk.so</span>
+<span style="color:#fff;">1028  termux    4.5   1.8    00:03.1   lofi_streamer</span>
+<span style="color:#788899;">1040  guest     0.1   0.4    00:00.2   bash --login</span>
+<span style="color:#00ff66;">TASKS: 4 total, 1 running, 3 sleeping | LOAD: 0.42 0.38 0.31</span>`;
+            smoothAppendTerm(procOutput);
+            break;
+
+          case 'weather':
+            const weatherArt = 
+`<span style="color:#ffdd00;">   \\  /       </span> <b>CYBER WEATHER // REAL-TIME</b>
+<span style="color:#ffdd00;"> _ /""\\ _    </span> <b>Trạng thái:</b> Quang đãng / Khô ráo
+<span style="color:#ffdd00;">   \\__/       </span> <b>Nhiệt độ:</b> 28°C (Cảm giác như 30°C)
+<span style="color:#ffdd00;">   /  \\       </span> <b>Gió:</b> 12 km/h ↗ | <b>Độ ẩm:</b> 65%`;
+            smoothAppendTerm(weatherArt);
+            break;
+
+          case 'pipes':
+            smoothAppendTerm(`<span style="color:var(--accent);">[PIPES-CLI]: Khởi tạo luồng ghép nối ống dẫn mạng...</span>`);
+            const pipeChars = ['┏', '┓', '┗', '┛', '┃', '━', '┣', '┫', '┳', '┻', '╋'];
+            let pipeLine = '';
+            for (let i = 0; i < 50; i++) {
+              pipeLine += pipeChars[Math.floor(Math.random() * pipeChars.length)];
+            }
+            setTimeout(() => smoothAppendTerm(`<span style="color:#00f3ff;">${pipeLine}</span>`), 60);
+            setTimeout(() => smoothAppendTerm(`<span style="color:#00ff66;">${pipeLine.split('').reverse().join('')}</span>`), 120);
             break;
 
           case 'name':
@@ -2224,20 +2271,6 @@
               speedBoost = 1.0;
               smoothAppendTerm(`<span style="color:#00ff66;">✔ TÁI LẬP TRỌNG LỰC QUANH HỐ ĐEN HOÀN TẤT.</span>`);
             }, 1800);
-            break;
-
-          case 'glitch':
-            document.body.style.filter = 'invert(1) hue-rotate(180deg) blur(1px)';
-            document.body.style.transform = 'translate(3px, -3px)';
-            setTimeout(() => {
-              document.body.style.filter = '';
-              document.body.style.transform = '';
-              smoothAppendTerm(`<span style="color:#ff0055;">[KERNEL FAULT]: Đã kích hoạt và khôi phục xung đột đồ họa.</span>`);
-            }, 250);
-            break;
-
-          case 'whoami':
-            smoothAppendTerm(`USER: <span style="color:#00f3ff;">root</span> (UID: 0, GID: 0) // CLEARANCE: 0x7F [ELITE]`);
             break;
 
           case 'clear':
