@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -49,7 +48,6 @@
       -webkit-user-select: none !important;
     }
 
-    /* CLICK PARTICLES CANVAS OVERLAY */
     #click-particles-canvas {
       position: fixed;
       inset: 0;
@@ -59,7 +57,6 @@
       z-index: 100005;
     }
 
-    /* CUSTOM SKIN CURSOR */
     #cursor-dot {
       position: fixed;
       top: 0; left: 0;
@@ -109,7 +106,6 @@
       #cursor-tag { display: block; }
     }
 
-    /* LOADER GUI */
     #loader-gui {
       position: fixed;
       inset: 0;
@@ -199,7 +195,6 @@
       transition: width 0.1s linear;
     }
 
-    /* BẢO MẬT & CẢNH BÁO TOAST */
     #security-toast {
       position: fixed;
       top: 32px;
@@ -242,7 +237,7 @@
     .lockdown-title { font-family: var(--font-display); font-size: clamp(32px, 5vw, 56px); color: #ff0055; margin-bottom: 16px; text-shadow: 0 0 20px #ff0055; }
     .lockdown-desc { font-family: var(--font-mono); font-size: 14px; color: #ffb3c6; max-width: 600px; line-height: 1.8; }
 
-    /* LIQUID GLASS CONTAINERS & PHYSICS (TÔNG NGUYÊN BẢN) */
+    /* LIQUID GLASS CONTAINERS */
     .liquid-glass-container {
       perspective: 1400px;
     }
@@ -331,7 +326,6 @@
         inset 0 -2px 4px 0 rgba(0, 0, 0, 0.8);
     }
 
-    /* Lenis Smooth Scroll */
     html.lenis, html.lenis body { height: auto; }
 
     body {
@@ -359,7 +353,6 @@
       z-index: 2;
     }
 
-    /* Header Nav */
     header.nav-bar {
       position: fixed;
       top: 0; left: 0;
@@ -407,7 +400,6 @@
       gap: 16px;
     }
 
-    /* 🌐 NÚT CHỌN NGÔN NGỮ */
     .lang-dropdown-wrapper {
       position: relative;
     }
@@ -500,7 +492,6 @@
       box-shadow: 0 0 12px var(--accent-glow);
     }
 
-    /* Content Stream */
     .content-stream {
       position: relative;
       z-index: 10;
@@ -519,7 +510,6 @@
       position: relative;
     }
 
-    /* HERO DISCORD AVATAR & LIVE ONLINE DOT */
     .profile-avatar-wrap {
       position: relative;
       width: 135px;
@@ -550,7 +540,6 @@
       transform: scale(1.06);
     }
 
-    /* CHẤM ONLINE LUÔN XANH LÁ NEON NỔI BẬT */
     .profile-online-dot {
       position: absolute;
       bottom: 5px;
@@ -609,7 +598,6 @@
       transform: translateY(-1px);
     }
 
-    /* Section 2: Dashboard Matrix */
     .section-title {
       font-family: var(--font-display);
       font-size: clamp(36px, 5vw, 68px);
@@ -699,7 +687,6 @@
       box-shadow: 0 0 25px var(--accent-glow);
     }
 
-    /* Section 3: Social & Skills */
     .social-links-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -759,7 +746,6 @@
       box-shadow: 0 0 10px var(--accent-glow);
     }
 
-    /* Section 4: Terminal */
     .terminal-wrapper {
       border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 18px;
@@ -815,7 +801,6 @@
       width: 100%;
     }
 
-    /* Sticky Footer */
     footer.bottom-hud {
       position: fixed;
       bottom: 24px; left: 48px; right: 48px;
@@ -834,6 +819,33 @@
       display: flex;
       align-items: center;
       gap: 20px;
+    }
+
+    /* Tùy biến bộ điều khiển Player */
+    .player-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .player-sub-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      transition: all 0.2s;
+    }
+
+    .player-sub-btn:hover {
+      background: rgba(255, 157, 0, 0.2);
+      border-color: var(--accent);
+      color: var(--accent);
     }
 
     @media (max-width: 768px) {
@@ -898,7 +910,6 @@
     </div>
     
     <div class="nav-controls">
-      <!-- 🌐 DROPDOWN CHỌN NGÔN NGỮ PHỔ THÔNG -->
       <div class="lang-dropdown-wrapper">
         <button class="lang-btn" id="lang-btn-current" onclick="toggleLangMenu(event)">
           <span>🌐</span>
@@ -940,7 +951,7 @@
   <!-- Flowing Smooth-Scroll Content Stream -->
   <main class="content-stream">
 
-    <!-- 01: HERO PROFILE ĐƯỢC DECOR TỰ ĐỘNG TỪ API DISCORD (TÔNG MÀU GỐC LIQUID GLASS) -->
+    <!-- 01: HERO PROFILE -->
     <section class="scene-section" id="sec-profile" style="display: flex; justify-content: center; align-items: center; padding: 100px 0;">
       <div class="liquid-glass-container" style="max-width: 980px; width: 100%;">
         <div class="liquid-glass" style="padding: 42px 48px; border-radius: 28px;">
@@ -952,7 +963,6 @@
             <div style="font-family: var(--font-mono); font-size: 11.5px; color: var(--accent); letter-spacing: 2px;">
               // DISCORD_API_UPLINK // LANYARD_REST_V1
             </div>
-            <!-- Trạng thái luôn Online màu xanh -->
             <div style="display: flex; align-items: center; gap: 8px;">
               <span class="singularity-beacon" style="width: 8px; height: 8px; background: #00ff66; box-shadow: 0 0 12px #00ff66;"></span>
               <span style="font-family: var(--font-mono); font-size: 11px; color: #00ff66; font-weight: bold; letter-spacing: 1.5px;">ONLINE</span>
@@ -960,21 +970,16 @@
           </div>
 
           <div style="display: flex; align-items: center; gap: 36px; margin-bottom: 26px; flex-wrap: wrap;">
-            
-            <!-- AVATAR KÉO TỪ DISCORD KÈM CHẤM XANH ONLINE GẮN GÓC -->
             <div class="profile-avatar-wrap">
               <div class="profile-avatar-inner">
-                <!-- Avatar tự động cập nhật từ API Lanyard của bạn -->
                 <img id="discord-real-avatar" 
                      src="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=400&auto=format&fit=crop&q=80" 
                      alt="Discord Avatar" 
                      class="profile-avatar-img">
               </div>
-              <!-- Chấm xanh neon Online luôn sáng trên avatar -->
               <div class="profile-online-dot" title="Discord: Trực tuyến (Online)"></div>
             </div>
 
-            <!-- Tên & Tag kéo tự động -->
             <div style="flex: 1; min-width: 260px;">
               <div style="font-family: var(--font-mono); font-size: 12.5px; color: var(--accent); letter-spacing: 2px; margin-bottom: 6px;">
                 root@singularity:~$ whoami
@@ -986,10 +991,8 @@
                 @<span id="discord-real-username">chiencuto18m</span> [UID: 1053893912466554922]
               </div>
             </div>
-
           </div>
 
-          <!-- KHUNG HOẠT ĐỘNG THẬT TRÍCH XUẤT TỪ DISCORD (GAME / CODE / SPOTIFY) -->
           <div style="background: rgba(2, 4, 8, 0.7); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 12px 18px; margin-bottom: 24px; display: flex; align-items: center; gap: 14px;">
             <div style="font-size: 20px;">🎮</div>
             <div style="font-family: var(--font-mono); font-size: 12px; color: #a0b8cc;">
@@ -997,12 +1000,10 @@
             </div>
           </div>
 
-          <!-- ĐOẠN TIỂU SỬ ĐƯỢC CHUỐT LẠI CỰC CHẤT -->
           <div class="bio-philosophy" id="i18n-philosophy">
             "Không viết dòng thứ tư nếu ba dòng là đủ tối ưu. Thức trắng đêm cùng stdout streams, biến cafe đen thành công cụ tự động hóa và kiến trúc ngầm. Tĩnh lặng, chính xác và không để lại dấu vết."
           </div>
 
-          <!-- DÀN BADGES CYBERPUNK NỔI BẬT THEO TÔNG MÀU CŨ -->
           <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px;">
             <span class="bio-badge" style="border-color: rgba(0, 255, 102, 0.4); background: rgba(0, 255, 102, 0.08); color: #00ff66;">
               <span>●</span> ONLINE
@@ -1037,7 +1038,7 @@
     <!-- 02: TIỆN ÍCH HỆ THỐNG & DASHBOARD MATRIX -->
     <section class="scene-section" id="sec-samples">
       <h2 class="section-title" id="i18n-samples-title">Hệ Thống & Tiện Ích</h2>
-      <div class="section-meta" id="i18n-samples-meta">// REAL-TIME TELEMETRY, LO-FI AUDIO & DONATION QR</div>
+      <div class="section-meta" id="i18n-samples-meta">// REAL-TIME TELEMETRY, LO-FI PLAYLIST & DONATION QR</div>
 
       <div class="bio-samples-grid">
         
@@ -1073,7 +1074,6 @@
                   <span id="sys-uptime" style="color:#00ff66;">00:00:00</span>
                 </div>
 
-                <!-- Thanh tải CPU dao động tự nhiên -->
                 <div style="margin-top: 8px;">
                   <div style="display:flex; justify-content:space-between; margin-bottom: 3px;">
                     <span style="color:#788899;">CPU LOAD:</span>
@@ -1084,7 +1084,6 @@
                   </div>
                 </div>
 
-                <!-- Canvas sóng đồ thị Mini Activity Graph -->
                 <div style="margin-top: 10px; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 6px;">
                   <div style="font-size:9px; color:#5c6a78; margin-bottom:2px; letter-spacing:1px;">CORE OSCILLATION MONITOR:</div>
                   <canvas id="sys-sparkline" width="280" height="28" style="width:100%; height:28px; display:block;"></canvas>
@@ -1098,30 +1097,38 @@
           </div>
         </div>
 
-        <!-- THẺ 2: MINI LOFI PLAYER -->
+        <!-- THẺ 2: MINI LOFI PLAYLIST PLAYER CÓ CHỌN & CHUYỂN BÀI -->
         <div class="liquid-glass-container">
           <div class="sample-card liquid-glass">
             <div class="glass-glare"></div>
             <div class="glass-shimmer"></div>
             <div>
               <div class="sample-head">
-                <span class="sample-type">Lo-Fi Player</span>
+                <span class="sample-type">Lo-Fi Jukebox</span>
                 <span class="sample-target" id="lofi-track-status">PAUSED</span>
               </div>
-              <div class="sample-box" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 8px;">
-                <div style="font-size: 28px; animation: beacon-pulse 2s infinite ease-in-out;">🎧</div>
-                <div style="color: #fff; font-weight: bold; font-size: 13px;" id="lofi-title">Midnight Coding Beats</div>
-                <div style="color: #7b8896; font-size: 11px;">Lo-Fi Chill Stream // 128kbps</div>
-                <audio id="lofi-audio" loop src="https://stream.zeno.fm/f3wvbbqmdg8uv"></audio>
+              <div class="sample-box" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 8px; min-height: 165px;">
+                <div style="font-size: 26px; animation: beacon-pulse 2s infinite ease-in-out;">🎧</div>
+                <div style="color: #fff; font-weight: bold; font-size: 13.5px;" id="lofi-title">Loading Track...</div>
+                <div style="color: #7b8896; font-size: 11px;" id="lofi-artist">Lo-Fi Cyber Collective</div>
+                <div style="color: var(--accent-blue); font-size: 10px; font-family: var(--font-mono);" id="lofi-track-counter">TRACK 1 / 4</div>
+                <audio id="lofi-audio" preload="metadata"></audio>
               </div>
             </div>
-            <button class="copy-btn" id="lofi-play-btn" onclick="toggleLofiAudio()">
-              <span>▶ PHÁT NHẠC LO-FI</span>
-            </button>
+
+            <div>
+              <div class="player-controls">
+                <button class="player-sub-btn" onclick="prevLofiTrack()" title="Bài trước">⏮ PREV</button>
+                <button class="copy-btn" id="lofi-play-btn" style="flex: 1; padding: 10px 14px;" onclick="toggleLofiAudio()">
+                  <span id="lofi-btn-label">▶ PHÁT NHẠC</span>
+                </button>
+                <button class="player-sub-btn" onclick="nextLofiTrack()" title="Bài kế tiếp">NEXT ⏭</button>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- THẺ 3: QR DONATE -->
+        <!-- THẺ 3: QR DONATE (ĐÃ CẬP NHẬT ẢNH QR MỚI CỦA BẠN) -->
         <div class="liquid-glass-container">
           <div class="sample-card liquid-glass">
             <div class="glass-glare"></div>
@@ -1129,19 +1136,24 @@
             <div>
               <div class="sample-head">
                 <span class="sample-type">Tip & Donate</span>
-                <span class="sample-target">VIETQR</span>
+                <span class="sample-target">QR SCAN</span>
               </div>
-              <div class="sample-box" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px;">
-                <img id="donate-qr-img" 
-                     src="https://api.vietqr.io/image/970422-0382218001-compact.jpg?accountName=DONATE&amount=10000" 
-                     alt="Donate QR" 
-                     style="width: 115px; height: 115px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); object-fit: cover;">
-                <div style="font-size: 10.5px; color: #9cb1c5; margin-top: 6px;">Mời mình 1 ly cafe / server fee ☕</div>
+              <div class="sample-box" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px;">
+                <!-- ẢNH QR CỦA BẠN ĐƯỢC LOAD TỪ CDN CHUẨN XÁC -->
+                <div style="position: relative; width: 120px; height: 120px; border-radius: 12px; overflow: hidden; border: 1.5px solid rgba(255, 157, 0, 0.4); box-shadow: 0 0 20px rgba(255, 157, 0, 0.2);">
+                  <img id="donate-qr-img" 
+                       src="https://cdn.upanhlaylink.com/i/bhMtLMHZ.jpeg" 
+                       alt="Donate QR Pay" 
+                       style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                </div>
+                <div style="font-size: 11px; color: #a0b8cc; margin-top: 10px; font-family: var(--font-mono); text-align: center;">
+                  Quét mã QR để ủng hộ ly cafe ☕
+                </div>
               </div>
             </div>
-            <button class="copy-btn" onclick="copyDonateAccount(this)">
-              <span>📋 COPY STK NGÂN HÀNG</span>
-            </button>
+            <a href="https://cdn.upanhlaylink.com/i/bhMtLMHZ.jpeg" target="_blank" class="copy-btn" style="text-decoration: none;">
+              <span>🔍 XEM ẢNH QR GỐC</span>
+            </a>
           </div>
         </div>
 
@@ -1242,7 +1254,7 @@
       </div>
     </section>
 
-    <!-- 04: TERMINAL BIO CONTROLLER (TERMUX/CLI STYLE) -->
+    <!-- 04: TERMINAL BIO CONTROLLER -->
     <section class="scene-section" id="sec-terminal">
       <h2 class="section-title" id="i18n-term-title">Trung Tâm Điều Hành</h2>
       <div class="section-meta" id="i18n-term-meta">// TÙY BIẾN PROFILE QUA DÒNG LỆNH</div>
@@ -1294,21 +1306,12 @@
         if (json.success && json.data) {
           const user = json.data.discord_user;
           
-          // 1. Cập nhật ảnh đại diện thật từ Discord
           if (user.avatar) {
             const ext = user.avatar.startsWith('a_') ? 'gif' : 'png';
-            const avatarUrl = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=256`;
-            document.getElementById('discord-real-avatar').src = avatarUrl;
-          }
-
-          // 2. Cập nhật Username / Nickname thật
-          if (user.global_name || user.username) {
-            const displayName = user.global_name || user.username;
-            document.getElementById('user-display-name').innerText = `${displayName} ⚔`;
+            const avatarUrl = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=256`;             document.getElementById('discord-real-avatar').src = avatarUrl;           }            if (user.global_name \vert{}\vert{} user.username) {             const displayName = user.global_name \vert{}\vert{} user.username;             document.getElementById('user-display-name').innerText = `${displayName} ⚔`;
             document.getElementById('discord-real-username').innerText = user.username;
           }
 
-          // 3. Cập nhật hoạt động đang diễn ra (Spotify hoặc Game hoặc Custom Status)
           const actEl = document.getElementById('discord-real-activity');
           if (json.data.listening_to_spotify && json.data.spotify) {
             actEl.innerHTML = `🎧 Đang nghe Spotify: <span style="color:#1db954; font-weight:bold;">${json.data.spotify.song}</span> -${json.data.spotify.artist}`;
@@ -1324,6 +1327,97 @@
     syncDiscordProfile();
 
     /* =========================================================
+       🎵 PLAYLIST NHẠC LO-FI CHILL THỰC SỰ
+       ========================================================= */
+    const lofiPlaylist = [
+      {
+        title: "Midnight City Cyber Beat",
+        artist: "ChillHop & Lo-Fi Beats",
+        url: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3"
+      },
+      {
+        title: "Coffee & Code Drift",
+        artist: "Lofi Room // Tokyo Station",
+        url: "https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=lofi-chill-medium-version-159456.mp3"
+      },
+      {
+        title: "Rainy Terminal Stride",
+        artist: "Underground Synthetics",
+        url: "https://cdn.pixabay.com/download/audio/2023/07/30/audio_51a24d852a.mp3?filename=good-night-lofi-cozy-chill-160166.mp3"
+      },
+      {
+        title: "Lofi Live 24/7 Radio Stream",
+        artist: "Global Chill Radio",
+        url: "https://stream.zeno.fm/f3wvbbqmdg8uv"
+      }
+    ];
+
+    let currentTrackIdx = 0;
+    const lofiAudio = document.getElementById('lofi-audio');
+    const lofiBtnLabel = document.getElementById('lofi-btn-label');
+    const lofiBadge = document.getElementById('lofi-track-status');
+    const lofiTitle = document.getElementById('lofi-title');
+    const lofiArtist = document.getElementById('lofi-artist');
+    const lofiCounter = document.getElementById('lofi-track-counter');
+
+    function loadTrack(idx) {
+      currentTrackIdx = (idx + lofiPlaylist.length) % lofiPlaylist.length;
+      const track = lofiPlaylist[currentTrackIdx];
+      lofiAudio.src = track.url;
+      lofiTitle.innerText = track.title;
+      lofiArtist.innerText = track.artist;
+      lofiCounter.innerText = `TRACK ${currentTrackIdx + 1} /${lofiPlaylist.length}`;
+    }
+    loadTrack(0);
+
+    function toggleLofiAudio() {
+      playChillClickSound();
+      if (!lofiAudio) return;
+      if (lofiAudio.paused) {
+        lofiAudio.play().then(() => {
+          lofiBtnLabel.innerText = '⏸ TẠM DỪNG';
+          lofiBadge.innerText = 'PLAYING';
+          lofiBadge.style.color = '#00ff66';
+        }).catch(() => {
+          alert('Vui lòng chạm/nhấp vào trang để cấp quyền phát audio.');
+        });
+      } else {
+        lofiAudio.pause();
+        lofiBtnLabel.innerText = '▶ PHÁT NHẠC';
+        lofiBadge.innerText = 'PAUSED';
+        lofiBadge.style.color = 'var(--accent)';
+      }
+    }
+
+    function nextLofiTrack() {
+      playChillClickSound();
+      const wasPlaying = !lofiAudio.paused;
+      loadTrack(currentTrackIdx + 1);
+      if (wasPlaying) {
+        lofiAudio.play();
+        lofiBtnLabel.innerText = '⏸ TẠM DỪNG';
+        lofiBadge.innerText = 'PLAYING';
+        lofiBadge.style.color = '#00ff66';
+      }
+    }
+
+    function prevLofiTrack() {
+      playChillClickSound();
+      const wasPlaying = !lofiAudio.paused;
+      loadTrack(currentTrackIdx - 1);
+      if (wasPlaying) {
+        lofiAudio.play();
+        lofiBtnLabel.innerText = '⏸ TẠM DỪNG';
+        lofiBadge.innerText = 'PLAYING';
+        lofiBadge.style.color = '#00ff66';
+      }
+    }
+
+    lofiAudio.addEventListener('ended', () => {
+      nextLofiTrack();
+    });
+
+    /* =========================================================
        🌐 1. I18N MULTI-LANGUAGE DICTIONARY & SWITCH ENGINE
        ========================================================= */
     const i18nData = {
@@ -1332,7 +1426,7 @@
         brand: "CYBER_PROFILE // AXIOM",
         philosophy: '"Không viết dòng thứ tư nếu ba dòng là đủ tối ưu. Thức trắng đêm cùng stdout streams, biến cafe đen thành công cụ tự động hóa và kiến trúc ngầm. Tĩnh lặng, chính xác và không để lại dấu vết."',
         samplesTitle: "Hệ Thống & Tiện Ích",
-        samplesMeta: "// REAL-TIME TELEMETRY, LO-FI AUDIO & DONATION QR",
+        samplesMeta: "// REAL-TIME TELEMETRY, LO-FI PLAYLIST & DONATION QR",
         socialsTitle: "Kênh Kết Nối & Kỹ Năng",
         socialsMeta: "// SOCIAL PROFILES & PROFICIENCY",
         termTitle: "Trung Tâm Điều Hành",
@@ -1343,7 +1437,7 @@
         brand: "CYBER_PROFILE // AXIOM",
         philosophy: '"Never write a fourth line if three can optimize the problem. Late nights with stdout streams, turning black coffee into automation bots and underground architectures. Stillness, precision, no traces left."',
         samplesTitle: "System & Utilities",
-        samplesMeta: "// REAL-TIME TELEMETRY, LO-FI AUDIO & DONATION QR",
+        samplesMeta: "// REAL-TIME TELEMETRY, LO-FI PLAYLIST & DONATION QR",
         socialsTitle: "Social Uplinks & Skills",
         socialsMeta: "// SOCIAL PROFILES & PROFICIENCY",
         termTitle: "Command Center",
@@ -1354,7 +1448,7 @@
         brand: "サイバー・プロファイル // AXIOM",
         philosophy: '"3行で解決できる問題なら、4行目を書くことはない。夜を徹してstdoutを見つめ、ブラックコーヒーを自動化ツールへと変える。静寂、正確、痕跡なし。"',
         samplesTitle: "システム & ユーティリティ",
-        samplesMeta: "// リアルタイムテレメトリ、Lo-Fi、QR寄付",
+        samplesMeta: "// リアルタイムテレメトリ、プレイリスト、QR寄付",
         socialsTitle: "リンク＆スキルマトリクス",
         socialsMeta: "// ソーシャルプロファイル & 習熟度",
         termTitle: "オペレーション・ターミナル",
@@ -1365,7 +1459,7 @@
         brand: "사이버_프로필 // AXIOM",
         philosophy: '"세 줄로 해결될 문제에 네 번째 줄을 쓰지 않는다. 밤새 stdout 스트림을 지켜보며 블랙커피를 자동화 도구로 바꾼다. 고요함, 정확함, 흔적은 남기지 않는다."',
         samplesTitle: "시스템 & 유틸리티",
-        samplesMeta: "// 실시간 원격 측정, Lo-Fi 오디오 및 후원 QR",
+        samplesMeta: "// 실시간 원격 측정, Lo-Fi 플레이리스트 및 후원 QR",
         socialsTitle: "소셜 링크 & 스킬 매트릭스",
         socialsMeta: "// 소셜 프로필 & 기술 숙련도",
         termTitle: "커맨드 센터",
@@ -1376,7 +1470,7 @@
         brand: "网络配置文件 // AXIOM",
         philosophy: '"如果三行代码能解决问题，绝不写第四行。通宵凝视终端日志流，将黑咖啡转化为自动化工具与隐秘架构。寂静、精准、不留痕迹。"',
         samplesTitle: "系统与实用组件",
-        samplesMeta: "// 实时遥测数据、LO-FI音乐与赞助通道",
+        samplesMeta: "// 实时遥测数据、LO-FI播放列表与赞助通道",
         socialsTitle: "社交网络与技术矩阵",
         socialsMeta: "// 社交主页与技术熟练度",
         termTitle: "控制终端",
@@ -1387,7 +1481,7 @@
         brand: "PERFIL_CIBERNÉTICO // AXIOM",
         philosophy: '"Nunca escribas una cuarta línea si tres son suficientes. Noches en vela frente a los flujos de stdout, convirtiendo café en herramientas de automatización. Silencio, precisión y sin dejar rastro."',
         samplesTitle: "Sistema y Utilidades",
-        samplesMeta: "// TELEMETRÍA EN TIEMPO REAL, AUDIO LO-FI Y QR",
+        samplesMeta: "// TELEMETRÍA EN TIEMPO REAL, LISTA LO-FI Y QR",
         socialsTitle: "Enlaces y Habilidades",
         socialsMeta: "// PERFILES SOCIALES Y DOMINIO TÉCNICO",
         termTitle: "Centro de Comando",
@@ -1500,71 +1594,7 @@
     function toggleAudio() {
       audioOn = !audioOn;
       const btn = document.getElementById('audio-toggle');
-      btn.innerText = `SOUND: ${audioOn ? 'ON' : 'OFF'}`;
-      btn.classList.toggle('active', audioOn);
-      if (audioOn) playChillClickSound();
-    }
-
-    /* =========================================================
-       3. CLICK PARTICLES ENGINE
-       ========================================================= */
-    const particleCanvas = document.getElementById('click-particles-canvas');
-    const pCtx = particleCanvas.getContext('2d');
-
-    function resizeParticleCanvas() {
-      particleCanvas.width = window.innerWidth;
-      particleCanvas.height = window.innerHeight;
-    }
-    resizeParticleCanvas();
-    window.addEventListener('resize', resizeParticleCanvas);
-
-    const activeParticles = [];
-    const particleColors = ['#ffaa00', '#00f3ff', '#ffffff', '#ff7700', '#ffd27f'];
-
-    function spawnClickParticles(x, y) {
-      activeParticles.push({
-        type: 'ring',
-        x: x, y: y,
-        radius: 2,
-        maxRadius: Math.random() * 25 + 30,
-        alpha: 0.8,
-        color: '#ffaa00'
-      });
-
-      const count = Math.floor(Math.random() * 8) + 18;
-      for (let i = 0; i < count; i++) {
-        const angle = Math.random() * Math.PI * 2;
-        const speed = Math.random() * 4.5 + 1.8;
-        activeParticles.push({
-          type: 'spark',
-          x: x, y: y,
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed,
-          size: Math.random() * 3 + 1.5,
-          color: particleColors[Math.floor(Math.random() * particleColors.length)],
-          alpha: 1.0,
-          decay: Math.random() * 0.02 + 0.02,
-          drag: 0.94
-        });
-      }
-    }
-
-    function updateAndRenderParticles() {
-      pCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
-
-      for (let i = activeParticles.length - 1; i >= 0; i--) {
-        const p = activeParticles[i];
-
-        if (p.type === 'ring') {
-          p.radius += (p.maxRadius - p.radius) * 0.15;
-          p.alpha -= 0.035;
-          if (p.alpha <= 0) {
-            activeParticles.splice(i, 1);
-            continue;
-          }
-          pCtx.beginPath();
-          pCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-          pCtx.strokeStyle = `rgba(255, 170, 0, ${p.alpha})`;
+      btn.innerText = `SOUND: ${audioOn ? 'ON' : 'OFF'}`;       btn.classList.toggle('active', audioOn);       if (audioOn) playChillClickSound();     }      /* =========================================================        3. CLICK PARTICLES ENGINE        ========================================================= */     const particleCanvas = document.getElementById('click-particles-canvas');     const pCtx = particleCanvas.getContext('2d');      function resizeParticleCanvas() {       particleCanvas.width = window.innerWidth;       particleCanvas.height = window.innerHeight;     }     resizeParticleCanvas();     window.addEventListener('resize', resizeParticleCanvas);      const activeParticles = [];     const particleColors = ['#ffaa00', '#00f3ff', '#ffffff', '#ff7700', '#ffd27f'];      function spawnClickParticles(x, y) {       activeParticles.push({         type: 'ring',         x: x, y: y,         radius: 2,         maxRadius: Math.random() * 25 + 30,         alpha: 0.8,         color: '#ffaa00'       });        const count = Math.floor(Math.random() * 8) + 18;       for (let i = 0; i < count; i++) {         const angle = Math.random() * Math.PI * 2;         const speed = Math.random() * 4.5 + 1.8;         activeParticles.push({           type: 'spark',           x: x, y: y,           vx: Math.cos(angle) * speed,           vy: Math.sin(angle) * speed,           size: Math.random() * 3 + 1.5,           color: particleColors[Math.floor(Math.random() * particleColors.length)],           alpha: 1.0,           decay: Math.random() * 0.02 + 0.02,           drag: 0.94         });       }     }      function updateAndRenderParticles() {       pCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);        for (let i = activeParticles.length - 1; i >= 0; i--) {         const p = activeParticles[i];          if (p.type === 'ring') {           p.radius += (p.maxRadius - p.radius) * 0.15;           p.alpha -= 0.035;           if (p.alpha <= 0) {             activeParticles.splice(i, 1);             continue;           }           pCtx.beginPath();           pCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);           pCtx.strokeStyle = `rgba(255, 170, 0, ${p.alpha})`;
           pCtx.lineWidth = 1.5;
           pCtx.stroke();
         } else if (p.type === 'spark') {
@@ -1612,7 +1642,7 @@
     const loadSteps = [
       "SYNCHRONIZING GRAVITATIONAL FIELD [20%]",
       "SYNCING DISCORD LANYARD API [45%]",
-      "INITIALIZING EVENT HORIZON TEXTURES [70%]",
+      "LOADING CHILL PLAYLIST BUFFERS [70%]",
       "ENFORCING ANTI-DEBUGGER TRIPWIRES [90%]",
       "ACCESS GRANTED // READY [100%]"
     ];
@@ -1620,121 +1650,9 @@
     const loadInterval = setInterval(() => {
       loadPercent += Math.floor(Math.random() * 8) + 4;
       if (loadPercent > 100) loadPercent = 100;
-      loaderProgress.style.width = `${loadPercent}%`;
-
-      const stepIndex = Math.min(Math.floor((loadPercent / 100) * loadSteps.length), loadSteps.length - 1);
-      loaderStatus.innerText = loadSteps[stepIndex];
-
-      if (loadPercent >= 100) {
-        clearInterval(loadInterval);
-        setTimeout(() => {
-          loaderGui.classList.add('loaded');
-          playChillClickSound();
-        }, 300);
-      }
-    }, 45);
-
-    /* =========================================================
-       5. PHÒNG THỦ: CHỐNG DEVTOOLS & SỬA LỖI TRÊN IOS
-       ========================================================= */
-    const securityToast = document.getElementById('security-toast');
-    const toastTitle = document.getElementById('toast-title');
-    const toastDesc = document.getElementById('toast-desc');
-    let toastTimeout = null;
-
-    function triggerSecurityBreach(cause) {
-      toastTitle.innerText = `[PHÁT HIỆN CAN THIỆP]: ${cause.toUpperCase()}`;
-      toastDesc.innerText = `Hành động đã bị khóa: Hệ thống bảo mật đã vô hiệu hóa thao tác ${cause}.`;
-      securityToast.classList.add('active');
-
-      clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(() => {
-        securityToast.classList.remove('active');
-      }, 3000);
-    }
-
-    document.addEventListener('contextmenu', (e) => {
-      e.preventDefault();
-      triggerSecurityBreach('Chuột phải (Context Menu)');
-      return false;
-    });
-
-    document.addEventListener('selectstart', (e) => {
-      e.preventDefault();
-      triggerSecurityBreach('Bôi đen văn bản (Selection)');
-      return false;
-    });
-
-    document.addEventListener('copy', (e) => {
-      e.preventDefault();
-      triggerSecurityBreach('Sao chép trái phép (Copy)');
-      return false;
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'F12' || e.keyCode === 123) {
-        e.preventDefault();
-        triggerSecurityBreach('Phím F12 (Developer Tools)');
-        return false;
-      }
-      if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
-        e.preventDefault();
-        triggerSecurityBreach('Tổ hợp Inspect Element');
-        return false;
-      }
-      if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
-        e.preventDefault();
-        triggerSecurityBreach('Xem mã nguồn (Ctrl+U)');
-        return false;
-      }
-      if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
-        e.preventDefault();
-        triggerSecurityBreach('Lưu trang web (Ctrl+S)');
-        return false;
-      }
-    });
-
-    // TỐI ƯU HÓA KHÓA F12 TRÊN PC, KHÔNG KHÓA NHẦM TRÊN IOS/MOBILE
-    const devtoolsLockdown = document.getElementById('devtools-lockdown');
-    const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
-      (navigator.maxTouchPoints && navigator.maxTouchPoints > 2);
-
-    setInterval(() => {
-      if (isMobileDevice) {
-        devtoolsLockdown.classList.remove('active');
-        return;
-      }
-      const threshold = 180;
-      const widthDiff = window.outerWidth - window.innerWidth > threshold;
-      const heightDiff = window.outerHeight - window.innerHeight > threshold;
-      if (widthDiff || heightDiff) {
-        devtoolsLockdown.classList.add('active');
-      } else {
-        devtoolsLockdown.classList.remove('active');
-      }
-    }, 600);
-
-    /* =========================================================
-       6. LIQUID GLASS 3D TILT & PRISM GLARE
-       ========================================================= */
-    document.querySelectorAll('.liquid-glass').forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        card.style.setProperty('--mouse-x', `${x}px`);
-        card.style.setProperty('--mouse-y', `${y}px`);
-
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = ((y - centerY) / centerY) * -7;
-        const rotateY = ((x - centerX) / centerX) * 7;
-
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.015, 1.015, 1.015)`;
-
-        const angle = Math.atan2(y - centerY, x - centerX) * (180 / Math.PI) + 90;
-        card.style.setProperty('--prism-angle', `${angle}deg`);
+      loaderProgress.style.width = `${loadPercent}\%`;        const stepIndex = Math.min(Math.floor((loadPercent / 100) * loadSteps.length), loadSteps.length - 1);       loaderStatus.innerText = loadSteps[stepIndex];        if (loadPercent >= 100) {         clearInterval(loadInterval);         setTimeout(() => {           loaderGui.classList.add('loaded');           playChillClickSound();         }, 300);       }     }, 45);      /* =========================================================        5. PHÒNG THỦ: CHỐNG DEVTOOLS & BẢO VỆ MÃ NGUỒN        ========================================================= */     const securityToast = document.getElementById('security-toast');     const toastTitle = document.getElementById('toast-title');     const toastDesc = document.getElementById('toast-desc');     let toastTimeout = null;      function triggerSecurityBreach(cause) {       toastTitle.innerText = `[PHÁT HIỆN CAN THIỆP]: ${cause.toUpperCase()}`;
+      toastDesc.innerText = `Hành động đã bị khóa: Hệ thống bảo mật đã vô hiệu hóa thao tác ${cause}.`;       securityToast.classList.add('active');        clearTimeout(toastTimeout);       toastTimeout = setTimeout(() => {         securityToast.classList.remove('active');       }, 3000);     }      document.addEventListener('contextmenu', (e) => {       e.preventDefault();       triggerSecurityBreach('Chuột phải (Context Menu)');       return false;     });      document.addEventListener('selectstart', (e) => {       e.preventDefault();       triggerSecurityBreach('Bôi đen văn bản (Selection)');       return false;     });      document.addEventListener('copy', (e) => {       e.preventDefault();       triggerSecurityBreach('Sao chép trái phép (Copy)');       return false;     });      document.addEventListener('keydown', (e) => {       if (e.key === 'F12' \vert{}\vert{} e.keyCode === 123) {         e.preventDefault();         triggerSecurityBreach('Phím F12 (Developer Tools)');         return false;       }       if (e.ctrlKey && e.shiftKey && (e.key === 'I' \vert{}\vert{} e.key === 'i' \vert{}\vert{} e.key === 'J' \vert{}\vert{} e.key === 'j' \vert{}\vert{} e.key === 'C' \vert{}\vert{} e.key === 'c')) {         e.preventDefault();         triggerSecurityBreach('Tổ hợp Inspect Element');         return false;       }       if (e.ctrlKey && (e.key === 'U' \vert{}\vert{} e.key === 'u')) {         e.preventDefault();         triggerSecurityBreach('Xem mã nguồn (Ctrl+U)');         return false;       }       if (e.ctrlKey && (e.key === 'S' \vert{}\vert{} e.key === 's')) {         e.preventDefault();         triggerSecurityBreach('Lưu trang web (Ctrl+S)');         return false;       }     });      const devtoolsLockdown = document.getElementById('devtools-lockdown');     const isMobileDevice = /Android\vert{}webOS\vert{}iPhone\vert{}iPad\vert{}iPod\vert{}BlackBerry\vert{}IEMobile\vert{}Opera Mini/i.test(navigator.userAgent) \vert{}\vert{}        (navigator.maxTouchPoints && navigator.maxTouchPoints > 2);      setInterval(() => {       if (isMobileDevice) {         devtoolsLockdown.classList.remove('active');         return;       }       const threshold = 180;       const widthDiff = window.outerWidth - window.innerWidth > threshold;       const heightDiff = window.outerHeight - window.innerHeight > threshold;       if (widthDiff \vert{}\vert{} heightDiff) {         devtoolsLockdown.classList.add('active');       } else {         devtoolsLockdown.classList.remove('active');       }     }, 600);      /* =========================================================        6. LIQUID GLASS 3D TILT & PRISM GLARE        ========================================================= */     document.querySelectorAll('.liquid-glass').forEach(card => {       card.addEventListener('mousemove', (e) => {         const rect = card.getBoundingClientRect();         const x = e.clientX - rect.left;         const y = e.clientY - rect.top;                  card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);          const centerX = rect.width / 2;         const centerY = rect.height / 2;         const rotateX = ((y - centerY) / centerY) * -7;         const rotateY = ((x - centerX) / centerX) * 7;          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.015, 1.015, 1.015)`;          const angle = Math.atan2(y - centerY, x - centerX) * (180 / Math.PI) + 90;         card.style.setProperty('--prism-angle', `${angle}deg`);
       });
 
       card.addEventListener('mouseleave', () => {
@@ -1755,18 +1673,15 @@
     window.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      cursorDot.style.left = `${mouseX}px`;
-      cursorDot.style.top = `${mouseY}px`;
-      cursorTag.style.left = `${mouseX}px`;
-      cursorTag.style.top = `${mouseY}px`;
+      cursorDot.style.left = `${mouseX}px`;       cursorDot.style.top = `${mouseY}px`;
+      cursorTag.style.left = `${mouseX}px`;       cursorTag.style.top = `${mouseY}px`;
       cursorTag.innerText = `X:${mouseX} Y:${mouseY}`;
     });
 
     function renderCursor() {
       ringX += (mouseX - ringX) * 0.18;
       ringY += (mouseY - ringY) * 0.18;
-      cursorRing.style.left = `${ringX}px`;
-      cursorRing.style.top = `${ringY}px`;
+      cursorRing.style.left = `${ringX}px`;       cursorRing.style.top = `${ringY}px`;
       requestAnimationFrame(renderCursor);
     }
     renderCursor();
@@ -1795,9 +1710,8 @@
     requestAnimationFrame(raf);
 
     /* =========================================================
-       9. DASHBOARD UTILITIES: REAL TELEMETRY, LO-FI & QR
+       9. DASHBOARD UTILITIES: REAL TELEMETRY
        ========================================================= */
-    // 1. NHẬN DIỆN THÔNG SỐ PHẦN CỨNG & HỆ ĐIỀU HÀNH THẬT
     function detectRealClientOS() {
       const ua = navigator.userAgent;
       let os = "Linux Kernel x86_64";
@@ -1812,22 +1726,9 @@
 
       const coresEl = document.getElementById('sys-cores');
       const coreCount = navigator.hardwareConcurrency || 8;
-      if (coresEl) coresEl.innerText = `${coreCount} Threads // Active`;
-    }
-    detectRealClientOS();
-
-    // 2. BỘ ĐẾM SESSION UPTIME THỰC TẾ
-    let sessionSeconds = 0;
-    const uptimeEl = document.getElementById('sys-uptime');
-    setInterval(() => {
-      sessionSeconds++;
-      const hrs = String(Math.floor(sessionSeconds / 3600)).padStart(2, '0');
-      const mins = String(Math.floor((sessionSeconds % 3600) / 60)).padStart(2, '0');
-      const secs = String(sessionSeconds % 60).padStart(2, '0');
-      if (uptimeEl) uptimeEl.innerText = `${hrs}:${mins}:${secs}`;
+      if (coresEl) coresEl.innerText = `${coreCount} Threads // Active`;     }     detectRealClientOS();      let sessionSeconds = 0;     const uptimeEl = document.getElementById('sys-uptime');     setInterval(() => {       sessionSeconds++;       const hrs = String(Math.floor(sessionSeconds / 3600)).padStart(2, '0');       const mins = String(Math.floor((sessionSeconds \% 3600) / 60)).padStart(2, '0');       const secs = String(sessionSeconds \% 60).padStart(2, '0');       if (uptimeEl) uptimeEl.innerText = `${hrs}:${mins}:${secs}`;
     }, 1000);
 
-    // 3. ĐO PING THỰC TẾ BẰNG HEAD FETCH
     async function measureRealPing(btn) {
       if (btn) playChillClickSound();
       const pingEl = document.getElementById('sys-ping');
@@ -1841,9 +1742,7 @@
           mode: 'no-cors'
         });
         const duration = Math.max(14, Math.round(performance.now() - start));
-        if (pingEl) pingEl.innerText = `${duration} ms (Real)`;
-      } catch (e) {
-        if (pingEl) pingEl.innerText = `${Math.floor(Math.random() * 12 + 18)} ms`;
+        if (pingEl) pingEl.innerText = `${duration} ms (Real)`;       } catch (e) {         if (pingEl) pingEl.innerText = `${Math.floor(Math.random() * 12 + 18)} ms`;
       }
 
       if (btn) {
@@ -1855,7 +1754,6 @@
     }
     measureRealPing();
 
-    // 4. BIỂU ĐỒ SÓNG NHỊP TIM (MINI SPARKLINE OSCILLATION)
     const sparkCanvas = document.getElementById('sys-sparkline');
     const sCtx = sparkCanvas ? sparkCanvas.getContext('2d') : null;
     const history = Array(35).fill(30);
@@ -1869,8 +1767,7 @@
 
       const loadValEl = document.getElementById('sys-load-val');
       const loadBarEl = document.getElementById('sys-load-bar');
-      if (loadValEl) loadValEl.innerText = `${Math.round(lastVal)}%`;
-      if (loadBarEl) loadBarEl.style.width = `${lastVal}%`;
+      if (loadValEl) loadValEl.innerText = `${Math.round(lastVal)}\%`;       if (loadBarEl) loadBarEl.style.width = `${lastVal}%`;
 
       if (sCtx) {
         const w = sparkCanvas.width;
@@ -1897,42 +1794,6 @@
     }
     setInterval(updateTelemetryLoad, 650);
 
-    // 5. Mini Lo-Fi Player
-    const lofiAudio = document.getElementById('lofi-audio');
-    const lofiBtn = document.getElementById('lofi-play-btn');
-    const lofiBadge = document.getElementById('lofi-track-status');
-
-    function toggleLofiAudio() {
-      playChillClickSound();
-      if (!lofiAudio) return;
-      if (lofiAudio.paused) {
-        lofiAudio.play().then(() => {
-          lofiBtn.querySelector('span').innerText = '⏸ TẠM DỪNG';
-          lofiBadge.innerText = 'PLAYING';
-          lofiBadge.style.color = '#00ff66';
-        }).catch(() => {
-          alert('Chính sách trình duyệt yêu cầu bạn chạm vào trang trước khi phát audio.');
-        });
-      } else {
-        lofiAudio.pause();
-        lofiBtn.querySelector('span').innerText = '▶ PHÁT NHẠC LO-FI';
-        lofiBadge.innerText = 'PAUSED';
-        lofiBadge.style.color = 'var(--accent)';
-      }
-    }
-
-    // 6. QR Donate: Copy STK nhanh
-    function copyDonateAccount(btn) {
-      playChillClickSound();
-      const bankInfo = "MB Bank: 0382218001";
-      navigator.clipboard.writeText(bankInfo).then(() => {
-        const span = btn.querySelector('span');
-        const oldText = span.innerText;
-        span.innerText = "✔ ĐÃ COPY STK!";
-        setTimeout(() => { span.innerText = oldText; }, 1800);
-      });
-    }
-
     /* =========================================================
        10. GARGANTUA 3D BLACK HOLE BACKGROUND
        ========================================================= */
@@ -1950,19 +1811,16 @@
     const blackHoleGroup = new THREE.Group();
     scene.add(blackHoleGroup);
 
-    // Event Horizon
     const eventHorizonGeo = new THREE.SphereGeometry(3.6, 64, 64);
     const eventHorizonMat = new THREE.MeshBasicMaterial({ color: 0x000000 });
     const eventHorizon = new THREE.Mesh(eventHorizonGeo, eventHorizonMat);
     blackHoleGroup.add(eventHorizon);
 
-    // Photon Ring
     const photonRingGeo = new THREE.TorusGeometry(3.75, 0.06, 32, 160);
     const photonRingMat = new THREE.MeshBasicMaterial({ color: 0xfff0dd, transparent: true, opacity: 0.95 });
     const photonRing = new THREE.Mesh(photonRingGeo, photonRingMat);
     blackHoleGroup.add(photonRing);
 
-    // Plasma Accretion Texture
     function createAccretionTexture() {
       const c = document.createElement('canvas');
       c.width = 1024; c.height = 128;
@@ -1985,7 +1843,6 @@
     }
     const plasmaTex = createAccretionTexture();
 
-    // Main Accretion Disk
     const diskGeo = new THREE.RingGeometry(3.8, 14.0, 128, 8);
     const diskMat = new THREE.MeshBasicMaterial({
       map: plasmaTex,
@@ -1998,7 +1855,6 @@
     accretionDisk.rotation.x = Math.PI / 2.2;
     blackHoleGroup.add(accretionDisk);
 
-    // Vertical Lensing Halo
     const lensedDiskGeo = new THREE.RingGeometry(3.8, 11.0, 128, 8);
     const lensedDiskMat = new THREE.MeshBasicMaterial({
       map: plasmaTex,
@@ -2010,7 +1866,6 @@
     const lensedDisk = new THREE.Mesh(lensedDiskGeo, lensedDiskMat);
     blackHoleGroup.add(lensedDisk);
 
-    // Inflow Particles
     const particleCount = 6000;
     const particleGeo = new THREE.BufferGeometry();
     const particlePos = new Float32Array(particleCount * 3);
@@ -2041,7 +1896,6 @@
     const accretionParticles = new THREE.Points(particleGeo, particleMat);
     accretionDisk.add(accretionParticles);
 
-    // Deep Space Stars
     const starCount = 2000;
     const starGeo = new THREE.BufferGeometry();
     const starPos = new Float32Array(starCount * 3);
@@ -2052,7 +1906,6 @@
     const starMat = new THREE.PointsMaterial({ color: 0x90b0d0, size: 0.12, opacity: 0.4, transparent: true });
     scene.add(new THREE.Points(starGeo, starMat));
 
-    // Mouse Tracking
     let mouseNormX = 0, mouseNormY = 0;
     let targetRotX = 0, targetRotY = 0;
     const zoomEl = document.getElementById('hud-zoom');
@@ -2067,8 +1920,6 @@
       wheelZoomOffset = Math.min(Math.max(wheelZoomOffset + e.deltaY * 0.015, -12), 15);
     }, { passive: true });
 
-    // Animation Loop
-    let clock = new THREE.Clock();
     let speedBoost = 1.0;
 
     function animate() {
@@ -2112,7 +1963,7 @@
     });
 
     /* =========================================================
-       11. ENHANCED TERMINAL (TERMUX/CLI STYLE) WITH FULL SUITE
+       11. ENHANCED TERMINAL (TERMUX/CLI STYLE)
        ========================================================= */
     const termDisplay = document.getElementById('term-display');
     const termIn = document.getElementById('term-in');
@@ -2121,60 +1972,7 @@
       const line = document.createElement('div');
       line.style.margin = '3px 0';
       if (isUser) {
-        line.innerHTML = `<span style="color:var(--accent); font-weight:bold;">root@profile:~$</span>${textHtml}`;
-        termDisplay.appendChild(line);
-        termDisplay.scrollTop = termDisplay.scrollHeight;
-      } else {
-        line.innerHTML = '';
-        termDisplay.appendChild(line);
-        let idx = 0;
-        function step() {
-          if (idx <= textHtml.length) {
-            line.innerHTML = textHtml.slice(0, idx);
-            idx += 4;
-            termDisplay.scrollTop = termDisplay.scrollHeight;
-            setTimeout(step, 8);
-          } else {
-            line.innerHTML = textHtml;
-          }
-        }
-        step();
-      }
-    }
-
-    // Biến quản lý hiệu ứng Matrix Canvas
-    let matrixCanvas = null;
-    let matrixInterval = null;
-
-    function toggleMatrixRain() {
-      if (matrixCanvas) {
-        clearInterval(matrixInterval);
-        matrixCanvas.remove();
-        matrixCanvas = null;
-        return false;
-      }
-      matrixCanvas = document.createElement('canvas');
-      matrixCanvas.style.position = 'fixed';
-      matrixCanvas.style.inset = '0';
-      matrixCanvas.style.pointerEvents = 'none';
-      matrixCanvas.style.zIndex = '99990';
-      matrixCanvas.style.opacity = '0.55';
-      document.body.appendChild(matrixCanvas);
-
-      const mCtx = matrixCanvas.getContext('2d');
-      matrixCanvas.width = window.innerWidth;
-      matrixCanvas.height = window.innerHeight;
-
-      const chars = '0123456789ABCDEF$#@%&*+-/<>~';
-      const fontSize = 14;
-      const columns = Math.floor(matrixCanvas.width / fontSize);
-      const drops = Array(columns).fill(1);
-
-      matrixInterval = setInterval(() => {
-        mCtx.fillStyle = 'rgba(2, 3, 6, 0.08)';
-        mCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
-        mCtx.fillStyle = '#00ff66';
-        mCtx.font = `${fontSize}px monospace`;
+        line.innerHTML = `<span style="color:var(--accent); font-weight:bold;">root@profile:~$</span> ${textHtml}`;         termDisplay.appendChild(line);         termDisplay.scrollTop = termDisplay.scrollHeight;       } else {         line.innerHTML = '';         termDisplay.appendChild(line);         let idx = 0;         function step() {           if (idx <= textHtml.length) {             line.innerHTML = textHtml.slice(0, idx);             idx += 4;             termDisplay.scrollTop = termDisplay.scrollHeight;             setTimeout(step, 8);           } else {             line.innerHTML = textHtml;           }         }         step();       }     }      let matrixCanvas = null;     let matrixInterval = null;      function toggleMatrixRain() {       if (matrixCanvas) {         clearInterval(matrixInterval);         matrixCanvas.remove();         matrixCanvas = null;         return false;       }       matrixCanvas = document.createElement('canvas');       matrixCanvas.style.position = 'fixed';       matrixCanvas.style.inset = '0';       matrixCanvas.style.pointerEvents = 'none';       matrixCanvas.style.zIndex = '99990';       matrixCanvas.style.opacity = '0.55';       document.body.appendChild(matrixCanvas);        const mCtx = matrixCanvas.getContext('2d');       matrixCanvas.width = window.innerWidth;       matrixCanvas.height = window.innerHeight;        const chars = '0123456789ABCDEF$#@\%&*+-/<>~';       const fontSize = 14;       const columns = Math.floor(matrixCanvas.width / fontSize);       const drops = Array(columns).fill(1);        matrixInterval = setInterval(() => {         mCtx.fillStyle = 'rgba(2, 3, 6, 0.08)';         mCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);         mCtx.fillStyle = '#00ff66';         mCtx.font = `${fontSize}px monospace`;
 
         for (let i = 0; i < drops.length; i++) {
           const text = chars.charAt(Math.floor(Math.random() * chars.length));
@@ -2209,11 +2007,26 @@
             setTimeout(() => smoothAppendTerm(`• <b>btop</b> / <b>htop</b>   : Bảng theo dõi tiến trình CPU/RAM thời gian thực`), 120);
             setTimeout(() => smoothAppendTerm(`• <b>weather</b>         : Dự báo thời tiết dạng đồ họa chữ ASCII`), 160);
             setTimeout(() => smoothAppendTerm(`• <b>pipes</b>           : Hiệu ứng đường ống mạng nghệ thuật`), 200);
-            setTimeout(() => smoothAppendTerm(`• <b>color &lt;màu&gt;</b>     : Đổi tông màu web (cyan, red, green, purple, orange)`), 240);
-            setTimeout(() => smoothAppendTerm(`• <b>name &lt;tên&gt;</b>     : Thay đổi tên định danh trên Profile`), 280);
-            setTimeout(() => smoothAppendTerm(`• <b>matrix</b>          : Bật / Tắt mưa mã độc Matrix`), 320);
-            setTimeout(() => smoothAppendTerm(`• <b>warp</b>            : Lao camera vào tâm hố đen 3D`), 360);
-            setTimeout(() => smoothAppendTerm(`• <b>clear</b>           : Xóa sạch nhật ký màn hình`), 400);
+            setTimeout(() => smoothAppendTerm(`• <b>music</b>           : Lệnh tắt điều khiển máy phát nhạc (next, prev, pause)`), 240);
+            setTimeout(() => smoothAppendTerm(`• <b>color &lt;màu&gt;</b>     : Đổi tông màu web (cyan, red, green, purple, orange)`), 280);
+            setTimeout(() => smoothAppendTerm(`• <b>name &lt;tên&gt;</b>     : Thay đổi tên định danh trên Profile`), 320);
+            setTimeout(() => smoothAppendTerm(`• <b>matrix</b>          : Bật / Tắt mưa mã độc Matrix`), 360);
+            setTimeout(() => smoothAppendTerm(`• <b>warp</b>            : Lao camera vào tâm hố đen 3D`), 400);
+            setTimeout(() => smoothAppendTerm(`• <b>clear</b>           : Xóa sạch nhật ký màn hình`), 440);
+            break;
+
+          case 'music':
+            const sub = parts[1]?.toLowerCase();
+            if (sub === 'next') {
+              nextLofiTrack();
+              smoothAppendTerm(`<span style="color:#00ff66;">✔ Đã chuyển sang bài kế tiếp: ${lofiPlaylist[currentTrackIdx].title}</span>`);
+            } else if (sub === 'prev') {
+              prevLofiTrack();
+              smoothAppendTerm(`<span style="color:#00ff66;">✔ Đã quay lại bài trước: ${lofiPlaylist[currentTrackIdx].title}</span>`);
+            } else {
+              toggleLofiAudio();
+              smoothAppendTerm(`<span style="color:#00f3ff;">✔ Đã đảo trạng thái phát nhạc Lo-Fi.</span>`);
+            }
             break;
 
           case 'neofetch':
@@ -2226,8 +2039,7 @@
             else if (/Windows/i.test(ua)) detectedOS = "Windows NT 11/10";
 
             const cores = navigator.hardwareConcurrency || 8;
-            const res = `${window.screen.width}x${window.screen.height}`;
-            const ram = navigator.deviceMemory ? `~${navigator.deviceMemory} GB` : "Unified Architecture";
+            const res = `${window.screen.width}x${window.screen.height}`;             const ram = navigator.deviceMemory ? `~${navigator.deviceMemory} GB` : "Unified Architecture";
 
             const logo = 
 `<span style="color:#00f3ff;">   /\\___/\\   </span> <span style="color:var(--accent); font-weight:bold;">root@singularity</span>
@@ -2347,4 +2159,3 @@
   </script>
 </body>
 </html>
-
