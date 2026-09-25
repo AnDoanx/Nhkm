@@ -786,11 +786,14 @@
 
     .term-body {
       padding: 24px;
-      min-height: 200px;
+      min-height: 240px;
+      max-height: 380px;
+      overflow-y: auto;
       font-family: var(--font-mono);
       font-size: 13px;
       line-height: 1.8;
       color: #9cb1c5;
+      white-space: pre-wrap;
     }
 
     .term-input-row {
@@ -985,7 +988,7 @@
     <!-- 02: TIỆN ÍCH HỆ THỐNG & DASHBOARD MATRIX -->
     <section class="scene-section" id="sec-samples">
       <h2 class="section-title" id="i18n-samples-title">Hệ Thống & Tiện Ích</h2>
-      <div class="section-meta" id="i18n-samples-meta">// SYSTEM STATUS, LO-FI AUDIO & DONATION QR</div>
+      <div class="section-meta" id="i18n-samples-meta">// REAL-TIME TELEMETRY, LO-FI AUDIO & DONATION QR</div>
 
       <div class="bio-samples-grid">
         
@@ -1021,7 +1024,7 @@
                   <span id="sys-uptime" style="color:#00ff66;">00:00:00</span>
                 </div>
 
-                <!-- Thanh tải RAM/CPU dao động tự nhiên -->
+                <!-- Thanh tải CPU dao động tự nhiên -->
                 <div style="margin-top: 8px;">
                   <div style="display:flex; justify-content:space-between; margin-bottom: 3px;">
                     <span style="color:#788899;">CPU LOAD:</span>
@@ -1200,17 +1203,17 @@
           <div class="glass-glare"></div>
           <div class="glass-shimmer"></div>
           <div class="term-head">
-            <span>bio_controller.sh</span>
-            <span>ROOT SHELL // I18N</span>
+            <span>termux_kernel.sh</span>
+            <span>ROOT SHELL // CYBER_CORE</span>
           </div>
           <div class="term-body" id="term-display">
-            <div>> HỆ THỐNG PROFILE ĐÃ ĐƯỢC ĐỒNG BỘ ĐA NGÔN NGỮ (I18N).</div>
-            <div>> Gõ 'name &lt;tên_mới&gt;' để đổi trực tiếp tên hiển thị trên web.</div>
-            <div>> Gõ 'help' để xem các lệnh quản lý profile.</div>
+            <div>> HỆ THỐNG TERMUX WEB ĐÃ KHỞI CHẠY THÀNH CÔNG.</div>
+            <div>> Gõ '<b>help</b>' để hiển thị danh sách các lệnh tương tác.</div>
+            <div>> Gõ '<b>neofetch</b>' để in thông số cấu hình thiết bị.</div>
           </div>
           <form class="term-input-row" onsubmit="handleCommand(event)">
             <span class="term-prompt">root@profile:~$</span>
-            <input type="text" id="term-in" class="term-field" autocomplete="off" spellcheck="false" placeholder="nhập lệnh (vd: name Nam, help, status, clear)...">
+            <input type="text" id="term-in" class="term-field" autocomplete="off" spellcheck="false" placeholder="nhập lệnh (vd: help, neofetch, matrix, color cyan, warp)...">
           </form>
         </div>
       </div>
@@ -1243,7 +1246,7 @@
         class: "[CẤP BẬC: HACKER TINH ANH]",
         scrollHint: "✦ CUỘN TRANG XUỐNG ĐỂ TRUY CẬP TIỆN ÍCH HỆ THỐNG VÀ THÔNG SỐ SERVER",
         samplesTitle: "Hệ Thống & Tiện Ích",
-        samplesMeta: "// SYSTEM STATUS, LO-FI AUDIO & DONATION QR",
+        samplesMeta: "// REAL-TIME TELEMETRY, LO-FI AUDIO & DONATION QR",
         socialsTitle: "Kênh Kết Nối & Kỹ Năng",
         socialsMeta: "// SOCIAL PROFILES & PROFICIENCY",
         termTitle: "Trung Tâm Điều Hành",
@@ -1258,7 +1261,7 @@
         class: "[CLASS: ELITE HACKER]",
         scrollHint: "✦ SCROLL DOWN FOR SYSTEM UTILITIES & SERVER TELEMETRY",
         samplesTitle: "System & Utilities",
-        samplesMeta: "// SYSTEM STATUS, LO-FI AUDIO & DONATION QR",
+        samplesMeta: "// REAL-TIME TELEMETRY, LO-FI AUDIO & DONATION QR",
         socialsTitle: "Social Uplinks & Skills",
         socialsMeta: "// SOCIAL PROFILES & PROFICIENCY",
         termTitle: "Command Center",
@@ -1273,7 +1276,7 @@
         class: "[クラス: エリートハッカー]",
         scrollHint: "✦ スクロールしてシステムユーティリティを表示",
         samplesTitle: "システム & ユーティリティ",
-        samplesMeta: "// システムステータス、Lo-Fi、QR寄付",
+        samplesMeta: "// リアルタイムテレメトリ、Lo-Fi、QR寄付",
         socialsTitle: "リンク＆スキルマトリクス",
         socialsMeta: "// ソーシャルプロファイル & 習熟度",
         termTitle: "オペレーション・ターミナル",
@@ -1288,7 +1291,7 @@
         class: "[클래스: 엘리트 해커]",
         scrollHint: "✦ 스크롤하여 시스템 유틸리티 및 서버 상태 확인",
         samplesTitle: "시스템 & 유틸리티",
-        samplesMeta: "// 시스템 상태, Lo-Fi 오디오 및 후원 QR",
+        samplesMeta: "// 실시간 원격 측정, Lo-Fi 오디오 및 후원 QR",
         socialsTitle: "소셜 링크 & 스킬 매트릭스",
         socialsMeta: "// 소셜 프로필 & 기술 숙련도",
         termTitle: "커맨드 센터",
@@ -1303,7 +1306,7 @@
         class: "[等级: 精英黑客]",
         scrollHint: "✦ 向下滚动查看系统工具与遥测参数",
         samplesTitle: "系统与实用组件",
-        samplesMeta: "// 实时状态、LO-FI音乐与赞助通道",
+        samplesMeta: "// 实时遥测数据、LO-FI音乐与赞助通道",
         socialsTitle: "社交网络与技术矩阵",
         socialsMeta: "// 社交主页与技术熟练度",
         termTitle: "控制终端",
@@ -1318,8 +1321,8 @@
         class: "[CLASE: HACKER ÉLITE]",
         scrollHint: "✦ DESPLÁZATE PARA VER LAS UTILIDADES DEL SISTEMA",
         samplesTitle: "Sistema y Utilidades",
-        samplesMeta: "// ESTADO DEL SISTEMA, AUDIO LO-FI Y QR",
-        socialsTitle: "Enlaces y Habilidades",
+        samplesMeta: "// TELEMETRÍA EN TIEMPO REAL, AUDIO LO-FI Y QR",
+        socialsTitle: "Enlaces và Habilidades",
         socialsMeta: "// PERFILES SOCIALES Y DOMINIO TÉCNICO",
         termTitle: "Centro de Comando",
         termMeta: "// CONTROLADOR DE PERFIL POR COMANDOS"
@@ -1730,7 +1733,7 @@
     requestAnimationFrame(raf);
 
     /* =========================================================
-       9. DASHBOARD UTILITIES: SYSTEM TELEMETRY, LO-FI & QR
+       9. DASHBOARD UTILITIES: REAL TELEMETRY, LO-FI & QR
        ========================================================= */
     // 1. NHẬN DIỆN THÔNG SỐ PHẦN CỨNG & HỆ ĐIỀU HÀNH THẬT
     function detectRealClientOS() {
@@ -2047,15 +2050,16 @@
     });
 
     /* =========================================================
-       11. TERMINAL PROFILE COMMANDS
+       11. ENHANCED TERMINAL (TERMUX STYLE) WITH REAL EFFECTS
        ========================================================= */
     const termDisplay = document.getElementById('term-display');
     const termIn = document.getElementById('term-in');
 
     function smoothAppendTerm(textHtml, isUser = false) {
       const line = document.createElement('div');
+      line.style.margin = '3px 0';
       if (isUser) {
-        line.innerHTML = `<span style="color:var(--accent);">root@profile:~$</span> ${textHtml}`;
+        line.innerHTML = `<span style="color:var(--accent); font-weight:bold;">root@profile:~$</span> ${textHtml}`;
         termDisplay.appendChild(line);
         termDisplay.scrollTop = termDisplay.scrollHeight;
       } else {
@@ -2065,15 +2069,61 @@
         function step() {
           if (idx <= textHtml.length) {
             line.innerHTML = textHtml.slice(0, idx);
-            idx += 2;
+            idx += 4;
             termDisplay.scrollTop = termDisplay.scrollHeight;
-            setTimeout(step, 10);
+            setTimeout(step, 8);
           } else {
             line.innerHTML = textHtml;
           }
         }
         step();
       }
+    }
+
+    // Biến quản lý hiệu ứng Matrix Canvas
+    let matrixCanvas = null;
+    let matrixInterval = null;
+
+    function toggleMatrixRain() {
+      if (matrixCanvas) {
+        clearInterval(matrixInterval);
+        matrixCanvas.remove();
+        matrixCanvas = null;
+        return false;
+      }
+      matrixCanvas = document.createElement('canvas');
+      matrixCanvas.style.position = 'fixed';
+      matrixCanvas.style.inset = '0';
+      matrixCanvas.style.pointerEvents = 'none';
+      matrixCanvas.style.zIndex = '99990';
+      matrixCanvas.style.opacity = '0.55';
+      document.body.appendChild(matrixCanvas);
+
+      const mCtx = matrixCanvas.getContext('2d');
+      matrixCanvas.width = window.innerWidth;
+      matrixCanvas.height = window.innerHeight;
+
+      const chars = '0123456789ABCDEF$#@%&*+-/<>~';
+      const fontSize = 14;
+      const columns = Math.floor(matrixCanvas.width / fontSize);
+      const drops = Array(columns).fill(1);
+
+      matrixInterval = setInterval(() => {
+        mCtx.fillStyle = 'rgba(2, 3, 6, 0.08)';
+        mCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+        mCtx.fillStyle = '#00ff66';
+        mCtx.font = `${fontSize}px monospace`;
+
+        for (let i = 0; i < drops.length; i++) {
+          const text = chars.charAt(Math.floor(Math.random() * chars.length));
+          mCtx.fillText(text, i * fontSize, drops[i] * fontSize);
+          if (drops[i] * fontSize > matrixCanvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i]++;
+        }
+      }, 33);
+      return true;
     }
 
     function handleCommand(e) {
@@ -2090,34 +2140,114 @@
 
       setTimeout(() => {
         switch(cmd) {
+          case 'help':
+            smoothAppendTerm(`<span style="color:var(--accent);">=== HỆ THỐNG LỆNH ĐIỀU HÀNH KERNEL ===</span>`);
+            setTimeout(() => smoothAppendTerm(`• <b>neofetch</b>        : In bảng thông số phần cứng thiết bị`), 40);
+            setTimeout(() => smoothAppendTerm(`• <b>name &lt;tên&gt;</b>     : Thay đổi tên định danh trên Profile`), 80);
+            setTimeout(() => smoothAppendTerm(`• <b>color &lt;mã_màu&gt;</b> : Đổi tông màu web (cyan, red, green, purple, orange)`), 120);
+            setTimeout(() => smoothAppendTerm(`• <b>matrix</b>          : Bật / Tắt mưa mã độc Matrix trên màn hình`), 160);
+            setTimeout(() => smoothAppendTerm(`• <b>warp</b>            : Nhảy cóc không gian (Lao camera vào hố đen)`), 200);
+            setTimeout(() => smoothAppendTerm(`• <b>glitch</b>          : Kích hoạt xung đột hệ thống (Glitch Effect)`), 240);
+            setTimeout(() => smoothAppendTerm(`• <b>whoami</b>          : Trích xuất quyền hạn và IP hiện tại`), 280);
+            setTimeout(() => smoothAppendTerm(`• <b>clear</b>           : Xóa sạch nhật ký màn hình`), 320);
+            break;
+
+          case 'neofetch':
+          case 'fetch':
+            const ua = navigator.userAgent;
+            let detectedOS = "Linux x86_64";
+            if (/iPhone|iPad/i.test(ua)) detectedOS = "Apple iOS ARM64";
+            else if (/Mac/i.test(ua)) detectedOS = "macOS Darwin";
+            else if (/Android/i.test(ua)) detectedOS = "Android Linux Kernel";
+            else if (/Windows/i.test(ua)) detectedOS = "Windows NT 11/10";
+
+            const cores = navigator.hardwareConcurrency || 8;
+            const res = `${window.screen.width}x${window.screen.height}`;
+            const ram = navigator.deviceMemory ? `~${navigator.deviceMemory} GB` : "Unified Architecture";
+
+            const logo = 
+`<span style="color:#00f3ff;">   /\\___/\\   </span> <span style="color:var(--accent); font-weight:bold;">root@singularity</span>
+<span style="color:#00f3ff;">  (  o   o  )  </span> ------------------
+<span style="color:#00f3ff;">  (  =^=  )   </span> <b>OS:</b> ${detectedOS}
+<span style="color:#00f3ff;">   (----)     </span> <b>HOST:</b> WebGL 3D Render Kernel
+<span style="color:#00f3ff;">  (________)  </span> <b>CORES:</b> ${cores} vCPU Threads
+               <b>RAM:</b> ${ram} | <b>RES:</b> ${res}
+               <b>SHELL:</b> Termux Web Virtual Engine`;
+            smoothAppendTerm(logo);
+            break;
+
           case 'name':
             if (parts.length > 1) {
               const newName = parts.slice(1).join(' ');
-              document.getElementById('user-display-name').innerText = newName;
-              smoothAppendTerm(`<span style="color:#00ff66;">> ĐÃ CẬP NHẬT TÊN HIỂN THỊ THÀNH: '${newName}'</span>`);
+              const nameEl = document.getElementById('user-display-name');
+              if (nameEl) nameEl.innerText = newName;
+              smoothAppendTerm(`<span style="color:#00ff66;">✔ ĐÃ CẬP NHẬT TÊN HIỂN THỊ THÀNH: '${newName}'</span>`);
             } else {
-              smoothAppendTerm('> Cách dùng: name &lt;Tên_Của_Bạn&gt;');
+              smoothAppendTerm(`<span style="color:#ffaa00;">> Cú pháp: name &lt;Tên_Của_Bạn&gt;</span>`);
             }
             break;
-          case 'help':
-            smoothAppendTerm('DANH SÁCH LỆNH PROFILE:');
-            setTimeout(() => smoothAppendTerm('- <b>name &lt;tên&gt;</b>: Đổi nickname hiển thị trực tiếp trên web'), 80);
-            setTimeout(() => smoothAppendTerm('- <b>boost</b>: Tăng tốc đĩa bồi tụ hố đen'), 160);
-            setTimeout(() => smoothAppendTerm('- <b>clear</b>: Xóa màn hình terminal'), 240);
+
+          case 'color':
+            const colorMap = {
+              cyan: '#00f3ff',
+              red: '#ff0055',
+              green: '#00ff66',
+              purple: '#b84dff',
+              orange: '#ff9d00',
+              yellow: '#ffdd00'
+            };
+            const chosen = colorMap[parts[1]?.toLowerCase()];
+            if (chosen) {
+              document.documentElement.style.setProperty('--accent', chosen);
+              document.documentElement.style.setProperty('--accent-glow', chosen + '77');
+              smoothAppendTerm(`<span style="color:${chosen};">✔ ĐÃ THAY ĐỔI TÔNG MÀU CHỦ ĐẠO THÀNH: ${parts[1].toUpperCase()}</span>`);
+            } else {
+              smoothAppendTerm(`<span style="color:#ffaa00;">> Vui lòng chọn màu có sẵn: cyan, red, green, purple, orange, yellow</span>`);
+            }
             break;
-          case 'boost':
-            speedBoost = 5.0;
-            playChillClickSound();
-            smoothAppendTerm('<span style="color:var(--accent);">> QUÁ TẢI LÕI: TỐC ĐỘ BỒI TỤ ĐẠT CỰC HẠN!</span>');
-            setTimeout(() => { speedBoost = 1.0; }, 1600);
+
+          case 'matrix':
+            const isActive = toggleMatrixRain();
+            smoothAppendTerm(isActive ? 
+              `<span style="color:#00ff66;">[MATRIX PROTOCOL]: Kích hoạt luồng mã Matrix toàn màn hình.</span>` :
+              `<span style="color:#ff5555;">[MATRIX PROTOCOL]: Đã tắt lớp phủ Matrix.</span>`
+            );
             break;
+
+          case 'warp':
+            smoothAppendTerm(`<span style="color:#00f3ff;">🚀 TIẾN VÀO TẬP HỢP TỌA ĐỘ EVENT HORIZON...</span>`);
+            const origZ = camera.position.z;
+            camera.position.z = 4.2;
+            speedBoost = 12.0;
+            setTimeout(() => {
+              camera.position.z = origZ;
+              speedBoost = 1.0;
+              smoothAppendTerm(`<span style="color:#00ff66;">✔ TÁI LẬP TRỌNG LỰC QUANH HỐ ĐEN HOÀN TẤT.</span>`);
+            }, 1800);
+            break;
+
+          case 'glitch':
+            document.body.style.filter = 'invert(1) hue-rotate(180deg) blur(1px)';
+            document.body.style.transform = 'translate(3px, -3px)';
+            setTimeout(() => {
+              document.body.style.filter = '';
+              document.body.style.transform = '';
+              smoothAppendTerm(`<span style="color:#ff0055;">[KERNEL FAULT]: Đã kích hoạt và khôi phục xung đột đồ họa.</span>`);
+            }, 250);
+            break;
+
+          case 'whoami':
+            smoothAppendTerm(`USER: <span style="color:#00f3ff;">root</span> (UID: 0, GID: 0) // CLEARANCE: 0x7F [ELITE]`);
+            break;
+
           case 'clear':
             termDisplay.innerHTML = '';
             break;
+
           default:
-            smoothAppendTerm(`<span style="color:#ff5555">> Lệnh không xác định: '${cmd}'. Gõ 'help' để xem hướng dẫn.</span>`);
+            smoothAppendTerm(`<span style="color:#ff5555">> Lỗi: Không tìm thấy lệnh '${cmd}'. Gõ 'help' để xem các lệnh hợp lệ.</span>`);
         }
-      }, 100);
+      }, 80);
     }
   </script>
 </body>
