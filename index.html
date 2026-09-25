@@ -406,7 +406,7 @@
       gap: 16px;
     }
 
-    /* 🌐 NÚT CHỌN NGÔN NGỮ (LANGUAGE SELECTOR) */
+    /* 🌐 NÚT CHỌN NGÔN NGỮ */
     .lang-dropdown-wrapper {
       position: relative;
     }
@@ -518,28 +518,87 @@
       position: relative;
     }
 
+    /* Avatar Box & Live Status Dot */
+    .avatar-wrapper {
+      position: relative;
+      width: 135px;
+      height: 135px;
+      flex-shrink: 0;
+    }
+
+    .avatar-box {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 0 35px var(--accent-glow), inset 0 0 20px rgba(0, 243, 255, 0.3);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Chấm xanh online trên góc avatar */
+    .avatar-status-dot {
+      position: absolute;
+      bottom: 6px;
+      right: 6px;
+      width: 22px;
+      height: 22px;
+      background: #00ff66;
+      border-radius: 50%;
+      border: 3.5px solid #060913;
+      box-shadow: 0 0 12px #00ff66, 0 0 24px #00ff66;
+      z-index: 5;
+    }
+
+    .avatar-status-dot::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 2px solid #00ff66;
+      animation: pulse-ring 1.8s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+    }
+
+    @keyframes pulse-ring {
+      0% { transform: scale(0.8); opacity: 0.9; }
+      100% { transform: scale(1.8); opacity: 0; }
+    }
+
     .bio-philosophy {
       font-family: var(--font-body);
-      font-size: 18px;
-      line-height: 1.7;
-      color: #b8cde0;
-      border-left: 2px solid var(--accent);
-      padding-left: 18px;
-      margin-bottom: 32px;
-      font-style: italic;
+      font-size: 15px;
+      line-height: 1.75;
+      color: #c4d7e8;
+      border-left: 2.5px solid var(--accent);
+      padding-left: 16px;
+      margin-bottom: 24px;
     }
 
     .bio-badge {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.14);
-      padding: 5px 12px;
+      padding: 6px 14px;
       border-radius: 20px;
       font-family: var(--font-mono);
-      font-size: 10.5px;
+      font-size: 11px;
       color: #9cb1c5;
       letter-spacing: 0.5px;
       display: inline-flex;
       align-items: center;
+      gap: 6px;
+      transition: all 0.25s;
+    }
+
+    .bio-badge:hover {
+      border-color: var(--accent);
+      color: #fff;
+      transform: translateY(-1px);
     }
 
     /* Section 2: Dashboard Matrix */
@@ -873,86 +932,84 @@
   <!-- Flowing Smooth-Scroll Content Stream -->
   <main class="content-stream">
 
-    <!-- 01: HERO DISCORD PROFILE RỘNG NGANG + TIỂU SỬ + BADGES + STATUS ONLINE -->
+    <!-- 01: HERO PERSONAL BIO PROFILE (CHẤM XANH ONLINE TRỰC TIẾP TRÊN AVATAR) -->
     <section class="scene-section" id="sec-profile" style="display: flex; justify-content: center; align-items: center; padding: 100px 0;">
       <div class="liquid-glass-container" style="max-width: 980px; width: 100%;">
-        <div class="liquid-glass" style="padding: 38px 42px; border-radius: 28px;">
+        <div class="liquid-glass" style="padding: 42px 48px; border-radius: 28px;">
           <div class="glass-glare"></div>
           <div class="glass-shimmer"></div>
 
-          <!-- THANH HEADER TRẠNG THÁI LUÔN ONLINE (MÀU XANH NEON) -->
-          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 16px; margin-bottom: 26px;">
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <span class="singularity-beacon" style="width: 9px; height: 9px; background: #00ff66; box-shadow: 0 0 12px #00ff66, 0 0 24px #00ff66;"></span>
-              <span style="font-family: var(--font-mono); font-size: 11.5px; color: #00ff66; font-weight: bold; letter-spacing: 2px;">
-                STATUS: ONLINE // DISCORD PRESENCE SYNCHRONIZED
-              </span>
+          <!-- Header top của Profile -->
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 16px; margin-bottom: 30px;">
+            <div style="font-family: var(--font-mono); font-size: 11.5px; color: var(--accent); letter-spacing: 2px;">
+              // ROOT_ACCESS_GRANTED // IDENTITY_MATRIX
             </div>
-            <div style="font-family: var(--font-mono); font-size: 10.5px; color: #788899; letter-spacing: 1px;">
-              UID: <span style="color: #fff;">1053893912466554922</span>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span class="singularity-beacon" style="width: 7px; height: 7px; background: #00ff66; box-shadow: 0 0 10px #00ff66;"></span>
+              <span style="font-family: var(--font-mono); font-size: 11px; color: #00ff66; font-weight: bold; letter-spacing: 1px;">ONLINE</span>
             </div>
           </div>
 
-          <!-- BỐ CỤC CHÍNH 2 CỘT: TRÁI DISCORD CARD - PHẢI TIỂU SỬ VÀ BADGES -->
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 32px; align-items: center;">
+          <div style="display: flex; align-items: center; gap: 36px; margin-bottom: 28px; flex-wrap: wrap;">
             
-            <!-- CỘT TRÁI: DISCORD CARD WIDGET TỰ ĐỘNG THEO ID -->
-            <div style="background: rgba(4, 6, 12, 0.65); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 18px; padding: 14px; overflow: hidden; box-shadow: inset 0 0 20px rgba(0,0,0,0.5);">
-              <iframe 
-                src="https://lanyard.cnrad.dev/api/1053893912466554922?bg=transparent&animated=true&idleMessage=Offline%20Mode&borderRadius=14px"
-                frameborder="0" 
-                style="width: 100%; height: 215px; border: none; border-radius: 14px; display: block;" 
-                loading="lazy">
-              </iframe>
-              <a href="https://discord.com/users/1053893912466554922" target="_blank" class="copy-btn" style="text-decoration: none; margin-top: 12px; padding: 11px;">
-                <span>💬 NHẮN TIN TRỰC TIẾP QUA DISCORD</span>
-              </a>
+            <!-- AVATAR VỚI CHẤM ONLINE XANH NEON TỰ NHIÊN -->
+            <div class="avatar-wrapper">
+              <div class="avatar-box">
+                <!-- Avatar nhân vật anime/cyberpunk đồng bộ theo tài khoản -->
+                <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=400&auto=format&fit=crop&q=80" alt="Avatar" class="avatar-img">
+              </div>
+              <!-- Chấm xanh Online gắn góc avatar -->
+              <div class="avatar-status-dot" title="Trạng thái: Trực tuyến (Online)"></div>
             </div>
 
-            <!-- CỘT PHẢI: TIỂU SỬ & BỘ BADGES CYBERPUNK -->
-            <div style="display: flex; flex-direction: column; justify-content: center;">
-              
-              <div style="font-family: var(--font-mono); font-size: 12px; color: var(--accent); letter-spacing: 2px; margin-bottom: 8px;">
-                root@singularity:~$ cat profile.bio
+            <div style="flex: 1; min-width: 260px;">
+              <div style="font-family: var(--font-mono); font-size: 13px; color: var(--accent); letter-spacing: 2px; margin-bottom: 6px;">
+                root@singularity:~$ whoami
               </div>
-              
-              <h1 class="name-display" id="user-display-name" style="font-family: var(--font-display); font-size: clamp(38px, 4vw, 54px); margin-bottom: 12px; line-height: 1.1; color: #fff;">
-                Cyber_Architect
+              <h1 class="name-display" id="user-display-name" style="font-family: var(--font-display); font-size: clamp(42px, 5vw, 64px); font-weight: 400; line-height: 1.05; color: #fff; margin-bottom: 8px;">
+                chiencuto18m ⚔
               </h1>
-
-              <!-- TIỂU SỬ CÁ NHÂN -->
-              <div class="bio-philosophy" style="font-size: 14.5px; margin-bottom: 22px; padding-left: 14px; color: #c4d7e8; line-height: 1.7;">
-                "Code sạch, kiến trúc tĩnh lặng và hệ thống tối ưu. Không bao giờ viết dòng thứ tư nếu ba dòng là đủ giải quyết vấn đề. sudo shutdown -r now"
+              <div style="font-family: var(--font-mono); font-size: 12.5px; color: var(--accent-blue); letter-spacing: 1px;">
+                [UID: 1053893912466554922] // Full-Stack & Tool Maker
               </div>
-
-              <!-- DÀN BADGES CYBERPUNK NỔI BẬT -->
-              <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px;">
-                <span class="bio-badge" style="border-color: rgba(0,243,255,0.4); background: rgba(0,243,255,0.08); color: #00f3ff; font-weight: 500;">
-                  <span style="margin-right: 4px;">✔</span> VERIFIED DEV
-                </span>
-                <span class="bio-badge" style="border-color: rgba(255,157,0,0.4); background: rgba(255,157,0,0.08); color: var(--accent); font-weight: 500;">
-                  <span style="margin-right: 4px;">⚡</span> BOT ARCHITECT
-                </span>
-                <span class="bio-badge" style="border-color: rgba(88,101,242,0.4); background: rgba(88,101,242,0.12); color: #8ea1ff;">
-                  <span style="margin-right: 4px;">👾</span> DISCORD PRO
-                </span>
-                <span class="bio-badge" style="border-color: rgba(0,255,102,0.4); background: rgba(0,255,102,0.08); color: #00ff66;">
-                  <span style="margin-right: 4px;">🛡</span> KERNEL SEC
-                </span>
-                <span class="bio-badge">
-                  <span style="margin-right: 4px;">☕</span> COFFEE FUEL
-                </span>
-                <span class="bio-badge" style="color: #ff5599; border-color: rgba(255,85,153,0.3);">
-                  <span style="margin-right: 4px;">🔮</span> REVERSE ENG
-                </span>
-              </div>
-
-              <div style="font-family: var(--font-mono); font-size: 10.5px; color: #6b7a8a; letter-spacing: 1px;">
-                ✦ CUỘN TRANG XUỐNG ĐỂ XEM LIVE TELEMETRY VÀ DÙNG TERMINAL
-              </div>
-
             </div>
 
+          </div>
+
+          <!-- ĐOẠN TIỂU SỬ HAY, CHẤT DÀNH CHO CODER / BOT MAKER -->
+          <div class="bio-philosophy" id="i18n-philosophy">
+            "Không viết dòng thứ tư nếu ba dòng là đủ tối ưu. Thức trắng đêm cùng những dòng log, biến cà phê đen thành công cụ tự động hóa và kiến trúc ngầm. Tĩnh lặng, chính xác và không để lại dấu vết. sudo shutdown -r now"
+          </div>
+
+          <!-- DÀN BADGE SẮC NÉT, TINH TẾ -->
+          <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px;">
+            <span class="bio-badge" style="border-color: rgba(0, 255, 102, 0.4); background: rgba(0, 255, 102, 0.08); color: #00ff66;">
+              <span>●</span> ONLINE
+            </span>
+            <span class="bio-badge" style="border-color: rgba(88, 101, 242, 0.4); background: rgba(88, 101, 242, 0.1); color: #8ea1ff;">
+              <span>👾</span> DISCORD USER
+            </span>
+            <span class="bio-badge" style="border-color: rgba(0, 243, 255, 0.4); background: rgba(0, 243, 255, 0.08); color: #00f3ff;">
+              <span>⚡</span> BOT DEVELOPER
+            </span>
+            <span class="bio-badge" style="border-color: rgba(255, 157, 0, 0.4); background: rgba(255, 157, 0, 0.08); color: var(--accent);">
+              <span>🛡</span> KERNEL REVERSE
+            </span>
+            <span class="bio-badge" style="border-color: rgba(255, 68, 68, 0.4); background: rgba(255, 68, 68, 0.08); color: #ff6666;">
+              <span>☕</span> CAFFEINE OVERFLOW
+            </span>
+            <span class="bio-badge">
+              <span>🚀</span> AUTOMATION ARCHITECT
+            </span>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+            <a href="https://discord.com/users/1053893912466554922" target="_blank" class="copy-btn" style="text-decoration: none; padding: 12px 22px;">
+              <span>💬 NHẮN TIN TRỰC TIẾP QUA DISCORD</span>
+            </a>
+            <div style="font-family: var(--font-mono); font-size: 11px; color: #6e7f91; letter-spacing: 1px;">
+              ✦ CUỘN TRANG XUỐNG ĐỂ TRUY CẬP TIỆN ÍCH HỆ THỐNG VÀ TERMINAL
+            </div>
           </div>
 
         </div>
@@ -1134,7 +1191,7 @@
             <div class="glass-glare"></div>
             <div class="glass-shimmer"></div>
             <div class="skill-info">
-              <span style="color:#fff; font-weight:bold;">C++ / C / Linux Kernel Modding</span>
+              <span style="color:#fff; font-weight:bold;">Python / Automation Scripting</span>
               <span style="color:var(--accent);">98%</span>
             </div>
             <div class="bar-bg"><div class="bar-fill" style="width: 98%;"></div></div>
@@ -1146,10 +1203,10 @@
             <div class="glass-glare"></div>
             <div class="glass-shimmer"></div>
             <div class="skill-info">
-              <span style="color:#fff; font-weight:bold;">Reverse Engineering (IDA Pro / Ghidra)</span>
-              <span style="color:var(--accent);">94%</span>
+              <span style="color:#fff; font-weight:bold;">Telegram Bots & API Integration</span>
+              <span style="color:var(--accent);">95%</span>
             </div>
-            <div class="bar-bg"><div class="bar-fill" style="width: 94%;"></div></div>
+            <div class="bar-bg"><div class="bar-fill" style="width: 95%;"></div></div>
           </div>
         </div>
 
@@ -1158,10 +1215,10 @@
             <div class="glass-glare"></div>
             <div class="glass-shimmer"></div>
             <div class="skill-info">
-              <span style="color:#fff; font-weight:bold;">Game Modding & Binary Analysis</span>
-              <span style="color:var(--accent);">90%</span>
+              <span style="color:#fff; font-weight:bold;">Web Front-end & Glassmorphism UI</span>
+              <span style="color:var(--accent);">92%</span>
             </div>
-            <div class="bar-bg"><div class="bar-fill" style="width: 90%;"></div></div>
+            <div class="bar-bg"><div class="bar-fill" style="width: 92%;"></div></div>
           </div>
         </div>
       </div>
@@ -1198,7 +1255,7 @@
   <!-- Sticky Footer -->
   <footer class="bottom-hud">
     <div class="hud-left">
-      <span>DISCORD_UID: <strong style="color:#5865F2;">1053893912466554922</strong></span>
+      <span>PROFILE: <strong style="color:#fff;">CHIENCUTO18M</strong></span>
     </div>
     <div class="hud-right">
       <span>LANG: <strong id="hud-lang-tag" style="color:#00f3ff;">VI (TIẾNG VIỆT)</strong></span>
@@ -1214,6 +1271,7 @@
       vi: {
         label: "TIẾNG VIỆT",
         brand: "CYBER_PROFILE // AXIOM",
+        philosophy: '"Không viết dòng thứ tư nếu ba dòng là đủ tối ưu. Thức trắng đêm cùng những dòng log, biến cà phê đen thành công cụ tự động hóa và kiến trúc ngầm. Tĩnh lặng, chính xác và không để lại dấu vết. sudo shutdown -r now"',
         samplesTitle: "Hệ Thống & Tiện Ích",
         samplesMeta: "// REAL-TIME TELEMETRY, LO-FI AUDIO & DONATION QR",
         socialsTitle: "Kênh Kết Nối & Kỹ Năng",
@@ -1224,6 +1282,7 @@
       en: {
         label: "ENGLISH",
         brand: "CYBER_PROFILE // AXIOM",
+        philosophy: '"Never write a fourth line if three can optimize the problem. Late nights with stdout streams, turning black coffee into bots and stealth architectures. Stillness, precision, no traces left. sudo shutdown -r now"',
         samplesTitle: "System & Utilities",
         samplesMeta: "// REAL-TIME TELEMETRY, LO-FI AUDIO & DONATION QR",
         socialsTitle: "Social Uplinks & Skills",
@@ -1234,6 +1293,7 @@
       ja: {
         label: "日本語",
         brand: "サイバー・プロファイル // AXIOM",
+        philosophy: '"3行で解決できる問題なら、4行目を書くことはない。夜を徹してログを見つめ、ブラックコーヒーを自動化ツールへと変える。静寂、正確、痕跡なし。sudo shutdown -r now"',
         samplesTitle: "システム & ユーティリティ",
         samplesMeta: "// リアルタイムテレメトリ、Lo-Fi、QR寄付",
         socialsTitle: "リンク＆スキルマトリクス",
@@ -1244,6 +1304,7 @@
       ko: {
         label: "한국어",
         brand: "사이버_프로필 // AXIOM",
+        philosophy: '"세 줄로 해결될 문제에 네 번째 줄을 쓰지 않는다. 밤새 로그를 지켜보며 블랙커피를 자동화 도구로 바꾼다. 고요함, 정확함, 흔적은 남기지 않는다. sudo shutdown -r now"',
         samplesTitle: "시스템 & 유틸리티",
         samplesMeta: "// 실시간 원격 측정, Lo-Fi 오디오 및 후원 QR",
         socialsTitle: "소셜 링크 & 스킬 매트릭스",
@@ -1254,6 +1315,7 @@
       zh: {
         label: "中文",
         brand: "网络配置文件 // AXIOM",
+        philosophy: '"如果三行代码能解决问题，绝不写第四行。通宵凝视日志流，将黑咖啡转化为自动化工具与隐秘架构。寂静、精准、不留痕迹。sudo shutdown -r now"',
         samplesTitle: "系统与实用组件",
         samplesMeta: "// 实时遥测数据、LO-FI音乐与赞助通道",
         socialsTitle: "社交网络与技术矩阵",
@@ -1264,6 +1326,7 @@
       es: {
         label: "ESPAÑOL",
         brand: "PERFIL_CIBERNÉTICO // AXIOM",
+        philosophy: '"Nunca escribas una cuarta línea si tres son suficientes. Noches en vela frente a los logs, convirtiendo café en herramientas de automatización. Silencio, precisión y sin dejar rastro. sudo shutdown -r now"',
         samplesTitle: "Sistema y Utilidades",
         samplesMeta: "// TELEMETRÍA EN TIEMPO REAL, AUDIO LO-FI Y QR",
         socialsTitle: "Enlaces y Habilidades",
@@ -1303,6 +1366,7 @@
       });
 
       document.getElementById('i18n-brand').innerText = dict.brand;
+      document.getElementById('i18n-philosophy').innerText = dict.philosophy;
       document.getElementById('i18n-samples-title').innerText = dict.samplesTitle;
       document.getElementById('i18n-samples-meta').innerText = dict.samplesMeta;
       document.getElementById('i18n-socials-title').innerText = dict.socialsTitle;
@@ -1488,7 +1552,7 @@
     let loadPercent = 0;
     const loadSteps = [
       "SYNCHRONIZING GRAVITATIONAL FIELD [20%]",
-      "CONNECTING TO DISCORD GATEWAY [45%]",
+      "DECRYPTING PROFILE MATRIX [45%]",
       "INITIALIZING EVENT HORIZON TEXTURES [70%]",
       "ENFORCING ANTI-DEBUGGER TRIPWIRES [90%]",
       "ACCESS GRANTED // READY [100%]"
@@ -2087,9 +2151,10 @@
             setTimeout(() => smoothAppendTerm(`• <b>weather</b>         : Dự báo thời tiết dạng đồ họa chữ ASCII`), 160);
             setTimeout(() => smoothAppendTerm(`• <b>pipes</b>           : Hiệu ứng đường ống mạng nghệ thuật`), 200);
             setTimeout(() => smoothAppendTerm(`• <b>color &lt;màu&gt;</b>     : Đổi tông màu web (cyan, red, green, purple, orange)`), 240);
-            setTimeout(() => smoothAppendTerm(`• <b>matrix</b>          : Bật / Tắt mưa mã độc Matrix`), 280);
-            setTimeout(() => smoothAppendTerm(`• <b>warp</b>            : Lao camera vào tâm hố đen 3D`), 320);
-            setTimeout(() => smoothAppendTerm(`• <b>clear</b>           : Xóa sạch nhật ký màn hình`), 360);
+            setTimeout(() => smoothAppendTerm(`• <b>name &lt;tên&gt;</b>     : Thay đổi tên định danh trên Profile`), 280);
+            setTimeout(() => smoothAppendTerm(`• <b>matrix</b>          : Bật / Tắt mưa mã độc Matrix`), 320);
+            setTimeout(() => smoothAppendTerm(`• <b>warp</b>            : Lao camera vào tâm hố đen 3D`), 360);
+            setTimeout(() => smoothAppendTerm(`• <b>clear</b>           : Xóa sạch nhật ký màn hình`), 400);
             break;
 
           case 'neofetch':
@@ -2159,6 +2224,17 @@
             }
             setTimeout(() => smoothAppendTerm(`<span style="color:#00f3ff;">${pipeLine}</span>`), 60);
             setTimeout(() => smoothAppendTerm(`<span style="color:#00ff66;">${pipeLine.split('').reverse().join('')}</span>`), 120);
+            break;
+
+          case 'name':
+            if (parts.length > 1) {
+              const newName = parts.slice(1).join(' ');
+              const nameEl = document.getElementById('user-display-name');
+              if (nameEl) nameEl.innerText = newName;
+              smoothAppendTerm(`<span style="color:#00ff66;">✔ ĐÃ CẬP NHẬT TÊN HIỂN THỊ THÀNH: '${newName}'</span>`);
+            } else {
+              smoothAppendTerm(`<span style="color:#ffaa00;">> Cú pháp: name &lt;Tên_Của_Bạn&gt;</span>`);
+            }
             break;
 
           case 'color':
