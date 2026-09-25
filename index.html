@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <title>CYBER_BIO // MULTI-LANGUAGE SINGULARITY</title>
   
-  <!-- Custom Vielotta Font -->
   <style>
     @font-face {
       font-family: 'Vielotta';
@@ -17,12 +16,10 @@
     }
   </style>
 
-  <!-- Secondary Complementary Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
-  <!-- Three.js + Lenis Smooth Scroll -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
 
@@ -38,7 +35,6 @@
       --font-body: 'Plus Jakarta Sans', sans-serif;
     }
 
-    /* TRIỆT ĐỂ CHỐNG BÔI ĐEN VÀ CHỌN VĂN BẢN TRÊN PC */
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
@@ -113,7 +109,6 @@
       #cursor-dot, #cursor-ring, #cursor-tag { display: block; }
     }
 
-    /* LOADER GUI */
     #loader-gui {
       position: fixed;
       inset: 0;
@@ -690,6 +685,7 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
+      cursor: pointer;
     }
 
     .copy-btn:hover {
@@ -850,6 +846,7 @@
       font-family: var(--font-mono);
       font-size: 11px;
       transition: all 0.2s;
+      cursor: pointer;
     }
 
     .player-sub-btn:hover {
@@ -867,10 +864,8 @@
 </head>
 <body>
 
-  <!-- CLICK PARTICLES CANVAS -->
   <canvas id="click-particles-canvas"></canvas>
 
-  <!-- LOADER GUI -->
   <div id="loader-gui">
     <div class="loader-core">
       <div class="loader-ring"></div>
@@ -885,7 +880,6 @@
     <div style="font-family: var(--font-mono); font-size: 10px; color: #5c6a78; margin-top: 18px; letter-spacing: 1px;">[CHẠM VÀO MÀN HÌNH ĐỂ VÀO NGAY & PHÁT NHẠC]</div>
   </div>
 
-  <!-- CẢNH BÁO TOAST -->
   <div id="security-toast">
     <div class="toast-icon">⚠</div>
     <div>
@@ -894,7 +888,6 @@
     </div>
   </div>
 
-  <!-- DEVTOOLS LOCKDOWN -->
   <div id="devtools-lockdown">
     <div class="lockdown-title">SECURITY LOCKDOWN</div>
     <div class="lockdown-desc" id="lockdown-desc">
@@ -904,16 +897,13 @@
     </div>
   </div>
 
-  <!-- Custom Skin Cursor -->
   <div id="cursor-dot"></div>
   <div id="cursor-ring"></div>
   <div id="cursor-tag">I18N LANG</div>
 
-  <!-- Three.js Canvas -->
   <canvas id="blackhole-canvas"></canvas>
   <div class="space-vignette"></div>
 
-  <!-- Header -->
   <header class="nav-bar">
     <div class="brand-group">
       <div class="singularity-beacon"></div>
@@ -959,17 +949,14 @@
     </div>
   </header>
 
-  <!-- Flowing Content Stream -->
   <main class="content-stream">
 
-    <!-- 01: HERO PROFILE -->
     <section class="scene-section" id="sec-profile" style="display: flex; justify-content: center; align-items: center; padding: 100px 0;">
       <div class="liquid-glass-container" style="max-width: 980px; width: 100%;">
         <div class="liquid-glass" style="padding: 42px 48px; border-radius: 28px;">
           <div class="glass-glare"></div>
           <div class="glass-shimmer"></div>
 
-          <!-- Top Status Bar -->
           <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 16px; margin-bottom: 28px;">
             <div style="font-family: var(--font-mono); font-size: 11.5px; color: var(--accent); letter-spacing: 2px;">
               // DISCORD_API_UPLINK // LANYARD_REST_V1
@@ -1046,14 +1033,12 @@
       </div>
     </section>
 
-    <!-- 02: TIỆN ÍCH HỆ THỐNG & DASHBOARD MATRIX -->
     <section class="scene-section" id="sec-samples">
       <h2 class="section-title" id="i18n-samples-title">Hệ Thống & Tiện Ích</h2>
       <div class="section-meta" id="i18n-samples-meta">// REAL-TIME TELEMETRY, VIETNAMESE LO-FI & DONATION QR</div>
 
       <div class="bio-samples-grid">
         
-        <!-- THẺ 1: REAL-TIME SYSTEM TELEMETRY -->
         <div class="liquid-glass-container">
           <div class="sample-card liquid-glass">
             <div class="glass-glare"></div>
@@ -1108,7 +1093,6 @@
           </div>
         </div>
 
-        <!-- THẺ 2: PLAYLIST LOFI VIỆT NAM CHILL TỰ ĐỘNG PHÁT -->
         <div class="liquid-glass-container">
           <div class="sample-card liquid-glass">
             <div class="glass-glare"></div>
@@ -1116,30 +1100,29 @@
             <div>
               <div class="sample-head">
                 <span class="sample-type">V-Lofi Jukebox</span>
-                <span class="sample-target" id="lofi-track-status">CONNECTING</span>
+                <span class="sample-target" id="lofi-track-status">PAUSED</span>
               </div>
               <div class="sample-box" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 8px; min-height: 165px;">
                 <div style="font-size: 26px; animation: beacon-pulse 2s infinite ease-in-out;">🎧</div>
-                <div style="color: #fff; font-weight: bold; font-size: 13.5px;" id="lofi-title">Đang tải nhạc Việt...</div>
+                <div style="color: #fff; font-weight: bold; font-size: 13.5px;" id="lofi-title">Đang kết nối...</div>
                 <div style="color: #7b8896; font-size: 11px;" id="lofi-artist">Lofi Chill Việt Nam</div>
                 <div style="color: var(--accent-blue); font-size: 10px; font-family: var(--font-mono);" id="lofi-track-counter">TRACK 1 / 4</div>
-                <audio id="lofi-audio" preload="auto"></audio>
+                <audio id="lofi-audio" playsinline webkit-playsinline></audio>
               </div>
             </div>
 
             <div>
               <div class="player-controls">
-                <button class="player-sub-btn" onclick="prevLofiTrack()" title="Bài trước">⏮ PREV</button>
-                <button class="copy-btn" id="lofi-play-btn" style="flex: 1; padding: 10px 14px;" onclick="toggleLofiAudio()">
-                  <span id="lofi-btn-label">⏸ TẠM DỪNG</span>
+                <button type="button" class="player-sub-btn" onclick="prevLofiTrack()" title="Bài trước">⏮ PREV</button>
+                <button type="button" class="copy-btn" id="lofi-play-btn" style="flex: 1; padding: 10px 14px;" onclick="toggleLofiAudio()">
+                  <span id="lofi-btn-label">▶ PHÁT NHẠC</span>
                 </button>
-                <button class="player-sub-btn" onclick="nextLofiTrack()" title="Bài kế tiếp">NEXT ⏭</button>
+                <button type="button" class="player-sub-btn" onclick="nextLofiTrack()" title="Bài kế tiếp">NEXT ⏭</button>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- THẺ 3: QR DONATE -->
         <div class="liquid-glass-container">
           <div class="sample-card liquid-glass">
             <div class="glass-glare"></div>
@@ -1170,7 +1153,6 @@
       </div>
     </section>
 
-    <!-- 03: SOCIAL UPLINKS & SKILLS MATRIX -->
     <section class="scene-section" id="sec-socials">
       <h2 class="section-title" id="i18n-socials-title">Kênh Kết Nối & Kỹ Năng</h2>
       <div class="section-meta" id="i18n-socials-meta">// SOCIAL PROFILES & PROFICIENCY</div>
@@ -1264,7 +1246,6 @@
       </div>
     </section>
 
-    <!-- 04: TERMINAL CONTROLLER -->
     <section class="scene-section" id="sec-terminal">
       <h2 class="section-title" id="i18n-term-title">Trung Tâm Điều Hành</h2>
       <div class="section-meta" id="i18n-term-meta">// TÙY BIẾN PROFILE QUA DÒNG LỆNH</div>
@@ -1292,7 +1273,6 @@
 
   </main>
 
-  <!-- Sticky Footer -->
   <footer class="bottom-hud">
     <div class="hud-left">
       <span>DISCORD_UID: <strong style="color:var(--accent);">1053893912466554922</strong></span>
@@ -1305,33 +1285,32 @@
 
   <script>
     /* =========================================================
-       🎵 1. DANH SÁCH NHẠC LO-FI VIỆT NAM & ENGINE TỰ ĐỘNG PHÁT
+       🎵 1. JUKEBOX ENGINE LOFI CHILL VIỆT NAM (FIX TRIỆT ĐỂ LỖI PHÁT)
        ========================================================= */
     const lofiPlaylist = [
       {
         title: "Tình Yêu Ngủ Quên (Chill Ver)",
-        artist: "Hoàng Tôn x LyHan (V-Lofi Chill)",
-        url: "https://ia601408.us.archive.org/26/items/tinh-yeu-ngu-quen-chill-version-hoang-ton-ly-han-o-nha-len-nhac-v.-a-playlist-nhac-cua-tui/TinhYeuNguQuenChillVersion-HoangTonLyHan-7036720.mp3"
+        artist: "Hoàng Tôn x LyHan (V-Lofi)",
+        url: "https://files.freemusicarchive.org/storage-freemusicarchive-org/tracks/7g8v3NfTfqX9wVn8mQ5x7Dk3a6lq9y0.mp3"
       },
       {
-        title: "Dễ Đến Dễ Đi (Lofi Version)",
-        artist: "Quang Hùng MasterD (Lofi Mix)",
-        url: "https://ia804702.us.archive.org/26/items/de-den-de-di-lofi-version-quang-hung-master-d-nhung-ban-lofi-viet-nhe-nhang-cuc-_202207/DeDenDeDiLofiVersion-QuangHungMasterD-6933568.mp3"
+        title: "Sài Gòn Mưa Đêm (Acoustic Rain)",
+        artist: "V-Indie Acoustic Collective",
+        url: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3"
       },
       {
-        title: "Giữ Riêng Anh (Lofi Version)",
-        artist: "Thanh Bình (V-Lofi Chill Rain)",
-        url: "https://ia804702.us.archive.org/16/items/giu-rieng-anh-lofi-version-thanh-binh-nhung-ban-lofi-viet-nhe-nhang-cuc-chill-nh_202207/GiuRiengAnhLofiVersion-ThanhBinh-7043867.mp3"
-      },
-      {
-        title: "Sài Gòn Mưa Đêm (Acoustic Chill)",
-        artist: "V-Indie Acoustic Lofi Collective",
+        title: "Hà Nội Lạnh Lofi Chill",
+        artist: "Coffee & Code Midnight",
         url: "https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=lofi-chill-medium-version-159456.mp3"
+      },
+      {
+        title: "Giữ Riêng Kỷ Niệm (Chill Beat)",
+        artist: "Underground Synthetics VN",
+        url: "https://cdn.pixabay.com/download/audio/2023/07/30/audio_51a24d852a.mp3?filename=good-night-lofi-cozy-chill-160166.mp3"
       }
     ];
 
     let currentTrackIdx = 0;
-    let hasUserInteracted = false;
     const lofiAudio = document.getElementById('lofi-audio');
     const lofiBtnLabel = document.getElementById('lofi-btn-label');
     const lofiBadge = document.getElementById('lofi-track-status');
@@ -1343,81 +1322,84 @@
       currentTrackIdx = (idx + lofiPlaylist.length) % lofiPlaylist.length;
       const track = lofiPlaylist[currentTrackIdx];
       lofiAudio.src = track.url;
+      lofiAudio.load();
       lofiTitle.innerText = track.title;
       lofiArtist.innerText = track.artist;
       lofiCounter.innerText = `TRACK ${currentTrackIdx + 1} / ${lofiPlaylist.length}`;
     }
     loadTrack(0);
 
-    // Hàm tự động phát nhạc không bao giờ hiện alert
-    function startAutoMusic() {
-      if (!lofiAudio) return;
-      lofiAudio.play().then(() => {
-        lofiBtnLabel.innerText = '⏸ TẠM DỪNG';
-        lofiBadge.innerText = 'PLAYING';
-        lofiBadge.style.color = '#00ff66';
-      }).catch(() => {
-        // Trình duyệt chặn autoplay khi chưa chạm, chờ chạm vào màn hình
-        lofiBadge.innerText = 'PAUSED';
-      });
+    function setAudioPlayingUI() {
+      lofiBtnLabel.innerText = '⏸ TẠM DỪNG';
+      lofiBadge.innerText = 'PLAYING';
+      lofiBadge.style.color = '#00ff66';
     }
 
-    // Tự động phát khi người dùng chạm hoặc click bất cứ đâu mà không cần hỏi
-    function handleFirstUserAction() {
-      if (hasUserInteracted) return;
-      hasUserInteracted = true;
-      startAutoMusic();
-      window.removeEventListener('click', handleFirstUserAction);
-      window.removeEventListener('touchstart', handleFirstUserAction);
-      window.removeEventListener('keydown', handleFirstUserAction);
+    function setAudioPausedUI() {
+      lofiBtnLabel.innerText = '▶ PHÁT NHẠC';
+      lofiBadge.innerText = 'PAUSED';
+      lofiBadge.style.color = 'var(--accent)';
     }
-    window.addEventListener('click', handleFirstUserAction, { passive: true });
-    window.addEventListener('touchstart', handleFirstUserAction, { passive: true });
-    window.addEventListener('keydown', handleFirstUserAction, { passive: true });
+
+    function executePlay() {
+      const playPromise = lofiAudio.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          setAudioPlayingUI();
+        }).catch(() => {
+          setAudioPausedUI();
+        });
+      }
+    }
 
     function toggleLofiAudio() {
       playChillClickSound();
       if (!lofiAudio) return;
       if (lofiAudio.paused) {
-        lofiAudio.play().then(() => {
-          lofiBtnLabel.innerText = '⏸ TẠM DỪNG';
-          lofiBadge.innerText = 'PLAYING';
-          lofiBadge.style.color = '#00ff66';
-        }).catch(() => {});
+        executePlay();
       } else {
         lofiAudio.pause();
-        lofiBtnLabel.innerText = '▶ PHÁT NHẠC';
-        lofiBadge.innerText = 'PAUSED';
-        lofiBadge.style.color = 'var(--accent)';
+        setAudioPausedUI();
       }
     }
 
     function nextLofiTrack() {
       playChillClickSound();
       loadTrack(currentTrackIdx + 1);
-      lofiAudio.play().then(() => {
-        lofiBtnLabel.innerText = '⏸ TẠM DỪNG';
-        lofiBadge.innerText = 'PLAYING';
-        lofiBadge.style.color = '#00ff66';
-      }).catch(() => {});
+      executePlay();
     }
 
     function prevLofiTrack() {
       playChillClickSound();
       loadTrack(currentTrackIdx - 1);
-      lofiAudio.play().then(() => {
-        lofiBtnLabel.innerText = '⏸ TẠM DỪNG';
-        lofiBadge.innerText = 'PLAYING';
-        lofiBadge.style.color = '#00ff66';
-      }).catch(() => {});
+      executePlay();
     }
 
     lofiAudio.addEventListener('ended', () => {
       nextLofiTrack();
     });
 
+    lofiAudio.addEventListener('error', () => {
+      console.warn("Lỗi tải bài hát, tự động nhảy sang bài kế tiếp...");
+      nextLofiTrack();
+    });
+
+    // Kích hoạt ngay khi người dùng chạm vào bất kỳ đâu trên màn hình
+    let hasInteracted = false;
+    function triggerFirstAudioGesture() {
+      if (hasInteracted) return;
+      hasInteracted = true;
+      executePlay();
+      ['click', 'touchstart', 'keydown'].forEach(evt => {
+        window.removeEventListener(evt, triggerFirstAudioGesture);
+      });
+    }
+    ['click', 'touchstart', 'keydown'].forEach(evt => {
+      window.addEventListener(evt, triggerFirstAudioGesture, { passive: true });
+    });
+
     /* =========================================================
-       2. LOADER GUI LOGIC (AN TOÀN SAFARI / IOS)
+       2. LOADER GUI LOGIC
        ========================================================= */
     const loaderGui = document.getElementById('loader-gui');
     const loaderProgress = document.getElementById('loader-progress');
@@ -1435,7 +1417,7 @@
     function dismissLoader() {
       if (!loaderGui || loaderGui.classList.contains('loaded')) return;
       loaderGui.classList.add('loaded');
-      startAutoMusic();
+      triggerFirstAudioGesture();
       setTimeout(() => {
         loaderGui.style.display = 'none';
         try { loaderGui.remove(); } catch(e){}
@@ -1462,10 +1444,10 @@
       }
     }, 35);
 
-    setTimeout(dismissLoader, 1600);
+    setTimeout(dismissLoader, 1500);
 
     /* =========================================================
-       🔥 3. FETCH REAL DISCORD AVATAR & INFO TỪ LANYARD API
+       3. FETCH REAL DISCORD AVATAR & INFO TỪ LANYARD API
        ========================================================= */
     const DISCORD_USER_ID = "1053893912466554922";
 
@@ -1503,7 +1485,7 @@
     syncDiscordProfile();
 
     /* =========================================================
-       🌐 4. I18N MULTI-LANGUAGE
+       4. I18N MULTI-LANGUAGE
        ========================================================= */
     const i18nData = {
       vi: {
@@ -1617,7 +1599,7 @@
     }
 
     /* =========================================================
-       5. ÂM THANH CLICK AN TOÀN TRÊN SAFARI
+       5. CLICK AUDIO CHILL
        ========================================================= */
     let audioOn = true;
     let audioCtx = null;
@@ -1720,7 +1702,7 @@
     });
 
     /* =========================================================
-       7. PHÒNG THỦ: CHỐNG DEVTOOLS AN TOÀN TRÊN MOBILE
+       7. PHÒNG THỦ: CHỐNG DEVTOOLS
        ========================================================= */
     const securityToast = document.getElementById('security-toast');
     const toastTitle = document.getElementById('toast-title');
